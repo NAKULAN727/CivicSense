@@ -20,6 +20,7 @@ export default function DashboardView({ theme }) {
   const [lastAnalysisTime, setLastAnalysisTime] = useState(new Date().toLocaleTimeString());
   const [isRefreshing, setIsRefreshing] = useState(false);
   const [activeAlert, setActiveAlert] = useState(null);
+  const [waterAnalysisData, setWaterAnalysisData] = useState(null);
 
   // Trigger alert modal / panel focusing on selected zone or study area
   const handleSendAlertClick = (zone) => {
@@ -106,7 +107,7 @@ export default function DashboardView({ theme }) {
           Intelligence Pipeline:
         </div>
         <div style={{ display: 'flex', alignItems: 'center', gap: '12px', flexWrap: 'wrap' }}>
-          <span style={{ color: '#38bdf8' }}>🛰️ Satellite Data ({currentStudyArea.name})</span>
+          <span style={{ color: '#38bdf8' }}>🛰️ Satellite NDWI Data ({currentStudyArea.name})</span>
           <span style={{ color: 'var(--text-muted)' }}>→</span>
           <span style={{ color: '#38bdf8' }}>🌤️ Weather & Elevation Feeds</span>
           <span style={{ color: 'var(--text-muted)' }}>→</span>
@@ -141,11 +142,15 @@ export default function DashboardView({ theme }) {
         {/* Left Column: Satellite Change Detection (Passes currentStudyArea) */}
         <SatelliteAnalysisPanel 
           currentStudyArea={currentStudyArea}
+          onWaterAnalysisComplete={(wData) => {
+            setWaterAnalysisData(wData);
+          }}
         />
 
         {/* Right Column: AI Risk Engine Preview */}
         <AIRiskEngine 
           currentStudyArea={currentStudyArea}
+          waterAnalysisData={waterAnalysisData}
           onAnalysisComplete={(updatedScores, time) => {
             setLastAnalysisTime(time);
           }}

@@ -2,33 +2,59 @@ import React, { useState, useEffect } from 'react';
 import { 
   Eye, 
   Calendar, 
-  Info,
   Sliders,
   Layers,
   RefreshCw,
   Globe,
   Tag,
-  AlertTriangle
+  AlertTriangle,
+  Droplets,
+  CheckCircle2
 } from 'lucide-react';
-import { 
-  fetchPlanetaryComputerSatelliteData 
-} from '../services/planetaryComputerService';
+import { fetchPlanetaryComputerSatelliteData } from '../services/planetaryComputerService.js';
+import { calculateRealSatelliteWaterChange } from '../services/satelliteWaterAnalysisService.js';
 
-export default function SatelliteAnalysisPanel({ currentStudyArea }) {
+export default function SatelliteAnalysisPanel({ currentStudyArea, onWaterAnalysisComplete }) {
   const [sliderPos, setSliderPos] = useState(50);
-  const [viewMode, setViewMode] = useState('slider'); // 'slider', 'sideBySide', 'assets'
+  const [viewMode, setViewMode] = useState('slider'); // 'slider', 'sideBySide', 'ndwi', 'assets'
   const [satelliteData, setSatelliteData] = useState(null);
+  const [waterAnalysis, setWaterAnalysis] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
+  const [isAnalyzingWater, setIsAnalyzingWater] = useState(false);
 
-  // Fetch satellite observation data from Microsoft Planetary Computer STAC API
+  // Fetch satellite observation data & compute real NDWI water change
   useEffect(() => {
     let isMounted = true;
     const loadSatelliteData = async () => {
       setIsLoading(true);
+      setIsAnalyzingWater(true);
+      
       const data = await fetchPlanetaryComputerSatelliteData(currentStudyArea);
+      let wAnalysis = null;
+      
+      if (data && data.isLive) {
+        wAnalysis = await calculateRealSatelliteWaterChange(data);
+      } else {
+        wAnalysis = {
+          source: 'Microsoft Planetary Computer',
+          dataset: 'Sentinel-2 L2A',
+          mode: 'DEMO',
+          isLive: false,
+          isError: true,
+          errorMessage: 'Live STAC satellite imagery unavailable for NDWI analysis.',
+          statusLabel: 'DEMO / ANALYSIS UNAVAILABLE'
+        };
+      }
+
       if (isMounted) {
         setSatelliteData(data);
+        setWaterAnalysis(wAnalysis);
         setIsLoading(false);
+        setIsAnalyzingWater(false);
+
+        if (onWaterAnalysisComplete) {
+          onWaterAnalysisComplete(wAnalysis);
+        }
       }
     };
 
@@ -40,16 +66,24 @@ export default function SatelliteAnalysisPanel({ currentStudyArea }) {
 
   const handleRefresh = async () => {
     setIsLoading(true);
+    setIsAnalyzingWater(true);
     const data = await fetchPlanetaryComputerSatelliteData(currentStudyArea);
+    const wAnalysis = await calculateRealSatelliteWaterChange(data);
     setSatelliteData(data);
+    setWaterAnalysis(wAnalysis);
     setIsLoading(false);
+    setIsAnalyzingWater(false);
+
+    if (onWaterAnalysisComplete) {
+      onWaterAnalysisComplete(wAnalysis);
+    }
   };
 
   if (isLoading || !satelliteData) {
     return (
       <div className="glass-card" style={{ padding: '40px', textAlign: 'center', color: 'var(--text-secondary)' }}>
         <RefreshCw size={24} className="spin-icon" style={{ color: 'var(--accent-blue)', marginBottom: '12px' }} />
-        <p style={{ fontSize: '13px', fontWeight: '600' }}>Querying Microsoft Planetary Computer STAC API (Sentinel-2 L2A)...</p>
+        <p style={{ fontSize: '13px', fontWeight: '600' }}>Querying Microsoft Planetary Computer STAC API & Computing Live NDWI...</p>
       </div>
     );
   }
@@ -60,7 +94,6 @@ export default function SatelliteAnalysisPanel({ currentStudyArea }) {
     isLive, 
     isError, 
     errorMessage, 
-    statusLabel, 
     recentObservation, 
     previousObservation, 
     bbox 
@@ -107,7 +140,7 @@ export default function SatelliteAnalysisPanel({ currentStudyArea }) {
               alignItems: 'center',
               gap: '4px'
             }}>
-              <Globe size={11} /> Source: {source}
+              <Globe size={11} /> Source: {source} Sentinel-2 L2A
             </span>
           </div>
 
@@ -133,11 +166,18 @@ export default function SatelliteAnalysisPanel({ currentStudyArea }) {
             <Eye size={12} /> Side-by-Side
           </button>
           <button
+            className={`btn ${viewMode === 'ndwi' ? 'btn-primary' : 'btn-secondary'}`}
+            style={{ padding: '6px 12px', fontSize: '11px', border: 'none', borderRadius: '6px' }}
+            onClick={() => setViewMode('ndwi')}
+          >
+            <Droplets size={12} /> Real NDWI Analysis
+          </button>
+          <button
             className={`btn ${viewMode === 'assets' ? 'btn-primary' : 'btn-secondary'}`}
             style={{ padding: '6px 12px', fontSize: '11px', border: 'none', borderRadius: '6px' }}
             onClick={() => setViewMode('assets')}
           >
-            <Layers size={12} /> STAC Assets & Metadata
+            <Layers size={12} /> STAC Assets
           </button>
         </div>
       </div>
@@ -234,7 +274,7 @@ export default function SatelliteAnalysisPanel({ currentStudyArea }) {
             )}
 
             <div style={{ position: 'absolute', top: '16px', right: '16px', backgroundColor: 'rgba(15, 23, 42, 0.92)', padding: '6px 12px', borderRadius: '6px', fontSize: '11px', color: '#38bdf8', fontWeight: '700', border: '1px solid rgba(56, 189, 248, 0.3)' }}>
-              Recent Observation ({recentObservation?.date})
+              Recent Pass ({recentObservation?.date})
             </div>
           </div>
 
@@ -330,7 +370,7 @@ export default function SatelliteAnalysisPanel({ currentStudyArea }) {
 
       {viewMode === 'sideBySide' && (
         <div className="grid-2" style={{ gap: '16px', marginBottom: 0 }}>
-          {/* Baseline Observation Frame */}
+          {/* Baseline Frame */}
           <div style={{ 
             position: 'relative', 
             height: '280px', 
@@ -369,7 +409,7 @@ export default function SatelliteAnalysisPanel({ currentStudyArea }) {
             </div>
           </div>
 
-          {/* Recent Observation Frame */}
+          {/* Recent Frame */}
           <div style={{ 
             position: 'relative', 
             height: '280px', 
@@ -410,6 +450,54 @@ export default function SatelliteAnalysisPanel({ currentStudyArea }) {
         </div>
       )}
 
+      {/* Real NDWI Calculation Formula & Details View */}
+      {viewMode === 'ndwi' && (
+        <div style={{ 
+          backgroundColor: 'var(--bg-card-solid)', 
+          border: '1px solid var(--accent-blue)', 
+          borderRadius: '12px', 
+          padding: '20px',
+          display: 'flex',
+          flexDirection: 'column',
+          gap: '16px'
+        }}>
+          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+            <h4 style={{ fontSize: '14px', fontWeight: '800', color: 'var(--accent-blue)' }}>
+              REAL SATELLITE WATER ANALYSIS (NDWI)
+            </h4>
+            <span style={{ fontSize: '11px', color: 'var(--text-muted)', fontFamily: 'monospace' }}>
+              NDWI = (B03 - B08) / (B03 + B08)
+            </span>
+          </div>
+
+          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px', fontSize: '12px' }}>
+            <div style={{ backgroundColor: 'rgba(255,255,255,0.03)', padding: '12px', borderRadius: '8px', border: '1px solid var(--border-card)' }}>
+              <div style={{ fontWeight: '700', color: '#38bdf8', marginBottom: '8px' }}>Recent Scene Water Extent</div>
+              <div>Water Area: <strong>{waterAnalysis?.recentWaterKm2 !== undefined ? `${waterAnalysis.recentWaterKm2} km²` : 'N/A'}</strong></div>
+              <div>Valid Unmasked Pixels: <strong>{waterAnalysis?.recentValidPixels || 0}</strong></div>
+              <div>Cloud / Shadow Masked: <strong>{waterAnalysis?.recentMaskedPercent || 0}%</strong></div>
+              <div style={{ marginTop: '6px', fontSize: '10px', color: 'var(--text-muted)', fontFamily: 'monospace' }}>
+                Item: {waterAnalysis?.recentItemId}
+              </div>
+            </div>
+
+            <div style={{ backgroundColor: 'rgba(255,255,255,0.03)', padding: '12px', borderRadius: '8px', border: '1px solid var(--border-card)' }}>
+              <div style={{ fontWeight: '700', color: '#a7f3d0', marginBottom: '8px' }}>Baseline Scene Water Extent</div>
+              <div>Water Area: <strong>{waterAnalysis?.baselineWaterKm2 !== undefined ? `${waterAnalysis.baselineWaterKm2} km²` : 'N/A'}</strong></div>
+              <div>Valid Unmasked Pixels: <strong>{waterAnalysis?.baselineValidPixels || 0}</strong></div>
+              <div>Cloud / Shadow Masked: <strong>{waterAnalysis?.baselineMaskedPercent || 0}%</strong></div>
+              <div style={{ marginTop: '6px', fontSize: '10px', color: 'var(--text-muted)', fontFamily: 'monospace' }}>
+                Item: {waterAnalysis?.baselineItemId}
+              </div>
+            </div>
+          </div>
+
+          <div style={{ fontSize: '11px', color: 'var(--text-secondary)', lineHeight: '1.4' }}>
+            <strong>Spectral Methodology:</strong> NDWI computed using 10m Sentinel-2 Band 3 (Green, 560nm) and Band 8 (NIR, 842nm) Cloud-Optimized GeoTIFFs signed via Microsoft Planetary Computer SAS API. Cloud/shadow pixels filtered via SCL.
+          </div>
+        </div>
+      )}
+
       {/* STAC Assets & Metadata View */}
       {viewMode === 'assets' && (
         <div style={{ 
@@ -423,7 +511,7 @@ export default function SatelliteAnalysisPanel({ currentStudyArea }) {
         }}>
           <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
             <h4 style={{ fontSize: '14px', fontWeight: '800', color: 'var(--accent-blue)' }}>
-              Microsoft Planetary Computer STAC Assets & Geometry Bounding Box
+              Microsoft Planetary Computer STAC Assets & Bounding Box
             </h4>
             <span style={{ fontSize: '11px', color: 'var(--text-muted)', fontFamily: 'monospace' }}>
               Collection: sentinel-2-l2a
@@ -455,10 +543,10 @@ export default function SatelliteAnalysisPanel({ currentStudyArea }) {
         </div>
       )}
 
-      {/* Real STAC Metadata Cards */}
+      {/* Real Calculated Satellite Water Analysis Cards */}
       <div className="grid-3" style={{ gap: '16px', marginBottom: 0 }}>
         
-        {/* Real STAC Acquisition Timestamp */}
+        {/* Recent Water Area */}
         <div style={{
           backgroundColor: 'rgba(2, 132, 199, 0.08)',
           border: '1px solid rgba(2, 132, 199, 0.25)',
@@ -470,24 +558,28 @@ export default function SatelliteAnalysisPanel({ currentStudyArea }) {
         }}>
           <div>
             <div style={{ fontSize: '12px', color: 'var(--text-secondary)', fontWeight: '600', display: 'flex', alignItems: 'center', gap: '4px' }}>
-              <Calendar size={14} style={{ color: '#38bdf8' }} /> Observation Timestamp
+              <Droplets size={14} style={{ color: '#38bdf8' }} /> Recent Water Extent
             </div>
-            <div style={{ fontSize: '15px', fontWeight: '800', color: '#38bdf8', fontFamily: 'var(--font-header)', margin: '8px 0' }}>
-              {recentObservation?.date}
+            <div style={{ fontSize: '24px', fontWeight: '800', color: '#38bdf8', fontFamily: 'var(--font-header)', margin: '8px 0' }}>
+              {isAnalyzingWater ? (
+                <span style={{ fontSize: '14px', color: 'var(--text-muted)' }}>Computing COG...</span>
+              ) : (
+                `${waterAnalysis?.recentWaterKm2 !== undefined ? waterAnalysis.recentWaterKm2 : '0'} km²`
+              )}
             </div>
             <div style={{ fontSize: '11px', color: 'var(--text-primary)', fontWeight: '700' }}>
-              ISO: {recentObservation?.datetime}
+              NDWI Threshold: {waterAnalysis?.ndwiThresholdUsed || 0.10}
             </div>
           </div>
           <div style={{ fontSize: '11px', color: 'var(--text-muted)', lineHeight: '1.3', marginTop: '8px' }}>
-            Authentic acquisition datetime retrieved from STAC properties.
+            Real water surface area derived from 10m Sentinel-2 B03 & B08 rasters.
           </div>
         </div>
 
-        {/* Real STAC Platform & Cloud Cover */}
+        {/* Baseline Water Area */}
         <div style={{
-          backgroundColor: 'rgba(234, 179, 8, 0.08)',
-          border: '1px solid rgba(234, 179, 8, 0.25)',
+          backgroundColor: 'rgba(16, 185, 129, 0.08)',
+          border: '1px solid rgba(16, 185, 129, 0.25)',
           borderRadius: '12px',
           padding: '16px',
           display: 'flex',
@@ -496,21 +588,25 @@ export default function SatelliteAnalysisPanel({ currentStudyArea }) {
         }}>
           <div>
             <div style={{ fontSize: '12px', color: 'var(--text-secondary)', fontWeight: '600', display: 'flex', alignItems: 'center', gap: '4px' }}>
-              <Tag size={14} style={{ color: '#facc15' }} /> Satellite & Cloud Cover
+              <Calendar size={14} style={{ color: '#a7f3d0' }} /> Baseline Water Extent
             </div>
-            <div style={{ fontSize: '20px', fontWeight: '800', color: '#facc15', fontFamily: 'var(--font-header)', margin: '8px 0' }}>
-              {recentObservation?.platform} ({recentObservation?.cloudCoverPercent}% Cloud)
+            <div style={{ fontSize: '24px', fontWeight: '800', color: '#a7f3d0', fontFamily: 'var(--font-header)', margin: '8px 0' }}>
+              {isAnalyzingWater ? (
+                <span style={{ fontSize: '14px', color: 'var(--text-muted)' }}>Computing COG...</span>
+              ) : (
+                `${waterAnalysis?.baselineWaterKm2 !== undefined ? waterAnalysis.baselineWaterKm2 : '0'} km²`
+              )}
             </div>
             <div style={{ fontSize: '11px', color: 'var(--text-primary)', fontWeight: '700' }}>
-              MGRS Tile: {recentObservation?.mgrsTile}
+              Baseline Pass ({previousObservation?.date})
             </div>
           </div>
           <div style={{ fontSize: '11px', color: 'var(--text-muted)', lineHeight: '1.3', marginTop: '8px' }}>
-            Sentinel-2 Multispectral Instrument (MSI) Level-2A surface reflectance.
+            Previous baseline water surface extent over target study area.
           </div>
         </div>
 
-        {/* Real STAC Item ID */}
+        {/* Real Calculated Water Area Change Percentage */}
         <div style={{
           backgroundColor: 'rgba(192, 132, 252, 0.08)',
           border: '1px solid rgba(192, 132, 252, 0.25)',
@@ -522,17 +618,21 @@ export default function SatelliteAnalysisPanel({ currentStudyArea }) {
         }}>
           <div>
             <div style={{ fontSize: '12px', color: 'var(--text-secondary)', fontWeight: '600', display: 'flex', alignItems: 'center', gap: '4px' }}>
-              <Globe size={14} style={{ color: '#c084fc' }} /> STAC Item Identifier
+              <Globe size={14} style={{ color: '#c084fc' }} /> Water Area Change %
             </div>
-            <div style={{ fontSize: '10px', fontWeight: '700', color: '#c084fc', fontFamily: 'monospace', margin: '8px 0', wordBreak: 'break-all' }}>
-              {recentObservation?.id}
+            <div style={{ fontSize: '24px', fontWeight: '800', color: '#c084fc', fontFamily: 'var(--font-header)', margin: '8px 0' }}>
+              {isAnalyzingWater ? (
+                <span style={{ fontSize: '14px', color: 'var(--text-muted)' }}>Computing NDWI...</span>
+              ) : (
+                `${waterAnalysis?.waterAreaChangePercent >= 0 ? '+' : ''}${waterAnalysis?.waterAreaChangePercent || 0}%`
+              )}
             </div>
             <div style={{ fontSize: '11px', color: 'var(--text-primary)', fontWeight: '700' }}>
-              Collection: sentinel-2-l2a
+              Status: {waterAnalysis?.isLive ? 'LIVE NDWI CALCULATION' : 'DEMO / UNAVAILABLE'}
             </div>
           </div>
           <div style={{ fontSize: '11px', color: 'var(--text-muted)', lineHeight: '1.3', marginTop: '8px' }}>
-            Unique item identifier indexed by Microsoft Planetary Computer.
+            Multi-temporal NDWI surface inundation change percentage.
           </div>
         </div>
 
@@ -553,9 +653,9 @@ export default function SatelliteAnalysisPanel({ currentStudyArea }) {
         gap: '8px'
       }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
-          <Info size={14} style={{ color: 'var(--accent-blue)', flexShrink: 0 }} />
+          <CheckCircle2 size={14} style={{ color: 'var(--accent-blue)', flexShrink: 0 }} />
           <span>
-            {statusLabel} • Endpoint: <code>https://planetarycomputer.microsoft.com/api/stac/v1/search</code>
+            {waterAnalysis?.statusLabel || 'LIVE SATELLITE NDWI ANALYSIS'} • Source: <strong>Microsoft Planetary Computer Sentinel-2 L2A</strong>
           </span>
         </div>
 
@@ -564,7 +664,7 @@ export default function SatelliteAnalysisPanel({ currentStudyArea }) {
           onClick={handleRefresh}
           style={{ padding: '4px 10px', fontSize: '11px', display: 'flex', alignItems: 'center', gap: '4px' }}
         >
-          <RefreshCw size={12} /> Sync STAC Feed
+          <RefreshCw size={12} /> Sync Satellite Feed
         </button>
       </div>
 

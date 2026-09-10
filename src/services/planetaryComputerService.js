@@ -3,6 +3,32 @@
 import { STUDY_AREAS } from '../data/mockData.js';
 
 const PLANETARY_COMPUTER_STAC_API = 'https://planetarycomputer.microsoft.com/api/stac/v1/search';
+const PLANETARY_COMPUTER_SAS_SIGN_API = 'https://planetarycomputer.microsoft.com/api/sas/v1/sign';
+
+/**
+ * Signs Planetary Computer Azure Blob Storage Asset URL with a SAS token
+ * @param {string} assetUrl Unsigned Azure Blob asset URL
+ */
+export const signPlanetaryComputerUrl = async (assetUrl) => {
+  if (!assetUrl) throw new Error('Asset URL is required for SAS signing');
+  if (assetUrl.includes('?st=')) return assetUrl; // Already signed
+
+  try {
+    const signEndpoint = `${PLANETARY_COMPUTER_SAS_SIGN_API}?href=${encodeURIComponent(assetUrl)}`;
+    const response = await fetch(signEndpoint);
+    if (!response.ok) {
+      throw new Error(`SAS Signing HTTP status ${response.status} ${response.statusText}`);
+    }
+    const data = await response.json();
+    if (!data || !data.href) {
+      throw new Error('SAS signing API returned payload without signed href');
+    }
+    return data.href;
+  } catch (err) {
+    console.warn(`SAS signing failed for asset: ${assetUrl}`, err.message);
+    throw err;
+  }
+};
 
 /**
  * Fallback Demonstration Dataset (Explicitly labeled DEMONSTRATION DATA)
@@ -116,6 +142,7 @@ export const fetchPlanetaryComputerSatelliteData = async (studyArea = STUDY_AREA
           : 'N/A',
         bbox: item.bbox || bbox,
         assets: assetKeys,
+        assetDict: assetsDict,
         previewUrl: previewUrl,
         mgrsTile: props['s2:mgrs_tile'] || 'N/A',
         constellation: props.constellation || 'Sentinel-2',
@@ -127,7 +154,8 @@ export const fetchPlanetaryComputerSatelliteData = async (studyArea = STUDY_AREA
           : null,
         notVegetatedPercentage: props['s2:not_vegetated_percentage'] !== undefined 
           ? Math.round(props['s2:not_vegetated_percentage'] * 10) / 10 
-          : null
+          : null,
+        rawItem: item
       };
     };
 
