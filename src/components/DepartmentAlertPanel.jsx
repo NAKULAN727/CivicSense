@@ -15,7 +15,7 @@ import {
 } from 'lucide-react';
 import { INITIAL_DEPARTMENT_ALERT } from '../data/mockData';
 
-export default function DepartmentAlertPanel({ activeAlertData, onAlertSent }) {
+export default function DepartmentAlertPanel({ currentStudyArea, activeAlertData, onAlertSent }) {
   const alertData = activeAlertData || INITIAL_DEPARTMENT_ALERT;
 
   const [alertSent, setAlertSent] = useState(false);

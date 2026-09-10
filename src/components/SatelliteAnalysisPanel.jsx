@@ -1,48 +1,118 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { 
-  Layers, 
   Eye, 
-  ArrowUpRight, 
-  ArrowDownRight, 
   Calendar, 
-  Sparkles,
   Info,
   Sliders,
-  CheckCircle2,
+  Layers,
+  RefreshCw,
+  Globe,
+  Tag,
   AlertTriangle
 } from 'lucide-react';
-import { SATELLITE_COMPARISON_DATA } from '../data/mockData';
+import { 
+  fetchPlanetaryComputerSatelliteData 
+} from '../services/planetaryComputerService';
 
-export default function SatelliteAnalysisPanel() {
-  const [sliderPos, setSliderPos] = useState(50); // 0 to 100 for interactive slider
-  const [viewMode, setViewMode] = useState('slider'); // 'slider', 'sideBySide', 'ndvi'
-  const [activeBand, setActiveBand] = useState('Sentinel-2 Natural Color');
+export default function SatelliteAnalysisPanel({ currentStudyArea }) {
+  const [sliderPos, setSliderPos] = useState(50);
+  const [viewMode, setViewMode] = useState('slider'); // 'slider', 'sideBySide', 'assets'
+  const [satelliteData, setSatelliteData] = useState(null);
+  const [isLoading, setIsLoading] = useState(true);
+
+  // Fetch satellite observation data from Microsoft Planetary Computer STAC API
+  useEffect(() => {
+    let isMounted = true;
+    const loadSatelliteData = async () => {
+      setIsLoading(true);
+      const data = await fetchPlanetaryComputerSatelliteData(currentStudyArea);
+      if (isMounted) {
+        setSatelliteData(data);
+        setIsLoading(false);
+      }
+    };
+
+    loadSatelliteData();
+    return () => {
+      isMounted = false;
+    };
+  }, [currentStudyArea]);
+
+  const handleRefresh = async () => {
+    setIsLoading(true);
+    const data = await fetchPlanetaryComputerSatelliteData(currentStudyArea);
+    setSatelliteData(data);
+    setIsLoading(false);
+  };
+
+  if (isLoading || !satelliteData) {
+    return (
+      <div className="glass-card" style={{ padding: '40px', textAlign: 'center', color: 'var(--text-secondary)' }}>
+        <RefreshCw size={24} className="spin-icon" style={{ color: 'var(--accent-blue)', marginBottom: '12px' }} />
+        <p style={{ fontSize: '13px', fontWeight: '600' }}>Querying Microsoft Planetary Computer STAC API (Sentinel-2 L2A)...</p>
+      </div>
+    );
+  }
+
+  const { 
+    source, 
+    mode, 
+    isLive, 
+    isError, 
+    errorMessage, 
+    statusLabel, 
+    recentObservation, 
+    previousObservation, 
+    bbox 
+  } = satelliteData;
 
   return (
     <div className="glass-card" style={{ display: 'flex', flexDirection: 'column', gap: '20px', padding: '24px' }}>
       
-      {/* Panel Header */}
+      {/* Panel Header, Provider & Mode Badge */}
       <div className="flex-between" style={{ flexWrap: 'wrap', gap: '12px' }}>
         <div>
-          <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '10px', flexWrap: 'wrap' }}>
             <h3 style={{ fontSize: '18px', fontWeight: '800', fontFamily: 'var(--font-header)' }}>
               Satellite Change Detection
             </h3>
+            
+            {/* LIVE / DEMO DATA MODE BADGE */}
             <span style={{ 
-              fontSize: '10px', 
+              fontSize: '11px', 
               fontWeight: '800', 
-              color: 'var(--accent-purple)', 
-              backgroundColor: 'rgba(192, 132, 252, 0.12)', 
-              border: '1px solid rgba(192, 132, 252, 0.3)',
-              padding: '2px 8px', 
+              color: isLive ? '#10b981' : '#f59e0b', 
+              backgroundColor: isLive ? 'rgba(16, 185, 129, 0.15)' : 'rgba(245, 158, 11, 0.15)', 
+              border: `1px solid ${isLive ? '#10b981' : '#f59e0b'}`,
+              padding: '4px 10px', 
               borderRadius: '99px',
-              textTransform: 'uppercase'
+              display: 'inline-flex',
+              alignItems: 'center',
+              gap: '6px'
             }}>
-              PROTOTYPE DATA | Sentinel-2 / Landsat
+              <span style={{ width: '8px', height: '8px', borderRadius: '50%', backgroundColor: isLive ? '#10b981' : '#f59e0b', display: 'inline-block' }} />
+              {mode} MODE
+            </span>
+
+            {/* DATA SOURCE TAG */}
+            <span style={{
+              fontSize: '11px',
+              fontWeight: '700',
+              color: '#38bdf8',
+              backgroundColor: 'rgba(56, 189, 248, 0.12)',
+              border: '1px solid rgba(56, 189, 248, 0.3)',
+              padding: '4px 10px',
+              borderRadius: '99px',
+              display: 'inline-flex',
+              alignItems: 'center',
+              gap: '4px'
+            }}>
+              <Globe size={11} /> Source: {source}
             </span>
           </div>
-          <p style={{ fontSize: '12px', color: 'var(--text-secondary)', marginTop: '2px' }}>
-            Multi-temporal satellite imagery comparison for <strong>Pallikaranai–Velachery</strong> wetland basin
+
+          <p style={{ fontSize: '12px', color: 'var(--text-secondary)', marginTop: '4px' }}>
+            Sentinel-2 L2A STAC multi-temporal observation comparison for <strong>{currentStudyArea?.name || 'Selected Study Area'}</strong>
           </p>
         </div>
 
@@ -53,7 +123,7 @@ export default function SatelliteAnalysisPanel() {
             style={{ padding: '6px 12px', fontSize: '11px', border: 'none', borderRadius: '6px' }}
             onClick={() => setViewMode('slider')}
           >
-            <Sliders size={12} /> Split Slider
+            <Sliders size={12} /> Split Comparison
           </button>
           <button
             className={`btn ${viewMode === 'sideBySide' ? 'btn-primary' : 'btn-secondary'}`}
@@ -62,45 +132,113 @@ export default function SatelliteAnalysisPanel() {
           >
             <Eye size={12} /> Side-by-Side
           </button>
+          <button
+            className={`btn ${viewMode === 'assets' ? 'btn-primary' : 'btn-secondary'}`}
+            style={{ padding: '6px 12px', fontSize: '11px', border: 'none', borderRadius: '6px' }}
+            onClick={() => setViewMode('assets')}
+          >
+            <Layers size={12} /> STAC Assets & Metadata
+          </button>
         </div>
       </div>
 
-      {/* Primary Satellite Comparison Display */}
-      {viewMode === 'slider' ? (
-        <div style={{ position: 'relative', width: '100%', height: '360px', borderRadius: '12px', overflow: 'hidden', border: '1px solid var(--border-card)', background: '#050a14' }}>
+      {/* Error Notice Banner if live search fails */}
+      {isError && (
+        <div style={{ 
+          backgroundColor: 'rgba(239, 68, 68, 0.1)', 
+          border: '1px solid rgba(239, 68, 68, 0.3)', 
+          borderRadius: '8px', 
+          padding: '10px 14px', 
+          color: '#f87171', 
+          fontSize: '12px',
+          display: 'flex',
+          alignItems: 'center',
+          gap: '8px'
+        }}>
+          <AlertTriangle size={16} style={{ flexShrink: 0 }} />
+          <span>{errorMessage}</span>
+        </div>
+      )}
+
+      {/* Observation Metadata Banner */}
+      <div style={{
+        display: 'grid',
+        gridTemplateColumns: '1fr 1fr',
+        gap: '12px',
+        backgroundColor: 'var(--bg-card-solid)',
+        border: '1px solid var(--border-card)',
+        borderRadius: '10px',
+        padding: '12px 16px',
+        fontSize: '11px'
+      }}>
+        <div style={{ display: 'flex', alignItems: 'flex-start', gap: '8px' }}>
+          <Calendar size={14} style={{ color: 'var(--accent-blue)', marginTop: '2px' }} />
+          <div>
+            <div style={{ color: 'var(--text-muted)' }}>Previous Baseline Observation:</div>
+            <strong style={{ color: '#a7f3d0', fontSize: '12px' }}>{previousObservation?.date}</strong>
+            <div style={{ color: 'var(--text-secondary)', marginTop: '2px' }}>
+              Platform: <strong>{previousObservation?.platform}</strong> • Cloud Cover: <strong>{previousObservation?.cloudCoverPercent}%</strong>
+            </div>
+            <div style={{ color: 'var(--text-muted)', fontSize: '10px', marginTop: '2px', fontFamily: 'monospace' }}>
+              STAC Item: {previousObservation?.id}
+            </div>
+          </div>
+        </div>
+
+        <div style={{ display: 'flex', alignItems: 'flex-start', gap: '8px' }}>
+          <Calendar size={14} style={{ color: 'var(--accent-purple)', marginTop: '2px' }} />
+          <div>
+            <div style={{ color: 'var(--text-muted)' }}>Recent Observation (Timestamp):</div>
+            <strong style={{ color: '#38bdf8', fontSize: '12px' }}>{recentObservation?.date}</strong>
+            <div style={{ color: 'var(--text-secondary)', marginTop: '2px' }}>
+              Platform: <strong>{recentObservation?.platform}</strong> • Cloud Cover: <strong>{recentObservation?.cloudCoverPercent}%</strong>
+            </div>
+            <div style={{ color: 'var(--text-muted)', fontSize: '10px', marginTop: '2px', fontFamily: 'monospace' }}>
+              STAC Item: {recentObservation?.id}
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Primary View Area based on ViewMode */}
+      {viewMode === 'slider' && (
+        <div style={{ position: 'relative', width: '100%', height: '340px', borderRadius: '12px', overflow: 'hidden', border: '1px solid var(--border-card)', background: '#050a14' }}>
           
-          {/* Recent Image (Right Layer) */}
+          {/* Recent Image Layer (Right Side) */}
           <div style={{
             position: 'absolute',
             top: 0,
             left: 0,
             width: '100%',
             height: '100%',
-            background: 'radial-gradient(circle at 45% 55%, #0284c7 0%, #0369a1 25%, #0f172a 60%, #050814 100%)',
+            backgroundImage: recentObservation?.previewUrl ? `url(${recentObservation.previewUrl})` : 'none',
+            backgroundSize: 'cover',
+            backgroundPosition: 'center',
+            backgroundColor: '#0f172a',
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center'
           }}>
-            {/* Visual simulation of recent flooded imagery */}
-            <svg width="100%" height="100%" style={{ opacity: 0.85 }}>
-              <defs>
-                <pattern id="grid-pattern" width="40" height="40" patternUnits="userSpaceOnUse">
-                  <path d="M 40 0 L 0 0 0 40" fill="none" stroke="rgba(0,168,255,0.08)" strokeWidth="1" />
-                </pattern>
-              </defs>
-              <rect width="100%" height="100%" fill="url(#grid-pattern)" />
-              {/* Flooded area polygon simulation */}
-              <path d="M 120 80 Q 280 40 380 140 T 520 280 T 310 320 T 140 220 Z" fill="rgba(6, 182, 212, 0.45)" stroke="#38bdf8" strokeWidth="2" />
-              <path d="M 320 180 Q 420 120 540 220 T 480 310 Z" fill="rgba(244, 63, 94, 0.35)" stroke="#f43f5e" strokeWidth="2" strokeDasharray="4 4" />
-              <text x="350" y="240" fill="#ffffff" fontSize="13" fontWeight="800" fontFamily="sans-serif">RECENT INUNDATION ZONE (+27%)</text>
-            </svg>
+            {!recentObservation?.previewUrl && (
+              <svg width="100%" height="100%" style={{ opacity: 0.85 }}>
+                <defs>
+                  <pattern id="grid-pattern" width="40" height="40" patternUnits="userSpaceOnUse">
+                    <path d="M 40 0 L 0 0 0 40" fill="none" stroke="rgba(0,168,255,0.08)" strokeWidth="1" />
+                  </pattern>
+                </defs>
+                <rect width="100%" height="100%" fill="url(#grid-pattern)" />
+                <text x="50%" y="50%" dominantBaseline="middle" textAnchor="middle" fill="#38bdf8" fontSize="13" fontWeight="800">
+                  RECENT SATELLITE PASS ({recentObservation?.date})
+                </text>
+              </svg>
+            )}
 
-            <div style={{ position: 'absolute', top: '16px', right: '16px', backgroundColor: 'rgba(15, 23, 42, 0.85)', padding: '6px 12px', borderRadius: '6px', fontSize: '11px', color: '#38bdf8', fontWeight: '700', border: '1px solid rgba(56, 189, 248, 0.3)' }}>
-              <Calendar size={12} style={{ display: 'inline', marginRight: '4px' }} /> Recent Satellite Image (08 Sep 2026)
+            <div style={{ position: 'absolute', top: '16px', right: '16px', backgroundColor: 'rgba(15, 23, 42, 0.92)', padding: '6px 12px', borderRadius: '6px', fontSize: '11px', color: '#38bdf8', fontWeight: '700', border: '1px solid rgba(56, 189, 248, 0.3)' }}>
+              Recent Observation ({recentObservation?.date})
             </div>
           </div>
 
-          {/* Previous Image (Left Layer clipped by slider) */}
+          {/* Previous Image Layer (Left Side clipped by slider) */}
           <div style={{
             position: 'absolute',
             top: 0,
@@ -109,24 +247,33 @@ export default function SatelliteAnalysisPanel() {
             height: '100%',
             overflow: 'hidden',
             borderRight: '2px solid #00a8ff',
-            boxShadow: '4px 0 20px rgba(0,168,255,0.6)',
-            background: 'radial-gradient(circle at 45% 55%, #15803d 0%, #166534 30%, #0f172a 70%)'
+            boxShadow: '4px 0 20px rgba(0,168,255,0.6)'
           }}>
-            <div style={{ width: '1000px', height: '360px', position: 'relative' }}>
-              <svg width="100%" height="100%" style={{ opacity: 0.75 }}>
-                <rect width="100%" height="100%" fill="url(#grid-pattern)" />
-                {/* Historical baseline smaller water body polygon */}
-                <path d="M 160 110 Q 240 80 320 160 T 410 240 T 260 270 T 170 200 Z" fill="rgba(2, 132, 199, 0.4)" stroke="#0284c7" strokeWidth="2" />
-                <text x="210" y="190" fill="#a7f3d0" fontSize="12" fontWeight="700" fontFamily="sans-serif">BASELINE WETLAND EXTENT</text>
-              </svg>
+            <div style={{ 
+              width: '1000px', 
+              height: '340px', 
+              position: 'relative',
+              backgroundImage: previousObservation?.previewUrl ? `url(${previousObservation.previewUrl})` : 'none',
+              backgroundSize: 'cover',
+              backgroundPosition: 'center',
+              backgroundColor: '#064e3b'
+            }}>
+              {!previousObservation?.previewUrl && (
+                <svg width="100%" height="100%" style={{ opacity: 0.75 }}>
+                  <rect width="100%" height="100%" fill="url(#grid-pattern)" />
+                  <text x="30%" y="50%" dominantBaseline="middle" textAnchor="middle" fill="#a7f3d0" fontSize="13" fontWeight="800">
+                    PREVIOUS BASELINE ({previousObservation?.date})
+                  </text>
+                </svg>
+              )}
 
-              <div style={{ position: 'absolute', top: '16px', left: '16px', backgroundColor: 'rgba(15, 23, 42, 0.85)', padding: '6px 12px', borderRadius: '6px', fontSize: '11px', color: '#a7f3d0', fontWeight: '700', border: '1px solid rgba(167, 243, 208, 0.3)' }}>
-                <Calendar size={12} style={{ display: 'inline', marginRight: '4px' }} /> Previous Satellite Image (15 Oct 2025)
+              <div style={{ position: 'absolute', top: '16px', left: '16px', backgroundColor: 'rgba(15, 23, 42, 0.92)', padding: '6px 12px', borderRadius: '6px', fontSize: '11px', color: '#a7f3d0', fontWeight: '700', border: '1px solid rgba(167, 243, 208, 0.3)' }}>
+                Baseline ({previousObservation?.date})
               </div>
             </div>
           </div>
 
-          {/* Interactive Range Input overlay */}
+          {/* Interactive Range Input Overlay */}
           <input 
             type="range"
             min="0"
@@ -146,7 +293,7 @@ export default function SatelliteAnalysisPanel() {
             }}
           />
 
-          {/* Vertical Split Handle */}
+          {/* Split Handle */}
           <div style={{
             position: 'absolute',
             top: 0,
@@ -179,35 +326,139 @@ export default function SatelliteAnalysisPanel() {
             </div>
           </div>
         </div>
-      ) : (
-        /* Side-by-Side View */
+      )}
+
+      {viewMode === 'sideBySide' && (
         <div className="grid-2" style={{ gap: '16px', marginBottom: 0 }}>
-          <div style={{ position: 'relative', height: '240px', borderRadius: '12px', overflow: 'hidden', border: '1px solid var(--border-card)', background: 'radial-gradient(circle at 50% 50%, #15803d 0%, #0f172a 80%)', padding: '16px' }}>
-            <div style={{ backgroundColor: 'rgba(15,23,42,0.85)', padding: '4px 10px', borderRadius: '6px', fontSize: '11px', display: 'inline-block', fontWeight: '700', color: '#a7f3d0' }}>
-              Previous Satellite Image (15 Oct 2025)
+          {/* Baseline Observation Frame */}
+          <div style={{ 
+            position: 'relative', 
+            height: '280px', 
+            borderRadius: '12px', 
+            overflow: 'hidden', 
+            border: '1px solid var(--border-card)', 
+            backgroundImage: previousObservation?.previewUrl ? `url(${previousObservation.previewUrl})` : 'none',
+            backgroundSize: 'cover',
+            backgroundPosition: 'center',
+            backgroundColor: '#064e3b',
+            padding: '16px' 
+          }}>
+            <div style={{ backgroundColor: 'rgba(15,23,42,0.9)', padding: '4px 10px', borderRadius: '6px', fontSize: '11px', display: 'inline-block', fontWeight: '700', color: '#a7f3d0' }}>
+              Previous Baseline ({previousObservation?.date})
             </div>
-            <div style={{ marginTop: '40px', textAlign: 'center', color: '#a7f3d0' }}>
-              <div style={{ fontSize: '16px', fontWeight: '800' }}>Baseline Pre-Monsoon Imagery</div>
-              <div style={{ fontSize: '12px', color: 'var(--text-secondary)', marginTop: '4px' }}>Water Coverage Index: 14.2% area</div>
+            
+            <div style={{ 
+              position: 'absolute',
+              bottom: '16px',
+              left: '16px',
+              right: '16px',
+              backgroundColor: 'rgba(15, 23, 42, 0.92)', 
+              padding: '12px', 
+              borderRadius: '8px', 
+              border: '1px solid var(--border-card)',
+              fontSize: '11px',
+              color: '#a7f3d0'
+            }}>
+              <div style={{ fontWeight: '800', fontSize: '13px' }}>{previousObservation?.platform}</div>
+              <div style={{ color: 'var(--text-secondary)', marginTop: '4px' }}>
+                Cloud Cover: <strong>{previousObservation?.cloudCoverPercent}%</strong> • MGRS: <strong>{previousObservation?.mgrsTile}</strong>
+              </div>
+              <div style={{ color: 'var(--text-muted)', fontSize: '10px', marginTop: '4px', fontFamily: 'monospace' }}>
+                Item ID: {previousObservation?.id}
+              </div>
             </div>
           </div>
 
-          <div style={{ position: 'relative', height: '240px', borderRadius: '12px', overflow: 'hidden', border: '1px solid var(--border-card)', background: 'radial-gradient(circle at 50% 50%, #0284c7 0%, #0f172a 80%)', padding: '16px' }}>
-            <div style={{ backgroundColor: 'rgba(15,23,42,0.85)', padding: '4px 10px', borderRadius: '6px', fontSize: '11px', display: 'inline-block', fontWeight: '700', color: '#38bdf8' }}>
-              Recent Satellite Image (08 Sep 2026)
+          {/* Recent Observation Frame */}
+          <div style={{ 
+            position: 'relative', 
+            height: '280px', 
+            borderRadius: '12px', 
+            overflow: 'hidden', 
+            border: '1px solid var(--border-card)', 
+            backgroundImage: recentObservation?.previewUrl ? `url(${recentObservation.previewUrl})` : 'none',
+            backgroundSize: 'cover',
+            backgroundPosition: 'center',
+            backgroundColor: '#0284c7',
+            padding: '16px' 
+          }}>
+            <div style={{ backgroundColor: 'rgba(15,23,42,0.9)', padding: '4px 10px', borderRadius: '6px', fontSize: '11px', display: 'inline-block', fontWeight: '700', color: '#38bdf8' }}>
+              Recent Pass ({recentObservation?.date})
             </div>
-            <div style={{ marginTop: '40px', textAlign: 'center', color: '#38bdf8' }}>
-              <div style={{ fontSize: '16px', fontWeight: '800' }}>Recent Sentinel-2 Pass</div>
-              <div style={{ fontSize: '12px', color: 'var(--text-secondary)', marginTop: '4px' }}>Water Coverage Index: 41.2% area</div>
+
+            <div style={{ 
+              position: 'absolute',
+              bottom: '16px',
+              left: '16px',
+              right: '16px',
+              backgroundColor: 'rgba(15, 23, 42, 0.92)', 
+              padding: '12px', 
+              borderRadius: '8px', 
+              border: '1px solid var(--border-card)',
+              fontSize: '11px',
+              color: '#38bdf8'
+            }}>
+              <div style={{ fontWeight: '800', fontSize: '13px' }}>{recentObservation?.platform}</div>
+              <div style={{ color: 'var(--text-secondary)', marginTop: '4px' }}>
+                Cloud Cover: <strong>{recentObservation?.cloudCoverPercent}%</strong> • MGRS: <strong>{recentObservation?.mgrsTile}</strong>
+              </div>
+              <div style={{ color: 'var(--text-muted)', fontSize: '10px', marginTop: '4px', fontFamily: 'monospace' }}>
+                Item ID: {recentObservation?.id}
+              </div>
             </div>
           </div>
         </div>
       )}
 
-      {/* Metrics Breakdown Cards */}
+      {/* STAC Assets & Metadata View */}
+      {viewMode === 'assets' && (
+        <div style={{ 
+          backgroundColor: 'var(--bg-card-solid)', 
+          border: '1px solid var(--accent-blue)', 
+          borderRadius: '12px', 
+          padding: '20px',
+          display: 'flex',
+          flexDirection: 'column',
+          gap: '16px'
+        }}>
+          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+            <h4 style={{ fontSize: '14px', fontWeight: '800', color: 'var(--accent-blue)' }}>
+              Microsoft Planetary Computer STAC Assets & Geometry Bounding Box
+            </h4>
+            <span style={{ fontSize: '11px', color: 'var(--text-muted)', fontFamily: 'monospace' }}>
+              Collection: sentinel-2-l2a
+            </span>
+          </div>
+
+          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px', fontSize: '12px' }}>
+            <div style={{ backgroundColor: 'rgba(255,255,255,0.03)', padding: '12px', borderRadius: '8px', border: '1px solid var(--border-card)' }}>
+              <div style={{ fontWeight: '700', color: '#38bdf8', marginBottom: '6px' }}>Recent STAC Assets ({recentObservation?.assets?.length || 0} bands/files)</div>
+              <div style={{ display: 'flex', flexWrap: 'wrap', gap: '4px', marginTop: '8px' }}>
+                {recentObservation?.assets?.map((assetKey) => (
+                  <span key={assetKey} style={{ fontSize: '10px', backgroundColor: 'rgba(56, 189, 248, 0.15)', color: '#38bdf8', padding: '2px 6px', borderRadius: '4px', border: '1px solid rgba(56, 189, 248, 0.3)', fontFamily: 'monospace' }}>
+                    {assetKey}
+                  </span>
+                ))}
+              </div>
+            </div>
+
+            <div style={{ backgroundColor: 'rgba(255,255,255,0.03)', padding: '12px', borderRadius: '8px', border: '1px solid var(--border-card)' }}>
+              <div style={{ fontWeight: '700', color: '#a7f3d0', marginBottom: '6px' }}>Study Area Spatial Bounding Box (STAC bbox)</div>
+              <div style={{ fontFamily: 'monospace', fontSize: '11px', color: 'var(--text-secondary)', wordBreak: 'break-all', marginTop: '6px' }}>
+                [{bbox?.join(', ')}]
+              </div>
+              <div style={{ marginTop: '10px', fontSize: '11px', color: 'var(--text-muted)' }}>
+                Coordinates: <strong>{currentStudyArea?.name} ({currentStudyArea?.lat}, {currentStudyArea?.lng})</strong>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Real STAC Metadata Cards */}
       <div className="grid-3" style={{ gap: '16px', marginBottom: 0 }}>
         
-        {/* Water body change metric */}
+        {/* Real STAC Acquisition Timestamp */}
         <div style={{
           backgroundColor: 'rgba(2, 132, 199, 0.08)',
           border: '1px solid rgba(2, 132, 199, 0.25)',
@@ -218,19 +469,22 @@ export default function SatelliteAnalysisPanel() {
           justifyContent: 'space-between'
         }}>
           <div>
-            <div style={{ fontSize: '12px', color: 'var(--text-secondary)', fontWeight: '600' }}>
-              Water-body change
+            <div style={{ fontSize: '12px', color: 'var(--text-secondary)', fontWeight: '600', display: 'flex', alignItems: 'center', gap: '4px' }}>
+              <Calendar size={14} style={{ color: '#38bdf8' }} /> Observation Timestamp
             </div>
-            <div style={{ fontSize: '26px', fontWeight: '800', color: '#38bdf8', fontFamily: 'var(--font-header)', margin: '4px 0' }}>
-              +27% <ArrowUpRight size={20} style={{ display: 'inline', color: '#f43f5e' }} />
+            <div style={{ fontSize: '15px', fontWeight: '800', color: '#38bdf8', fontFamily: 'var(--font-header)', margin: '8px 0' }}>
+              {recentObservation?.date}
+            </div>
+            <div style={{ fontSize: '11px', color: 'var(--text-primary)', fontWeight: '700' }}>
+              ISO: {recentObservation?.datetime}
             </div>
           </div>
-          <div style={{ fontSize: '11px', color: 'var(--text-muted)', lineHeight: '1.3' }}>
-            Inundation extent expanded across low-lying sections of Pallikaranai marshland.
+          <div style={{ fontSize: '11px', color: 'var(--text-muted)', lineHeight: '1.3', marginTop: '8px' }}>
+            Authentic acquisition datetime retrieved from STAC properties.
           </div>
         </div>
 
-        {/* Vegetation change metric */}
+        {/* Real STAC Platform & Cloud Cover */}
         <div style={{
           backgroundColor: 'rgba(234, 179, 8, 0.08)',
           border: '1px solid rgba(234, 179, 8, 0.25)',
@@ -241,19 +495,22 @@ export default function SatelliteAnalysisPanel() {
           justifyContent: 'space-between'
         }}>
           <div>
-            <div style={{ fontSize: '12px', color: 'var(--text-secondary)', fontWeight: '600' }}>
-              Vegetation change
+            <div style={{ fontSize: '12px', color: 'var(--text-secondary)', fontWeight: '600', display: 'flex', alignItems: 'center', gap: '4px' }}>
+              <Tag size={14} style={{ color: '#facc15' }} /> Satellite & Cloud Cover
             </div>
-            <div style={{ fontSize: '26px', fontWeight: '800', color: '#facc15', fontFamily: 'var(--font-header)', margin: '4px 0' }}>
-              -12% <ArrowDownRight size={20} style={{ display: 'inline', color: '#facc15' }} />
+            <div style={{ fontSize: '20px', fontWeight: '800', color: '#facc15', fontFamily: 'var(--font-header)', margin: '8px 0' }}>
+              {recentObservation?.platform} ({recentObservation?.cloudCoverPercent}% Cloud)
+            </div>
+            <div style={{ fontSize: '11px', color: 'var(--text-primary)', fontWeight: '700' }}>
+              MGRS Tile: {recentObservation?.mgrsTile}
             </div>
           </div>
-          <div style={{ fontSize: '11px', color: 'var(--text-muted)', lineHeight: '1.3' }}>
-            NDVI canopy index reduction due to seasonal submergence & eco-buffer loss.
+          <div style={{ fontSize: '11px', color: 'var(--text-muted)', lineHeight: '1.3', marginTop: '8px' }}>
+            Sentinel-2 Multispectral Instrument (MSI) Level-2A surface reflectance.
           </div>
         </div>
 
-        {/* Built-up area change metric */}
+        {/* Real STAC Item ID */}
         <div style={{
           backgroundColor: 'rgba(192, 132, 252, 0.08)',
           border: '1px solid rgba(192, 132, 252, 0.25)',
@@ -264,21 +521,24 @@ export default function SatelliteAnalysisPanel() {
           justifyContent: 'space-between'
         }}>
           <div>
-            <div style={{ fontSize: '12px', color: 'var(--text-secondary)', fontWeight: '600' }}>
-              Built-up area change
+            <div style={{ fontSize: '12px', color: 'var(--text-secondary)', fontWeight: '600', display: 'flex', alignItems: 'center', gap: '4px' }}>
+              <Globe size={14} style={{ color: '#c084fc' }} /> STAC Item Identifier
             </div>
-            <div style={{ fontSize: '26px', fontWeight: '800', color: '#c084fc', fontFamily: 'var(--font-header)', margin: '4px 0' }}>
-              +8% <ArrowUpRight size={20} style={{ display: 'inline', color: '#c084fc' }} />
+            <div style={{ fontSize: '10px', fontWeight: '700', color: '#c084fc', fontFamily: 'monospace', margin: '8px 0', wordBreak: 'break-all' }}>
+              {recentObservation?.id}
+            </div>
+            <div style={{ fontSize: '11px', color: 'var(--text-primary)', fontWeight: '700' }}>
+              Collection: sentinel-2-l2a
             </div>
           </div>
-          <div style={{ fontSize: '11px', color: 'var(--text-muted)', lineHeight: '1.3' }}>
-            Impervious surface expansion along the Velachery-Medavakkam commercial axis.
+          <div style={{ fontSize: '11px', color: 'var(--text-muted)', lineHeight: '1.3', marginTop: '8px' }}>
+            Unique item identifier indexed by Microsoft Planetary Computer.
           </div>
         </div>
 
       </div>
 
-      {/* Technical Architecture Footer Banner */}
+      {/* Provider & Source Status Notice Footer */}
       <div style={{ 
         backgroundColor: 'rgba(255,255,255,0.02)', 
         border: '1px dashed var(--border-card)',
@@ -288,13 +548,24 @@ export default function SatelliteAnalysisPanel() {
         color: 'var(--text-muted)',
         display: 'flex',
         alignItems: 'center',
-        justifyContent: 'space-between'
+        justifyContent: 'space-between',
+        flexWrap: 'wrap',
+        gap: '8px'
       }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
           <Info size={14} style={{ color: 'var(--accent-blue)', flexShrink: 0 }} />
-          <span>Note: Prototype values generated for demonstration. Ready for direct API pipeline with Sentinel Hub & Google Earth Engine.</span>
+          <span>
+            {statusLabel} • Endpoint: <code>https://planetarycomputer.microsoft.com/api/stac/v1/search</code>
+          </span>
         </div>
-        <span style={{ fontWeight: '700', color: 'var(--accent-blue)' }}>Sentinel-2A MSI</span>
+
+        <button 
+          className="btn btn-secondary"
+          onClick={handleRefresh}
+          style={{ padding: '4px 10px', fontSize: '11px', display: 'flex', alignItems: 'center', gap: '4px' }}
+        >
+          <RefreshCw size={12} /> Sync STAC Feed
+        </button>
       </div>
 
     </div>

@@ -11,7 +11,7 @@ import {
 } from 'lucide-react';
 import { COMMUNITY_PULSE_DATA } from '../data/mockData';
 
-export default function CommunityPulse({ pulseData }) {
+export default function CommunityPulse({ currentStudyArea, pulseData }) {
   const data = pulseData || COMMUNITY_PULSE_DATA;
 
   return (
@@ -22,7 +22,7 @@ export default function CommunityPulse({ pulseData }) {
         <div>
           <h3 style={{ fontSize: '15px', fontWeight: '800', fontFamily: 'var(--font-header)', display: 'flex', alignItems: 'center', gap: '6px' }}>
             <Activity size={17} style={{ color: 'var(--accent-blue)' }} />
-            Community Pulse – {data.location}
+            Community Pulse – {currentStudyArea?.name || data.location}
           </h3>
           <span style={{ fontSize: '11px', color: 'var(--text-muted)' }}>
             Real-time status indicators • Updated {data.updatedAt}

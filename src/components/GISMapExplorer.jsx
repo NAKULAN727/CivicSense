@@ -1,30 +1,33 @@
 import React, { useEffect, useRef, useState } from 'react';
 import L from 'leaflet';
+import 'leaflet/dist/leaflet.css';
 import { 
   Search, 
   Target, 
   Layers, 
-  ShieldAlert, 
   MapPin, 
   Info,
-  Maximize2,
-  Minimize2,
-  Activity,
-  Flame,
-  Droplets,
-  Trees,
-  Building2,
-  Waves
+  Maximize2
 } from 'lucide-react';
 import { 
   CHENNAI_CENTER, 
-  STUDY_AREA_CENTER, 
+  STUDY_AREAS, 
   PALLIKARANAI_RISK_ZONES, 
   CHENNAI_HOTSPOTS 
 } from '../data/mockData';
 
+// Fix Leaflet default icon assets path issue in Vite
+delete L.Icon.Default.prototype._getIconUrl;
+L.Icon.Default.mergeOptions({
+  iconRetinaUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/images/marker-icon-2x.png',
+  iconUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/images/marker-icon.png',
+  shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/images/marker-shadow.png'
+});
+
 export default function GISMapExplorer({ 
   theme, 
+  currentStudyArea = STUDY_AREAS.pallikaranai_velachery,
+  setCurrentStudyArea,
   selectedZone, 
   setSelectedZone,
   onSendAlertClick
@@ -36,47 +39,69 @@ export default function GISMapExplorer({
   const tileLayerRef = useRef(null);
 
   // States
-  const [activeLayer, setActiveLayer] = useState('All'); // 'All', 'Flood Risk', 'Heat Risk', etc.
-  const [isFocusedOnStudy, setIsFocusedOnStudy] = useState(false);
+  const [activeLayer, setActiveLayer] = useState('All');
+  const [isFocusedOnStudy, setIsFocusedOnStudy] = useState(true);
   const [searchQuery, setSearchQuery] = useState('');
   const [showHotspots, setShowHotspots] = useState(true);
 
-  // Location suggestions for Chennai search
-  const CHENNAI_LOCATIONS = [
-    { name: "Pallikaranai–Velachery (Study Area)", lat: 12.94, lng: 80.21, zoom: 14, isStudy: true },
-    { name: "Chennai Central Railway Station", lat: 13.0827, lng: 80.2707, zoom: 13 },
-    { name: "T. Nagar Commercial Axis", lat: 13.0418, lng: 80.2341, zoom: 14 },
-    { name: "Guindy National Park", lat: 13.0067, lng: 80.2206, zoom: 14 },
-    { name: "Koyambedu Bus Terminal", lat: 13.0694, lng: 80.1948, zoom: 14 },
-    { name: "Sholinganallur OMR IT Corridor", lat: 12.9010, lng: 80.2279, zoom: 14 },
-    { name: "Marina Beach Promenade", lat: 13.0499, lng: 80.2824, zoom: 13 }
+  // Available Study Areas
+  const LOCATIONS_LIST = [
+    STUDY_AREAS.pallikaranai_velachery,
+    STUDY_AREAS.mumbai,
+    STUDY_AREAS.delhi
   ];
 
   // Initialize Leaflet Map
   useEffect(() => {
     if (!mapRef.current) return;
 
-    // Create map centered on Chennai
-    mapInstance.current = L.map(mapRef.current, {
-      center: [CHENNAI_CENTER.lat, CHENNAI_CENTER.lng],
-      zoom: CHENNAI_CENTER.zoom,
+    if (mapInstance.current) {
+      mapInstance.current.remove();
+      mapInstance.current = null;
+    }
+
+    // Create map centered on currentStudyArea
+    const map = L.map(mapRef.current, {
+      center: [currentStudyArea.lat, currentStudyArea.lng],
+      zoom: currentStudyArea.zoom || 14,
       zoomControl: false
     });
 
+    mapInstance.current = map;
+
     // Custom Zoom controls
-    L.control.zoom({ position: 'bottomright' }).addTo(mapInstance.current);
+    L.control.zoom({ position: 'bottomright' }).addTo(map);
 
     // Add OpenStreetMap base tile layer
     tileLayerRef.current = L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
       maxZoom: 19,
       attribution: '&copy; OpenStreetMap contributors'
-    }).addTo(mapInstance.current);
+    }).addTo(map);
 
-    // Layer groups for boundary and risk overlays
-    boundaryLayerRef.current = L.layerGroup().addTo(mapInstance.current);
-    layerGroupRef.current = L.layerGroup().addTo(mapInstance.current);
+    boundaryLayerRef.current = L.layerGroup().addTo(map);
+    layerGroupRef.current = L.layerGroup().addTo(map);
+
+    const timer = setTimeout(() => {
+      if (mapInstance.current) {
+        mapInstance.current.invalidateSize();
+      }
+    }, 150);
+
+    let resizeObserver;
+    if (window.ResizeObserver && mapRef.current) {
+      resizeObserver = new ResizeObserver(() => {
+        if (mapInstance.current) {
+          mapInstance.current.invalidateSize();
+        }
+      });
+      resizeObserver.observe(mapRef.current);
+    }
 
     return () => {
+      clearTimeout(timer);
+      if (resizeObserver) {
+        resizeObserver.disconnect();
+      }
       if (mapInstance.current) {
         mapInstance.current.remove();
         mapInstance.current = null;
@@ -84,30 +109,79 @@ export default function GISMapExplorer({
     };
   }, []);
 
-  // Render Risk Layers & Boundary Polygons
+  // Sync map center whenever currentStudyArea changes
+  useEffect(() => {
+    if (!mapInstance.current || !currentStudyArea) return;
+
+    mapInstance.current.flyTo([currentStudyArea.lat, currentStudyArea.lng], currentStudyArea.zoom || 14, {
+      duration: 1.6,
+      easeLinearity: 0.25
+    });
+  }, [currentStudyArea]);
+
+  // Render Risk Layers & Boundary Overlays for currentStudyArea
   useEffect(() => {
     if (!mapInstance.current || !layerGroupRef.current || !boundaryLayerRef.current) return;
 
     layerGroupRef.current.clearLayers();
     boundaryLayerRef.current.clearLayers();
 
-    // 1. Draw Study Area Boundary if focused or always available
-    if (isFocusedOnStudy) {
-      const boundaryPolygon = L.polygon(STUDY_AREA_CENTER.bounds, {
-        color: '#00a8ff',
-        weight: 2,
-        dashArray: '6, 6',
-        fillColor: '#00a8ff',
-        fillOpacity: 0.04
-      }).addTo(boundaryLayerRef.current);
+    // 1. Draw Study Area Boundary Polygon & Label Marker Overlay
+    const bounds = currentStudyArea.bounds || [
+      [currentStudyArea.lat + 0.04, currentStudyArea.lng - 0.04],
+      [currentStudyArea.lat + 0.04, currentStudyArea.lng + 0.04],
+      [currentStudyArea.lat - 0.04, currentStudyArea.lng + 0.04],
+      [currentStudyArea.lat - 0.04, currentStudyArea.lng - 0.04]
+    ];
 
-      boundaryPolygon.bindTooltip(
-        `<div style="font-weight:700; color:#00a8ff; font-family:sans-serif; padding:4px;">
-           CivicSense AI Study Area – Pallikaranai–Velachery
-         </div>`,
-        { permanent: true, direction: 'top', className: 'study-boundary-tooltip' }
-      );
-    }
+    const boundaryPolygon = L.polygon(bounds, {
+      color: '#00a8ff',
+      weight: 2.5,
+      dashArray: '6, 6',
+      fillColor: '#00a8ff',
+      fillOpacity: 0.05
+    }).addTo(boundaryLayerRef.current);
+
+    boundaryPolygon.bindTooltip(
+      `<div style="font-weight:700; color:#00a8ff; font-family:sans-serif; padding:4px;">
+         CivicSense AI Study Area<br/>${currentStudyArea.name}
+       </div>`,
+      { permanent: true, direction: 'top', className: 'study-boundary-tooltip' }
+    );
+
+    // Study Area center marker at currentStudyArea lat/lng
+    const studyMarkerIcon = L.divIcon({
+      html: `
+        <div style="
+          background: linear-gradient(135deg, rgba(11, 15, 25, 0.95), rgba(0, 168, 255, 0.9));
+          color: white;
+          padding: 6px 12px;
+          border-radius: 12px;
+          font-weight: 700;
+          font-size: 11px;
+          box-shadow: 0 4px 16px rgba(0, 168, 255, 0.4);
+          border: 1px solid #00a8ff;
+          white-space: nowrap;
+          display: flex;
+          align-items: center;
+          gap: 6px;
+          cursor: pointer;
+        ">
+          <span style="width: 8px; height: 8px; border-radius: 50%; background-color: #00a8ff; display: inline-block; animation: pulse 1.5s infinite;"></span>
+          <span><strong>CivicSense AI Study Area</strong><br/>${currentStudyArea.name}</span>
+        </div>
+      `,
+      className: 'study-area-div-icon',
+      iconSize: [210, 42],
+      iconAnchor: [105, 21]
+    });
+
+    const studyMarker = L.marker([currentStudyArea.lat, currentStudyArea.lng], { icon: studyMarkerIcon })
+      .addTo(boundaryLayerRef.current);
+
+    studyMarker.on('click', () => {
+      handleFocusStudyArea(currentStudyArea);
+    });
 
     // 2. Draw Selectable Risk Zones inside Study Area
     const zonesToDraw = PALLIKARANAI_RISK_ZONES.filter(zone => {
@@ -123,7 +197,6 @@ export default function GISMapExplorer({
         fillOpacity: activeLayer === 'All' ? 0.35 : 0.55
       }).addTo(layerGroupRef.current);
 
-      // Create rich interactive Leaflet popup with all exact user specs
       const popupContent = `
         <div style="font-family: system-ui, -apple-system, sans-serif; width: 310px; padding: 4px;">
           <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid rgba(255,255,255,0.15); padding-bottom: 8px; margin-bottom: 10px;">
@@ -139,7 +212,7 @@ export default function GISMapExplorer({
           </div>
 
           <div style="font-size: 11px; color: ${theme === 'dark' ? '#cbd5e1' : '#334155'}; line-height: 1.4; display: flex; flex-direction: column; gap: 6px; margin-bottom: 12px;">
-            <div><strong>Location:</strong> Pallikaranai–Velachery</div>
+            <div><strong>Location:</strong> ${currentStudyArea.name}</div>
             <div><strong>Detected Change:</strong> <span style="color: #f43f5e; font-weight: 600;">${zone.detectedChange}</span></div>
             <div><strong>Supporting Data:</strong> ${zone.supportingData}</div>
             <div><strong>Responsible Department:</strong> <span style="color: #c084fc; font-weight: 600;">${zone.responsibleDept}</span></div>
@@ -168,105 +241,60 @@ export default function GISMapExplorer({
       });
     });
 
-    // 3. Draw Regional Chennai Hotspots if enabled
-    if (showHotspots && !isFocusedOnStudy) {
-      CHENNAI_HOTSPOTS.forEach(spot => {
-        const isCritical = spot.severity === 'Critical';
-        const color = isCritical ? '#f43f5e' : '#f59e0b';
-        
-        const iconHtml = `
-          <div style="
-            width: 22px;
-            height: 22px;
-            border-radius: 50%;
-            background-color: ${color};
-            border: 2px solid #ffffff;
-            box-shadow: 0 0 12px ${color};
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: #fff;
-            font-size: 10px;
-            font-weight: 800;
-            cursor: pointer;
-            position: relative;
-          ">
-            <div style="
-              position: absolute;
-              width: 38px;
-              height: 38px;
-              border: 2px solid ${color};
-              border-radius: 50%;
-              animation: pulse 2s infinite;
-              opacity: 0.4;
-              pointer-events: none;
-            "></div>
-            ${spot.riskScore}
-          </div>
-        `;
-
-        const customIcon = L.divIcon({
-          html: iconHtml,
-          className: 'hotspot-div-icon',
-          iconSize: [22, 22],
-          iconAnchor: [11, 11]
-        });
-
-        const marker = L.marker([spot.location.lat, spot.location.lng], { icon: customIcon })
-          .addTo(layerGroupRef.current);
-
-        marker.bindTooltip(`<strong>${spot.title}</strong><br/>Score: ${spot.riskScore}/100`, {
-          direction: 'top',
-          offset: [0, -10]
-        });
-
-        marker.on('click', () => {
-          if (spot.location.lat === STUDY_AREA_CENTER.lat) {
-            handleFocusStudyArea();
-          }
-        });
-      });
-    }
-
-  }, [activeLayer, isFocusedOnStudy, selectedZone, showHotspots, theme]);
+  }, [activeLayer, currentStudyArea, isFocusedOnStudy, selectedZone, showHotspots, theme]);
 
   // Smooth FlyTo Focus Study Area handler
-  const handleFocusStudyArea = () => {
+  const handleFocusStudyArea = (targetArea = currentStudyArea) => {
     if (!mapInstance.current) return;
     setIsFocusedOnStudy(true);
+    if (setCurrentStudyArea && targetArea.id !== currentStudyArea.id) {
+      setCurrentStudyArea(targetArea);
+    }
 
-    // Smooth flight animation to Pallikaranai-Velachery
-    mapInstance.current.flyTo([STUDY_AREA_CENTER.lat, STUDY_AREA_CENTER.lng], STUDY_AREA_CENTER.zoom, {
-      duration: 2.2,
+    mapInstance.current.flyTo([targetArea.lat, targetArea.lng], targetArea.zoom || 14, {
+      duration: 1.8,
       easeLinearity: 0.25
     });
 
-    // Select primary high risk flood zone by default
     const floodZone = PALLIKARANAI_RISK_ZONES.find(z => z.layer === 'Flood Risk');
     if (floodZone) {
       setSelectedZone(floodZone);
     }
   };
 
-  // Reset view to entire Chennai metropolitan region
   const handleResetToChennai = () => {
     if (!mapInstance.current) return;
     setIsFocusedOnStudy(false);
     mapInstance.current.flyTo([CHENNAI_CENTER.lat, CHENNAI_CENTER.lng], CHENNAI_CENTER.zoom, {
-      duration: 2.0
+      duration: 1.8
     });
   };
 
-  // Search input handler
   const handleSelectLocation = (loc) => {
     setSearchQuery(loc.name);
     if (!mapInstance.current) return;
 
-    if (loc.isStudy) {
-      handleFocusStudyArea();
-    } else {
-      setIsFocusedOnStudy(false);
-      mapInstance.current.flyTo([loc.lat, loc.lng], loc.zoom, { duration: 1.8 });
+    handleFocusStudyArea(loc);
+  };
+
+  const handleSearchKeyDown = (e) => {
+    if (e.key === 'Enter' && searchQuery.trim()) {
+      const query = searchQuery.trim().toLowerCase();
+      
+      const match = LOCATIONS_LIST.find(l => 
+        l.name.toLowerCase().includes(query) || 
+        l.region.toLowerCase().includes(query)
+      );
+
+      if (match) {
+        handleSelectLocation(match);
+      } else if (query.includes('mumbai')) {
+        handleSelectLocation(STUDY_AREAS.mumbai);
+      } else if (query.includes('delhi')) {
+        handleSelectLocation(STUDY_AREAS.delhi);
+      } else {
+        handleSelectLocation(STUDY_AREAS.pallikaranai_velachery);
+      }
     }
   };
 
@@ -281,9 +309,10 @@ export default function GISMapExplorer({
             <Search size={16} className="text-muted" />
             <input 
               type="text" 
-              placeholder="Search Chennai locations (e.g. Velachery)..." 
+              placeholder="Search Pallikaranai, Mumbai, Delhi..." 
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
+              onKeyDown={handleSearchKeyDown}
             />
           </div>
 
@@ -300,11 +329,11 @@ export default function GISMapExplorer({
               maxHeight: '220px',
               overflowY: 'auto'
             }}>
-              {CHENNAI_LOCATIONS
-                .filter(l => l.name.toLowerCase().includes(searchQuery.toLowerCase()))
-                .map((loc, idx) => (
+              {LOCATIONS_LIST
+                .filter(l => l.name.toLowerCase().includes(searchQuery.toLowerCase()) || l.region.toLowerCase().includes(searchQuery.toLowerCase()))
+                .map((loc) => (
                   <div 
-                    key={idx}
+                    key={loc.id}
                     onClick={() => {
                       handleSelectLocation(loc);
                       setSearchQuery('');
@@ -317,15 +346,15 @@ export default function GISMapExplorer({
                       display: 'flex',
                       alignItems: 'center',
                       gap: '8px',
-                      color: loc.isStudy ? 'var(--accent-blue)' : 'var(--text-primary)',
-                      fontWeight: loc.isStudy ? '700' : '400',
+                      color: loc.id === currentStudyArea.id ? 'var(--accent-blue)' : 'var(--text-primary)',
+                      fontWeight: loc.id === currentStudyArea.id ? '700' : '400',
                       backgroundColor: 'transparent'
                     }}
                     onMouseEnter={(e) => e.currentTarget.style.backgroundColor = 'rgba(0,168,255,0.1)'}
                     onMouseLeave={(e) => e.currentTarget.style.backgroundColor = 'transparent'}
                   >
                     <MapPin size={14} style={{ flexShrink: 0 }} />
-                    <span>{loc.name}</span>
+                    <span>{loc.name} ({loc.region})</span>
                   </div>
                 ))
               }
@@ -333,32 +362,34 @@ export default function GISMapExplorer({
           )}
         </div>
 
-        {/* Primary Action Button: "Focus Study Area" */}
-        <div style={{ display: 'flex', gap: '10px', alignItems: 'center' }}>
-          <button 
-            className={`btn ${isFocusedOnStudy ? 'btn-primary' : 'btn-secondary'}`}
-            onClick={handleFocusStudyArea}
-            style={{ 
-              padding: '8px 16px', 
-              fontSize: '12px', 
-              fontWeight: '700',
-              borderColor: 'var(--accent-blue)',
-              boxShadow: isFocusedOnStudy ? '0 0 16px rgba(0, 168, 255, 0.4)' : 'none'
-            }}
-          >
-            <Target size={15} style={{ color: 'var(--accent-blue)' }} /> Focus Study Area (Pallikaranai–Velachery)
-          </button>
-
-          {isFocusedOnStudy && (
+        {/* Study Area Preset Buttons */}
+        <div style={{ display: 'flex', gap: '8px', alignItems: 'center', flexWrap: 'wrap' }}>
+          <span style={{ fontSize: '11px', color: 'var(--text-muted)', fontWeight: '700' }}>Study Area:</span>
+          {LOCATIONS_LIST.map(area => (
             <button 
-              className="btn btn-secondary"
-              onClick={handleResetToChennai}
-              style={{ padding: '8px 12px', fontSize: '12px' }}
-              title="Reset view to entire Chennai region"
+              key={area.id}
+              className={`btn ${currentStudyArea.id === area.id ? 'btn-primary' : 'btn-secondary'}`}
+              onClick={() => handleFocusStudyArea(area)}
+              style={{ 
+                padding: '6px 12px', 
+                fontSize: '11px', 
+                fontWeight: '700',
+                borderColor: currentStudyArea.id === area.id ? 'var(--accent-blue)' : 'var(--border-card)',
+                boxShadow: currentStudyArea.id === area.id ? '0 0 12px rgba(0, 168, 255, 0.4)' : 'none'
+              }}
             >
-              <Maximize2 size={14} /> Full Chennai View
+              <Target size={13} /> {area.name}
             </button>
-          )}
+          ))}
+
+          <button 
+            className="btn btn-secondary"
+            onClick={handleResetToChennai}
+            style={{ padding: '6px 10px', fontSize: '11px' }}
+            title="Reset view to overview region"
+          >
+            <Maximize2 size={13} /> Overview
+          </button>
         </div>
 
         {/* Risk Layer Selector Buttons */}
@@ -421,10 +452,7 @@ export default function GISMapExplorer({
           }}>
             <span style={{ width: '8px', height: '8px', borderRadius: '50%', backgroundColor: '#00a8ff', display: 'inline-block', animation: 'pulse 1.5s infinite' }} />
             <span style={{ fontSize: '12px', fontWeight: '700', color: '#f8fafc', letterSpacing: '0.3px' }}>
-              CivicSense AI Study Area – Pallikaranai–Velachery
-            </span>
-            <span style={{ fontSize: '10px', color: 'var(--accent-blue)', fontWeight: '600', backgroundColor: 'rgba(0, 168, 255, 0.15)', padding: '2px 6px', borderRadius: '4px' }}>
-              2–5 km² Wetland Basin
+              CivicSense AI Study Area – {currentStudyArea.name} ({currentStudyArea.region})
             </span>
           </div>
         )}
@@ -463,54 +491,6 @@ export default function GISMapExplorer({
             </div>
           </div>
         </div>
-
-        {/* Selected Risk Zone Quick Summary Card */}
-        {selectedZone && isFocusedOnStudy && (
-          <div className="glass-card" style={{
-            position: 'absolute',
-            bottom: '24px',
-            left: '24px',
-            zIndex: 1000,
-            width: '320px',
-            backgroundColor: 'var(--bg-card-solid)',
-            border: `1px solid ${selectedZone.color}`,
-            borderRadius: '12px',
-            padding: '16px',
-            boxShadow: 'var(--shadow-lg)'
-          }}>
-            <div className="flex-between" style={{ marginBottom: '8px' }}>
-              <span style={{ fontSize: '11px', fontWeight: '800', color: selectedZone.color, textTransform: 'uppercase' }}>
-                {selectedZone.layer} Layer Active
-              </span>
-              <span style={{ backgroundColor: selectedZone.color, color: '#fff', fontSize: '10px', fontWeight: '800', padding: '2px 8px', borderRadius: '99px' }}>
-                {selectedZone.riskLevel} ({selectedZone.riskScore}/100)
-              </span>
-            </div>
-
-            <h4 style={{ fontSize: '14px', fontWeight: '700', marginBottom: '4px' }}>{selectedZone.name}</h4>
-            <p style={{ fontSize: '11px', color: 'var(--text-secondary)', lineHeight: '1.4', marginBottom: '10px' }}>
-              {selectedZone.detectedChange}
-            </p>
-
-            <div style={{ fontSize: '11px', color: 'var(--text-muted)', marginBottom: '12px' }}>
-              Dept: <strong style={{ color: 'var(--accent-purple)' }}>{selectedZone.responsibleDept}</strong>
-            </div>
-
-            <button
-              className="btn btn-primary"
-              style={{ 
-                width: '100%', 
-                padding: '8px', 
-                fontSize: '12px', 
-                background: `linear-gradient(135deg, ${selectedZone.color}, #be123c)`,
-                border: 'none'
-              }}
-              onClick={() => onSendAlertClick && onSendAlertClick(selectedZone)}
-            >
-              🚨 Send Department Alert
-            </button>
-          </div>
-        )}
 
       </div>
     </div>

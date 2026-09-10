@@ -9,27 +9,23 @@ import {
   Mountain, 
   History, 
   Globe, 
-  Sparkles,
-  ShieldAlert,
-  Flame,
-  Droplets,
-  Trees
+  Sparkles
 } from 'lucide-react';
-import { INITIAL_AI_RISK_ENGINE_SCORES } from '../data/mockData';
+import { INITIAL_AI_RISK_ENGINE_SCORES } from '../data/mockData.js';
 
-export default function AIRiskEngine({ onAnalysisComplete }) {
+export default function AIRiskEngine({ currentStudyArea, onAnalysisComplete }) {
   const [riskScores, setRiskScores] = useState(INITIAL_AI_RISK_ENGINE_SCORES);
   const [isProcessing, setIsProcessing] = useState(false);
   const [currentStep, setCurrentStep] = useState(0);
   const [lastUpdated, setLastUpdated] = useState(new Date().toLocaleTimeString());
 
   const processingSteps = [
-    "Ingesting Sentinel-2 Multispectral & Sentinel-1 SAR Radar imagery...",
-    "Querying IMD precipitation telemetry (184mm 24h accumulation)...",
-    "Fusing SRTM Digital Elevation Model (2.1m ASL low-lying basin)...",
-    "Loading 10-year historical flood recurrence raster matrix...",
-    "Running multi-modal AI risk inference engine (Random Forest + CNN)...",
-    "AI Risk Evaluation Complete!"
+    "Ingesting Sentinel-2 L2A STAC imagery (Microsoft Planetary Computer)...",
+    "Streaming Open-Meteo precipitation & weather telemetry...",
+    "Querying Open-Elevation / Copernicus DEM surface terrain model...",
+    "Loading historical flood reference archives (IMD / TNSDMA)...",
+    "Executing multi-modal data fusion pipeline...",
+    "Phase 3 Multi-Modal Input Ingestion Complete!"
   ];
 
   const handleRunAnalysis = () => {
@@ -45,13 +41,8 @@ export default function AIRiskEngine({ onAnalysisComplete }) {
         clearInterval(interval);
         setIsProcessing(false);
 
-        // Simulate newly calculated dynamic AI risk values
-        const updated = riskScores.map(item => {
-          let delta = Math.floor(Math.random() * 5) - 2;
-          let newScore = Math.min(98, Math.max(20, item.score + delta));
-          let newLevel = newScore > 75 ? 'HIGH' : newScore > 40 ? 'MODERATE' : 'LOW';
-          return { ...item, score: newScore, level: newLevel };
-        });
+        // Freeze demonstration scores (Phase 4 will calculate live AI risk score)
+        const updated = riskScores.map(item => ({ ...item }));
 
         setRiskScores(updated);
         const newTime = new Date().toLocaleTimeString();
@@ -89,7 +80,7 @@ export default function AIRiskEngine({ onAnalysisComplete }) {
             </h3>
           </div>
           <p style={{ fontSize: '12px', color: 'var(--text-secondary)', marginTop: '2px' }}>
-            Real-time multi-modal spatial risk calculation for <strong>Pallikaranai–Velachery</strong>
+            Multi-modal spatial risk preview for <strong>{currentStudyArea?.name || 'Selected Area'}</strong> <span style={{ opacity: 0.8, fontSize: '10px', marginLeft: '6px', color: '#facc15' }}>(DEMONSTRATION SCORES - Phase 4 AI Engine)</span>
           </p>
         </div>
 
@@ -114,12 +105,12 @@ export default function AIRiskEngine({ onAnalysisComplete }) {
           {isProcessing ? (
             <>
               <RotateCw size={15} style={{ animation: 'spin 1s linear infinite' }} />
-              Processing AI Engine...
+              Ingesting Data Vectors...
             </>
           ) : (
             <>
               <Play size={15} />
-              Run AI Risk Analysis
+              Run Data Ingestion
             </>
           )}
         </button>
@@ -142,7 +133,7 @@ export default function AIRiskEngine({ onAnalysisComplete }) {
         }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: '8px', fontWeight: '700', color: '#fff' }}>
             <Sparkles size={14} style={{ color: 'var(--accent-purple)', animation: 'pulse 1s infinite' }} />
-            AI Multi-Modal Data Fusion Pipeline Execution
+            Phase 3 Environmental Input Ingestion Pipeline
           </div>
           <div style={{ color: '#94a3b8' }}>
             &gt; {processingSteps[currentStep]}
@@ -158,7 +149,7 @@ export default function AIRiskEngine({ onAnalysisComplete }) {
         </div>
       )}
 
-      {/* Primary Risk Scores Display */}
+      {/* Primary Risk Scores Display (Explicitly labeled DEMONSTRATION SCORES) */}
       <div className="grid-2" style={{ gap: '16px', marginBottom: 0 }}>
         {riskScores.map(risk => {
           const style = getScoreBadgeColor(risk.level);
@@ -197,7 +188,7 @@ export default function AIRiskEngine({ onAnalysisComplete }) {
                   padding: '2px 8px',
                   borderRadius: '99px'
                 }}>
-                  {risk.level}
+                  DEMO: {risk.level}
                 </span>
               </div>
             </div>
@@ -213,34 +204,34 @@ export default function AIRiskEngine({ onAnalysisComplete }) {
         padding: '16px'
       }}>
         <div style={{ fontSize: '12px', fontWeight: '700', textTransform: 'uppercase', letterSpacing: '0.5px', color: 'var(--accent-blue)', marginBottom: '8px' }}>
-          How the Real System Fuses Data Inputs
+          Phase 3 Environmental Data Ingestion Feeds
         </div>
         <p style={{ fontSize: '12px', color: 'var(--text-secondary)', lineHeight: '1.5', marginBottom: '14px' }}>
-          The CivicSense AI risk calculation fuses five disparate multi-modal data vectors into a unified spatial risk score:
+          Connected multi-modal environmental feeds providing live input vectors for the target study area:
         </p>
 
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(130px, 1fr))', gap: '10px' }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: '6px', fontSize: '11px', color: 'var(--text-primary)', background: 'var(--bg-card-solid)', padding: '8px', borderRadius: '6px', border: '1px solid var(--border-card)' }}>
-            <Globe size={14} style={{ color: '#38bdf8' }} /> Satellite imagery
+            <Globe size={14} style={{ color: '#38bdf8' }} /> STAC Imagery (Planetary Computer)
           </div>
           <div style={{ display: 'flex', alignItems: 'center', gap: '6px', fontSize: '11px', color: 'var(--text-primary)', background: 'var(--bg-card-solid)', padding: '8px', borderRadius: '6px', border: '1px solid var(--border-card)' }}>
-            <CloudRain size={14} style={{ color: '#38bdf8' }} /> Weather data
+            <CloudRain size={14} style={{ color: '#38bdf8' }} /> Weather telemetry (Open-Meteo)
           </div>
           <div style={{ display: 'flex', alignItems: 'center', gap: '6px', fontSize: '11px', color: 'var(--text-primary)', background: 'var(--bg-card-solid)', padding: '8px', borderRadius: '6px', border: '1px solid var(--border-card)' }}>
-            <Mountain size={14} style={{ color: '#c084fc' }} /> Elevation data
+            <Mountain size={14} style={{ color: '#c084fc' }} /> Elevation (Open-Elevation DEM)
           </div>
           <div style={{ display: 'flex', alignItems: 'center', gap: '6px', fontSize: '11px', color: 'var(--text-primary)', background: 'var(--bg-card-solid)', padding: '8px', borderRadius: '6px', border: '1px solid var(--border-card)' }}>
-            <History size={14} style={{ color: '#facc15' }} /> Historical risk
+            <History size={14} style={{ color: '#facc15' }} /> Flood Records (IMD Archives)
           </div>
           <div style={{ display: 'flex', alignItems: 'center', gap: '6px', fontSize: '11px', color: 'var(--text-primary)', background: 'var(--bg-card-solid)', padding: '8px', borderRadius: '6px', border: '1px solid var(--border-card)' }}>
-            <Layers size={14} style={{ color: '#f43f5e' }} /> Geospatial info
+            <Layers size={14} style={{ color: '#f43f5e' }} /> Risk Engine (Phase 4 Target)
           </div>
         </div>
 
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginTop: '14px', paddingTop: '10px', borderTop: '1px solid var(--border-card)', fontSize: '11px', color: 'var(--text-muted)' }}>
-          <span>Last Model Execution: <strong>{lastUpdated}</strong></span>
-          <span style={{ color: 'var(--success)', fontWeight: '600', display: 'flex', alignItems: 'center', gap: '4px' }}>
-            <CheckCircle2 size={13} /> Model Confidence: 94.2%
+          <span>Pipeline Sync: <strong>{lastUpdated}</strong></span>
+          <span style={{ color: '#facc15', fontWeight: '600', display: 'flex', alignItems: 'center', gap: '4px' }}>
+            <CheckCircle2 size={13} /> Model Status: DEMONSTRATION MODE (Phase 4 Pending)
           </span>
         </div>
       </div>

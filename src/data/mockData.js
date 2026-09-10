@@ -8,18 +8,55 @@ export const CHENNAI_CENTER = {
   name: "Chennai Metropolitan Region"
 };
 
-export const STUDY_AREA_CENTER = {
-  lat: 12.94,
-  lng: 80.21,
-  zoom: 14,
-  name: "Pallikaranai–Velachery Study Area",
-  bounds: [
-    [12.982, 80.190],
-    [12.982, 80.250],
-    [12.920, 80.250],
-    [12.920, 80.190]
-  ]
+export const STUDY_AREAS = {
+  pallikaranai_velachery: {
+    id: "pallikaranai_velachery",
+    name: "Pallikaranai–Velachery",
+    region: "Chennai, Tamil Nadu",
+    lat: 12.94,
+    lng: 80.21,
+    zoom: 14,
+    bbox: [80.190, 12.920, 80.250, 12.982],
+    bounds: [
+      [12.982, 80.190],
+      [12.982, 80.250],
+      [12.920, 80.250],
+      [12.920, 80.190]
+    ]
+  },
+  mumbai: {
+    id: "mumbai",
+    name: "Mumbai",
+    region: "Mumbai, Maharashtra",
+    lat: 19.0760,
+    lng: 72.8777,
+    zoom: 14,
+    bbox: [72.8577, 19.0560, 72.9177, 19.1180],
+    bounds: [
+      [19.118, 72.8577],
+      [19.118, 72.9177],
+      [19.056, 72.9177],
+      [19.056, 72.8577]
+    ]
+  },
+  delhi: {
+    id: "delhi",
+    name: "Delhi",
+    region: "Delhi, NCR",
+    lat: 28.6139,
+    lng: 77.2090,
+    zoom: 14,
+    bbox: [77.1700, 28.5700, 77.2500, 28.6500],
+    bounds: [
+      [28.650, 77.1700],
+      [28.650, 77.2500],
+      [28.570, 77.2500],
+      [28.570, 77.1700]
+    ]
+  }
 };
+
+export const STUDY_AREA_CENTER = STUDY_AREAS.pallikaranai_velachery;
 
 // Selectable Risk Zones inside Pallikaranai-Velachery Study Area
 export const PALLIKARANAI_RISK_ZONES = [
@@ -32,10 +69,10 @@ export const PALLIKARANAI_RISK_ZONES = [
     color: "#f43f5e",
     strokeColor: "#e11d48",
     polygon: [
-      [12.968, 80.208],
-      [12.975, 80.228],
-      [12.952, 80.235],
-      [12.946, 80.214]
+      [19.104, 72.8757],
+      [19.111, 72.8957],
+      [19.088, 72.9027],
+      [19.082, 72.8817]
     ],
     detectedChange: "Increased water extent (+27% inundation area)",
     supportingData: "Rainfall (184mm/24h) + low elevation (2.1m ASL) + historical flood pattern + Sentinel-2 water expansion index",
@@ -53,10 +90,10 @@ export const PALLIKARANAI_RISK_ZONES = [
     color: "#ea580c",
     strokeColor: "#c2410c",
     polygon: [
-      [12.975, 80.215],
-      [12.982, 80.225],
-      [12.968, 80.230],
-      [12.962, 80.218]
+      [19.111, 72.8827],
+      [19.118, 72.8927],
+      [19.104, 72.8977],
+      [19.098, 72.8857]
     ],
     detectedChange: "+4.2°C Urban Thermal Heat Island intensity vs surrounding wetlands",
     supportingData: "Landsat-9 Surface Thermal Infrared + dense concrete cover + high traffic friction",
@@ -74,10 +111,10 @@ export const PALLIKARANAI_RISK_ZONES = [
     color: "#0284c7",
     strokeColor: "#0369a1",
     polygon: [
-      [12.955, 80.230],
-      [12.962, 80.245],
-      [12.942, 80.248],
-      [12.938, 80.232]
+      [19.091, 72.8977],
+      [19.098, 72.9127],
+      [19.078, 72.9157],
+      [19.074, 72.8997]
     ],
     detectedChange: "Stormwater flow velocity drop (-38%) due to sediment accumulation",
     supportingData: "Sentinel-1 SAR surface moisture + GCC drain telemetry sensors",
@@ -95,10 +132,10 @@ export const PALLIKARANAI_RISK_ZONES = [
     color: "#eab308",
     strokeColor: "#ca8a04",
     polygon: [
-      [12.938, 80.205],
-      [12.946, 80.220],
-      [12.930, 80.225],
-      [12.925, 80.210]
+      [19.074, 72.8727],
+      [19.082, 72.8877],
+      [19.066, 72.8927],
+      [19.061, 72.8777]
     ],
     detectedChange: "-12% green canopy loss detected over past 12 months",
     supportingData: "NDVI multispectral satellite index (0.64 -> 0.52)",
@@ -116,10 +153,10 @@ export const PALLIKARANAI_RISK_ZONES = [
     color: "#8b5cf6",
     strokeColor: "#6d28d9",
     polygon: [
-      [12.965, 80.195],
-      [12.972, 80.208],
-      [12.955, 80.212],
-      [12.950, 80.198]
+      [19.101, 72.8627],
+      [19.108, 72.8757],
+      [19.091, 72.8797],
+      [19.086, 72.8657]
     ],
     detectedChange: "+8% built-up surface area increase along marshland periphery",
     supportingData: "High-resolution satellite building footprint segmentation (YOLOv8-Geo)",
@@ -138,8 +175,8 @@ export const CHENNAI_HOTSPOTS = [
     title: "Pallikaranai Marshland Water Extent Surge",
     description: "Satellite SAR detected 27% increase in open water extent post-monsoon precipitation, threatening Velachery low-lying sectors.",
     location: {
-      lat: 12.9550,
-      lng: 80.2150,
+      lat: 19.0760,
+      lng: 72.8777,
       address: "Pallikaranai Marshland Wetland Zone, Chennai",
       ward: "Ward 180 - Velachery South"
     },
@@ -251,31 +288,56 @@ export const SATELLITE_COMPARISON_DATA = {
   studyArea: "Pallikaranai–Velachery",
   baselineDate: "15 Oct 2025 (Pre-Monsoon Baseline)",
   recentDate: "08 Sep 2026 (Recent Sentinel-2 Pass)",
-  satelliteSource: "Sentinel-2A & Sentinel-1 SAR (10m Resolution)",
+  satelliteSource: "Sentinel-2A MSI & Sentinel-1 C-SAR Fusion (10m Spatial Resolution)",
+  modeLabel: "Satellite Data: DEMONSTRATION MODE",
+  isLive: false,
+  previousObservation: {
+    date: "15 Oct 2025",
+    platform: "Sentinel-2A MSI L2A",
+    cloudCover: "2.1%",
+    waterExtentKm2: 1.82,
+    ndviIndex: 0.636,
+    builtUpKm2: 4.10,
+    bands: { green: 0.12, red: 0.08, nir: 0.36, swir: 0.18 }
+  },
+  recentObservation: {
+    date: "08 Sep 2026",
+    platform: "Sentinel-2B MSI & Sentinel-1 C-SAR",
+    cloudCover: "4.8%",
+    waterExtentKm2: 2.31,
+    ndviIndex: 0.349,
+    builtUpKm2: 4.43,
+    bands: { green: 0.18, red: 0.14, nir: 0.29, swir: 0.22 }
+  },
   metrics: {
     waterBodyChange: {
       value: "+27%",
+      previous: "1.82 km²",
+      recent: "2.31 km²",
       direction: "up",
       severity: "high",
-      label: "Water-body expansion",
-      detail: "Inundation extent expanded by 1.82 km² into low-lying residential sectors."
+      label: "Water Extent (Inundation)",
+      detail: "Inundation extent expanded by 0.49 km² (+27%) into low-lying sectors."
     },
     vegetationChange: {
-      value: "-12%",
+      value: "-18.8%",
+      previous: "NDVI 0.64",
+      recent: "NDVI 0.52",
       direction: "down",
       severity: "moderate",
-      label: "Vegetation canopy change",
-      detail: "Loss of natural reed beds & mangrove buffer along marshland boundary."
+      label: "Vegetation Canopy (NDVI)",
+      detail: "NDVI canopy reduction from submergence & marshland eco-buffer loss."
     },
     builtUpChange: {
       value: "+8%",
+      previous: "4.10 km²",
+      recent: "4.43 km²",
       direction: "up",
       severity: "moderate",
-      label: "Built-up area change",
-      detail: "Impervious concrete surface increase restricting natural water absorption."
+      label: "Built-up Impervious Area",
+      detail: "Concrete expansion along the Velachery-Medavakkam commercial corridor."
     }
-  },
-  isPrototype: true
+  }
 };
 
 // AI Community Risk Engine Scores
