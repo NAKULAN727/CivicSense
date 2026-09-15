@@ -19,6 +19,7 @@ export default function DashboardView({ theme }) {
   const [selectedZone, setSelectedZone] = useState(null);
   const [lastAnalysisTime, setLastAnalysisTime] = useState(new Date().toLocaleTimeString());
   const [isRefreshing, setIsRefreshing] = useState(false);
+  const [riskAssessment, setRiskAssessment] = useState(null);
   const [activeAlert, setActiveAlert] = useState(null);
   const [waterAnalysisData, setWaterAnalysisData] = useState(null);
 
@@ -151,7 +152,8 @@ export default function DashboardView({ theme }) {
         <AIRiskEngine 
           currentStudyArea={currentStudyArea}
           waterAnalysisData={waterAnalysisData}
-          onAnalysisComplete={(updatedScores, time) => {
+          onAnalysisComplete={(assessment, time) => {
+            setRiskAssessment(assessment);
             setLastAnalysisTime(time);
           }}
         />
@@ -167,7 +169,7 @@ export default function DashboardView({ theme }) {
         {/* Left Column: Automatic Department Alert Panel */}
         <DepartmentAlertPanel 
           currentStudyArea={currentStudyArea}
-          activeAlertData={activeAlert}
+          riskAssessment={riskAssessment}
         />
 
         {/* Right Column: Community Pulse & Recommendation */}
