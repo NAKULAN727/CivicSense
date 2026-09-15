@@ -3,6 +3,7 @@ import GISMapExplorer from './GISMapExplorer';
 import SatelliteAnalysisPanel from './SatelliteAnalysisPanel';
 import AIRiskEngine from './AIRiskEngine';
 import PredictiveRiskPanel from './PredictiveRiskPanel';
+import ActionRecommendationPanel from './ActionRecommendationPanel';
 import EnvironmentalDataPanel from './EnvironmentalDataPanel';
 import DepartmentAlertPanel from './DepartmentAlertPanel';
 import CommunityPulse from './CommunityPulse';
@@ -121,6 +122,8 @@ export default function DashboardView({ theme }) {
           <span style={{ color: 'var(--text-muted)' }}>→</span>
           <span style={{ color: '#c084fc' }}>📈 Predictive 72h Forecast</span>
           <span style={{ color: 'var(--text-muted)' }}>→</span>
+          <span style={{ color: '#10b981' }}>🛡️ Action Recommendation</span>
+          <span style={{ color: 'var(--text-muted)' }}>→</span>
           <span style={{ color: '#fb923c' }}>🏢 Dept Identification</span>
           <span style={{ color: 'var(--text-muted)' }}>→</span>
           <span style={{ color: '#f43f5e' }}>🚨 Alert</span>
@@ -173,7 +176,13 @@ export default function DashboardView({ theme }) {
         riskAssessment={riskAssessment}
       />
 
-      {/* SECTION 5: Two Column Grid - Department Alert Panel & Community Pulse */}
+      {/* SECTION 5: Phase 7 Action Recommendation & Intervention Panel */}
+      <ActionRecommendationPanel 
+        currentStudyArea={currentStudyArea}
+        riskAssessment={riskAssessment}
+      />
+
+      {/* SECTION 6: Two Column Grid - Department Alert Panel & Community Pulse */}
       <div className="grid-2" style={{ gap: '24px', marginBottom: 0 }}>
         {/* Left Column: Automatic Department Alert Panel */}
         <DepartmentAlertPanel 

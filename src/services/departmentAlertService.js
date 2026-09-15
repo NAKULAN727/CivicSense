@@ -163,7 +163,7 @@ export const generateDepartmentAlert = (riskAssessment, studyArea) => {
     shouldGenerateAlert = false;
   }
 
-  const deptMapping = getDepartmentMapping('FLOOD');
+  const deptMapping = getDepartmentMapping('FLOOD', studyArea || riskAssessment?.studyArea || location);
   const alertId = generateAlertId(location, score);
   const evidence = extractEvidenceData(riskAssessment);
   const reason = generateAlertReason(location, score, level, evidence);
