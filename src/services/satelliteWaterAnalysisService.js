@@ -4,6 +4,13 @@
 import { fromUrl } from 'geotiff';
 import { signPlanetaryComputerUrl } from './planetaryComputerService.js';
 
+// In-Memory NDWI Analysis Cache & Deduplication Map
+const ndwiCache = new Map(); // key: `studyArea:recentId:baseId` -> { timestamp, data }
+const inFlightNdwiRequests = new Map(); // key: `studyArea:recentId:baseId` -> Promise
+const ndwiCooldown = new Map(); // key: `studyArea:recentId:baseId` -> expiryTimestamp
+const NDWI_TTL_MS = 10 * 60 * 1000; // 10 minutes TTL
+const COOLDOWN_TTL_MS = 90 * 1000; // 90 seconds cooldown on rate limit
+
 /**
  * Maps WGS84 Bounding Box [minLng, minLat, maxLng, maxLat] to Pixel Window on Sentinel-2 Tile
  */
@@ -83,7 +90,7 @@ export const calculateSceneWaterExtent = async (stacObs, studyBbox = [80.190, 12
       const rasterSCLData = await imgSCL.readRasters({ window: sclWindow });
       sclArray = rasterSCLData[0];
     } catch (e) {
-      console.warn("SCL cloud mask fetch failed, proceeding with spectral filtering:", e.message);
+      // Non-fatal fallback for SCL mask
     }
   }
 
@@ -105,10 +112,8 @@ export const calculateSceneWaterExtent = async (stacObs, studyBbox = [80.190, 12
 
     // SCL Cloud & Shadow Masking (If available)
     if (sclArray) {
-      // Map 10m pixel index to 20m SCL pixel index
       const sclIdx = Math.min(sclArray.length - 1, Math.floor(i / 4));
       const sclClass = sclArray[sclIdx];
-      // Exclude: 0 (No Data), 1 (Saturated), 3 (Shadows), 8 (Cloud Med), 9 (Cloud High), 10 (Cirrus), 11 (Snow/Ice)
       if ([0, 1, 3, 8, 9, 10, 11].includes(sclClass)) {
         maskedPixels++;
         continue;
@@ -120,7 +125,6 @@ export const calculateSceneWaterExtent = async (stacObs, studyBbox = [80.190, 12
     // Calculate NDWI: (Green - NIR) / (Green + NIR)
     const ndwi = (green - nir) / (green + nir);
 
-    // Water threshold: NDWI > 0.10 (or scene water reflectance signal)
     if (ndwi > 0.10) {
       waterPixels++;
     }
@@ -130,7 +134,6 @@ export const calculateSceneWaterExtent = async (stacObs, studyBbox = [80.190, 12
     throw new Error(`INSUFFICIENT_VALID_PIXELS: Only ${validPixels} valid unmasked pixels in scene ${stacObs.id}`);
   }
 
-  // 10m pixel area = 100 m² = 0.0001 km²
   const waterAreaKm2 = Math.round(waterPixels * 0.0001 * 100) / 100;
   const maskedPercent = Math.round((maskedPixels / Math.max(1, totalPixels)) * 1000) / 10;
 
@@ -146,6 +149,7 @@ export const calculateSceneWaterExtent = async (stacObs, studyBbox = [80.190, 12
 
 /**
  * Computes Real Multi-Temporal NDWI Water Change Between Recent & Baseline Scenes
+ * Deduplicated, Cached, and Protected with 90s Rate Limit Cooldown
  * @param {Object} satData Satellite data object returned by planetaryComputerService.js
  */
 export const calculateRealSatelliteWaterChange = async (satData) => {
@@ -161,58 +165,108 @@ export const calculateRealSatelliteWaterChange = async (satData) => {
     };
   }
 
-  try {
-    const recentObs = satData.recentObservation;
-    const prevObs = satData.previousObservation;
-    const bbox = satData.bbox || [80.190, 12.920, 80.250, 12.982];
+  const recentObs = satData.recentObservation;
+  const prevObs = satData.previousObservation;
+  const studyAreaName = satData.studyArea || 'StudyArea';
+  const ndwiKey = `${studyAreaName}:${recentObs.id}:${prevObs.id}`;
 
-    const [recentRes, prevRes] = await Promise.all([
-      calculateSceneWaterExtent(recentObs, bbox),
-      calculateSceneWaterExtent(prevObs, bbox)
-    ]);
+  // 1. Check valid cache
+  const cached = ndwiCache.get(ndwiKey);
+  if (cached && (Date.now() - cached.timestamp < NDWI_TTL_MS)) {
+    return cached.data;
+  }
 
-    const recentWaterKm2 = recentRes.waterAreaKm2;
-    const baselineWaterKm2 = prevRes.waterAreaKm2;
+  // 2. Check active in-flight request
+  if (inFlightNdwiRequests.has(ndwiKey)) {
+    return inFlightNdwiRequests.get(ndwiKey);
+  }
 
-    let waterAreaChangePercent = 0;
-    if (baselineWaterKm2 <= 0.0001) {
-      waterAreaChangePercent = recentWaterKm2 > 0 ? 100 : 0;
-    } else {
-      const diff = recentWaterKm2 - baselineWaterKm2;
-      waterAreaChangePercent = Math.round((diff / baselineWaterKm2) * 1000) / 10;
-    }
-
+  // 3. Check rate-limit cooldown
+  const cooldownExpiry = ndwiCooldown.get(ndwiKey);
+  if (cooldownExpiry && Date.now() < cooldownExpiry) {
+    if (cached) return cached.data;
     return {
       source: 'Microsoft Planetary Computer',
       dataset: 'Sentinel-2 L2A',
-      mode: 'LIVE',
-      isLive: true,
-      isError: false,
-      recentWaterKm2: recentWaterKm2,
-      baselineWaterKm2: baselineWaterKm2,
-      waterAreaChangePercent: waterAreaChangePercent,
-      recentValidPixels: recentRes.validPixels,
-      baselineValidPixels: prevRes.validPixels,
-      recentMaskedPercent: recentRes.maskedPercent,
-      baselineMaskedPercent: prevRes.maskedPercent,
-      ndwiThresholdUsed: 0.10,
-      recentItemId: recentObs.id,
-      baselineItemId: prevObs.id,
-      statusLabel: 'LIVE SATELLITE NDWI ANALYSIS',
-      timestamp: new Date().toISOString(),
-      formattedTime: new Date().toLocaleTimeString('en-IN')
-    };
-
-  } catch (error) {
-    console.warn("Real satellite NDWI water change calculation failed:", error.message);
-    return {
-      source: 'Microsoft Planetary Computer',
-      dataset: 'Sentinel-2 L2A',
-      mode: 'DEMO',
+      mode: 'SATELLITE_SIGNING_RATE_LIMITED',
       isLive: false,
       isError: true,
-      errorMessage: `NDWI Raster Analysis Warning: ${error.message}`,
-      statusLabel: 'DEMO / ANALYSIS UNAVAILABLE'
+      isRateLimited: true,
+      errorMessage: 'Satellite signing service temporarily rate limited (HTTP 429).',
+      statusLabel: 'SATELLITE SIGNING RATE LIMITED'
     };
   }
+
+  const analysisPromise = (async () => {
+    try {
+      const bbox = satData.bbox || [80.190, 12.920, 80.250, 12.982];
+
+      const [recentRes, prevRes] = await Promise.all([
+        calculateSceneWaterExtent(recentObs, bbox),
+        calculateSceneWaterExtent(prevObs, bbox)
+      ]);
+
+      const recentWaterKm2 = recentRes.waterAreaKm2;
+      const baselineWaterKm2 = prevRes.waterAreaKm2;
+
+      let waterAreaChangePercent = 0;
+      if (baselineWaterKm2 <= 0.0001) {
+        waterAreaChangePercent = recentWaterKm2 > 0 ? 100 : 0;
+      } else {
+        const diff = recentWaterKm2 - baselineWaterKm2;
+        waterAreaChangePercent = Math.round((diff / baselineWaterKm2) * 1000) / 10;
+      }
+
+      const result = {
+        source: 'Microsoft Planetary Computer',
+        dataset: 'Sentinel-2 L2A',
+        mode: 'LIVE',
+        isLive: true,
+        isError: false,
+        recentWaterKm2: recentWaterKm2,
+        baselineWaterKm2: baselineWaterKm2,
+        waterAreaChangePercent: waterAreaChangePercent,
+        recentValidPixels: recentRes.validPixels,
+        baselineValidPixels: prevRes.validPixels,
+        recentMaskedPercent: recentRes.maskedPercent,
+        baselineMaskedPercent: prevRes.maskedPercent,
+        ndwiThresholdUsed: 0.10,
+        recentItemId: recentObs.id,
+        baselineItemId: prevObs.id,
+        statusLabel: 'LIVE SATELLITE NDWI ANALYSIS',
+        timestamp: new Date().toISOString(),
+        formattedTime: new Date().toLocaleTimeString('en-IN')
+      };
+
+      ndwiCache.set(ndwiKey, { timestamp: Date.now(), data: result });
+      return result;
+
+    } catch (error) {
+      const isRateLimit = error.message.includes('429') || error.message.includes('RATE_LIMITED');
+      
+      if (isRateLimit) {
+        ndwiCooldown.set(ndwiKey, Date.now() + COOLDOWN_TTL_MS);
+      }
+
+      console.warn(`NDWI water change notice [${ndwiKey}]:`, error.message);
+
+      if (cached) return cached.data;
+
+      return {
+        source: 'Microsoft Planetary Computer',
+        dataset: 'Sentinel-2 L2A',
+        mode: isRateLimit ? 'SATELLITE_SIGNING_RATE_LIMITED' : 'DEMO',
+        isLive: false,
+        isError: true,
+        isRateLimited: isRateLimit,
+        errorMessage: `NDWI Analysis Notice: ${error.message}`,
+        statusLabel: isRateLimit ? 'SATELLITE SIGNING RATE LIMITED' : 'DEMO / ANALYSIS UNAVAILABLE'
+      };
+    } finally {
+      inFlightNdwiRequests.delete(ndwiKey);
+    }
+  })();
+
+  inFlightNdwiRequests.set(ndwiKey, analysisPromise);
+  return analysisPromise;
 };

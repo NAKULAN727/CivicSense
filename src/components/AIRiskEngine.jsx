@@ -34,44 +34,52 @@ export default function AIRiskEngine({ currentStudyArea, waterAnalysisData, onAn
     "AI-Assisted Flood Risk Index Calculation Complete!"
   ];
 
-  const runRiskEvaluation = async () => {
-    setIsLoading(true);
-    try {
-      const [weather, elevation, historical, satellite] = await Promise.all([
-        fetchWeatherData(currentStudyArea),
-        fetchElevationData(currentStudyArea),
-        getHistoricalFloodData(currentStudyArea),
-        fetchPlanetaryComputerSatelliteData(currentStudyArea)
-      ]);
-
-      let satWaterData = waterAnalysisData;
-      if (!satWaterData && satellite && satellite.isLive) {
-        satWaterData = await calculateRealSatelliteWaterChange(satellite);
-      }
-
-      const assessment = calculateFloodRiskIndex({
-        weather,
-        elevation,
-        historical,
-        satelliteWater: satWaterData,
-        studyArea: currentStudyArea
-      });
-
-      setRiskAssessment(assessment);
-
-      if (onAnalysisComplete) {
-        onAnalysisComplete(assessment, assessment.formattedTime);
-      }
-    } catch (error) {
-      console.warn("Flood risk calculation error:", error);
-    } finally {
-      setIsLoading(false);
-    }
-  };
-
   useEffect(() => {
-    runRiskEvaluation();
-  }, [currentStudyArea, waterAnalysisData]);
+    let isMounted = true;
+
+    const run = async () => {
+      setIsLoading(true);
+      try {
+        const [weather, elevation, historical, satellite] = await Promise.all([
+          fetchWeatherData(currentStudyArea),
+          fetchElevationData(currentStudyArea),
+          getHistoricalFloodData(currentStudyArea),
+          fetchPlanetaryComputerSatelliteData(currentStudyArea)
+        ]);
+
+        let satWaterData = waterAnalysisData;
+        if (!satWaterData && satellite && satellite.isLive) {
+          satWaterData = await calculateRealSatelliteWaterChange(satellite);
+        }
+
+        if (!isMounted) return;
+
+        const assessment = calculateFloodRiskIndex({
+          weather,
+          elevation,
+          historical,
+          satelliteWater: satWaterData,
+          studyArea: currentStudyArea
+        });
+
+        setRiskAssessment(assessment);
+
+        if (onAnalysisComplete) {
+          onAnalysisComplete(assessment, assessment.formattedTime);
+        }
+      } catch (error) {
+        console.warn("Flood risk calculation error:", error);
+      } finally {
+        if (isMounted) setIsLoading(false);
+      }
+    };
+
+    run();
+
+    return () => {
+      isMounted = false;
+    };
+  }, [currentStudyArea?.name, waterAnalysisData]);
 
   const handleRunAnalysis = async () => {
     setIsProcessing(true);

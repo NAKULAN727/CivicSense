@@ -62,7 +62,7 @@ export default function SatelliteAnalysisPanel({ currentStudyArea, onWaterAnalys
     return () => {
       isMounted = false;
     };
-  }, [currentStudyArea]);
+  }, [currentStudyArea?.name]);
 
   const handleRefresh = async () => {
     setIsLoading(true);

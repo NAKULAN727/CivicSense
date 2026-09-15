@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { 
   CloudRain, 
   Thermometer, 
@@ -22,7 +22,7 @@ export default function EnvironmentalDataPanel({ currentStudyArea }) {
   const [historicalData, setHistoricalData] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
 
-  const loadEnvironmentalData = async () => {
+  const loadEnvironmentalData = useCallback(async (isMountedRef = { current: true }) => {
     setIsLoading(true);
     try {
       const [wData, eData, hData] = await Promise.all([
@@ -30,19 +30,27 @@ export default function EnvironmentalDataPanel({ currentStudyArea }) {
         fetchElevationData(currentStudyArea),
         getHistoricalFloodData(currentStudyArea)
       ]);
-      setWeatherData(wData);
-      setElevationData(eData);
-      setHistoricalData(hData);
+
+      if (isMountedRef.current) {
+        setWeatherData(wData);
+        setElevationData(eData);
+        setHistoricalData(hData);
+      }
     } catch (err) {
       console.warn("Environmental data fetch error:", err);
     } finally {
-      setIsLoading(false);
+      if (isMountedRef.current) setIsLoading(false);
     }
-  };
+  }, [currentStudyArea]);
 
   useEffect(() => {
-    loadEnvironmentalData();
-  }, [currentStudyArea]);
+    const isMountedRef = { current: true };
+    loadEnvironmentalData(isMountedRef);
+
+    return () => {
+      isMountedRef.current = false;
+    };
+  }, [currentStudyArea?.name, loadEnvironmentalData]);
 
   if (isLoading || !weatherData || !elevationData || !historicalData) {
     return (
@@ -52,6 +60,9 @@ export default function EnvironmentalDataPanel({ currentStudyArea }) {
       </div>
     );
   }
+
+  const forecastList = Array.isArray(weatherData?.forecast) ? weatherData.forecast : [];
+  const historicalRecords = Array.isArray(historicalData?.records) ? historicalData.records : [];
 
   return (
     <div className="glass-card" style={{ display: 'flex', flexDirection: 'column', gap: '20px', padding: '24px' }}>
@@ -85,7 +96,7 @@ export default function EnvironmentalDataPanel({ currentStudyArea }) {
 
         <button 
           className="btn btn-secondary"
-          onClick={loadEnvironmentalData}
+          onClick={() => loadEnvironmentalData()}
           style={{ padding: '6px 12px', fontSize: '11px', display: 'flex', alignItems: 'center', gap: '6px' }}
         >
           <RefreshCw size={12} /> Sync Environmental Feeds
@@ -112,21 +123,21 @@ export default function EnvironmentalDataPanel({ currentStudyArea }) {
                 <CloudRain size={16} style={{ color: '#38bdf8' }} /> Real-Time Weather
               </div>
 
-              {/* LIVE/DEMO BADGE */}
+              {/* LIVE/DEMO/RATE-LIMITED BADGE */}
               <span style={{
                 fontSize: '10px',
                 fontWeight: '800',
-                color: weatherData.isLive ? '#10b981' : '#f59e0b',
+                color: weatherData.isLive ? '#10b981' : weatherData.isRateLimited ? '#f59e0b' : '#f59e0b',
                 backgroundColor: weatherData.isLive ? 'rgba(16, 185, 129, 0.15)' : 'rgba(245, 158, 11, 0.15)',
                 border: `1px solid ${weatherData.isLive ? '#10b981' : '#f59e0b'}`,
                 padding: '2px 8px',
                 borderRadius: '99px'
               }}>
-                {weatherData.mode} MODE
+                {weatherData.mode || 'LIVE'} MODE
               </span>
             </div>
 
-            {/* Error Warning if Weather API Failed */}
+            {/* Error / Rate Limit Warning if Weather API Notice */}
             {weatherData.isError && (
               <div style={{ fontSize: '11px', color: '#f87171', backgroundColor: 'rgba(239,68,68,0.1)', padding: '6px 10px', borderRadius: '6px', marginBottom: '10px', display: 'flex', alignItems: 'center', gap: '4px' }}>
                 <AlertTriangle size={12} /> {weatherData.errorMessage}
@@ -139,7 +150,7 @@ export default function EnvironmentalDataPanel({ currentStudyArea }) {
                   <Thermometer size={12} style={{ color: '#f87171' }} /> Temperature
                 </div>
                 <div style={{ fontSize: '20px', fontWeight: '800', color: 'var(--text-primary)', marginTop: '2px' }}>
-                  {weatherData.temperature}{weatherData.tempUnit}
+                  {weatherData.temperature !== undefined ? weatherData.temperature : 'N/A'}{weatherData.tempUnit || '°C'}
                 </div>
               </div>
 
@@ -148,14 +159,14 @@ export default function EnvironmentalDataPanel({ currentStudyArea }) {
                   <Droplets size={12} style={{ color: '#38bdf8' }} /> Humidity
                 </div>
                 <div style={{ fontSize: '20px', fontWeight: '800', color: '#38bdf8', marginTop: '2px' }}>
-                  {weatherData.humidity}{weatherData.humidityUnit}
+                  {weatherData.humidity !== undefined ? weatherData.humidity : 'N/A'}{weatherData.humidityUnit || '%'}
                 </div>
               </div>
             </div>
 
             <div style={{ fontSize: '11px', color: 'var(--text-secondary)', display: 'flex', justifyContent: 'space-between', marginBottom: '10px' }}>
-              <span>Current Rain: <strong>{weatherData.rainfall} {weatherData.rainUnit}</strong></span>
-              <span>Rain Prob: <strong>{weatherData.precipitationProbability}%</strong></span>
+              <span>Current Rain: <strong>{weatherData.rainfall || 0} {weatherData.rainUnit || 'mm'}</strong></span>
+              <span>Rain Prob: <strong>{weatherData.precipitationProbability || 0}%</strong></span>
             </div>
 
             {/* 3-Day Forecast Strip */}
@@ -164,19 +175,23 @@ export default function EnvironmentalDataPanel({ currentStudyArea }) {
                 Precipitation Forecast
               </div>
               <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-                {weatherData.forecast.map((fc, i) => (
-                  <div key={i} style={{ textAlign: 'center' }}>
-                    <div style={{ color: 'var(--text-secondary)', fontWeight: '700' }}>{fc.day}</div>
-                    <div style={{ color: '#38bdf8', fontWeight: '800' }}>{fc.rainMm} mm</div>
-                  </div>
-                ))}
+                {forecastList.length > 0 ? (
+                  forecastList.map((fc, i) => (
+                    <div key={i} style={{ textAlign: 'center' }}>
+                      <div style={{ color: 'var(--text-secondary)', fontWeight: '700' }}>{fc.day}</div>
+                      <div style={{ color: '#38bdf8', fontWeight: '800' }}>{fc.rainMm} mm</div>
+                    </div>
+                  ))
+                ) : (
+                  <div style={{ color: 'var(--text-muted)', fontSize: '10px' }}>Forecast unavailable</div>
+                )}
               </div>
             </div>
           </div>
 
           <div style={{ fontSize: '10px', color: 'var(--text-muted)', borderTop: '1px dashed var(--border-card)', paddingTop: '8px', display: 'flex', justifyContent: 'space-between' }}>
-            <span>Source: <strong>{weatherData.source}</strong></span>
-            <span>Updated: {weatherData.formattedTime}</span>
+            <span>Source: <strong>{weatherData.source || 'Open-Meteo'}</strong></span>
+            <span>Updated: {weatherData.formattedTime || 'N/A'}</span>
           </div>
         </div>
 
@@ -207,7 +222,7 @@ export default function EnvironmentalDataPanel({ currentStudyArea }) {
                 padding: '2px 8px',
                 borderRadius: '99px'
               }}>
-                {elevationData.mode} MODE
+                {elevationData.mode || 'LIVE'} MODE
               </span>
             </div>
 
@@ -223,10 +238,10 @@ export default function EnvironmentalDataPanel({ currentStudyArea }) {
                 Mean Surface Elevation
               </div>
               <div style={{ fontSize: '28px', fontWeight: '800', color: '#c084fc', fontFamily: 'var(--font-header)', margin: '4px 0' }}>
-                {elevationData.elevation} {elevationData.unit}
+                {elevationData.elevation !== undefined ? elevationData.elevation : 'N/A'} {elevationData.unit || 'm ASL'}
               </div>
               <div style={{ fontSize: '10px', color: 'var(--text-secondary)', fontFamily: 'monospace' }}>
-                Coordinates: [{elevationData.latitude}, {elevationData.longitude}]
+                Coordinates: [{elevationData.latitude || currentStudyArea?.lat}, {elevationData.longitude || currentStudyArea?.lng}]
               </div>
             </div>
 
@@ -236,7 +251,7 @@ export default function EnvironmentalDataPanel({ currentStudyArea }) {
           </div>
 
           <div style={{ fontSize: '10px', color: 'var(--text-muted)', borderTop: '1px dashed var(--border-card)', paddingTop: '8px', display: 'flex', justifyContent: 'space-between' }}>
-            <span>Source: <strong>{elevationData.source}</strong></span>
+            <span>Source: <strong>{elevationData.source || 'Open-Elevation'}</strong></span>
             <span>Live DEM Query</span>
           </div>
         </div>
@@ -273,7 +288,7 @@ export default function EnvironmentalDataPanel({ currentStudyArea }) {
             </div>
 
             <div style={{ display: 'flex', flexDirection: 'column', gap: '8px', maxHeight: '180px', overflowY: 'auto', paddingRight: '4px' }}>
-              {historicalData.records.map((rec) => (
+              {historicalRecords.map((rec) => (
                 <div key={rec.id} style={{ backgroundColor: 'rgba(255,255,255,0.03)', padding: '10px', borderRadius: '8px', border: '1px solid var(--border-card)', fontSize: '11px' }}>
                   <div style={{ display: 'flex', justifyContent: 'space-between', fontWeight: '700', color: '#facc15' }}>
                     <span>{rec.eventName}</span>
@@ -291,7 +306,7 @@ export default function EnvironmentalDataPanel({ currentStudyArea }) {
           </div>
 
           <div style={{ fontSize: '10px', color: 'var(--text-muted)', borderTop: '1px dashed var(--border-card)', paddingTop: '8px', display: 'flex', justifyContent: 'space-between' }}>
-            <span>Source: <strong>{historicalData.source}</strong></span>
+            <span>Source: <strong>{historicalData.source || 'Official Archives'}</strong></span>
             <span>Official Archives</span>
           </div>
         </div>
