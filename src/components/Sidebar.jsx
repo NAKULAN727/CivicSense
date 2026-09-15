@@ -6,12 +6,14 @@ import {
   TrendingUp, 
   ClipboardList, 
   FileSpreadsheet,
-  Activity
+  Activity,
+  HeartPulse
 } from 'lucide-react';
 
 export default function Sidebar({ activeTab, setActiveTab }) {
   const menuItems = [
     { id: 'dashboard', label: 'Executive Dashboard', icon: LayoutDashboard },
+    { id: 'civichealth', label: 'Civic Health', icon: HeartPulse },
     { id: 'detection', label: 'AI Detection Hub', icon: Eye },
     { id: 'map', label: 'Smart City GIS Map', icon: Map },
     { id: 'predictor', label: 'Predictive Analytics', icon: TrendingUp },

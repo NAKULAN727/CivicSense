@@ -2,12 +2,13 @@ import React, { useState, useEffect } from 'react';
 import Sidebar from './components/Sidebar';
 import Header from './components/Header';
 import DashboardView from './components/DashboardView';
+import CivicHealthPanel from './components/CivicHealthPanel';
 import AIDetectionHub from './components/AIDetectionHub';
 import GISMapExplorer from './components/GISMapExplorer';
 import PredictorDashboard from './components/PredictorDashboard';
 import MaintenancePlanner from './components/MaintenancePlanner';
 import ReportGenerator from './components/ReportGenerator';
-import { MOCK_NOTIFICATIONS, CHENNAI_HOTSPOTS } from './data/mockData';
+import { MOCK_NOTIFICATIONS, CHENNAI_HOTSPOTS, STUDY_AREAS } from './data/mockData';
 import './App.css';
 
 export default function App() {
@@ -16,6 +17,7 @@ export default function App() {
   const [activeTab, setActiveTab] = useState('dashboard');
   const [notifications, setNotifications] = useState(MOCK_NOTIFICATIONS);
   const [selectedZone, setSelectedZone] = useState(null);
+  const [currentStudyArea, setCurrentStudyArea] = useState(STUDY_AREAS.pallikaranai_velachery);
 
   // Initialize theme attribute on load
   useEffect(() => {
@@ -52,6 +54,15 @@ export default function App() {
           {activeTab === 'dashboard' && (
             <DashboardView 
               theme={theme}
+              currentStudyArea={currentStudyArea}
+              setCurrentStudyArea={setCurrentStudyArea}
+            />
+          )}
+
+          {activeTab === 'civichealth' && (
+            <CivicHealthPanel 
+              currentStudyArea={currentStudyArea}
+              setCurrentStudyArea={setCurrentStudyArea}
             />
           )}
           

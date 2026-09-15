@@ -15,9 +15,15 @@ import {
 } from 'lucide-react';
 import { STUDY_AREAS } from '../data/mockData';
 
-export default function DashboardView({ theme }) {
+export default function DashboardView({ 
+  theme, 
+  currentStudyArea: propCurrentStudyArea, 
+  setCurrentStudyArea: propSetCurrentStudyArea 
+}) {
   // Central Study Area State (Default: Pallikaranai–Velachery)
-  const [currentStudyArea, setCurrentStudyArea] = useState(STUDY_AREAS.pallikaranai_velachery);
+  const [localStudyArea, setLocalStudyArea] = useState(STUDY_AREAS.pallikaranai_velachery);
+  const currentStudyArea = propCurrentStudyArea || localStudyArea;
+  const setCurrentStudyArea = propSetCurrentStudyArea || setLocalStudyArea;
   const [selectedZone, setSelectedZone] = useState(null);
   const [lastAnalysisTime, setLastAnalysisTime] = useState(new Date().toLocaleTimeString());
   const [isRefreshing, setIsRefreshing] = useState(false);
