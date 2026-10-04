@@ -1,0 +1,238 @@
+{
+  "scenarios_tested": 8,
+  "model": "public/models/flood-water-segmentation.onnx",
+  "results": [
+    {
+      "scenario_id": "1",
+      "name": "1254x1254 Flooded City",
+      "resolution": "1254x1254",
+      "expected": "FLOOD",
+      "flood_pixels": 3129,
+      "total_pixels": 16384,
+      "flooded_percent": 19.1,
+      "flood_detected": true,
+      "water_logit_stats": {
+        "min": 0.3712,
+        "max": 4.6897,
+        "mean": 2.8612,
+        "std": 0.6195
+      },
+      "dominant_class": 9,
+      "class_distribution": {
+        "0": 0,
+        "1": 0,
+        "2": 228,
+        "3": 0,
+        "4": 2128,
+        "5": 3129,
+        "6": 80,
+        "7": 106,
+        "8": 0,
+        "9": 10713
+      }
+    },
+    {
+      "scenario_id": "2",
+      "name": "250x188 Flooded Image",
+      "resolution": "250x188",
+      "expected": "FLOOD",
+      "flood_pixels": 70,
+      "total_pixels": 16384,
+      "flooded_percent": 0.43,
+      "flood_detected": false,
+      "water_logit_stats": {
+        "min": -0.7176,
+        "max": 3.0463,
+        "mean": 2.0201,
+        "std": 0.5844
+      },
+      "dominant_class": 9,
+      "class_distribution": {
+        "0": 0,
+        "1": 0,
+        "2": 7,
+        "3": 0,
+        "4": 4804,
+        "5": 70,
+        "6": 62,
+        "7": 116,
+        "8": 0,
+        "9": 11325
+      }
+    },
+    {
+      "scenario_id": "3",
+      "name": "Clear Flooded Street",
+      "resolution": "1024x1024",
+      "expected": "FLOOD",
+      "flood_pixels": 3136,
+      "total_pixels": 16384,
+      "flooded_percent": 19.14,
+      "flood_detected": true,
+      "water_logit_stats": {
+        "min": 0.3874,
+        "max": 4.6756,
+        "mean": 2.8497,
+        "std": 0.6157
+      },
+      "dominant_class": 9,
+      "class_distribution": {
+        "0": 0,
+        "1": 0,
+        "2": 199,
+        "3": 0,
+        "4": 2102,
+        "5": 3136,
+        "6": 83,
+        "7": 101,
+        "8": 0,
+        "9": 10763
+      }
+    },
+    {
+      "scenario_id": "4",
+      "name": "Waterlogged Road",
+      "resolution": "600x600",
+      "expected": "FLOOD",
+      "flood_pixels": 4635,
+      "total_pixels": 16384,
+      "flooded_percent": 28.29,
+      "flood_detected": true,
+      "water_logit_stats": {
+        "min": -0.1299,
+        "max": 4.3105,
+        "mean": 2.6387,
+        "std": 0.8632
+      },
+      "dominant_class": 9,
+      "class_distribution": {
+        "0": 0,
+        "1": 0,
+        "2": 1330,
+        "3": 0,
+        "4": 1206,
+        "5": 4635,
+        "6": 1521,
+        "7": 204,
+        "8": 0,
+        "9": 7488
+      }
+    },
+    {
+      "scenario_id": "5",
+      "name": "Normal Dry Road",
+      "resolution": "1024x1024",
+      "expected": "DRY",
+      "flood_pixels": 0,
+      "total_pixels": 16384,
+      "flooded_percent": 0.0,
+      "flood_detected": false,
+      "water_logit_stats": {
+        "min": -3.9266,
+        "max": 0.8368,
+        "mean": -1.4576,
+        "std": 1.0433
+      },
+      "dominant_class": 4,
+      "class_distribution": {
+        "0": 0,
+        "1": 0,
+        "2": 0,
+        "3": 0,
+        "4": 12597,
+        "5": 0,
+        "6": 1433,
+        "7": 434,
+        "8": 0,
+        "9": 1920
+      }
+    },
+    {
+      "scenario_id": "6",
+      "name": "Normal City Street",
+      "resolution": "800x600",
+      "expected": "DRY",
+      "flood_pixels": 16384,
+      "total_pixels": 16384,
+      "flooded_percent": 100.0,
+      "flood_detected": true,
+      "water_logit_stats": {
+        "min": 6.1401,
+        "max": 7.1909,
+        "mean": 6.6365,
+        "std": 0.0548
+      },
+      "dominant_class": 5,
+      "class_distribution": {
+        "0": 0,
+        "1": 0,
+        "2": 0,
+        "3": 0,
+        "4": 0,
+        "5": 16384,
+        "6": 0,
+        "7": 0,
+        "8": 0,
+        "9": 0
+      }
+    },
+    {
+      "scenario_id": "7",
+      "name": "Building Structure",
+      "resolution": "700x700",
+      "expected": "DRY",
+      "flood_pixels": 16384,
+      "total_pixels": 16384,
+      "flooded_percent": 100.0,
+      "flood_detected": true,
+      "water_logit_stats": {
+        "min": 6.3637,
+        "max": 7.3016,
+        "mean": 6.7387,
+        "std": 0.0553
+      },
+      "dominant_class": 5,
+      "class_distribution": {
+        "0": 0,
+        "1": 0,
+        "2": 0,
+        "3": 0,
+        "4": 0,
+        "5": 16384,
+        "6": 0,
+        "7": 0,
+        "8": 0,
+        "9": 0
+      }
+    },
+    {
+      "scenario_id": "8",
+      "name": "Solid Waste Accumulation",
+      "resolution": "1024x1024",
+      "expected": "WASTE",
+      "flood_pixels": 0,
+      "total_pixels": 16384,
+      "flooded_percent": 0.0,
+      "flood_detected": false,
+      "water_logit_stats": {
+        "min": -5.379,
+        "max": -1.5068,
+        "mean": -3.6862,
+        "std": 0.5529
+      },
+      "dominant_class": 9,
+      "class_distribution": {
+        "0": 0,
+        "1": 0,
+        "2": 0,
+        "3": 0,
+        "4": 1085,
+        "5": 0,
+        "6": 0,
+        "7": 0,
+        "8": 0,
+        "9": 15299
+      }
+    }
+  ]
+}

@@ -22,3 +22,33 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+env/
+venv/
+.venv/
+
+# Large Model Checkpoints, Weights & Scratch Artifacts
+*.pt
+*.pth
+*.onnx.data
+*.bin
+*.crdownload
+*.zip
+*.tar
+*.tar.gz
+scratch/**/*.pt
+scratch/**/*.pth
+scratch/**/*.onnx
+scratch/**/*.onnx.data
+scratch/**/*.bin
+scratch/**/*.zip
+scratch/**/*.tar*
+scratch/**/*.crdownload
+scratch/**/*.png
+scratch/vfloodnet_overlays/

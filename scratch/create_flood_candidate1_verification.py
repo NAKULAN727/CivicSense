@@ -1,0 +1,129 @@
+import json
+import csv
+
+json_path = r"e:\CivicSenseAI\scratch\flood_yolov8seg_benchmark.json"
+csv_path = r"e:\CivicSenseAI\scratch\flood_yolov8seg_benchmark.csv"
+
+verification_data = {
+    "candidate_benchmark_metadata": {
+        "candidate_id": "candidate_1_yolov8_seg_waterlogging",
+        "candidate_name": "YOLOv8-Seg Waterlogging Instance Segmentation Model",
+        "intended_architecture": "YOLOv8n-seg / YOLOv8s-seg",
+        "target_task": "Instance segmentation of street-level waterlogging and road flooding",
+        "investigated_sources": [
+            {
+                "name": "Waterlogging Instance Segmentation Dataset",
+                "source_url": "https://universe.roboflow.com/henrys-workspace-ds68i/waterlogging-1hcfe",
+                "platform": "Roboflow Universe",
+                "classes": ["waterlogging", "0", "object"],
+                "weights_downloadable": False,
+                "access_model": "Serverless API / Cloud Hosted Only (Requires Private API Key; Weight files gated)",
+                "verification_result": "FAILED - HTTP 403 / No public .pt or .onnx weights file accessible"
+            },
+            {
+                "name": "Flood AI Object Detection",
+                "source_url": "https://universe.roboflow.com/jhonattan-fredy-moreno-bernal/flood-ai",
+                "platform": "Roboflow Universe",
+                "classes": ["Flooded road", "Flooded area"],
+                "weights_downloadable": False,
+                "access_model": "Cloud Hosted / Dataset only (Weight files gated)",
+                "verification_result": "FAILED - HTTP 403 / No public .pt or .onnx weights file accessible"
+            },
+            {
+                "name": "HuggingFace Hub Query (filter=ultralytics/yolo, search=flood/waterlogging)",
+                "source_url": "https://huggingface.co/models?pipeline_tag=image-segmentation&search=flood",
+                "platform": "HuggingFace Hub",
+                "classes": [],
+                "weights_downloadable": False,
+                "access_model": "Open Hub",
+                "verification_result": "0 matching YOLOv8-seg flood models found on HuggingFace Hub"
+            }
+        ],
+        "candidate_status": "WEIGHTS NOT VERIFIED",
+        "verification_summary": "CANDIDATE 1 WEIGHTS NOT VERIFIED. Roboflow Universe projects do not provide public direct download links for trained model weight files (.pt or .onnx). Weight exports are restricted to paid workspace owners, and hosted inference is serverless API only. No independently verified public YOLOv8-seg flood checkpoint exists without training from raw data or using paid cloud APIs.",
+        "stop_condition_triggered": True,
+        "stop_condition_rationale": "Explicit user constraint: If the exact trained weights cannot be obtained, report: CANDIDATE 1 WEIGHTS NOT VERIFIED and STOP this phase. Do NOT invent a model checkpoint. Do NOT create a dummy model. Do NOT use random/untrained weights.",
+        "final_recommendation": "NOT VERIFIED"
+    },
+    "phase_verification_matrix": {
+        "phase_1_model_verification": "STOPPED - Checkpoint weights unavailable for direct local download",
+        "phase_2_license_verification": "Roboflow Community / CC BY 4.0 for dataset; Model weights proprietary/gated by Roboflow platform tier",
+        "phase_3_onnx_conversion": "SKIPPED - No authentic weights available to export",
+        "phase_4_real_image_benchmark": "STOPPED - Fabricating benchmark without verified weights is strictly prohibited",
+        "phase_5_flood_decision_rule": "Documented: water_area_percentage < 5.0% = NO SIGNIFICANT FLOOD; 5.0%-20.0% = POSSIBLE FLOOD; > 20.0% = SIGNIFICANT FLOOD",
+        "phase_6_cross_category_audit": "Pending verified candidate model acquisition",
+        "phase_7_production_comparison": "Production CVPR FloodNet SegFormer remains 100% active and untouched",
+        "phase_8_production_preservation": "CONFIRMED: public/models/flood-water-segmentation.onnx preserved"
+    },
+    "production_comparison_summary": {
+        "production_model": {
+            "name": "CVPR FloodNet SegFormer Water Segmenter",
+            "file": "public/models/flood-water-segmentation.onnx",
+            "status": "ACTIVE PRODUCTION (PRESERVED)",
+            "flood_detection_rate": "4 / 14 (28.57% at 5% threshold; 14/14 raw screening)",
+            "non_flood_pothole_detections": "0 / 12 (0.0% false positives)",
+            "non_flood_garbage_detections": "0 / 12 (0.0% false positives)"
+        },
+        "candidate_model": {
+            "name": "YOLOv8-Seg Waterlogging Instance Segmenter",
+            "file": "scratch/flood_waterlogging_yolov8seg.onnx",
+            "status": "WEIGHTS NOT VERIFIED",
+            "flood_detection_rate": "NOT TESTED (WEIGHTS NOT VERIFIED)",
+            "non_flood_pothole_detections": "NOT TESTED (WEIGHTS NOT VERIFIED)",
+            "non_flood_garbage_detections": "NOT TESTED (WEIGHTS NOT VERIFIED)",
+            "recommendation": "NOT VERIFIED"
+        }
+    },
+    "per_image_benchmark_status": [
+        {
+            "category": "Flood",
+            "total_images": 14,
+            "production_detected": 4,
+            "candidate_status": "WEIGHTS NOT VERIFIED - BENCHMARK STOPPED"
+        },
+        {
+            "category": "Pathole",
+            "total_images": 12,
+            "production_false_positives": 0,
+            "candidate_status": "WEIGHTS NOT VERIFIED - BENCHMARK STOPPED"
+        },
+        {
+            "category": "Garbage",
+            "total_images": 12,
+            "production_false_positives": 0,
+            "candidate_status": "WEIGHTS NOT VERIFIED - BENCHMARK STOPPED"
+        }
+    ]
+}
+
+# Write JSON
+with open(json_path, "w", encoding="utf-8") as f:
+    json.dump(verification_data, f, indent=2)
+
+print(f"Wrote JSON to: {json_path}")
+
+# Write CSV
+csv_rows = [
+    {
+        "Candidate": "Candidate 1 (YOLOv8-Seg Waterlogging)",
+        "Source_1": "henrys-workspace-ds68i/waterlogging-1hcfe",
+        "Source_2": "jhonattan-fredy-moreno-bernal/flood-ai",
+        "Verification_Status": "WEIGHTS NOT VERIFIED",
+        "Weights_Downloadable": "FALSE (Gated behind Roboflow paid tier/serverless API)",
+        "License": "CC BY 4.0 (Dataset) / Gated (Weights)",
+        "Architecture": "YOLOv8-Seg",
+        "ONNX_Size": "N/A (Not verified)",
+        "Flood_Result": "NOT TESTED (STOPPED PER SPEC)",
+        "Pothole_FP": "NOT TESTED (STOPPED PER SPEC)",
+        "Garbage_FP": "NOT TESTED (STOPPED PER SPEC)",
+        "Production_Status": "flood-water-segmentation.onnx ACTIVE PRODUCTION",
+        "Final_Recommendation": "NOT VERIFIED"
+    }
+]
+
+with open(csv_path, "w", newline="", encoding="utf-8") as f:
+    writer = csv.DictWriter(f, fieldnames=list(csv_rows[0].keys()))
+    writer.writeheader()
+    writer.writerows(csv_rows)
+
+print(f"Wrote CSV to: {csv_path}")

@@ -7,12 +7,19 @@ import { getDepartmentMapping } from '../data/departmentData.js';
 /**
  * Generates Deterministic Action Recommendations based on runtime risk telemetry
  * 
- * @param {Object} riskAssessment Phase 4 Current Risk Assessment Object
- * @param {Object} prediction Phase 6 Short-Term Predictive Risk Object
- * @param {Object} studyArea Target Study Area Object
+ * @param {Object} params
+ * @param {Object} params.riskAssessment Phase 4 Current Risk Assessment Object
+ * @param {Object} params.prediction Phase 6 Short-Term Predictive Risk Object
+ * @param {Object} params.studyArea Target Study Area Object
+ * @param {Object} [params.visualDetections] Real Phase 8C-1/8C-3 Visual Detection & Severity Payload
  * @returns {Object} Deterministic Action Recommendation Payload
  */
-export const generateActionRecommendations = ({ riskAssessment, prediction, studyArea }) => {
+export const generateActionRecommendations = ({ 
+  riskAssessment, 
+  prediction, 
+  studyArea,
+  visualDetections = null 
+}) => {
   if (!riskAssessment || typeof riskAssessment.score !== 'number') {
     return {
       error: true,
@@ -27,7 +34,7 @@ export const generateActionRecommendations = ({ riskAssessment, prediction, stud
   const trend = prediction?.trend || 'STABLE';
   const predictedScore48h = typeof prediction?.predictedScore48h === 'number' ? prediction.predictedScore48h : score;
 
-  // 1. Determine Intervention Priority
+  // 1. Determine Intervention Priority for Flood/Environmental Risk Stream
   let priority = 'ROUTINE';
   let priorityColor = '#10b981';
   
@@ -135,7 +142,36 @@ export const generateActionRecommendations = ({ riskAssessment, prediction, stud
     });
   }
 
-  // 5. Transparent Telemetry Reasoning String
+  // 5. Append Visual AI Defect Inspection Actions (Phase 8C-3 Additional Intelligence Stream)
+  if (visualDetections && (visualDetections.isAvailable || visualDetections.road || visualDetections.waste)) {
+    const visualRoadDets = visualDetections?.road?.detections ?? visualDetections?.detections?.road ?? [];
+    const visualWasteDets = visualDetections?.waste?.detections ?? visualDetections?.detections?.waste ?? [];
+    const visualPriority = visualDetections?.overallPriority || 'ROUTINE';
+    const roadSev = visualDetections?.road?.severity || 'ACTIVE';
+    const wasteSev = visualDetections?.waste?.severity || 'ACTIVE';
+
+    if (visualRoadDets.length > 0) {
+      actions.push({
+        id: 'ACT-VISUAL-01',
+        title: 'Street-Level Road Defect Repair Dispatch',
+        description: `Dispatch PWD road surface repair team for ${visualRoadDets.length} ONNX-detected defect(s) (Prototype Severity: ${roadSev}). Source: Phase 8C-1 ONNX visual inference.`,
+        type: 'MAINTENANCE',
+        urgency: visualPriority === 'IMMEDIATE' || visualPriority === 'HIGH' ? 'HIGH' : 'MEDIUM'
+      });
+    }
+
+    if (visualWasteDets.length > 0) {
+      actions.push({
+        id: 'ACT-VISUAL-02',
+        title: 'Solid Waste Clearance & Sanitation Dispatch',
+        description: `Dispatch SSWM sanitation team to clear ${visualWasteDets.length} detected waste accumulation zone(s) (Prototype Severity: ${wasteSev}). Source: Phase 8C-1 ONNX visual inference.`,
+        type: 'DISPATCH',
+        urgency: visualPriority === 'IMMEDIATE' || visualPriority === 'HIGH' ? 'HIGH' : 'MEDIUM'
+      });
+    }
+  }
+
+  // 6. Transparent Telemetry Reasoning String
   const rainDetails = riskAssessment.components?.rainfall?.details || 'Precipitation telemetry normal';
   const elevDetails = riskAssessment.components?.elevation?.details || 'Elevation normal';
   

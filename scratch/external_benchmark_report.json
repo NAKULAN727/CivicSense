@@ -1,0 +1,783 @@
+{
+  "reportTitle": "CivicSense AI \u2013 External Model Benchmark Report",
+  "generatedAt": "2026-10-04T20:15:00Z",
+  "benchmarkStatus": "LOCAL ONNX CANDIDATE EVALUATED & EXTERNAL API READY",
+  "preservationNote": "All existing production ONNX models remain 100% active and unchanged.",
+  "sideBySideSummary": {
+    "POTHOLE": {
+      "totalImages": 12,
+      "currentModel": {
+        "modelName": "RDD2022 YOLOv8s Road Damage Detector",
+        "detectedCount": 7,
+        "noDetectedCount": 5,
+        "detectionRatePercent": 58.33,
+        "metricName": "Category-level detection rate on collected screening dataset",
+        "status": "ACTIVE PRODUCTION"
+      },
+      "externalModel": {
+        "candidateName": "Roboflow Pothole Detection Model (pothole-detection-v2)",
+        "endpoint": "https://detect.roboflow.com/pothole-detection-v2/1",
+        "detectedCount": 0,
+        "noDetectedCount": 0,
+        "detectionRatePercent": null,
+        "status": "EXTERNAL API REQUIRES BACKEND PROXY",
+        "blockerReason": "Requires server-side proxy route to keep secret API key secure per security policy."
+      }
+    },
+    "FLOOD": {
+      "totalImages": 14,
+      "currentModel": {
+        "modelName": "CVPR FloodNet SegFormer Water Segmenter",
+        "detectedCount": 4,
+        "noDetectedCount": 10,
+        "detectionRatePercent": 28.57,
+        "metricName": "Category-level detection rate on collected screening dataset",
+        "status": "ACTIVE PRODUCTION"
+      },
+      "externalModel": {
+        "candidateName": "SegFormer-B0 Water Segmenter (imadd/segformer-b0-finetuned-segments-water-2)",
+        "onnxModel": "scratch/segformer_water_b0.onnx (14.49 MB, License: Apache-2.0)",
+        "detectedCount": 14,
+        "noDetectedCount": 0,
+        "detectionRatePercent": 100.0,
+        "status": "LOCAL ONNX CANDIDATE EVALUATED",
+        "blockerReason": "Evaluated locally in benchmark suite. Note: High recall (14/14 TP) but over-segments ground textures on non-flood images."
+      }
+    },
+    "GARBAGE": {
+      "totalImages": 12,
+      "currentModel": {
+        "modelName": "Multi-Class Waste Detector YOLOv8",
+        "detectedCount": 9,
+        "noDetectedCount": 3,
+        "detectionRatePercent": 75.0,
+        "metricName": "Category-level detection rate on collected screening dataset",
+        "status": "ACTIVE PRODUCTION"
+      },
+      "externalModel": {
+        "candidateName": "External Waste Model / API",
+        "endpoint": "Unchanged per requirement",
+        "detectedCount": 0,
+        "noDetectedCount": 0,
+        "detectionRatePercent": null,
+        "status": "UNCHANGED"
+      }
+    }
+  },
+  "comparisonDisclaimer": "Folder-level ground truth is available, but bounding-box ground truth is not. Therefore, evaluation measures Category-level detection rate on the collected screening dataset rather than formal object-detection accuracy.",
+  "benchmarkRecords": [
+    {
+      "filename": "flood 1.jpg",
+      "groundTruthFolder": "FLOOD",
+      "imageWidth": 250,
+      "imageHeight": 175,
+      "resolution": "250x175",
+      "currentModelResult": "FALSE NEGATIVE",
+      "currentModelConfidence": 0.668,
+      "currentDetectedClasses": [
+        "Waste: Organic Waste (W50)"
+      ],
+      "externalModelResult": "TRUE POSITIVE (CANDIDATE ONNX)",
+      "externalModelConfidence": null,
+      "externalDetectedClasses": [
+        "Candidate Water Coverage (91.55%)"
+      ],
+      "latencyMs": 11406.1,
+      "apiModelStatus": "LOCAL ONNX CANDIDATE TESTED",
+      "errors": "None (Ran segformer_water_b0.onnx locally)"
+    },
+    {
+      "filename": "flood 10.webp",
+      "groundTruthFolder": "FLOOD",
+      "imageWidth": 192,
+      "imageHeight": 234,
+      "resolution": "192x234",
+      "currentModelResult": "FALSE NEGATIVE",
+      "currentModelConfidence": 0.6343,
+      "currentDetectedClasses": [
+        "Waste: Organic Waste (W50)"
+      ],
+      "externalModelResult": "TRUE POSITIVE (CANDIDATE ONNX)",
+      "externalModelConfidence": null,
+      "externalDetectedClasses": [
+        "Candidate Water Coverage (87.49%)"
+      ],
+      "latencyMs": 12090.8,
+      "apiModelStatus": "LOCAL ONNX CANDIDATE TESTED",
+      "errors": "None (Ran segformer_water_b0.onnx locally)"
+    },
+    {
+      "filename": "flood 11.webp",
+      "groundTruthFolder": "FLOOD",
+      "imageWidth": 392,
+      "imageHeight": 261,
+      "resolution": "392x261",
+      "currentModelResult": "TRUE POSITIVE",
+      "currentModelConfidence": 0.5448,
+      "currentDetectedClasses": [
+        "Waste: Organic Waste (W50)",
+        "Flood: Water Coverage (57.41%)"
+      ],
+      "externalModelResult": "TRUE POSITIVE (CANDIDATE ONNX)",
+      "externalModelConfidence": null,
+      "externalDetectedClasses": [
+        "Candidate Water Coverage (92.55%)"
+      ],
+      "latencyMs": 11921.1,
+      "apiModelStatus": "LOCAL ONNX CANDIDATE TESTED",
+      "errors": "None (Ran segformer_water_b0.onnx locally)"
+    },
+    {
+      "filename": "flood 12.webp",
+      "groundTruthFolder": "FLOOD",
+      "imageWidth": 417,
+      "imageHeight": 234,
+      "resolution": "417x234",
+      "currentModelResult": "FALSE NEGATIVE",
+      "currentModelConfidence": null,
+      "currentDetectedClasses": [],
+      "externalModelResult": "TRUE POSITIVE (CANDIDATE ONNX)",
+      "externalModelConfidence": null,
+      "externalDetectedClasses": [
+        "Candidate Water Coverage (88.7%)"
+      ],
+      "latencyMs": 8615.1,
+      "apiModelStatus": "LOCAL ONNX CANDIDATE TESTED",
+      "errors": "None (Ran segformer_water_b0.onnx locally)"
+    },
+    {
+      "filename": "flood 13.webp",
+      "groundTruthFolder": "FLOOD",
+      "imageWidth": 344,
+      "imageHeight": 234,
+      "resolution": "344x234",
+      "currentModelResult": "FALSE NEGATIVE",
+      "currentModelConfidence": null,
+      "currentDetectedClasses": [],
+      "externalModelResult": "TRUE POSITIVE (CANDIDATE ONNX)",
+      "externalModelConfidence": null,
+      "externalDetectedClasses": [
+        "Candidate Water Coverage (69.4%)"
+      ],
+      "latencyMs": 9057.7,
+      "apiModelStatus": "LOCAL ONNX CANDIDATE TESTED",
+      "errors": "None (Ran segformer_water_b0.onnx locally)"
+    },
+    {
+      "filename": "flood 2",
+      "groundTruthFolder": "FLOOD",
+      "imageWidth": 365,
+      "imageHeight": 237,
+      "resolution": "365x237",
+      "currentModelResult": "FALSE NEGATIVE",
+      "currentModelConfidence": null,
+      "currentDetectedClasses": [],
+      "externalModelResult": "TRUE POSITIVE (CANDIDATE ONNX)",
+      "externalModelConfidence": null,
+      "externalDetectedClasses": [
+        "Candidate Water Coverage (95.73%)"
+      ],
+      "latencyMs": 5631.6,
+      "apiModelStatus": "LOCAL ONNX CANDIDATE TESTED",
+      "errors": "None (Ran segformer_water_b0.onnx locally)"
+    },
+    {
+      "filename": "flood 3.webp",
+      "groundTruthFolder": "FLOOD",
+      "imageWidth": 408,
+      "imageHeight": 234,
+      "resolution": "408x234",
+      "currentModelResult": "FALSE NEGATIVE",
+      "currentModelConfidence": null,
+      "currentDetectedClasses": [],
+      "externalModelResult": "TRUE POSITIVE (CANDIDATE ONNX)",
+      "externalModelConfidence": null,
+      "externalDetectedClasses": [
+        "Candidate Water Coverage (93.86%)"
+      ],
+      "latencyMs": 5600.4,
+      "apiModelStatus": "LOCAL ONNX CANDIDATE TESTED",
+      "errors": "None (Ran segformer_water_b0.onnx locally)"
+    },
+    {
+      "filename": "flood 4.webp",
+      "groundTruthFolder": "FLOOD",
+      "imageWidth": 403,
+      "imageHeight": 234,
+      "resolution": "403x234",
+      "currentModelResult": "TRUE POSITIVE",
+      "currentModelConfidence": 0.521,
+      "currentDetectedClasses": [
+        "Waste: Cardboard Waste (W00)",
+        "Flood: Water Coverage (99.71%)"
+      ],
+      "externalModelResult": "TRUE POSITIVE (CANDIDATE ONNX)",
+      "externalModelConfidence": null,
+      "externalDetectedClasses": [
+        "Candidate Water Coverage (88.48%)"
+      ],
+      "latencyMs": 6837.0,
+      "apiModelStatus": "LOCAL ONNX CANDIDATE TESTED",
+      "errors": "None (Ran segformer_water_b0.onnx locally)"
+    },
+    {
+      "filename": "flood 5.webp",
+      "groundTruthFolder": "FLOOD",
+      "imageWidth": 308,
+      "imageHeight": 234,
+      "resolution": "308x234",
+      "currentModelResult": "FALSE NEGATIVE",
+      "currentModelConfidence": null,
+      "currentDetectedClasses": [],
+      "externalModelResult": "TRUE POSITIVE (CANDIDATE ONNX)",
+      "externalModelConfidence": null,
+      "externalDetectedClasses": [
+        "Candidate Water Coverage (97.34%)"
+      ],
+      "latencyMs": 6410.4,
+      "apiModelStatus": "LOCAL ONNX CANDIDATE TESTED",
+      "errors": "None (Ran segformer_water_b0.onnx locally)"
+    },
+    {
+      "filename": "flood 6.webp",
+      "groundTruthFolder": "FLOOD",
+      "imageWidth": 432,
+      "imageHeight": 243,
+      "resolution": "432x243",
+      "currentModelResult": "FALSE NEGATIVE",
+      "currentModelConfidence": 0.6021,
+      "currentDetectedClasses": [
+        "Waste: Glass Waste (W20)"
+      ],
+      "externalModelResult": "TRUE POSITIVE (CANDIDATE ONNX)",
+      "externalModelConfidence": null,
+      "externalDetectedClasses": [
+        "Candidate Water Coverage (81.58%)"
+      ],
+      "latencyMs": 5415.8,
+      "apiModelStatus": "LOCAL ONNX CANDIDATE TESTED",
+      "errors": "None (Ran segformer_water_b0.onnx locally)"
+    },
+    {
+      "filename": "flood 7.webp",
+      "groundTruthFolder": "FLOOD",
+      "imageWidth": 351,
+      "imageHeight": 234,
+      "resolution": "351x234",
+      "currentModelResult": "TRUE POSITIVE",
+      "currentModelConfidence": null,
+      "currentDetectedClasses": [
+        "Flood: Water Coverage (91.94%)"
+      ],
+      "externalModelResult": "TRUE POSITIVE (CANDIDATE ONNX)",
+      "externalModelConfidence": null,
+      "externalDetectedClasses": [
+        "Candidate Water Coverage (90.34%)"
+      ],
+      "latencyMs": 7416.7,
+      "apiModelStatus": "LOCAL ONNX CANDIDATE TESTED",
+      "errors": "None (Ran segformer_water_b0.onnx locally)"
+    },
+    {
+      "filename": "flood 8.webp",
+      "groundTruthFolder": "FLOOD",
+      "imageWidth": 345,
+      "imageHeight": 245,
+      "resolution": "345x245",
+      "currentModelResult": "FALSE NEGATIVE",
+      "currentModelConfidence": 0.972,
+      "currentDetectedClasses": [
+        "Waste: Plastic Waste (W70)"
+      ],
+      "externalModelResult": "TRUE POSITIVE (CANDIDATE ONNX)",
+      "externalModelConfidence": null,
+      "externalDetectedClasses": [
+        "Candidate Water Coverage (89.14%)"
+      ],
+      "latencyMs": 5858.7,
+      "apiModelStatus": "LOCAL ONNX CANDIDATE TESTED",
+      "errors": "None (Ran segformer_water_b0.onnx locally)"
+    },
+    {
+      "filename": "flood 9.webp",
+      "groundTruthFolder": "FLOOD",
+      "imageWidth": 427,
+      "imageHeight": 240,
+      "resolution": "427x240",
+      "currentModelResult": "TRUE POSITIVE",
+      "currentModelConfidence": null,
+      "currentDetectedClasses": [
+        "Flood: Water Coverage (50.05%)"
+      ],
+      "externalModelResult": "TRUE POSITIVE (CANDIDATE ONNX)",
+      "externalModelConfidence": null,
+      "externalDetectedClasses": [
+        "Candidate Water Coverage (93.11%)"
+      ],
+      "latencyMs": 5415.3,
+      "apiModelStatus": "LOCAL ONNX CANDIDATE TESTED",
+      "errors": "None (Ran segformer_water_b0.onnx locally)"
+    },
+    {
+      "filename": "flood.jpg",
+      "groundTruthFolder": "FLOOD",
+      "imageWidth": 193,
+      "imageHeight": 135,
+      "resolution": "193x135",
+      "currentModelResult": "FALSE NEGATIVE",
+      "currentModelConfidence": 0.9701,
+      "currentDetectedClasses": [
+        "Waste: Organic Waste (W50)"
+      ],
+      "externalModelResult": "TRUE POSITIVE (CANDIDATE ONNX)",
+      "externalModelConfidence": null,
+      "externalDetectedClasses": [
+        "Candidate Water Coverage (96.52%)"
+      ],
+      "latencyMs": 5355.3,
+      "apiModelStatus": "LOCAL ONNX CANDIDATE TESTED",
+      "errors": "None (Ran segformer_water_b0.onnx locally)"
+    },
+    {
+      "filename": "Unconfirmed 541292.crdownload",
+      "groundTruthFolder": "GARBAGE",
+      "imageWidth": 630,
+      "imageHeight": 353,
+      "resolution": "630x353",
+      "currentModelResult": "TRUE POSITIVE",
+      "currentModelConfidence": 0.8969,
+      "currentDetectedClasses": [
+        "Waste: Plastic Waste (W70)"
+      ],
+      "externalModelResult": "NOT CONNECTED",
+      "externalModelConfidence": null,
+      "externalDetectedClasses": [],
+      "latencyMs": 7006.5,
+      "apiModelStatus": "EXTERNAL API REQUIRES BACKEND PROXY",
+      "errors": "Secrets/API keys must remain server-side. Local candidate evaluated in scratch."
+    },
+    {
+      "filename": "garbage 1.webp",
+      "groundTruthFolder": "GARBAGE",
+      "imageWidth": 321,
+      "imageHeight": 236,
+      "resolution": "321x236",
+      "currentModelResult": "TRUE POSITIVE",
+      "currentModelConfidence": 0.8237,
+      "currentDetectedClasses": [
+        "Waste: Organic Waste (W50)"
+      ],
+      "externalModelResult": "NOT CONNECTED",
+      "externalModelConfidence": null,
+      "externalDetectedClasses": [],
+      "latencyMs": 6802.1,
+      "apiModelStatus": "EXTERNAL API REQUIRES BACKEND PROXY",
+      "errors": "Secrets/API keys must remain server-side. Local candidate evaluated in scratch."
+    },
+    {
+      "filename": "garbage 10.webp (1).crdownload",
+      "groundTruthFolder": "GARBAGE",
+      "imageWidth": 399,
+      "imageHeight": 214,
+      "resolution": "399x214",
+      "currentModelResult": "TRUE POSITIVE",
+      "currentModelConfidence": 0.6261,
+      "currentDetectedClasses": [
+        "Waste: Plastic Waste (W70)",
+        "Flood: Water Coverage (11.23%)"
+      ],
+      "externalModelResult": "NOT CONNECTED",
+      "externalModelConfidence": null,
+      "externalDetectedClasses": [],
+      "latencyMs": 6799.5,
+      "apiModelStatus": "EXTERNAL API REQUIRES BACKEND PROXY",
+      "errors": "Secrets/API keys must remain server-side. Local candidate evaluated in scratch."
+    },
+    {
+      "filename": "garbage 10.webp.crdownload",
+      "groundTruthFolder": "GARBAGE",
+      "imageWidth": 354,
+      "imageHeight": 234,
+      "resolution": "354x234",
+      "currentModelResult": "TRUE POSITIVE",
+      "currentModelConfidence": 0.5915,
+      "currentDetectedClasses": [
+        "Waste: Plastic Waste (W70)"
+      ],
+      "externalModelResult": "NOT CONNECTED",
+      "externalModelConfidence": null,
+      "externalDetectedClasses": [],
+      "latencyMs": 6581.6,
+      "apiModelStatus": "EXTERNAL API REQUIRES BACKEND PROXY",
+      "errors": "Secrets/API keys must remain server-side. Local candidate evaluated in scratch."
+    },
+    {
+      "filename": "garbage 2.webp",
+      "groundTruthFolder": "GARBAGE",
+      "imageWidth": 393,
+      "imageHeight": 234,
+      "resolution": "393x234",
+      "currentModelResult": "TRUE POSITIVE",
+      "currentModelConfidence": 0.7223,
+      "currentDetectedClasses": [
+        "Waste: Plastic Waste (W70)",
+        "Flood: Water Coverage (10.97%)"
+      ],
+      "externalModelResult": "NOT CONNECTED",
+      "externalModelConfidence": null,
+      "externalDetectedClasses": [],
+      "latencyMs": 6936.1,
+      "apiModelStatus": "EXTERNAL API REQUIRES BACKEND PROXY",
+      "errors": "Secrets/API keys must remain server-side. Local candidate evaluated in scratch."
+    },
+    {
+      "filename": "garbage 3.webp",
+      "groundTruthFolder": "GARBAGE",
+      "imageWidth": 431,
+      "imageHeight": 234,
+      "resolution": "431x234",
+      "currentModelResult": "FALSE NEGATIVE",
+      "currentModelConfidence": null,
+      "currentDetectedClasses": [],
+      "externalModelResult": "NOT CONNECTED",
+      "externalModelConfidence": null,
+      "externalDetectedClasses": [],
+      "latencyMs": 6910.8,
+      "apiModelStatus": "EXTERNAL API REQUIRES BACKEND PROXY",
+      "errors": "Secrets/API keys must remain server-side. Local candidate evaluated in scratch."
+    },
+    {
+      "filename": "garbage 4.webp",
+      "groundTruthFolder": "GARBAGE",
+      "imageWidth": 357,
+      "imageHeight": 257,
+      "resolution": "357x257",
+      "currentModelResult": "FALSE NEGATIVE",
+      "currentModelConfidence": null,
+      "currentDetectedClasses": [],
+      "externalModelResult": "NOT CONNECTED",
+      "externalModelConfidence": null,
+      "externalDetectedClasses": [],
+      "latencyMs": 7112.0,
+      "apiModelStatus": "EXTERNAL API REQUIRES BACKEND PROXY",
+      "errors": "Secrets/API keys must remain server-side. Local candidate evaluated in scratch."
+    },
+    {
+      "filename": "garbage 5.webp",
+      "groundTruthFolder": "GARBAGE",
+      "imageWidth": 344,
+      "imageHeight": 234,
+      "resolution": "344x234",
+      "currentModelResult": "TRUE POSITIVE",
+      "currentModelConfidence": 0.8748,
+      "currentDetectedClasses": [
+        "Waste: Plastic Waste (W70)"
+      ],
+      "externalModelResult": "NOT CONNECTED",
+      "externalModelConfidence": null,
+      "externalDetectedClasses": [],
+      "latencyMs": 6535.2,
+      "apiModelStatus": "EXTERNAL API REQUIRES BACKEND PROXY",
+      "errors": "Secrets/API keys must remain server-side. Local candidate evaluated in scratch."
+    },
+    {
+      "filename": "garbage 6.webp",
+      "groundTruthFolder": "GARBAGE",
+      "imageWidth": 354,
+      "imageHeight": 236,
+      "resolution": "354x236",
+      "currentModelResult": "TRUE POSITIVE",
+      "currentModelConfidence": 0.8162,
+      "currentDetectedClasses": [
+        "Waste: Glass Waste (W20)",
+        "Flood: Water Coverage (7.76%)"
+      ],
+      "externalModelResult": "NOT CONNECTED",
+      "externalModelConfidence": null,
+      "externalDetectedClasses": [],
+      "latencyMs": 6317.8,
+      "apiModelStatus": "EXTERNAL API REQUIRES BACKEND PROXY",
+      "errors": "Secrets/API keys must remain server-side. Local candidate evaluated in scratch."
+    },
+    {
+      "filename": "garbage 7.webp",
+      "groundTruthFolder": "GARBAGE",
+      "imageWidth": 391,
+      "imageHeight": 260,
+      "resolution": "391x260",
+      "currentModelResult": "TRUE POSITIVE",
+      "currentModelConfidence": 0.8455,
+      "currentDetectedClasses": [
+        "Waste: Plastic Waste (W70)",
+        "Flood: Water Coverage (29.77%)"
+      ],
+      "externalModelResult": "NOT CONNECTED",
+      "externalModelConfidence": null,
+      "externalDetectedClasses": [],
+      "latencyMs": 7260.8,
+      "apiModelStatus": "EXTERNAL API REQUIRES BACKEND PROXY",
+      "errors": "Secrets/API keys must remain server-side. Local candidate evaluated in scratch."
+    },
+    {
+      "filename": "garbage 8.webp",
+      "groundTruthFolder": "GARBAGE",
+      "imageWidth": 358,
+      "imageHeight": 234,
+      "resolution": "358x234",
+      "currentModelResult": "FALSE NEGATIVE",
+      "currentModelConfidence": null,
+      "currentDetectedClasses": [],
+      "externalModelResult": "NOT CONNECTED",
+      "externalModelConfidence": null,
+      "externalDetectedClasses": [],
+      "latencyMs": 5691.4,
+      "apiModelStatus": "EXTERNAL API REQUIRES BACKEND PROXY",
+      "errors": "Secrets/API keys must remain server-side. Local candidate evaluated in scratch."
+    },
+    {
+      "filename": "garbage 9.webp",
+      "groundTruthFolder": "GARBAGE",
+      "imageWidth": 332,
+      "imageHeight": 244,
+      "resolution": "332x244",
+      "currentModelResult": "TRUE POSITIVE",
+      "currentModelConfidence": 0.9036,
+      "currentDetectedClasses": [
+        "Waste: Plastic Waste (W70)",
+        "Flood: Water Coverage (7.33%)"
+      ],
+      "externalModelResult": "NOT CONNECTED",
+      "externalModelConfidence": null,
+      "externalDetectedClasses": [],
+      "latencyMs": 5509.3,
+      "apiModelStatus": "EXTERNAL API REQUIRES BACKEND PROXY",
+      "errors": "Secrets/API keys must remain server-side. Local candidate evaluated in scratch."
+    },
+    {
+      "filename": "pathole 1.webp",
+      "groundTruthFolder": "POTHOLE",
+      "imageWidth": 340,
+      "imageHeight": 256,
+      "resolution": "340x256",
+      "currentModelResult": "TRUE POSITIVE",
+      "currentModelConfidence": 0.8157,
+      "currentDetectedClasses": [
+        "Road: Pothole (D40)"
+      ],
+      "externalModelResult": "NOT CONNECTED",
+      "externalModelConfidence": null,
+      "externalDetectedClasses": [],
+      "latencyMs": 5946.6,
+      "apiModelStatus": "EXTERNAL API REQUIRES BACKEND PROXY",
+      "errors": "Secrets/API keys must remain server-side. Local candidate evaluated in scratch."
+    },
+    {
+      "filename": "pathole 10.webp",
+      "groundTruthFolder": "POTHOLE",
+      "imageWidth": 371,
+      "imageHeight": 234,
+      "resolution": "371x234",
+      "currentModelResult": "TRUE POSITIVE",
+      "currentModelConfidence": 0.5403,
+      "currentDetectedClasses": [
+        "Road: Pothole (D40)"
+      ],
+      "externalModelResult": "NOT CONNECTED",
+      "externalModelConfidence": null,
+      "externalDetectedClasses": [],
+      "latencyMs": 6626.6,
+      "apiModelStatus": "EXTERNAL API REQUIRES BACKEND PROXY",
+      "errors": "Secrets/API keys must remain server-side. Local candidate evaluated in scratch."
+    },
+    {
+      "filename": "pathole 11.webp",
+      "groundTruthFolder": "POTHOLE",
+      "imageWidth": 391,
+      "imageHeight": 234,
+      "resolution": "391x234",
+      "currentModelResult": "TRUE POSITIVE",
+      "currentModelConfidence": 0.6538,
+      "currentDetectedClasses": [
+        "Road: Alligator Crack (D20)",
+        "Waste: Organic Waste (W50)"
+      ],
+      "externalModelResult": "NOT CONNECTED",
+      "externalModelConfidence": null,
+      "externalDetectedClasses": [],
+      "latencyMs": 7485.8,
+      "apiModelStatus": "EXTERNAL API REQUIRES BACKEND PROXY",
+      "errors": "Secrets/API keys must remain server-side. Local candidate evaluated in scratch."
+    },
+    {
+      "filename": "pathole 2.webp",
+      "groundTruthFolder": "POTHOLE",
+      "imageWidth": 297,
+      "imageHeight": 234,
+      "resolution": "297x234",
+      "currentModelResult": "FALSE NEGATIVE",
+      "currentModelConfidence": 0.8969,
+      "currentDetectedClasses": [
+        "Waste: Plastic Waste (W70)"
+      ],
+      "externalModelResult": "NOT CONNECTED",
+      "externalModelConfidence": null,
+      "externalDetectedClasses": [],
+      "latencyMs": 7930.0,
+      "apiModelStatus": "EXTERNAL API REQUIRES BACKEND PROXY",
+      "errors": "Secrets/API keys must remain server-side. Local candidate evaluated in scratch."
+    },
+    {
+      "filename": "pathole 3.webp",
+      "groundTruthFolder": "POTHOLE",
+      "imageWidth": 370,
+      "imageHeight": 247,
+      "resolution": "370x247",
+      "currentModelResult": "FALSE NEGATIVE",
+      "currentModelConfidence": 0.6032,
+      "currentDetectedClasses": [
+        "Waste: Cardboard Waste (W00)"
+      ],
+      "externalModelResult": "NOT CONNECTED",
+      "externalModelConfidence": null,
+      "externalDetectedClasses": [],
+      "latencyMs": 6791.7,
+      "apiModelStatus": "EXTERNAL API REQUIRES BACKEND PROXY",
+      "errors": "Secrets/API keys must remain server-side. Local candidate evaluated in scratch."
+    },
+    {
+      "filename": "pathole 4.webp",
+      "groundTruthFolder": "POTHOLE",
+      "imageWidth": 361,
+      "imageHeight": 262,
+      "resolution": "361x262",
+      "currentModelResult": "TRUE POSITIVE",
+      "currentModelConfidence": 0.7448,
+      "currentDetectedClasses": [
+        "Road: Pothole (D40)",
+        "Road: Pothole (D40)",
+        "Road: Pothole (D40)",
+        "Road: Pothole (D40)",
+        "Road: Pothole (D40)",
+        "Waste: Plastic Waste (W70)"
+      ],
+      "externalModelResult": "NOT CONNECTED",
+      "externalModelConfidence": null,
+      "externalDetectedClasses": [],
+      "latencyMs": 6781.6,
+      "apiModelStatus": "EXTERNAL API REQUIRES BACKEND PROXY",
+      "errors": "Secrets/API keys must remain server-side. Local candidate evaluated in scratch."
+    },
+    {
+      "filename": "pathole 5.webp",
+      "groundTruthFolder": "POTHOLE",
+      "imageWidth": 419,
+      "imageHeight": 235,
+      "resolution": "419x235",
+      "currentModelResult": "TRUE POSITIVE",
+      "currentModelConfidence": 0.5879,
+      "currentDetectedClasses": [
+        "Road: Alligator Crack (D20)",
+        "Waste: Plastic Waste (W70)"
+      ],
+      "externalModelResult": "NOT CONNECTED",
+      "externalModelConfidence": null,
+      "externalDetectedClasses": [],
+      "latencyMs": 6841.6,
+      "apiModelStatus": "EXTERNAL API REQUIRES BACKEND PROXY",
+      "errors": "Secrets/API keys must remain server-side. Local candidate evaluated in scratch."
+    },
+    {
+      "filename": "pathole 6.webp",
+      "groundTruthFolder": "POTHOLE",
+      "imageWidth": 334,
+      "imageHeight": 250,
+      "resolution": "334x250",
+      "currentModelResult": "FALSE NEGATIVE",
+      "currentModelConfidence": null,
+      "currentDetectedClasses": [
+        "Flood: Water Coverage (8.1%)"
+      ],
+      "externalModelResult": "NOT CONNECTED",
+      "externalModelConfidence": null,
+      "externalDetectedClasses": [],
+      "latencyMs": 6859.2,
+      "apiModelStatus": "EXTERNAL API REQUIRES BACKEND PROXY",
+      "errors": "Secrets/API keys must remain server-side. Local candidate evaluated in scratch."
+    },
+    {
+      "filename": "pathole 7.webp",
+      "groundTruthFolder": "POTHOLE",
+      "imageWidth": 232,
+      "imageHeight": 234,
+      "resolution": "232x234",
+      "currentModelResult": "TRUE POSITIVE",
+      "currentModelConfidence": 0.6399,
+      "currentDetectedClasses": [
+        "Road: Pothole (D40)",
+        "Waste: Organic Waste (W50)"
+      ],
+      "externalModelResult": "NOT CONNECTED",
+      "externalModelConfidence": null,
+      "externalDetectedClasses": [],
+      "latencyMs": 5767.3,
+      "apiModelStatus": "EXTERNAL API REQUIRES BACKEND PROXY",
+      "errors": "Secrets/API keys must remain server-side. Local candidate evaluated in scratch."
+    },
+    {
+      "filename": "pathole 8.webp",
+      "groundTruthFolder": "POTHOLE",
+      "imageWidth": 396,
+      "imageHeight": 234,
+      "resolution": "396x234",
+      "currentModelResult": "TRUE POSITIVE",
+      "currentModelConfidence": 0.8601,
+      "currentDetectedClasses": [
+        "Road: Pothole (D40)",
+        "Waste: Plastic Waste (W70)",
+        "Flood: Water Coverage (4.52%)"
+      ],
+      "externalModelResult": "NOT CONNECTED",
+      "externalModelConfidence": null,
+      "externalDetectedClasses": [],
+      "latencyMs": 5658.8,
+      "apiModelStatus": "EXTERNAL API REQUIRES BACKEND PROXY",
+      "errors": "Secrets/API keys must remain server-side. Local candidate evaluated in scratch."
+    },
+    {
+      "filename": "pathole 9.webp",
+      "groundTruthFolder": "POTHOLE",
+      "imageWidth": 319,
+      "imageHeight": 234,
+      "resolution": "319x234",
+      "currentModelResult": "FALSE NEGATIVE",
+      "currentModelConfidence": 0.5741,
+      "currentDetectedClasses": [
+        "Waste: Organic Waste (W50)"
+      ],
+      "externalModelResult": "NOT CONNECTED",
+      "externalModelConfidence": null,
+      "externalDetectedClasses": [],
+      "latencyMs": 5448.1,
+      "apiModelStatus": "EXTERNAL API REQUIRES BACKEND PROXY",
+      "errors": "Secrets/API keys must remain server-side. Local candidate evaluated in scratch."
+    },
+    {
+      "filename": "road without pothole.webp",
+      "groundTruthFolder": "POTHOLE",
+      "imageWidth": 353,
+      "imageHeight": 226,
+      "resolution": "353x226",
+      "currentModelResult": "CORRECT NEGATIVE",
+      "currentModelConfidence": null,
+      "currentDetectedClasses": [
+        "Flood: Water Coverage (7.59%)"
+      ],
+      "externalModelResult": "NOT CONNECTED",
+      "externalModelConfidence": null,
+      "externalDetectedClasses": [],
+      "latencyMs": 5439.1,
+      "apiModelStatus": "EXTERNAL API REQUIRES BACKEND PROXY",
+      "errors": "Secrets/API keys must remain server-side. Local candidate evaluated in scratch."
+    }
+  ]
+}

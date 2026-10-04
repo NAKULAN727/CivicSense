@@ -18,7 +18,8 @@ import { STUDY_AREAS } from '../data/mockData';
 export default function DashboardView({ 
   theme, 
   currentStudyArea: propCurrentStudyArea, 
-  setCurrentStudyArea: propSetCurrentStudyArea 
+  setCurrentStudyArea: propSetCurrentStudyArea,
+  visualDetections = null 
 }) {
   // Central Study Area State (Default: Pallikaranai–Velachery)
   const [localStudyArea, setLocalStudyArea] = useState(STUDY_AREAS.pallikaranai_velachery);
@@ -186,6 +187,7 @@ export default function DashboardView({
       <ActionRecommendationPanel 
         currentStudyArea={currentStudyArea}
         riskAssessment={riskAssessment}
+        visualDetections={visualDetections}
       />
 
       {/* SECTION 6: Two Column Grid - Department Alert Panel & Community Pulse */}

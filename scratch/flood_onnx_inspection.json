@@ -1,0 +1,35 @@
+{
+  "model_id": "rbh227/floodnet-segformer",
+  "model_file": "public/models/flood-water-segmentation.onnx",
+  "file_size_bytes": 261759815,
+  "architecture": "SegformerForSemanticSegmentation (MiT-B0)",
+  "dataset": "FloodNet (CVPR FloodNet Challenge)",
+  "id2label": {
+    "0": "background",
+    "1": "building flooded",
+    "2": "building non-flooded",
+    "3": "road flooded",
+    "4": "road non-flooded",
+    "5": "water",
+    "6": "tree",
+    "7": "vehicle",
+    "8": "pool",
+    "9": "grass"
+  },
+  "input_name": "images",
+  "input_shape": [
+    1,
+    3,
+    512,
+    512
+  ],
+  "input_type": "tensor(float)",
+  "output_name": "output0",
+  "output_shape": [
+    1,
+    10,
+    128,
+    128
+  ],
+  "output_type": "tensor(float)"
+}

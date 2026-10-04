@@ -15,7 +15,7 @@ import {
 import { generateActionRecommendations } from '../services/actionRecommendationService.js';
 import { calculatePredictiveRisk } from '../services/predictiveRiskService.js';
 
-export default function ActionRecommendationPanel({ currentStudyArea, riskAssessment, weatherData }) {
+export default function ActionRecommendationPanel({ currentStudyArea, riskAssessment, weatherData, visualDetections = null }) {
   const [recommendation, setRecommendation] = useState(null);
 
   useEffect(() => {
@@ -24,13 +24,14 @@ export default function ActionRecommendationPanel({ currentStudyArea, riskAssess
       const rec = generateActionRecommendations({
         riskAssessment,
         prediction: pred,
-        studyArea: currentStudyArea
+        studyArea: currentStudyArea,
+        visualDetections
       });
       setRecommendation(rec);
     } else {
       setRecommendation(null);
     }
-  }, [currentStudyArea, riskAssessment, weatherData]);
+  }, [currentStudyArea, riskAssessment, weatherData, visualDetections]);
 
   if (!recommendation) {
     return (

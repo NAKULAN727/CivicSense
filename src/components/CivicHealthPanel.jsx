@@ -25,7 +25,8 @@ export default function CivicHealthPanel({
   currentStudyArea = STUDY_AREAS.pallikaranai_velachery, 
   setCurrentStudyArea,
   riskAssessment: externalRiskAssessment,
-  waterAnalysisData: externalWaterData
+  waterAnalysisData: externalWaterData,
+  visualDetections = null
 }) {
   const [internalRiskAssessment, setInternalRiskAssessment] = useState(externalRiskAssessment || null);
   const [isLoading, setIsLoading] = useState(!externalRiskAssessment);
@@ -83,37 +84,28 @@ export default function CivicHealthPanel({
   const civicHealth = calculateCivicHealth({
     studyArea: currentStudyArea,
     riskAssessment: internalRiskAssessment || externalRiskAssessment,
-    waterAnalysisData: externalWaterData
+    waterAnalysisData: externalWaterData,
+    visualDetections
   });
 
   const {
-    studyAreaName,
-    studyAreaRegion,
-    overallStatus,
-    overallTitle,
-    overallLevel,
-    availableCount,
-    unavailableCount,
-    dimensions,
-    evidence,
-    limitations,
-    formattedTime
-  } = civicHealth;
+    studyAreaName = currentStudyArea?.name || 'Pallikaranai–Velachery',
+    studyAreaRegion = currentStudyArea?.region || 'Metropolitan Region',
+    overallStatus = 'STABLE',
+    overallTitle = 'Civic Infrastructure Health Assessment',
+    overallLevel = 'STABLE',
+    availableCount = 0,
+    unavailableCount = 4,
+    dimensions = {},
+    evidence = [],
+    limitations = [],
+    formattedTime = new Date().toLocaleTimeString()
+  } = civicHealth || {};
 
   const handleAreaChange = (area) => {
     if (setCurrentStudyArea) {
       setCurrentStudyArea(area);
     }
-  };
-
-  const getSourceBadgeStyle = (sourceType) => {
-    if (sourceType.includes('REAL / LIVE')) {
-      return { bg: 'rgba(16, 185, 129, 0.15)', text: '#10b981', border: 'rgba(16, 185, 129, 0.4)' };
-    }
-    if (sourceType.includes('PROTOTYPE / VISUAL DATA REQUIRED') || sourceType.includes('REQUIRED')) {
-      return { bg: 'rgba(245, 158, 11, 0.15)', text: '#f59e0b', border: 'rgba(245, 158, 11, 0.4)' };
-    }
-    return { bg: 'rgba(56, 189, 248, 0.15)', text: '#38bdf8', border: 'rgba(56, 189, 248, 0.4)' };
   };
 
   return (
@@ -206,14 +198,16 @@ export default function CivicHealthPanel({
           <div style={{ display: 'flex', alignItems: 'center', gap: '10px', fontSize: '11px', color: 'var(--text-muted)' }}>
             <span>Available Dimensions: <strong style={{ color: '#10b981' }}>{availableCount} / 4</strong></span>
             <span>•</span>
-            <span>Visual Feeds Offline: <strong style={{ color: '#f59e0b' }}>{unavailableCount} / 4</strong></span>
+            <span>Unavailable Dimensions: <strong style={{ color: '#f59e0b' }}>{unavailableCount} / 4</strong></span>
           </div>
         </div>
 
         <p style={{ fontSize: '13px', color: 'var(--text-secondary)', lineHeight: '1.5' }}>
-          This assessment represents a <strong>partial civic health evaluation</strong> for <strong>{studyAreaName}</strong>. 
-          Verified satellite and sensor telemetry are currently active for <strong>Drainage & Waterlogging</strong>. 
-          Street-level visual channels (Road Potholes & Solid Waste Accumulation) remain marked <strong>UNAVAILABLE</strong> until street-level camera feeds / computer vision model inference are connected.
+          This assessment represents a <strong>{overallStatus.toLowerCase()} civic health evaluation</strong> for <strong>{studyAreaName}</strong>. 
+          Verified satellite and sensor telemetry are active for <strong>Drainage & Waterlogging</strong>. 
+          {dimensions.road.status === 'AVAILABLE' || dimensions.waste.status === 'AVAILABLE' 
+            ? ' Real Phase 8C-1 computer vision inference stream is connected for active visual channels.' 
+            : ' Street-level visual channels remain marked UNAVAILABLE until image inference is executed in AIDetectionHub.'}
         </p>
       </div>
 
@@ -223,7 +217,7 @@ export default function CivicHealthPanel({
         {/* Card 1: Road Condition */}
         <div className="glass-card" style={{
           padding: '20px',
-          border: '1px solid var(--border-card)',
+          border: dimensions.road.status === 'AVAILABLE' ? '1px solid rgba(16, 185, 129, 0.3)' : '1px solid var(--border-card)',
           borderRadius: '12px',
           display: 'flex',
           flexDirection: 'column',
@@ -258,29 +252,62 @@ export default function CivicHealthPanel({
               fontWeight: '800',
               padding: '3px 10px',
               borderRadius: '99px',
-              backgroundColor: 'rgba(245, 158, 11, 0.15)',
-              color: '#f59e0b',
-              border: '1px solid rgba(245, 158, 11, 0.4)'
+              backgroundColor: dimensions.road.status === 'AVAILABLE' ? 'rgba(16, 185, 129, 0.15)' : 'rgba(245, 158, 11, 0.15)',
+              color: dimensions.road.status === 'AVAILABLE' ? '#10b981' : '#f59e0b',
+              border: dimensions.road.status === 'AVAILABLE' ? '1px solid rgba(16, 185, 129, 0.4)' : '1px solid rgba(245, 158, 11, 0.4)'
             }}>
-              UNAVAILABLE
+              {dimensions.road.status}
             </span>
           </div>
 
           <div style={{
             fontSize: '11px',
             fontWeight: '700',
-            color: '#f59e0b',
-            backgroundColor: 'rgba(245, 158, 11, 0.08)',
-            border: '1px dashed rgba(245, 158, 11, 0.3)',
+            color: dimensions.road.status === 'AVAILABLE' ? '#10b981' : '#f59e0b',
+            backgroundColor: dimensions.road.status === 'AVAILABLE' ? 'rgba(16, 185, 129, 0.08)' : 'rgba(245, 158, 11, 0.08)',
+            border: dimensions.road.status === 'AVAILABLE' ? '1px solid rgba(16, 185, 129, 0.3)' : '1px dashed rgba(245, 158, 11, 0.3)',
             padding: '8px 12px',
             borderRadius: '6px'
           }}>
-            Source: {dimensions.road.sourceType}
+            Source: {dimensions.road.sourceType} ({dimensions.road.sourceLabel})
           </div>
 
-          <p style={{ fontSize: '12px', color: 'var(--text-secondary)', lineHeight: '1.4' }}>
-            {dimensions.road.description}
-          </p>
+          {dimensions.road.status === 'AVAILABLE' ? (
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '8px', fontSize: '12px' }}>
+              <div><strong>Detection Count:</strong> {dimensions.road.count} object(s)</div>
+              <div>
+                <strong>Detected Issues:</strong>{' '}
+                {dimensions.road.count === 0 
+                  ? <span style={{ color: '#10b981', fontWeight: '600' }}>No supported road issue detected</span> 
+                  : dimensions.road.detectedClasses.join(', ')}
+              </div>
+              <div>
+                <strong>Model Confidence:</strong>{' '}
+                {dimensions.road.confidences.length > 0 
+                  ? dimensions.road.confidences.map(c => `${Math.round(c * 100)}%`).join(', ') 
+                  : 'N/A'}
+              </div>
+              <div>
+                <strong>Location:</strong>{' '}
+                <span style={{ color: dimensions.road.latitude !== null ? '#10b981' : '#f59e0b', fontWeight: '600' }}>
+                  {dimensions.road.location}
+                </span>
+              </div>
+              <div>
+                <strong>Capture Time:</strong>{' '}
+                <span style={{ color: dimensions.road.timestamp !== 'CAPTURE TIME UNAVAILABLE' ? '#10b981' : 'var(--text-muted)' }}>
+                  {dimensions.road.timestamp}
+                </span>
+              </div>
+              <div style={{ color: 'var(--text-muted)', fontSize: '11px', fontStyle: 'italic', marginTop: '2px' }}>
+                {dimensions.road.severityLabel}
+              </div>
+            </div>
+          ) : (
+            <p style={{ fontSize: '12px', color: 'var(--text-secondary)', lineHeight: '1.4' }}>
+              {dimensions.road.description}
+            </p>
+          )}
 
           <div style={{ fontSize: '11px', color: 'var(--text-muted)', borderTop: '1px solid var(--border-card)', paddingTop: '10px' }}>
             <strong>Status Notice:</strong> {dimensions.road.details}
@@ -290,7 +317,7 @@ export default function CivicHealthPanel({
         {/* Card 2: Waste Condition */}
         <div className="glass-card" style={{
           padding: '20px',
-          border: '1px solid var(--border-card)',
+          border: dimensions.waste.status === 'AVAILABLE' ? '1px solid rgba(16, 185, 129, 0.3)' : '1px solid var(--border-card)',
           borderRadius: '12px',
           display: 'flex',
           flexDirection: 'column',
@@ -316,7 +343,7 @@ export default function CivicHealthPanel({
                 <h4 style={{ fontSize: '15px', fontWeight: '800', color: 'var(--text-primary)' }}>
                   🗑️ Waste Condition
                 </h4>
-                <div style={{ fontSize: '11px', color: 'var(--text-muted)' }}>Garbage & Illegal Dumping</div>
+                <div style={{ fontSize: '11px', color: 'var(--text-muted)' }}>Garbage & Waste Accumulation</div>
               </div>
             </div>
 
@@ -325,29 +352,62 @@ export default function CivicHealthPanel({
               fontWeight: '800',
               padding: '3px 10px',
               borderRadius: '99px',
-              backgroundColor: 'rgba(245, 158, 11, 0.15)',
-              color: '#f59e0b',
-              border: '1px solid rgba(245, 158, 11, 0.4)'
+              backgroundColor: dimensions.waste.status === 'AVAILABLE' ? 'rgba(16, 185, 129, 0.15)' : 'rgba(245, 158, 11, 0.15)',
+              color: dimensions.waste.status === 'AVAILABLE' ? '#10b981' : '#f59e0b',
+              border: dimensions.waste.status === 'AVAILABLE' ? '1px solid rgba(16, 185, 129, 0.4)' : '1px solid rgba(245, 158, 11, 0.4)'
             }}>
-              UNAVAILABLE
+              {dimensions.waste.status}
             </span>
           </div>
 
           <div style={{
             fontSize: '11px',
             fontWeight: '700',
-            color: '#f59e0b',
-            backgroundColor: 'rgba(245, 158, 11, 0.08)',
-            border: '1px dashed rgba(245, 158, 11, 0.3)',
+            color: dimensions.waste.status === 'AVAILABLE' ? '#10b981' : '#f59e0b',
+            backgroundColor: dimensions.waste.status === 'AVAILABLE' ? 'rgba(16, 185, 129, 0.08)' : 'rgba(245, 158, 11, 0.08)',
+            border: dimensions.waste.status === 'AVAILABLE' ? '1px solid rgba(16, 185, 129, 0.3)' : '1px dashed rgba(245, 158, 11, 0.3)',
             padding: '8px 12px',
             borderRadius: '6px'
           }}>
-            Source: {dimensions.waste.sourceType}
+            Source: {dimensions.waste.sourceType} ({dimensions.waste.sourceLabel})
           </div>
 
-          <p style={{ fontSize: '12px', color: 'var(--text-secondary)', lineHeight: '1.4' }}>
-            {dimensions.waste.description}
-          </p>
+          {dimensions.waste.status === 'AVAILABLE' ? (
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '8px', fontSize: '12px' }}>
+              <div><strong>Detection Count:</strong> {dimensions.waste.count} object(s)</div>
+              <div>
+                <strong>Detected Issues:</strong>{' '}
+                {dimensions.waste.count === 0 
+                  ? <span style={{ color: '#10b981', fontWeight: '600' }}>No supported waste issue detected</span> 
+                  : dimensions.waste.detectedClasses.join(', ')}
+              </div>
+              <div>
+                <strong>Model Confidence:</strong>{' '}
+                {dimensions.waste.confidences.length > 0 
+                  ? dimensions.waste.confidences.map(c => `${Math.round(c * 100)}%`).join(', ') 
+                  : 'N/A'}
+              </div>
+              <div>
+                <strong>Location:</strong>{' '}
+                <span style={{ color: dimensions.waste.latitude !== null ? '#10b981' : '#f59e0b', fontWeight: '600' }}>
+                  {dimensions.waste.location}
+                </span>
+              </div>
+              <div>
+                <strong>Capture Time:</strong>{' '}
+                <span style={{ color: dimensions.waste.timestamp !== 'CAPTURE TIME UNAVAILABLE' ? '#10b981' : 'var(--text-muted)' }}>
+                  {dimensions.waste.timestamp}
+                </span>
+              </div>
+              <div style={{ color: 'var(--text-muted)', fontSize: '11px', fontStyle: 'italic', marginTop: '2px' }}>
+                {dimensions.waste.severityLabel}
+              </div>
+            </div>
+          ) : (
+            <p style={{ fontSize: '12px', color: 'var(--text-secondary)', lineHeight: '1.4' }}>
+              {dimensions.waste.description}
+            </p>
+          )}
 
           <div style={{ fontSize: '11px', color: 'var(--text-muted)', borderTop: '1px solid var(--border-card)', paddingTop: '10px' }}>
             <strong>Status Notice:</strong> {dimensions.waste.details}
@@ -409,7 +469,7 @@ export default function CivicHealthPanel({
             padding: '8px 12px',
             borderRadius: '6px'
           }}>
-            Source: {dimensions.drainage.sourceType}
+            Source: {dimensions.drainage.sourceType} ({dimensions.drainage.sourceLabel})
           </div>
 
           <p style={{ fontSize: '12px', color: 'var(--text-secondary)', lineHeight: '1.4' }}>
@@ -459,24 +519,24 @@ export default function CivicHealthPanel({
               fontWeight: '800',
               padding: '3px 10px',
               borderRadius: '99px',
-              backgroundColor: dimensions.environment.status === 'AVAILABLE' ? 'rgba(16, 185, 129, 0.15)' : 'rgba(245, 158, 11, 0.15)',
-              color: dimensions.environment.status === 'AVAILABLE' ? '#10b981' : '#f59e0b',
-              border: dimensions.environment.status === 'AVAILABLE' ? '1px solid rgba(16, 185, 129, 0.4)' : '1px solid rgba(245, 158, 11, 0.4)'
+              backgroundColor: 'rgba(245, 158, 11, 0.15)',
+              color: '#f59e0b',
+              border: '1px solid rgba(245, 158, 11, 0.4)'
             }}>
-              {dimensions.environment.status === 'AVAILABLE' ? 'LIVE / DERIVED' : 'UNAVAILABLE'}
+              UNAVAILABLE
             </span>
           </div>
 
           <div style={{
             fontSize: '11px',
             fontWeight: '700',
-            color: dimensions.environment.status === 'AVAILABLE' ? '#10b981' : '#f59e0b',
-            backgroundColor: dimensions.environment.status === 'AVAILABLE' ? 'rgba(16, 185, 129, 0.08)' : 'rgba(245, 158, 11, 0.08)',
-            border: dimensions.environment.status === 'AVAILABLE' ? '1px solid rgba(16, 185, 129, 0.3)' : '1px dashed rgba(245, 158, 11, 0.3)',
+            color: '#f59e0b',
+            backgroundColor: 'rgba(245, 158, 11, 0.08)',
+            border: '1px dashed rgba(245, 158, 11, 0.3)',
             padding: '8px 12px',
             borderRadius: '6px'
           }}>
-            Source: {dimensions.environment.sourceType}
+            Source: {dimensions.environment.sourceType} ({dimensions.environment.sourceLabel})
           </div>
 
           <p style={{ fontSize: '12px', color: 'var(--text-secondary)', lineHeight: '1.4' }}>

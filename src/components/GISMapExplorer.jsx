@@ -30,7 +30,8 @@ export default function GISMapExplorer({
   setCurrentStudyArea,
   selectedZone, 
   setSelectedZone,
-  onSendAlertClick
+  onSendAlertClick,
+  visualDetections = null
 }) {
   const mapRef = useRef(null);
   const mapInstance = useRef(null);
@@ -241,7 +242,115 @@ export default function GISMapExplorer({
       });
     });
 
-  }, [activeLayer, currentStudyArea, isFocusedOnStudy, selectedZone, showHotspots, theme]);
+    // 3. Draw Visual Detection Markers ONLY when latitude !== null AND longitude !== null
+    const roadDets = visualDetections?.detections?.road ?? visualDetections?.road ?? [];
+    const wasteDets = visualDetections?.detections?.waste ?? visualDetections?.waste ?? [];
+    const allVisualDets = [...roadDets, ...wasteDets];
+
+    allVisualDets.forEach(det => {
+      if (typeof det.latitude === 'number' && typeof det.longitude === 'number' && det.latitude !== null && det.longitude !== null) {
+        const isWaste = det.type.includes('Waste') || (det.classCode && det.classCode.startsWith('W')) || det.classCode === 'WASTE';
+        const markerColor = isWaste ? '#fbbf24' : '#00a8ff';
+
+        const customIcon = L.divIcon({
+          html: `
+            <div style="
+              width: 16px;
+              height: 16px;
+              border-radius: 50%;
+              background-color: ${markerColor};
+              border: 2px solid white;
+              box-shadow: 0 0 12px ${markerColor};
+              display: flex;
+              align-items: center;
+              justify-content: center;
+            ">
+              <span style="width: 6px; height: 6px; border-radius: 50%; background-color: white;"></span>
+            </div>
+          `,
+          className: 'visual-detection-marker-icon',
+          iconSize: [16, 16],
+          iconAnchor: [8, 8]
+        });
+
+        const marker = L.marker([det.latitude, det.longitude], { icon: customIcon }).addTo(layerGroupRef.current);
+
+        const detSev = det.severity || 'UNAVAILABLE';
+        const detPriority = visualDetections?.overallPriority || 'MEDIUM';
+
+        const popupHtml = `
+          <div style="font-family: system-ui, -apple-system, sans-serif; padding: 4px; font-size: 12px; width: 230px;">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
+              <strong style="color: ${markerColor}; font-size: 13px;">${det.type}</strong>
+              <span style="font-size: 10px; font-weight: 800; background: rgba(0,168,255,0.15); color: #38bdf8; padding: 2px 6px; borderRadius: 4px;">
+                PRIORITY: ${detPriority}
+              </span>
+            </div>
+            <div style="display: flex; flex-direction: column; gap: 4px; color: ${theme === 'dark' ? '#cbd5e1' : '#334155'};">
+              <div><strong>Class Code:</strong> ${det.classCode}</div>
+              <div><strong>Model Confidence:</strong> ${Math.round(det.confidence * 100)}%</div>
+              <div><strong>Prototype Severity:</strong> <strong style="color: ${detSev === 'HIGH' ? '#f43f5e' : detSev === 'MEDIUM' ? '#f59e0b' : '#10b981'};">${detSev}</strong></div>
+              ${det.severityReason ? `<div style="font-size: 10px; font-style: italic; color: #94a3b8;">${det.severityReason}</div>` : ''}
+              <div><strong>Source:</strong> Real ONNX Model Inference</div>
+              <div><strong>Capture Time:</strong> ${det.timestamp || 'CAPTURE TIME UNAVAILABLE'}</div>
+              <div><strong>Verified GPS:</strong> ${det.latitude}, ${det.longitude}</div>
+            </div>
+          </div>
+        `;
+        marker.bindPopup(popupHtml);
+      }
+    });
+
+    // 4. Draw Flood Visual Marker ONLY when EXIF GPS is verified
+    const floodResult = visualDetections?.flood;
+    const metadata = visualDetections?.metadata;
+    if (floodResult && floodResult.detected && metadata && metadata.isGpsVerified && typeof metadata.latitude === 'number' && typeof metadata.longitude === 'number' && metadata.latitude !== null && metadata.longitude !== null) {
+      const floodMarkerIcon = L.divIcon({
+        html: `
+          <div style="
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            background-color: #00a8ff;
+            border: 2px solid white;
+            box-shadow: 0 0 14px #00a8ff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+          ">
+            <span style="width: 8px; height: 8px; border-radius: 50%; background-color: white;"></span>
+          </div>
+        `,
+        className: 'flood-visual-marker-icon',
+        iconSize: [18, 18],
+        iconAnchor: [9, 9]
+      });
+
+      const floodMarker = L.marker([metadata.latitude, metadata.longitude], { icon: floodMarkerIcon }).addTo(layerGroupRef.current);
+      const floodSev = visualDetections?.severityAnalysis?.flood?.severity || 'MEDIUM';
+
+      const popupHtml = `
+        <div style="font-family: system-ui, -apple-system, sans-serif; padding: 4px; font-size: 12px; width: 240px;">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
+            <strong style="color: #00a8ff; font-size: 13px;">🌊 RGB Flood Visual Detection</strong>
+            <span style="font-size: 10px; font-weight: 800; background: rgba(0,168,255,0.15); color: #38bdf8; padding: 2px 6px; borderRadius: 4px;">
+              VERIFIED ONNX
+            </span>
+          </div>
+          <div style="display: flex; flex-direction: column; gap: 4px; color: ${theme === 'dark' ? '#cbd5e1' : '#334155'};">
+            <div><strong>Visible Water Coverage:</strong> ${floodResult.floodedAreaPercent}%</div>
+            <div><strong>Prototype Severity:</strong> <strong style="color: ${floodSev === 'CRITICAL' || floodSev === 'HIGH' ? '#f43f5e' : '#f59e0b'};">${floodSev}</strong></div>
+            <div><strong>Model:</strong> SegFormer FloodNet ONNX</div>
+            <div><strong>Source:</strong> RGB Visual Flood Segmentation</div>
+            <div><strong>Capture Time:</strong> ${metadata.timestamp || 'CAPTURE TIME UNAVAILABLE'}</div>
+            <div><strong>Verified GPS:</strong> ${metadata.latitude}, ${metadata.longitude}</div>
+          </div>
+        </div>
+      `;
+      floodMarker.bindPopup(popupHtml);
+    }
+
+  }, [activeLayer, currentStudyArea, isFocusedOnStudy, selectedZone, showHotspots, theme, visualDetections]);
 
   // Smooth FlyTo Focus Study Area handler
   const handleFocusStudyArea = (targetArea = currentStudyArea) => {

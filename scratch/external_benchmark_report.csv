@@ -1,0 +1,39 @@
+Filename,GroundTruthFolder,Width,Height,CurrentModelResult,CurrentModelConfidence,ExternalModelResult,ExternalModelConfidence,LatencyMs,ApiModelStatus,Errors
+flood 1.jpg,FLOOD,250,175,FALSE NEGATIVE,0.668,TRUE POSITIVE (CANDIDATE ONNX),N/A,11406.1,LOCAL ONNX CANDIDATE TESTED,None (Ran segformer_water_b0.onnx locally)
+flood 10.webp,FLOOD,192,234,FALSE NEGATIVE,0.6343,TRUE POSITIVE (CANDIDATE ONNX),N/A,12090.8,LOCAL ONNX CANDIDATE TESTED,None (Ran segformer_water_b0.onnx locally)
+flood 11.webp,FLOOD,392,261,TRUE POSITIVE,0.5448,TRUE POSITIVE (CANDIDATE ONNX),N/A,11921.1,LOCAL ONNX CANDIDATE TESTED,None (Ran segformer_water_b0.onnx locally)
+flood 12.webp,FLOOD,417,234,FALSE NEGATIVE,N/A,TRUE POSITIVE (CANDIDATE ONNX),N/A,8615.1,LOCAL ONNX CANDIDATE TESTED,None (Ran segformer_water_b0.onnx locally)
+flood 13.webp,FLOOD,344,234,FALSE NEGATIVE,N/A,TRUE POSITIVE (CANDIDATE ONNX),N/A,9057.7,LOCAL ONNX CANDIDATE TESTED,None (Ran segformer_water_b0.onnx locally)
+flood 2,FLOOD,365,237,FALSE NEGATIVE,N/A,TRUE POSITIVE (CANDIDATE ONNX),N/A,5631.6,LOCAL ONNX CANDIDATE TESTED,None (Ran segformer_water_b0.onnx locally)
+flood 3.webp,FLOOD,408,234,FALSE NEGATIVE,N/A,TRUE POSITIVE (CANDIDATE ONNX),N/A,5600.4,LOCAL ONNX CANDIDATE TESTED,None (Ran segformer_water_b0.onnx locally)
+flood 4.webp,FLOOD,403,234,TRUE POSITIVE,0.521,TRUE POSITIVE (CANDIDATE ONNX),N/A,6837.0,LOCAL ONNX CANDIDATE TESTED,None (Ran segformer_water_b0.onnx locally)
+flood 5.webp,FLOOD,308,234,FALSE NEGATIVE,N/A,TRUE POSITIVE (CANDIDATE ONNX),N/A,6410.4,LOCAL ONNX CANDIDATE TESTED,None (Ran segformer_water_b0.onnx locally)
+flood 6.webp,FLOOD,432,243,FALSE NEGATIVE,0.6021,TRUE POSITIVE (CANDIDATE ONNX),N/A,5415.8,LOCAL ONNX CANDIDATE TESTED,None (Ran segformer_water_b0.onnx locally)
+flood 7.webp,FLOOD,351,234,TRUE POSITIVE,N/A,TRUE POSITIVE (CANDIDATE ONNX),N/A,7416.7,LOCAL ONNX CANDIDATE TESTED,None (Ran segformer_water_b0.onnx locally)
+flood 8.webp,FLOOD,345,245,FALSE NEGATIVE,0.972,TRUE POSITIVE (CANDIDATE ONNX),N/A,5858.7,LOCAL ONNX CANDIDATE TESTED,None (Ran segformer_water_b0.onnx locally)
+flood 9.webp,FLOOD,427,240,TRUE POSITIVE,N/A,TRUE POSITIVE (CANDIDATE ONNX),N/A,5415.3,LOCAL ONNX CANDIDATE TESTED,None (Ran segformer_water_b0.onnx locally)
+flood.jpg,FLOOD,193,135,FALSE NEGATIVE,0.9701,TRUE POSITIVE (CANDIDATE ONNX),N/A,5355.3,LOCAL ONNX CANDIDATE TESTED,None (Ran segformer_water_b0.onnx locally)
+Unconfirmed 541292.crdownload,GARBAGE,630,353,TRUE POSITIVE,0.8969,NOT CONNECTED,N/A,7006.5,EXTERNAL API REQUIRES BACKEND PROXY,Secrets/API keys must remain server-side. Local candidate evaluated in scratch.
+garbage 1.webp,GARBAGE,321,236,TRUE POSITIVE,0.8237,NOT CONNECTED,N/A,6802.1,EXTERNAL API REQUIRES BACKEND PROXY,Secrets/API keys must remain server-side. Local candidate evaluated in scratch.
+garbage 10.webp (1).crdownload,GARBAGE,399,214,TRUE POSITIVE,0.6261,NOT CONNECTED,N/A,6799.5,EXTERNAL API REQUIRES BACKEND PROXY,Secrets/API keys must remain server-side. Local candidate evaluated in scratch.
+garbage 10.webp.crdownload,GARBAGE,354,234,TRUE POSITIVE,0.5915,NOT CONNECTED,N/A,6581.6,EXTERNAL API REQUIRES BACKEND PROXY,Secrets/API keys must remain server-side. Local candidate evaluated in scratch.
+garbage 2.webp,GARBAGE,393,234,TRUE POSITIVE,0.7223,NOT CONNECTED,N/A,6936.1,EXTERNAL API REQUIRES BACKEND PROXY,Secrets/API keys must remain server-side. Local candidate evaluated in scratch.
+garbage 3.webp,GARBAGE,431,234,FALSE NEGATIVE,N/A,NOT CONNECTED,N/A,6910.8,EXTERNAL API REQUIRES BACKEND PROXY,Secrets/API keys must remain server-side. Local candidate evaluated in scratch.
+garbage 4.webp,GARBAGE,357,257,FALSE NEGATIVE,N/A,NOT CONNECTED,N/A,7112.0,EXTERNAL API REQUIRES BACKEND PROXY,Secrets/API keys must remain server-side. Local candidate evaluated in scratch.
+garbage 5.webp,GARBAGE,344,234,TRUE POSITIVE,0.8748,NOT CONNECTED,N/A,6535.2,EXTERNAL API REQUIRES BACKEND PROXY,Secrets/API keys must remain server-side. Local candidate evaluated in scratch.
+garbage 6.webp,GARBAGE,354,236,TRUE POSITIVE,0.8162,NOT CONNECTED,N/A,6317.8,EXTERNAL API REQUIRES BACKEND PROXY,Secrets/API keys must remain server-side. Local candidate evaluated in scratch.
+garbage 7.webp,GARBAGE,391,260,TRUE POSITIVE,0.8455,NOT CONNECTED,N/A,7260.8,EXTERNAL API REQUIRES BACKEND PROXY,Secrets/API keys must remain server-side. Local candidate evaluated in scratch.
+garbage 8.webp,GARBAGE,358,234,FALSE NEGATIVE,N/A,NOT CONNECTED,N/A,5691.4,EXTERNAL API REQUIRES BACKEND PROXY,Secrets/API keys must remain server-side. Local candidate evaluated in scratch.
+garbage 9.webp,GARBAGE,332,244,TRUE POSITIVE,0.9036,NOT CONNECTED,N/A,5509.3,EXTERNAL API REQUIRES BACKEND PROXY,Secrets/API keys must remain server-side. Local candidate evaluated in scratch.
+pathole 1.webp,POTHOLE,340,256,TRUE POSITIVE,0.8157,NOT CONNECTED,N/A,5946.6,EXTERNAL API REQUIRES BACKEND PROXY,Secrets/API keys must remain server-side. Local candidate evaluated in scratch.
+pathole 10.webp,POTHOLE,371,234,TRUE POSITIVE,0.5403,NOT CONNECTED,N/A,6626.6,EXTERNAL API REQUIRES BACKEND PROXY,Secrets/API keys must remain server-side. Local candidate evaluated in scratch.
+pathole 11.webp,POTHOLE,391,234,TRUE POSITIVE,0.6538,NOT CONNECTED,N/A,7485.8,EXTERNAL API REQUIRES BACKEND PROXY,Secrets/API keys must remain server-side. Local candidate evaluated in scratch.
+pathole 2.webp,POTHOLE,297,234,FALSE NEGATIVE,0.8969,NOT CONNECTED,N/A,7930.0,EXTERNAL API REQUIRES BACKEND PROXY,Secrets/API keys must remain server-side. Local candidate evaluated in scratch.
+pathole 3.webp,POTHOLE,370,247,FALSE NEGATIVE,0.6032,NOT CONNECTED,N/A,6791.7,EXTERNAL API REQUIRES BACKEND PROXY,Secrets/API keys must remain server-side. Local candidate evaluated in scratch.
+pathole 4.webp,POTHOLE,361,262,TRUE POSITIVE,0.7448,NOT CONNECTED,N/A,6781.6,EXTERNAL API REQUIRES BACKEND PROXY,Secrets/API keys must remain server-side. Local candidate evaluated in scratch.
+pathole 5.webp,POTHOLE,419,235,TRUE POSITIVE,0.5879,NOT CONNECTED,N/A,6841.6,EXTERNAL API REQUIRES BACKEND PROXY,Secrets/API keys must remain server-side. Local candidate evaluated in scratch.
+pathole 6.webp,POTHOLE,334,250,FALSE NEGATIVE,N/A,NOT CONNECTED,N/A,6859.2,EXTERNAL API REQUIRES BACKEND PROXY,Secrets/API keys must remain server-side. Local candidate evaluated in scratch.
+pathole 7.webp,POTHOLE,232,234,TRUE POSITIVE,0.6399,NOT CONNECTED,N/A,5767.3,EXTERNAL API REQUIRES BACKEND PROXY,Secrets/API keys must remain server-side. Local candidate evaluated in scratch.
+pathole 8.webp,POTHOLE,396,234,TRUE POSITIVE,0.8601,NOT CONNECTED,N/A,5658.8,EXTERNAL API REQUIRES BACKEND PROXY,Secrets/API keys must remain server-side. Local candidate evaluated in scratch.
+pathole 9.webp,POTHOLE,319,234,FALSE NEGATIVE,0.5741,NOT CONNECTED,N/A,5448.1,EXTERNAL API REQUIRES BACKEND PROXY,Secrets/API keys must remain server-side. Local candidate evaluated in scratch.
+road without pothole.webp,POTHOLE,353,226,CORRECT NEGATIVE,N/A,NOT CONNECTED,N/A,5439.1,EXTERNAL API REQUIRES BACKEND PROXY,Secrets/API keys must remain server-side. Local candidate evaluated in scratch.

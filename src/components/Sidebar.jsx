@@ -7,7 +7,9 @@ import {
   ClipboardList, 
   FileSpreadsheet,
   Activity,
-  HeartPulse
+  HeartPulse,
+  ShieldCheck,
+  GitCompare
 } from 'lucide-react';
 
 export default function Sidebar({ activeTab, setActiveTab }) {
@@ -15,6 +17,8 @@ export default function Sidebar({ activeTab, setActiveTab }) {
     { id: 'dashboard', label: 'Executive Dashboard', icon: LayoutDashboard },
     { id: 'civichealth', label: 'Civic Health', icon: HeartPulse },
     { id: 'detection', label: 'AI Detection Hub', icon: Eye },
+    { id: 'validation', label: 'Real Image Validation', icon: ShieldCheck },
+    { id: 'benchmark', label: 'External Model Benchmark', icon: GitCompare },
     { id: 'map', label: 'Smart City GIS Map', icon: Map },
     { id: 'predictor', label: 'Predictive Analytics', icon: TrendingUp },
     { id: 'planner', label: 'Maintenance Planner', icon: ClipboardList },

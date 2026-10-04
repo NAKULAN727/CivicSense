@@ -1,0 +1,39 @@
+Filename,GroundTruth,Width,Height,Classification,RawCandidates,PostNmsDetections,DetectedClasses,MaxConfidence,FloodAreaPercent,CrossModelFalsePositives,InferenceTimeMs
+flood 1.jpg,FLOOD,250,175,FALSE NEGATIVE,6,1,Waste: Organic Waste (W50),0.668,0.0,Waste Model,11406.1
+flood 10.webp,FLOOD,192,234,FALSE NEGATIVE,3,1,Waste: Organic Waste (W50),0.6343,0.0,Waste Model,12090.8
+flood 11.webp,FLOOD,392,261,TRUE POSITIVE,1,1,Waste: Organic Waste (W50); Flood: Water Coverage (57.41%),0.5448,57.41,Waste Model,11921.1
+flood 12.webp,FLOOD,417,234,FALSE NEGATIVE,0,0,None,N/A,0.0,None,8615.1
+flood 13.webp,FLOOD,344,234,FALSE NEGATIVE,0,0,None,N/A,0.0,None,9057.7
+flood 2,FLOOD,365,237,FALSE NEGATIVE,0,0,None,N/A,0.0,None,5631.6
+flood 3.webp,FLOOD,408,234,FALSE NEGATIVE,0,0,None,N/A,0.0,None,5600.4
+flood 4.webp,FLOOD,403,234,TRUE POSITIVE,3,1,Waste: Cardboard Waste (W00); Flood: Water Coverage (99.71%),0.521,99.71,Waste Model,6837.0
+flood 5.webp,FLOOD,308,234,FALSE NEGATIVE,0,0,None,N/A,0.0,None,6410.4
+flood 6.webp,FLOOD,432,243,FALSE NEGATIVE,3,1,Waste: Glass Waste (W20),0.6021,0.0,Waste Model,5415.8
+flood 7.webp,FLOOD,351,234,TRUE POSITIVE,0,0,Flood: Water Coverage (91.94%),N/A,91.94,None,7416.7
+flood 8.webp,FLOOD,345,245,FALSE NEGATIVE,8,1,Waste: Plastic Waste (W70),0.972,0.0,Waste Model,5858.7
+flood 9.webp,FLOOD,427,240,TRUE POSITIVE,0,0,Flood: Water Coverage (50.05%),N/A,50.05,None,5415.3
+flood.jpg,FLOOD,193,135,FALSE NEGATIVE,10,1,Waste: Organic Waste (W50),0.9701,0.0,Waste Model,5355.3
+Unconfirmed 541292.crdownload,GARBAGE,630,353,TRUE POSITIVE,10,1,Waste: Plastic Waste (W70),0.8969,0.0,None,7006.5
+garbage 1.webp,GARBAGE,321,236,TRUE POSITIVE,10,1,Waste: Organic Waste (W50),0.8237,0.0,None,6802.1
+garbage 10.webp (1).crdownload,GARBAGE,399,214,TRUE POSITIVE,2,1,Waste: Plastic Waste (W70); Flood: Water Coverage (11.23%),0.6261,11.23,Flood Model,6799.5
+garbage 10.webp.crdownload,GARBAGE,354,234,TRUE POSITIVE,6,1,Waste: Plastic Waste (W70),0.5915,0.0,None,6581.6
+garbage 2.webp,GARBAGE,393,234,TRUE POSITIVE,9,1,Waste: Plastic Waste (W70); Flood: Water Coverage (10.97%),0.7223,10.97,Flood Model,6936.1
+garbage 3.webp,GARBAGE,431,234,FALSE NEGATIVE,0,0,None,N/A,0.0,None,6910.8
+garbage 4.webp,GARBAGE,357,257,FALSE NEGATIVE,0,0,None,N/A,0.0,None,7112.0
+garbage 5.webp,GARBAGE,344,234,TRUE POSITIVE,7,1,Waste: Plastic Waste (W70),0.8748,0.0,None,6535.2
+garbage 6.webp,GARBAGE,354,236,TRUE POSITIVE,8,1,Waste: Glass Waste (W20); Flood: Water Coverage (7.76%),0.8162,7.76,Flood Model,6317.8
+garbage 7.webp,GARBAGE,391,260,TRUE POSITIVE,6,1,Waste: Plastic Waste (W70); Flood: Water Coverage (29.77%),0.8455,29.77,Flood Model,7260.8
+garbage 8.webp,GARBAGE,358,234,FALSE NEGATIVE,0,0,None,N/A,0.0,None,5691.4
+garbage 9.webp,GARBAGE,332,244,TRUE POSITIVE,8,1,Waste: Plastic Waste (W70); Flood: Water Coverage (7.33%),0.9036,7.33,Flood Model,5509.3
+pathole 1.webp,POTHOLE,340,256,TRUE POSITIVE,7,1,Road: Pothole (D40),0.8157,0.0,None,5946.6
+pathole 10.webp,POTHOLE,371,234,TRUE POSITIVE,1,1,Road: Pothole (D40),0.5403,0.0,None,6626.6
+pathole 11.webp,POTHOLE,391,234,TRUE POSITIVE,8,2,Road: Alligator Crack (D20); Waste: Organic Waste (W50),0.6538,0.0,Waste Model,7485.8
+pathole 2.webp,POTHOLE,297,234,FALSE NEGATIVE,10,1,Waste: Plastic Waste (W70),0.8969,0.0,Waste Model,7930.0
+pathole 3.webp,POTHOLE,370,247,FALSE NEGATIVE,4,1,Waste: Cardboard Waste (W00),0.6032,0.0,Waste Model,6791.7
+pathole 4.webp,POTHOLE,361,262,TRUE POSITIVE,39,6,Road: Pothole (D40); Road: Pothole (D40); Road: Pothole (D40); Road: Pothole (D40); Road: Pothole (D40); Waste: Plastic Waste (W70),0.7448,0.0,Waste Model,6781.6
+pathole 5.webp,POTHOLE,419,235,TRUE POSITIVE,4,2,Road: Alligator Crack (D20); Waste: Plastic Waste (W70),0.5879,0.0,Waste Model,6841.6
+pathole 6.webp,POTHOLE,334,250,FALSE NEGATIVE,0,0,Flood: Water Coverage (8.1%),N/A,8.1,Flood Model,6859.2
+pathole 7.webp,POTHOLE,232,234,TRUE POSITIVE,4,2,Road: Pothole (D40); Waste: Organic Waste (W50),0.6399,0.0,Waste Model,5767.3
+pathole 8.webp,POTHOLE,396,234,TRUE POSITIVE,18,2,Road: Pothole (D40); Waste: Plastic Waste (W70); Flood: Water Coverage (4.52%),0.8601,4.52,Waste Model; Flood Model,5658.8
+pathole 9.webp,POTHOLE,319,234,FALSE NEGATIVE,3,1,Waste: Organic Waste (W50),0.5741,0.0,Waste Model,5448.1
+road without pothole.webp,POTHOLE,353,226,CORRECT NEGATIVE,0,0,Flood: Water Coverage (7.59%),N/A,7.59,Flood Model,5439.1

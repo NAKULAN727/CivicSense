@@ -1,0 +1,1306 @@
+{
+  "reportTitle": "CivicSense AI - Real Image Validation Report",
+  "generatedAt": "2026-10-04T19:00:00Z",
+  "datasetSummary": {
+    "totalImages": 38,
+    "imagesPerCategory": {
+      "FLOOD": 14,
+      "GARBAGE": 12,
+      "POTHOLE": 12
+    },
+    "imageResolutions": {
+      "minWidth": 192,
+      "maxWidth": 630,
+      "minHeight": 135,
+      "maxHeight": 353
+    }
+  },
+  "categoryResults": {
+    "POTHOLE": {
+      "total": 12,
+      "truePositives": 7,
+      "falseNegatives": 4,
+      "falsePositivesIdentified": 0,
+      "correctNegatives": 1,
+      "detectionRatePercent": 58.33
+    },
+    "GARBAGE": {
+      "total": 12,
+      "truePositives": 9,
+      "falseNegatives": 3,
+      "falsePositivesIdentified": 0,
+      "correctNegatives": 0,
+      "detectionRatePercent": 75.0
+    },
+    "FLOOD": {
+      "total": 14,
+      "truePositives": 4,
+      "falseNegatives": 10,
+      "falsePositivesIdentified": 0,
+      "correctNegatives": 0,
+      "detectionRatePercent": 28.57
+    }
+  },
+  "modelFailureAnalysis": {
+    "lowResolutionImpact": "Source images have low natural resolutions (e.g. 250x175). Scaling up to model inputs (640x640 / 512x512) creates severe bilinear interpolation artifacts.",
+    "wasteModelBackgroundConfusion": "The multi-class waste model frequently misclassifies dark asphalt patches and ground texture as 'Organic Waste (W50)' or 'Plastic Waste (W70)'.",
+    "floodModelDomainMismatch": "The SegFormer FloodNet model was trained on aerial drone imagery, resulting in low sensitivity to close-up, street-level water puddles unless large water bodies are visible.",
+    "roadDamageModelSensitivity": "The RDD2022 YOLOv8 road damage model detects Potholes (D40) and Alligator Cracks (D20) on clear road images, but struggles on low-light or angled shots.",
+    "failureSummaryCounts": {
+      "lowResolutionImagesCount": 37,
+      "crossModelFalsePositiveCount": 22,
+      "missedDetectionFalseNegativeCount": 17
+    }
+  },
+  "accuracyClaimDisclaimer": "Overall accuracy is NOT reported because ground truth bounding boxes and negative controls are limited to folder-level labels.",
+  "perImageResults": [
+    {
+      "filename": "flood 1.jpg",
+      "relPath": "Flood\\flood 1.jpg",
+      "groundTruth": "FLOOD",
+      "imageWidth": 250,
+      "imageHeight": 175,
+      "resolution": "250x175",
+      "classification": "FALSE NEGATIVE",
+      "modelsUsed": [
+        "RDD2022 YOLOv8 Road Damage",
+        "YOLOv8 Waste Detector",
+        "SegFormer FloodNet Segmenter"
+      ],
+      "detectedClasses": [
+        "Waste: Organic Waste (W50)"
+      ],
+      "maxConfidence": 0.668,
+      "boundingBoxes": [
+        {
+          "x": 0.14000000059604645,
+          "y": 0.11999999731779099,
+          "width": 80.7300033569336,
+          "height": 99.87999725341797
+        }
+      ],
+      "numRawCandidates": 6,
+      "numPostNmsDetections": 1,
+      "floodAreaPercent": 0.0,
+      "crossModelFalsePositives": [
+        "Waste Model"
+      ],
+      "inferenceStatus": "SUCCESS",
+      "inferenceTimeMs": 11406.1
+    },
+    {
+      "filename": "flood 10.webp",
+      "relPath": "Flood\\flood 10.webp",
+      "groundTruth": "FLOOD",
+      "imageWidth": 192,
+      "imageHeight": 234,
+      "resolution": "192x234",
+      "classification": "FALSE NEGATIVE",
+      "modelsUsed": [
+        "RDD2022 YOLOv8 Road Damage",
+        "YOLOv8 Waste Detector",
+        "SegFormer FloodNet Segmenter"
+      ],
+      "detectedClasses": [
+        "Waste: Organic Waste (W50)"
+      ],
+      "maxConfidence": 0.6343,
+      "boundingBoxes": [
+        {
+          "x": 0.10999999940395355,
+          "y": 0.0,
+          "width": 91.80999755859375,
+          "height": 79.94000244140625
+        }
+      ],
+      "numRawCandidates": 3,
+      "numPostNmsDetections": 1,
+      "floodAreaPercent": 0.0,
+      "crossModelFalsePositives": [
+        "Waste Model"
+      ],
+      "inferenceStatus": "SUCCESS",
+      "inferenceTimeMs": 12090.8
+    },
+    {
+      "filename": "flood 11.webp",
+      "relPath": "Flood\\flood 11.webp",
+      "groundTruth": "FLOOD",
+      "imageWidth": 392,
+      "imageHeight": 261,
+      "resolution": "392x261",
+      "classification": "TRUE POSITIVE",
+      "modelsUsed": [
+        "RDD2022 YOLOv8 Road Damage",
+        "YOLOv8 Waste Detector",
+        "SegFormer FloodNet Segmenter"
+      ],
+      "detectedClasses": [
+        "Waste: Organic Waste (W50)",
+        "Flood: Water Coverage (57.41%)"
+      ],
+      "maxConfidence": 0.5448,
+      "boundingBoxes": [
+        {
+          "x": 0.009999999776482582,
+          "y": 0.0,
+          "width": 79.4800033569336,
+          "height": 99.9000015258789
+        },
+        null
+      ],
+      "numRawCandidates": 1,
+      "numPostNmsDetections": 1,
+      "floodAreaPercent": 57.41,
+      "crossModelFalsePositives": [
+        "Waste Model"
+      ],
+      "inferenceStatus": "SUCCESS",
+      "inferenceTimeMs": 11921.1
+    },
+    {
+      "filename": "flood 12.webp",
+      "relPath": "Flood\\flood 12.webp",
+      "groundTruth": "FLOOD",
+      "imageWidth": 417,
+      "imageHeight": 234,
+      "resolution": "417x234",
+      "classification": "FALSE NEGATIVE",
+      "modelsUsed": [
+        "RDD2022 YOLOv8 Road Damage",
+        "YOLOv8 Waste Detector",
+        "SegFormer FloodNet Segmenter"
+      ],
+      "detectedClasses": [],
+      "maxConfidence": null,
+      "boundingBoxes": [],
+      "numRawCandidates": 0,
+      "numPostNmsDetections": 0,
+      "floodAreaPercent": 0.0,
+      "crossModelFalsePositives": [],
+      "inferenceStatus": "SUCCESS",
+      "inferenceTimeMs": 8615.1
+    },
+    {
+      "filename": "flood 13.webp",
+      "relPath": "Flood\\flood 13.webp",
+      "groundTruth": "FLOOD",
+      "imageWidth": 344,
+      "imageHeight": 234,
+      "resolution": "344x234",
+      "classification": "FALSE NEGATIVE",
+      "modelsUsed": [
+        "RDD2022 YOLOv8 Road Damage",
+        "YOLOv8 Waste Detector",
+        "SegFormer FloodNet Segmenter"
+      ],
+      "detectedClasses": [],
+      "maxConfidence": null,
+      "boundingBoxes": [],
+      "numRawCandidates": 0,
+      "numPostNmsDetections": 0,
+      "floodAreaPercent": 0.0,
+      "crossModelFalsePositives": [],
+      "inferenceStatus": "SUCCESS",
+      "inferenceTimeMs": 9057.7
+    },
+    {
+      "filename": "flood 2",
+      "relPath": "Flood\\flood 2",
+      "groundTruth": "FLOOD",
+      "imageWidth": 365,
+      "imageHeight": 237,
+      "resolution": "365x237",
+      "classification": "FALSE NEGATIVE",
+      "modelsUsed": [
+        "RDD2022 YOLOv8 Road Damage",
+        "YOLOv8 Waste Detector",
+        "SegFormer FloodNet Segmenter"
+      ],
+      "detectedClasses": [],
+      "maxConfidence": null,
+      "boundingBoxes": [],
+      "numRawCandidates": 0,
+      "numPostNmsDetections": 0,
+      "floodAreaPercent": 0.0,
+      "crossModelFalsePositives": [],
+      "inferenceStatus": "SUCCESS",
+      "inferenceTimeMs": 5631.6
+    },
+    {
+      "filename": "flood 3.webp",
+      "relPath": "Flood\\flood 3.webp",
+      "groundTruth": "FLOOD",
+      "imageWidth": 408,
+      "imageHeight": 234,
+      "resolution": "408x234",
+      "classification": "FALSE NEGATIVE",
+      "modelsUsed": [
+        "RDD2022 YOLOv8 Road Damage",
+        "YOLOv8 Waste Detector",
+        "SegFormer FloodNet Segmenter"
+      ],
+      "detectedClasses": [],
+      "maxConfidence": null,
+      "boundingBoxes": [],
+      "numRawCandidates": 0,
+      "numPostNmsDetections": 0,
+      "floodAreaPercent": 0.0,
+      "crossModelFalsePositives": [],
+      "inferenceStatus": "SUCCESS",
+      "inferenceTimeMs": 5600.4
+    },
+    {
+      "filename": "flood 4.webp",
+      "relPath": "Flood\\flood 4.webp",
+      "groundTruth": "FLOOD",
+      "imageWidth": 403,
+      "imageHeight": 234,
+      "resolution": "403x234",
+      "classification": "TRUE POSITIVE",
+      "modelsUsed": [
+        "RDD2022 YOLOv8 Road Damage",
+        "YOLOv8 Waste Detector",
+        "SegFormer FloodNet Segmenter"
+      ],
+      "detectedClasses": [
+        "Waste: Cardboard Waste (W00)",
+        "Flood: Water Coverage (99.71%)"
+      ],
+      "maxConfidence": 0.521,
+      "boundingBoxes": [
+        {
+          "x": 0.07999999821186066,
+          "y": 0.14000000059604645,
+          "width": 80.30999755859375,
+          "height": 99.86000061035156
+        },
+        null
+      ],
+      "numRawCandidates": 3,
+      "numPostNmsDetections": 1,
+      "floodAreaPercent": 99.71,
+      "crossModelFalsePositives": [
+        "Waste Model"
+      ],
+      "inferenceStatus": "SUCCESS",
+      "inferenceTimeMs": 6837.0
+    },
+    {
+      "filename": "flood 5.webp",
+      "relPath": "Flood\\flood 5.webp",
+      "groundTruth": "FLOOD",
+      "imageWidth": 308,
+      "imageHeight": 234,
+      "resolution": "308x234",
+      "classification": "FALSE NEGATIVE",
+      "modelsUsed": [
+        "RDD2022 YOLOv8 Road Damage",
+        "YOLOv8 Waste Detector",
+        "SegFormer FloodNet Segmenter"
+      ],
+      "detectedClasses": [],
+      "maxConfidence": null,
+      "boundingBoxes": [],
+      "numRawCandidates": 0,
+      "numPostNmsDetections": 0,
+      "floodAreaPercent": 0.0,
+      "crossModelFalsePositives": [],
+      "inferenceStatus": "SUCCESS",
+      "inferenceTimeMs": 6410.4
+    },
+    {
+      "filename": "flood 6.webp",
+      "relPath": "Flood\\flood 6.webp",
+      "groundTruth": "FLOOD",
+      "imageWidth": 432,
+      "imageHeight": 243,
+      "resolution": "432x243",
+      "classification": "FALSE NEGATIVE",
+      "modelsUsed": [
+        "RDD2022 YOLOv8 Road Damage",
+        "YOLOv8 Waste Detector",
+        "SegFormer FloodNet Segmenter"
+      ],
+      "detectedClasses": [
+        "Waste: Glass Waste (W20)"
+      ],
+      "maxConfidence": 0.6021,
+      "boundingBoxes": [
+        {
+          "x": 0.44999998807907104,
+          "y": 0.0,
+          "width": 76.87999725341797,
+          "height": 99.98999786376953
+        }
+      ],
+      "numRawCandidates": 3,
+      "numPostNmsDetections": 1,
+      "floodAreaPercent": 0.0,
+      "crossModelFalsePositives": [
+        "Waste Model"
+      ],
+      "inferenceStatus": "SUCCESS",
+      "inferenceTimeMs": 5415.8
+    },
+    {
+      "filename": "flood 7.webp",
+      "relPath": "Flood\\flood 7.webp",
+      "groundTruth": "FLOOD",
+      "imageWidth": 351,
+      "imageHeight": 234,
+      "resolution": "351x234",
+      "classification": "TRUE POSITIVE",
+      "modelsUsed": [
+        "RDD2022 YOLOv8 Road Damage",
+        "YOLOv8 Waste Detector",
+        "SegFormer FloodNet Segmenter"
+      ],
+      "detectedClasses": [
+        "Flood: Water Coverage (91.94%)"
+      ],
+      "maxConfidence": null,
+      "boundingBoxes": [
+        null
+      ],
+      "numRawCandidates": 0,
+      "numPostNmsDetections": 0,
+      "floodAreaPercent": 91.94,
+      "crossModelFalsePositives": [],
+      "inferenceStatus": "SUCCESS",
+      "inferenceTimeMs": 7416.7
+    },
+    {
+      "filename": "flood 8.webp",
+      "relPath": "Flood\\flood 8.webp",
+      "groundTruth": "FLOOD",
+      "imageWidth": 345,
+      "imageHeight": 245,
+      "resolution": "345x245",
+      "classification": "FALSE NEGATIVE",
+      "modelsUsed": [
+        "RDD2022 YOLOv8 Road Damage",
+        "YOLOv8 Waste Detector",
+        "SegFormer FloodNet Segmenter"
+      ],
+      "detectedClasses": [
+        "Waste: Plastic Waste (W70)"
+      ],
+      "maxConfidence": 0.972,
+      "boundingBoxes": [
+        {
+          "x": 0.0,
+          "y": 0.03999999910593033,
+          "width": 79.19999694824219,
+          "height": 99.83999633789062
+        }
+      ],
+      "numRawCandidates": 8,
+      "numPostNmsDetections": 1,
+      "floodAreaPercent": 0.0,
+      "crossModelFalsePositives": [
+        "Waste Model"
+      ],
+      "inferenceStatus": "SUCCESS",
+      "inferenceTimeMs": 5858.7
+    },
+    {
+      "filename": "flood 9.webp",
+      "relPath": "Flood\\flood 9.webp",
+      "groundTruth": "FLOOD",
+      "imageWidth": 427,
+      "imageHeight": 240,
+      "resolution": "427x240",
+      "classification": "TRUE POSITIVE",
+      "modelsUsed": [
+        "RDD2022 YOLOv8 Road Damage",
+        "YOLOv8 Waste Detector",
+        "SegFormer FloodNet Segmenter"
+      ],
+      "detectedClasses": [
+        "Flood: Water Coverage (50.05%)"
+      ],
+      "maxConfidence": null,
+      "boundingBoxes": [
+        null
+      ],
+      "numRawCandidates": 0,
+      "numPostNmsDetections": 0,
+      "floodAreaPercent": 50.05,
+      "crossModelFalsePositives": [],
+      "inferenceStatus": "SUCCESS",
+      "inferenceTimeMs": 5415.3
+    },
+    {
+      "filename": "flood.jpg",
+      "relPath": "Flood\\flood.jpg",
+      "groundTruth": "FLOOD",
+      "imageWidth": 193,
+      "imageHeight": 135,
+      "resolution": "193x135",
+      "classification": "FALSE NEGATIVE",
+      "modelsUsed": [
+        "RDD2022 YOLOv8 Road Damage",
+        "YOLOv8 Waste Detector",
+        "SegFormer FloodNet Segmenter"
+      ],
+      "detectedClasses": [
+        "Waste: Organic Waste (W50)"
+      ],
+      "maxConfidence": 0.9701,
+      "boundingBoxes": [
+        {
+          "x": 0.14000000059604645,
+          "y": 0.17000000178813934,
+          "width": 80.73999786376953,
+          "height": 99.83000183105469
+        }
+      ],
+      "numRawCandidates": 10,
+      "numPostNmsDetections": 1,
+      "floodAreaPercent": 0.0,
+      "crossModelFalsePositives": [
+        "Waste Model"
+      ],
+      "inferenceStatus": "SUCCESS",
+      "inferenceTimeMs": 5355.3
+    },
+    {
+      "filename": "Unconfirmed 541292.crdownload",
+      "relPath": "Garbage\\Unconfirmed 541292.crdownload",
+      "groundTruth": "GARBAGE",
+      "imageWidth": 630,
+      "imageHeight": 353,
+      "resolution": "630x353",
+      "classification": "TRUE POSITIVE",
+      "modelsUsed": [
+        "RDD2022 YOLOv8 Road Damage",
+        "YOLOv8 Waste Detector",
+        "SegFormer FloodNet Segmenter"
+      ],
+      "detectedClasses": [
+        "Waste: Plastic Waste (W70)"
+      ],
+      "maxConfidence": 0.8969,
+      "boundingBoxes": [
+        {
+          "x": 0.4099999964237213,
+          "y": 0.0,
+          "width": 77.43000030517578,
+          "height": 100.0
+        }
+      ],
+      "numRawCandidates": 10,
+      "numPostNmsDetections": 1,
+      "floodAreaPercent": 0.0,
+      "crossModelFalsePositives": [],
+      "inferenceStatus": "SUCCESS",
+      "inferenceTimeMs": 7006.5
+    },
+    {
+      "filename": "garbage 1.webp",
+      "relPath": "Garbage\\garbage 1.webp",
+      "groundTruth": "GARBAGE",
+      "imageWidth": 321,
+      "imageHeight": 236,
+      "resolution": "321x236",
+      "classification": "TRUE POSITIVE",
+      "modelsUsed": [
+        "RDD2022 YOLOv8 Road Damage",
+        "YOLOv8 Waste Detector",
+        "SegFormer FloodNet Segmenter"
+      ],
+      "detectedClasses": [
+        "Waste: Organic Waste (W50)"
+      ],
+      "maxConfidence": 0.8237,
+      "boundingBoxes": [
+        {
+          "x": 0.6200000047683716,
+          "y": 0.029999999329447746,
+          "width": 79.86000061035156,
+          "height": 99.69999694824219
+        }
+      ],
+      "numRawCandidates": 10,
+      "numPostNmsDetections": 1,
+      "floodAreaPercent": 0.0,
+      "crossModelFalsePositives": [],
+      "inferenceStatus": "SUCCESS",
+      "inferenceTimeMs": 6802.1
+    },
+    {
+      "filename": "garbage 10.webp (1).crdownload",
+      "relPath": "Garbage\\garbage 10.webp (1).crdownload",
+      "groundTruth": "GARBAGE",
+      "imageWidth": 399,
+      "imageHeight": 214,
+      "resolution": "399x214",
+      "classification": "TRUE POSITIVE",
+      "modelsUsed": [
+        "RDD2022 YOLOv8 Road Damage",
+        "YOLOv8 Waste Detector",
+        "SegFormer FloodNet Segmenter"
+      ],
+      "detectedClasses": [
+        "Waste: Plastic Waste (W70)",
+        "Flood: Water Coverage (11.23%)"
+      ],
+      "maxConfidence": 0.6261,
+      "boundingBoxes": [
+        {
+          "x": 0.6000000238418579,
+          "y": 0.0,
+          "width": 79.01000213623047,
+          "height": 99.61000061035156
+        },
+        null
+      ],
+      "numRawCandidates": 2,
+      "numPostNmsDetections": 1,
+      "floodAreaPercent": 11.23,
+      "crossModelFalsePositives": [
+        "Flood Model"
+      ],
+      "inferenceStatus": "SUCCESS",
+      "inferenceTimeMs": 6799.5
+    },
+    {
+      "filename": "garbage 10.webp.crdownload",
+      "relPath": "Garbage\\garbage 10.webp.crdownload",
+      "groundTruth": "GARBAGE",
+      "imageWidth": 354,
+      "imageHeight": 234,
+      "resolution": "354x234",
+      "classification": "TRUE POSITIVE",
+      "modelsUsed": [
+        "RDD2022 YOLOv8 Road Damage",
+        "YOLOv8 Waste Detector",
+        "SegFormer FloodNet Segmenter"
+      ],
+      "detectedClasses": [
+        "Waste: Plastic Waste (W70)"
+      ],
+      "maxConfidence": 0.5915,
+      "boundingBoxes": [
+        {
+          "x": 0.07000000029802322,
+          "y": 0.0,
+          "width": 81.05999755859375,
+          "height": 99.94999694824219
+        }
+      ],
+      "numRawCandidates": 6,
+      "numPostNmsDetections": 1,
+      "floodAreaPercent": 0.0,
+      "crossModelFalsePositives": [],
+      "inferenceStatus": "SUCCESS",
+      "inferenceTimeMs": 6581.6
+    },
+    {
+      "filename": "garbage 2.webp",
+      "relPath": "Garbage\\garbage 2.webp",
+      "groundTruth": "GARBAGE",
+      "imageWidth": 393,
+      "imageHeight": 234,
+      "resolution": "393x234",
+      "classification": "TRUE POSITIVE",
+      "modelsUsed": [
+        "RDD2022 YOLOv8 Road Damage",
+        "YOLOv8 Waste Detector",
+        "SegFormer FloodNet Segmenter"
+      ],
+      "detectedClasses": [
+        "Waste: Plastic Waste (W70)",
+        "Flood: Water Coverage (10.97%)"
+      ],
+      "maxConfidence": 0.7223,
+      "boundingBoxes": [
+        {
+          "x": 0.4000000059604645,
+          "y": 0.14000000059604645,
+          "width": 77.91999816894531,
+          "height": 99.8499984741211
+        },
+        null
+      ],
+      "numRawCandidates": 9,
+      "numPostNmsDetections": 1,
+      "floodAreaPercent": 10.97,
+      "crossModelFalsePositives": [
+        "Flood Model"
+      ],
+      "inferenceStatus": "SUCCESS",
+      "inferenceTimeMs": 6936.1
+    },
+    {
+      "filename": "garbage 3.webp",
+      "relPath": "Garbage\\garbage 3.webp",
+      "groundTruth": "GARBAGE",
+      "imageWidth": 431,
+      "imageHeight": 234,
+      "resolution": "431x234",
+      "classification": "FALSE NEGATIVE",
+      "modelsUsed": [
+        "RDD2022 YOLOv8 Road Damage",
+        "YOLOv8 Waste Detector",
+        "SegFormer FloodNet Segmenter"
+      ],
+      "detectedClasses": [],
+      "maxConfidence": null,
+      "boundingBoxes": [],
+      "numRawCandidates": 0,
+      "numPostNmsDetections": 0,
+      "floodAreaPercent": 0.0,
+      "crossModelFalsePositives": [],
+      "inferenceStatus": "SUCCESS",
+      "inferenceTimeMs": 6910.8
+    },
+    {
+      "filename": "garbage 4.webp",
+      "relPath": "Garbage\\garbage 4.webp",
+      "groundTruth": "GARBAGE",
+      "imageWidth": 357,
+      "imageHeight": 257,
+      "resolution": "357x257",
+      "classification": "FALSE NEGATIVE",
+      "modelsUsed": [
+        "RDD2022 YOLOv8 Road Damage",
+        "YOLOv8 Waste Detector",
+        "SegFormer FloodNet Segmenter"
+      ],
+      "detectedClasses": [],
+      "maxConfidence": null,
+      "boundingBoxes": [],
+      "numRawCandidates": 0,
+      "numPostNmsDetections": 0,
+      "floodAreaPercent": 0.0,
+      "crossModelFalsePositives": [],
+      "inferenceStatus": "SUCCESS",
+      "inferenceTimeMs": 7112.0
+    },
+    {
+      "filename": "garbage 5.webp",
+      "relPath": "Garbage\\garbage 5.webp",
+      "groundTruth": "GARBAGE",
+      "imageWidth": 344,
+      "imageHeight": 234,
+      "resolution": "344x234",
+      "classification": "TRUE POSITIVE",
+      "modelsUsed": [
+        "RDD2022 YOLOv8 Road Damage",
+        "YOLOv8 Waste Detector",
+        "SegFormer FloodNet Segmenter"
+      ],
+      "detectedClasses": [
+        "Waste: Plastic Waste (W70)"
+      ],
+      "maxConfidence": 0.8748,
+      "boundingBoxes": [
+        {
+          "x": 0.4000000059604645,
+          "y": 0.0,
+          "width": 77.9800033569336,
+          "height": 99.73999786376953
+        }
+      ],
+      "numRawCandidates": 7,
+      "numPostNmsDetections": 1,
+      "floodAreaPercent": 0.0,
+      "crossModelFalsePositives": [],
+      "inferenceStatus": "SUCCESS",
+      "inferenceTimeMs": 6535.2
+    },
+    {
+      "filename": "garbage 6.webp",
+      "relPath": "Garbage\\garbage 6.webp",
+      "groundTruth": "GARBAGE",
+      "imageWidth": 354,
+      "imageHeight": 236,
+      "resolution": "354x236",
+      "classification": "TRUE POSITIVE",
+      "modelsUsed": [
+        "RDD2022 YOLOv8 Road Damage",
+        "YOLOv8 Waste Detector",
+        "SegFormer FloodNet Segmenter"
+      ],
+      "detectedClasses": [
+        "Waste: Glass Waste (W20)",
+        "Flood: Water Coverage (7.76%)"
+      ],
+      "maxConfidence": 0.8162,
+      "boundingBoxes": [
+        {
+          "x": 0.3700000047683716,
+          "y": 0.0,
+          "width": 76.33000183105469,
+          "height": 99.88999938964844
+        },
+        null
+      ],
+      "numRawCandidates": 8,
+      "numPostNmsDetections": 1,
+      "floodAreaPercent": 7.76,
+      "crossModelFalsePositives": [
+        "Flood Model"
+      ],
+      "inferenceStatus": "SUCCESS",
+      "inferenceTimeMs": 6317.8
+    },
+    {
+      "filename": "garbage 7.webp",
+      "relPath": "Garbage\\garbage 7.webp",
+      "groundTruth": "GARBAGE",
+      "imageWidth": 391,
+      "imageHeight": 260,
+      "resolution": "391x260",
+      "classification": "TRUE POSITIVE",
+      "modelsUsed": [
+        "RDD2022 YOLOv8 Road Damage",
+        "YOLOv8 Waste Detector",
+        "SegFormer FloodNet Segmenter"
+      ],
+      "detectedClasses": [
+        "Waste: Plastic Waste (W70)",
+        "Flood: Water Coverage (29.77%)"
+      ],
+      "maxConfidence": 0.8455,
+      "boundingBoxes": [
+        {
+          "x": 0.41999998688697815,
+          "y": 0.0,
+          "width": 79.26000213623047,
+          "height": 100.0
+        },
+        null
+      ],
+      "numRawCandidates": 6,
+      "numPostNmsDetections": 1,
+      "floodAreaPercent": 29.77,
+      "crossModelFalsePositives": [
+        "Flood Model"
+      ],
+      "inferenceStatus": "SUCCESS",
+      "inferenceTimeMs": 7260.8
+    },
+    {
+      "filename": "garbage 8.webp",
+      "relPath": "Garbage\\garbage 8.webp",
+      "groundTruth": "GARBAGE",
+      "imageWidth": 358,
+      "imageHeight": 234,
+      "resolution": "358x234",
+      "classification": "FALSE NEGATIVE",
+      "modelsUsed": [
+        "RDD2022 YOLOv8 Road Damage",
+        "YOLOv8 Waste Detector",
+        "SegFormer FloodNet Segmenter"
+      ],
+      "detectedClasses": [],
+      "maxConfidence": null,
+      "boundingBoxes": [],
+      "numRawCandidates": 0,
+      "numPostNmsDetections": 0,
+      "floodAreaPercent": 0.0,
+      "crossModelFalsePositives": [],
+      "inferenceStatus": "SUCCESS",
+      "inferenceTimeMs": 5691.4
+    },
+    {
+      "filename": "garbage 9.webp",
+      "relPath": "Garbage\\garbage 9.webp",
+      "groundTruth": "GARBAGE",
+      "imageWidth": 332,
+      "imageHeight": 244,
+      "resolution": "332x244",
+      "classification": "TRUE POSITIVE",
+      "modelsUsed": [
+        "RDD2022 YOLOv8 Road Damage",
+        "YOLOv8 Waste Detector",
+        "SegFormer FloodNet Segmenter"
+      ],
+      "detectedClasses": [
+        "Waste: Plastic Waste (W70)",
+        "Flood: Water Coverage (7.33%)"
+      ],
+      "maxConfidence": 0.9036,
+      "boundingBoxes": [
+        {
+          "x": 0.4399999976158142,
+          "y": 0.4099999964237213,
+          "width": 78.55000305175781,
+          "height": 99.56999969482422
+        },
+        null
+      ],
+      "numRawCandidates": 8,
+      "numPostNmsDetections": 1,
+      "floodAreaPercent": 7.33,
+      "crossModelFalsePositives": [
+        "Flood Model"
+      ],
+      "inferenceStatus": "SUCCESS",
+      "inferenceTimeMs": 5509.3
+    },
+    {
+      "filename": "pathole 1.webp",
+      "relPath": "Pathole\\pathole 1.webp",
+      "groundTruth": "POTHOLE",
+      "imageWidth": 340,
+      "imageHeight": 256,
+      "resolution": "340x256",
+      "classification": "TRUE POSITIVE",
+      "modelsUsed": [
+        "RDD2022 YOLOv8 Road Damage",
+        "YOLOv8 Waste Detector",
+        "SegFormer FloodNet Segmenter"
+      ],
+      "detectedClasses": [
+        "Road: Pothole (D40)"
+      ],
+      "maxConfidence": 0.8157,
+      "boundingBoxes": [
+        {
+          "x": 21.90999984741211,
+          "y": 41.5,
+          "width": 42.720001220703125,
+          "height": 26.969999313354492
+        }
+      ],
+      "numRawCandidates": 7,
+      "numPostNmsDetections": 1,
+      "floodAreaPercent": 0.0,
+      "crossModelFalsePositives": [],
+      "inferenceStatus": "SUCCESS",
+      "inferenceTimeMs": 5946.6
+    },
+    {
+      "filename": "pathole 10.webp",
+      "relPath": "Pathole\\pathole 10.webp",
+      "groundTruth": "POTHOLE",
+      "imageWidth": 371,
+      "imageHeight": 234,
+      "resolution": "371x234",
+      "classification": "TRUE POSITIVE",
+      "modelsUsed": [
+        "RDD2022 YOLOv8 Road Damage",
+        "YOLOv8 Waste Detector",
+        "SegFormer FloodNet Segmenter"
+      ],
+      "detectedClasses": [
+        "Road: Pothole (D40)"
+      ],
+      "maxConfidence": 0.5403,
+      "boundingBoxes": [
+        {
+          "x": 9.229999542236328,
+          "y": 44.630001068115234,
+          "width": 57.56999969482422,
+          "height": 41.880001068115234
+        }
+      ],
+      "numRawCandidates": 1,
+      "numPostNmsDetections": 1,
+      "floodAreaPercent": 0.0,
+      "crossModelFalsePositives": [],
+      "inferenceStatus": "SUCCESS",
+      "inferenceTimeMs": 6626.6
+    },
+    {
+      "filename": "pathole 11.webp",
+      "relPath": "Pathole\\pathole 11.webp",
+      "groundTruth": "POTHOLE",
+      "imageWidth": 391,
+      "imageHeight": 234,
+      "resolution": "391x234",
+      "classification": "TRUE POSITIVE",
+      "modelsUsed": [
+        "RDD2022 YOLOv8 Road Damage",
+        "YOLOv8 Waste Detector",
+        "SegFormer FloodNet Segmenter"
+      ],
+      "detectedClasses": [
+        "Road: Alligator Crack (D20)",
+        "Waste: Organic Waste (W50)"
+      ],
+      "maxConfidence": 0.6538,
+      "boundingBoxes": [
+        {
+          "x": 0.47999998927116394,
+          "y": 43.189998626708984,
+          "width": 83.44999694824219,
+          "height": 56.349998474121094
+        },
+        {
+          "x": 0.0,
+          "y": 0.0,
+          "width": 79.41999816894531,
+          "height": 99.86000061035156
+        }
+      ],
+      "numRawCandidates": 8,
+      "numPostNmsDetections": 2,
+      "floodAreaPercent": 0.0,
+      "crossModelFalsePositives": [
+        "Waste Model"
+      ],
+      "inferenceStatus": "SUCCESS",
+      "inferenceTimeMs": 7485.8
+    },
+    {
+      "filename": "pathole 2.webp",
+      "relPath": "Pathole\\pathole 2.webp",
+      "groundTruth": "POTHOLE",
+      "imageWidth": 297,
+      "imageHeight": 234,
+      "resolution": "297x234",
+      "classification": "FALSE NEGATIVE",
+      "modelsUsed": [
+        "RDD2022 YOLOv8 Road Damage",
+        "YOLOv8 Waste Detector",
+        "SegFormer FloodNet Segmenter"
+      ],
+      "detectedClasses": [
+        "Waste: Plastic Waste (W70)"
+      ],
+      "maxConfidence": 0.8969,
+      "boundingBoxes": [
+        {
+          "x": 0.4099999964237213,
+          "y": 0.0,
+          "width": 78.66999816894531,
+          "height": 99.95999908447266
+        }
+      ],
+      "numRawCandidates": 10,
+      "numPostNmsDetections": 1,
+      "floodAreaPercent": 0.0,
+      "crossModelFalsePositives": [
+        "Waste Model"
+      ],
+      "inferenceStatus": "SUCCESS",
+      "inferenceTimeMs": 7930.0
+    },
+    {
+      "filename": "pathole 3.webp",
+      "relPath": "Pathole\\pathole 3.webp",
+      "groundTruth": "POTHOLE",
+      "imageWidth": 370,
+      "imageHeight": 247,
+      "resolution": "370x247",
+      "classification": "FALSE NEGATIVE",
+      "modelsUsed": [
+        "RDD2022 YOLOv8 Road Damage",
+        "YOLOv8 Waste Detector",
+        "SegFormer FloodNet Segmenter"
+      ],
+      "detectedClasses": [
+        "Waste: Cardboard Waste (W00)"
+      ],
+      "maxConfidence": 0.6032,
+      "boundingBoxes": [
+        {
+          "x": 0.019999999552965164,
+          "y": 0.0,
+          "width": 79.38999938964844,
+          "height": 99.80999755859375
+        }
+      ],
+      "numRawCandidates": 4,
+      "numPostNmsDetections": 1,
+      "floodAreaPercent": 0.0,
+      "crossModelFalsePositives": [
+        "Waste Model"
+      ],
+      "inferenceStatus": "SUCCESS",
+      "inferenceTimeMs": 6791.7
+    },
+    {
+      "filename": "pathole 4.webp",
+      "relPath": "Pathole\\pathole 4.webp",
+      "groundTruth": "POTHOLE",
+      "imageWidth": 361,
+      "imageHeight": 262,
+      "resolution": "361x262",
+      "classification": "TRUE POSITIVE",
+      "modelsUsed": [
+        "RDD2022 YOLOv8 Road Damage",
+        "YOLOv8 Waste Detector",
+        "SegFormer FloodNet Segmenter"
+      ],
+      "detectedClasses": [
+        "Road: Pothole (D40)",
+        "Road: Pothole (D40)",
+        "Road: Pothole (D40)",
+        "Road: Pothole (D40)",
+        "Road: Pothole (D40)",
+        "Waste: Plastic Waste (W70)"
+      ],
+      "maxConfidence": 0.7448,
+      "boundingBoxes": [
+        {
+          "x": 0.27000001072883606,
+          "y": 46.119998931884766,
+          "width": 27.3700008392334,
+          "height": 17.709999084472656
+        },
+        {
+          "x": 57.7599983215332,
+          "y": 62.56999969482422,
+          "width": 12.479999542236328,
+          "height": 11.279999732971191
+        },
+        {
+          "x": 50.209999084472656,
+          "y": 45.560001373291016,
+          "width": 22.950000762939453,
+          "height": 14.630000114440918
+        },
+        {
+          "x": 41.150001525878906,
+          "y": 20.309999465942383,
+          "width": 10.949999809265137,
+          "height": 7.300000190734863
+        },
+        {
+          "x": 28.040000915527344,
+          "y": 54.38999938964844,
+          "width": 16.31999969482422,
+          "height": 12.319999694824219
+        },
+        {
+          "x": 0.0,
+          "y": 0.2199999988079071,
+          "width": 79.4800033569336,
+          "height": 99.62999725341797
+        }
+      ],
+      "numRawCandidates": 39,
+      "numPostNmsDetections": 6,
+      "floodAreaPercent": 0.0,
+      "crossModelFalsePositives": [
+        "Waste Model"
+      ],
+      "inferenceStatus": "SUCCESS",
+      "inferenceTimeMs": 6781.6
+    },
+    {
+      "filename": "pathole 5.webp",
+      "relPath": "Pathole\\pathole 5.webp",
+      "groundTruth": "POTHOLE",
+      "imageWidth": 419,
+      "imageHeight": 235,
+      "resolution": "419x235",
+      "classification": "TRUE POSITIVE",
+      "modelsUsed": [
+        "RDD2022 YOLOv8 Road Damage",
+        "YOLOv8 Waste Detector",
+        "SegFormer FloodNet Segmenter"
+      ],
+      "detectedClasses": [
+        "Road: Alligator Crack (D20)",
+        "Waste: Plastic Waste (W70)"
+      ],
+      "maxConfidence": 0.5879,
+      "boundingBoxes": [
+        {
+          "x": 1.1699999570846558,
+          "y": 4.840000152587891,
+          "width": 98.75,
+          "height": 95.16000366210938
+        },
+        {
+          "x": 0.009999999776482582,
+          "y": 0.0,
+          "width": 79.29000091552734,
+          "height": 99.83999633789062
+        }
+      ],
+      "numRawCandidates": 4,
+      "numPostNmsDetections": 2,
+      "floodAreaPercent": 0.0,
+      "crossModelFalsePositives": [
+        "Waste Model"
+      ],
+      "inferenceStatus": "SUCCESS",
+      "inferenceTimeMs": 6841.6
+    },
+    {
+      "filename": "pathole 6.webp",
+      "relPath": "Pathole\\pathole 6.webp",
+      "groundTruth": "POTHOLE",
+      "imageWidth": 334,
+      "imageHeight": 250,
+      "resolution": "334x250",
+      "classification": "FALSE NEGATIVE",
+      "modelsUsed": [
+        "RDD2022 YOLOv8 Road Damage",
+        "YOLOv8 Waste Detector",
+        "SegFormer FloodNet Segmenter"
+      ],
+      "detectedClasses": [
+        "Flood: Water Coverage (8.1%)"
+      ],
+      "maxConfidence": null,
+      "boundingBoxes": [
+        null
+      ],
+      "numRawCandidates": 0,
+      "numPostNmsDetections": 0,
+      "floodAreaPercent": 8.1,
+      "crossModelFalsePositives": [
+        "Flood Model"
+      ],
+      "inferenceStatus": "SUCCESS",
+      "inferenceTimeMs": 6859.2
+    },
+    {
+      "filename": "pathole 7.webp",
+      "relPath": "Pathole\\pathole 7.webp",
+      "groundTruth": "POTHOLE",
+      "imageWidth": 232,
+      "imageHeight": 234,
+      "resolution": "232x234",
+      "classification": "TRUE POSITIVE",
+      "modelsUsed": [
+        "RDD2022 YOLOv8 Road Damage",
+        "YOLOv8 Waste Detector",
+        "SegFormer FloodNet Segmenter"
+      ],
+      "detectedClasses": [
+        "Road: Pothole (D40)",
+        "Waste: Organic Waste (W50)"
+      ],
+      "maxConfidence": 0.6399,
+      "boundingBoxes": [
+        {
+          "x": 20.969999313354492,
+          "y": 38.459999084472656,
+          "width": 17.489999771118164,
+          "height": 5.190000057220459
+        },
+        {
+          "x": 0.0,
+          "y": 0.0,
+          "width": 79.51000213623047,
+          "height": 79.91000366210938
+        }
+      ],
+      "numRawCandidates": 4,
+      "numPostNmsDetections": 2,
+      "floodAreaPercent": 0.0,
+      "crossModelFalsePositives": [
+        "Waste Model"
+      ],
+      "inferenceStatus": "SUCCESS",
+      "inferenceTimeMs": 5767.3
+    },
+    {
+      "filename": "pathole 8.webp",
+      "relPath": "Pathole\\pathole 8.webp",
+      "groundTruth": "POTHOLE",
+      "imageWidth": 396,
+      "imageHeight": 234,
+      "resolution": "396x234",
+      "classification": "TRUE POSITIVE",
+      "modelsUsed": [
+        "RDD2022 YOLOv8 Road Damage",
+        "YOLOv8 Waste Detector",
+        "SegFormer FloodNet Segmenter"
+      ],
+      "detectedClasses": [
+        "Road: Pothole (D40)",
+        "Waste: Plastic Waste (W70)",
+        "Flood: Water Coverage (4.52%)"
+      ],
+      "maxConfidence": 0.8601,
+      "boundingBoxes": [
+        {
+          "x": 9.399999618530273,
+          "y": 45.08000183105469,
+          "width": 53.220001220703125,
+          "height": 41.16999816894531
+        },
+        {
+          "x": 0.0,
+          "y": 0.0,
+          "width": 79.45999908447266,
+          "height": 100.0
+        },
+        null
+      ],
+      "numRawCandidates": 18,
+      "numPostNmsDetections": 2,
+      "floodAreaPercent": 4.52,
+      "crossModelFalsePositives": [
+        "Waste Model",
+        "Flood Model"
+      ],
+      "inferenceStatus": "SUCCESS",
+      "inferenceTimeMs": 5658.8
+    },
+    {
+      "filename": "pathole 9.webp",
+      "relPath": "Pathole\\pathole 9.webp",
+      "groundTruth": "POTHOLE",
+      "imageWidth": 319,
+      "imageHeight": 234,
+      "resolution": "319x234",
+      "classification": "FALSE NEGATIVE",
+      "modelsUsed": [
+        "RDD2022 YOLOv8 Road Damage",
+        "YOLOv8 Waste Detector",
+        "SegFormer FloodNet Segmenter"
+      ],
+      "detectedClasses": [
+        "Waste: Organic Waste (W50)"
+      ],
+      "maxConfidence": 0.5741,
+      "boundingBoxes": [
+        {
+          "x": 0.11999999731779099,
+          "y": 0.15000000596046448,
+          "width": 81.23999786376953,
+          "height": 99.48999786376953
+        }
+      ],
+      "numRawCandidates": 3,
+      "numPostNmsDetections": 1,
+      "floodAreaPercent": 0.0,
+      "crossModelFalsePositives": [
+        "Waste Model"
+      ],
+      "inferenceStatus": "SUCCESS",
+      "inferenceTimeMs": 5448.1
+    },
+    {
+      "filename": "road without pothole.webp",
+      "relPath": "Pathole\\road without pothole.webp",
+      "groundTruth": "POTHOLE",
+      "imageWidth": 353,
+      "imageHeight": 226,
+      "resolution": "353x226",
+      "classification": "CORRECT NEGATIVE",
+      "modelsUsed": [
+        "RDD2022 YOLOv8 Road Damage",
+        "YOLOv8 Waste Detector",
+        "SegFormer FloodNet Segmenter"
+      ],
+      "detectedClasses": [
+        "Flood: Water Coverage (7.59%)"
+      ],
+      "maxConfidence": null,
+      "boundingBoxes": [
+        null
+      ],
+      "numRawCandidates": 0,
+      "numPostNmsDetections": 0,
+      "floodAreaPercent": 7.59,
+      "crossModelFalsePositives": [
+        "Flood Model"
+      ],
+      "inferenceStatus": "SUCCESS",
+      "inferenceTimeMs": 5439.1
+    }
+  ]
+}

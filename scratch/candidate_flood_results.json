@@ -1,0 +1,114 @@
+[
+  {
+    "filename": "flood 1.jpg",
+    "imageWidth": 250,
+    "imageHeight": 175,
+    "isFloodDetected": true,
+    "waterAreaPercent": 91.55,
+    "latencyMs": 313.2
+  },
+  {
+    "filename": "flood 10.webp",
+    "imageWidth": 192,
+    "imageHeight": 234,
+    "isFloodDetected": true,
+    "waterAreaPercent": 87.49,
+    "latencyMs": 245.2
+  },
+  {
+    "filename": "flood 11.webp",
+    "imageWidth": 392,
+    "imageHeight": 261,
+    "isFloodDetected": true,
+    "waterAreaPercent": 92.55,
+    "latencyMs": 202.6
+  },
+  {
+    "filename": "flood 12.webp",
+    "imageWidth": 417,
+    "imageHeight": 234,
+    "isFloodDetected": true,
+    "waterAreaPercent": 88.7,
+    "latencyMs": 266.9
+  },
+  {
+    "filename": "flood 13.webp",
+    "imageWidth": 344,
+    "imageHeight": 234,
+    "isFloodDetected": true,
+    "waterAreaPercent": 69.4,
+    "latencyMs": 181.3
+  },
+  {
+    "filename": "flood 2",
+    "imageWidth": 365,
+    "imageHeight": 237,
+    "isFloodDetected": true,
+    "waterAreaPercent": 95.73,
+    "latencyMs": 240.6
+  },
+  {
+    "filename": "flood 3.webp",
+    "imageWidth": 408,
+    "imageHeight": 234,
+    "isFloodDetected": true,
+    "waterAreaPercent": 93.86,
+    "latencyMs": 164.3
+  },
+  {
+    "filename": "flood 4.webp",
+    "imageWidth": 403,
+    "imageHeight": 234,
+    "isFloodDetected": true,
+    "waterAreaPercent": 88.48,
+    "latencyMs": 158.4
+  },
+  {
+    "filename": "flood 5.webp",
+    "imageWidth": 308,
+    "imageHeight": 234,
+    "isFloodDetected": true,
+    "waterAreaPercent": 97.34,
+    "latencyMs": 207.1
+  },
+  {
+    "filename": "flood 6.webp",
+    "imageWidth": 432,
+    "imageHeight": 243,
+    "isFloodDetected": true,
+    "waterAreaPercent": 81.58,
+    "latencyMs": 150.7
+  },
+  {
+    "filename": "flood 7.webp",
+    "imageWidth": 351,
+    "imageHeight": 234,
+    "isFloodDetected": true,
+    "waterAreaPercent": 90.34,
+    "latencyMs": 175.8
+  },
+  {
+    "filename": "flood 8.webp",
+    "imageWidth": 345,
+    "imageHeight": 245,
+    "isFloodDetected": true,
+    "waterAreaPercent": 89.14,
+    "latencyMs": 170.6
+  },
+  {
+    "filename": "flood 9.webp",
+    "imageWidth": 427,
+    "imageHeight": 240,
+    "isFloodDetected": true,
+    "waterAreaPercent": 93.11,
+    "latencyMs": 155.0
+  },
+  {
+    "filename": "flood.jpg",
+    "imageWidth": 193,
+    "imageHeight": 135,
+    "isFloodDetected": true,
+    "waterAreaPercent": 96.52,
+    "latencyMs": 175.6
+  }
+]

@@ -1,0 +1,25 @@
+{
+  "model_file": "public/models/rdd2022-road-damage.onnx",
+  "file_size_bytes": 44723865,
+  "class_mapping": {
+    "0": "longitudinal_crack",
+    "1": "transverse_crack",
+    "2": "alligator_crack",
+    "3": "pothole"
+  },
+  "input_name": "images",
+  "input_shape": [
+    1,
+    3,
+    640,
+    640
+  ],
+  "input_type": "tensor(float)",
+  "output_name": "output0",
+  "output_shape": [
+    1,
+    8,
+    8400
+  ],
+  "output_type": "tensor(float)"
+}

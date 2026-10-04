@@ -4,6 +4,8 @@ import Header from './components/Header';
 import DashboardView from './components/DashboardView';
 import CivicHealthPanel from './components/CivicHealthPanel';
 import AIDetectionHub from './components/AIDetectionHub';
+import RealImageValidationTool from './components/RealImageValidationTool';
+import ExternalBenchmarkTool from './components/ExternalBenchmarkTool';
 import GISMapExplorer from './components/GISMapExplorer';
 import PredictorDashboard from './components/PredictorDashboard';
 import MaintenancePlanner from './components/MaintenancePlanner';
@@ -18,11 +20,17 @@ export default function App() {
   const [notifications, setNotifications] = useState(MOCK_NOTIFICATIONS);
   const [selectedZone, setSelectedZone] = useState(null);
   const [currentStudyArea, setCurrentStudyArea] = useState(STUDY_AREAS.pallikaranai_velachery);
+  const [visualDetections, setVisualDetections] = useState(null);
 
   // Initialize theme attribute on load
   useEffect(() => {
     document.documentElement.setAttribute('theme', theme);
   }, [theme]);
+
+  // Clear visual detections on study area change to prevent stale data bleed
+  useEffect(() => {
+    setVisualDetections(null);
+  }, [currentStudyArea?.id]);
 
   const toggleTheme = () => {
     setTheme(prev => (prev === 'dark' ? 'light' : 'dark'));
@@ -56,6 +64,7 @@ export default function App() {
               theme={theme}
               currentStudyArea={currentStudyArea}
               setCurrentStudyArea={setCurrentStudyArea}
+              visualDetections={visualDetections}
             />
           )}
 
@@ -63,19 +72,33 @@ export default function App() {
             <CivicHealthPanel 
               currentStudyArea={currentStudyArea}
               setCurrentStudyArea={setCurrentStudyArea}
+              visualDetections={visualDetections}
             />
           )}
           
           {activeTab === 'detection' && (
-            <AIDetectionHub />
+            <AIDetectionHub 
+              onVisualDetectionsChange={setVisualDetections}
+            />
+          )}
+
+          {activeTab === 'validation' && (
+            <RealImageValidationTool />
+          )}
+
+          {activeTab === 'benchmark' && (
+            <ExternalBenchmarkTool />
           )}
           
           {activeTab === 'map' && (
             <div style={{ height: 'calc(100vh - 120px)' }}>
               <GISMapExplorer 
                 theme={theme}
+                currentStudyArea={currentStudyArea}
+                setCurrentStudyArea={setCurrentStudyArea}
                 selectedZone={selectedZone}
                 setSelectedZone={setSelectedZone}
+                visualDetections={visualDetections}
               />
             </div>
           )}
