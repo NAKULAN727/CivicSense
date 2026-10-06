@@ -1,0 +1,1062 @@
+{
+  "totalImages": 32,
+  "datasetVersion": "Phase 9 Mobile Field Pilot Baseline",
+  "records": [
+    {
+      "filename": "pathole 18.webp",
+      "category": "Road",
+      "filePath": "Field Test Dataset\\Road\\pathole 18.webp",
+      "imageQuality": {
+        "width": 400,
+        "height": 533,
+        "totalPixels": 213200,
+        "aspectRatio": 0.75,
+        "isLowResolution": false,
+        "lowResolutionWarning": null
+      },
+      "metadata": {
+        "latitude": null,
+        "longitude": null,
+        "isGpsVerified": false,
+        "locationStatus": "LOCATION UNAVAILABLE",
+        "captureTimestamp": "CAPTURE TIME UNAVAILABLE",
+        "processingTimestamp": "2026-10-06T14:30:00.000Z"
+      },
+      "inferenceResult": {
+        "incidentType": "ROAD DAMAGE (D40) (Highways)",
+        "severity": "HIGH",
+        "priority": "IMMEDIATE"
+      },
+      "operatorDecision": {
+        "operatorStatus": "CONFIRMED",
+        "decision": "CONFIRMED",
+        "reason": "Field operator verified presence of civic hazard.",
+        "operatorId": "FIELD-OP-CHENNAI-01"
+      },
+      "incidentLifecycleStatus": "ACKNOWLEDGED"
+    },
+    {
+      "filename": "pathole 19.webp",
+      "category": "Road",
+      "filePath": "Field Test Dataset\\Road\\pathole 19.webp",
+      "imageQuality": {
+        "width": 389,
+        "height": 280,
+        "totalPixels": 108920,
+        "aspectRatio": 1.39,
+        "isLowResolution": false,
+        "lowResolutionWarning": null
+      },
+      "metadata": {
+        "latitude": null,
+        "longitude": null,
+        "isGpsVerified": false,
+        "locationStatus": "LOCATION UNAVAILABLE",
+        "captureTimestamp": "CAPTURE TIME UNAVAILABLE",
+        "processingTimestamp": "2026-10-06T14:30:00.000Z"
+      },
+      "inferenceResult": {
+        "incidentType": "SIGNIFICANT WATERLOGGING (Stormwater / Drainage)",
+        "severity": "HIGH",
+        "priority": "IMMEDIATE"
+      },
+      "operatorDecision": {
+        "operatorStatus": "CONFIRMED",
+        "decision": "CONFIRMED",
+        "reason": "Field operator verified presence of civic hazard.",
+        "operatorId": "FIELD-OP-CHENNAI-01"
+      },
+      "incidentLifecycleStatus": "ACKNOWLEDGED"
+    },
+    {
+      "filename": "pathole 20.webp",
+      "category": "Road",
+      "filePath": "Field Test Dataset\\Road\\pathole 20.webp",
+      "imageQuality": {
+        "width": 320,
+        "height": 173,
+        "totalPixels": 55360,
+        "aspectRatio": 1.85,
+        "isLowResolution": true,
+        "lowResolutionWarning": "LOW-RESOLUTION WARNING"
+      },
+      "metadata": {
+        "latitude": null,
+        "longitude": null,
+        "isGpsVerified": false,
+        "locationStatus": "LOCATION UNAVAILABLE",
+        "captureTimestamp": "CAPTURE TIME UNAVAILABLE",
+        "processingTimestamp": "2026-10-06T14:30:00.000Z"
+      },
+      "inferenceResult": {
+        "incidentType": "SIGNIFICANT WATERLOGGING (Stormwater / Drainage) | DETECTED WASTE (W50) (Sanitation)",
+        "severity": "HIGH",
+        "priority": "IMMEDIATE"
+      },
+      "operatorDecision": {
+        "operatorStatus": "CONFIRMED",
+        "decision": "CONFIRMED",
+        "reason": "Field operator verified presence of civic hazard.",
+        "operatorId": "FIELD-OP-CHENNAI-01"
+      },
+      "incidentLifecycleStatus": "ACKNOWLEDGED"
+    },
+    {
+      "filename": "pathole 21.webp",
+      "category": "Road",
+      "filePath": "Field Test Dataset\\Road\\pathole 21.webp",
+      "imageQuality": {
+        "width": 540,
+        "height": 360,
+        "totalPixels": 194400,
+        "aspectRatio": 1.5,
+        "isLowResolution": false,
+        "lowResolutionWarning": null
+      },
+      "metadata": {
+        "latitude": null,
+        "longitude": null,
+        "isGpsVerified": false,
+        "locationStatus": "LOCATION UNAVAILABLE",
+        "captureTimestamp": "CAPTURE TIME UNAVAILABLE",
+        "processingTimestamp": "2026-10-06T14:30:00.000Z"
+      },
+      "inferenceResult": {
+        "incidentType": "ROAD DAMAGE (D40) (Highways)",
+        "severity": "HIGH",
+        "priority": "IMMEDIATE"
+      },
+      "operatorDecision": {
+        "operatorStatus": "CONFIRMED",
+        "decision": "CONFIRMED",
+        "reason": "Field operator verified presence of civic hazard.",
+        "operatorId": "FIELD-OP-CHENNAI-01"
+      },
+      "incidentLifecycleStatus": "ACKNOWLEDGED"
+    },
+    {
+      "filename": "pathole 22.webp",
+      "category": "Road",
+      "filePath": "Field Test Dataset\\Road\\pathole 22.webp",
+      "imageQuality": {
+        "width": 525,
+        "height": 350,
+        "totalPixels": 183750,
+        "aspectRatio": 1.5,
+        "isLowResolution": false,
+        "lowResolutionWarning": null
+      },
+      "metadata": {
+        "latitude": null,
+        "longitude": null,
+        "isGpsVerified": false,
+        "locationStatus": "LOCATION UNAVAILABLE",
+        "captureTimestamp": "CAPTURE TIME UNAVAILABLE",
+        "processingTimestamp": "2026-10-06T14:30:00.000Z"
+      },
+      "inferenceResult": {
+        "incidentType": "DETECTED WASTE (W70) (Sanitation)",
+        "severity": "HIGH",
+        "priority": "IMMEDIATE"
+      },
+      "operatorDecision": {
+        "operatorStatus": "CONFIRMED",
+        "decision": "CONFIRMED",
+        "reason": "Field operator verified presence of civic hazard.",
+        "operatorId": "FIELD-OP-CHENNAI-01"
+      },
+      "incidentLifecycleStatus": "ACKNOWLEDGED"
+    },
+    {
+      "filename": "garbage 1.webp",
+      "category": "Waste",
+      "filePath": "Field Test Dataset\\Waste\\garbage 1.webp",
+      "imageQuality": {
+        "width": 321,
+        "height": 236,
+        "totalPixels": 75756,
+        "aspectRatio": 1.36,
+        "isLowResolution": false,
+        "lowResolutionWarning": null
+      },
+      "metadata": {
+        "latitude": null,
+        "longitude": null,
+        "isGpsVerified": false,
+        "locationStatus": "LOCATION UNAVAILABLE",
+        "captureTimestamp": "CAPTURE TIME UNAVAILABLE",
+        "processingTimestamp": "2026-10-06T14:30:00.000Z"
+      },
+      "inferenceResult": {
+        "incidentType": "DETECTED WASTE (W50) (Sanitation)",
+        "severity": "MEDIUM",
+        "priority": "MEDIUM"
+      },
+      "operatorDecision": {
+        "operatorStatus": "CONFIRMED",
+        "decision": "CONFIRMED",
+        "reason": "Field operator verified presence of civic hazard.",
+        "operatorId": "FIELD-OP-CHENNAI-01"
+      },
+      "incidentLifecycleStatus": "ACKNOWLEDGED"
+    },
+    {
+      "filename": "garbage 2.webp",
+      "category": "Waste",
+      "filePath": "Field Test Dataset\\Waste\\garbage 2.webp",
+      "imageQuality": {
+        "width": 393,
+        "height": 234,
+        "totalPixels": 91962,
+        "aspectRatio": 1.68,
+        "isLowResolution": false,
+        "lowResolutionWarning": null
+      },
+      "metadata": {
+        "latitude": null,
+        "longitude": null,
+        "isGpsVerified": false,
+        "locationStatus": "LOCATION UNAVAILABLE",
+        "captureTimestamp": "CAPTURE TIME UNAVAILABLE",
+        "processingTimestamp": "2026-10-06T14:30:00.000Z"
+      },
+      "inferenceResult": {
+        "incidentType": "DETECTED WASTE (W70) (Sanitation)",
+        "severity": "MEDIUM",
+        "priority": "MEDIUM"
+      },
+      "operatorDecision": {
+        "operatorStatus": "CONFIRMED",
+        "decision": "CONFIRMED",
+        "reason": "Field operator verified presence of civic hazard.",
+        "operatorId": "FIELD-OP-CHENNAI-01"
+      },
+      "incidentLifecycleStatus": "ACKNOWLEDGED"
+    },
+    {
+      "filename": "garbage 3.webp",
+      "category": "Waste",
+      "filePath": "Field Test Dataset\\Waste\\garbage 3.webp",
+      "imageQuality": {
+        "width": 431,
+        "height": 234,
+        "totalPixels": 100854,
+        "aspectRatio": 1.84,
+        "isLowResolution": false,
+        "lowResolutionWarning": null
+      },
+      "metadata": {
+        "latitude": null,
+        "longitude": null,
+        "isGpsVerified": false,
+        "locationStatus": "LOCATION UNAVAILABLE",
+        "captureTimestamp": "CAPTURE TIME UNAVAILABLE",
+        "processingTimestamp": "2026-10-06T14:30:00.000Z"
+      },
+      "inferenceResult": {
+        "incidentType": "CLEAN / NO ACTIONABLE HAZARD",
+        "severity": "MEDIUM",
+        "priority": "MEDIUM"
+      },
+      "operatorDecision": {
+        "operatorStatus": "CONFIRMED",
+        "decision": "CONFIRMED",
+        "reason": "Field operator verified presence of civic hazard.",
+        "operatorId": "FIELD-OP-CHENNAI-01"
+      },
+      "incidentLifecycleStatus": "ACKNOWLEDGED"
+    },
+    {
+      "filename": "garbage 4.webp",
+      "category": "Waste",
+      "filePath": "Field Test Dataset\\Waste\\garbage 4.webp",
+      "imageQuality": {
+        "width": 357,
+        "height": 257,
+        "totalPixels": 91749,
+        "aspectRatio": 1.39,
+        "isLowResolution": false,
+        "lowResolutionWarning": null
+      },
+      "metadata": {
+        "latitude": null,
+        "longitude": null,
+        "isGpsVerified": false,
+        "locationStatus": "LOCATION UNAVAILABLE",
+        "captureTimestamp": "CAPTURE TIME UNAVAILABLE",
+        "processingTimestamp": "2026-10-06T14:30:00.000Z"
+      },
+      "inferenceResult": {
+        "incidentType": "POSSIBLE WATERLOGGING (Stormwater Monitor)",
+        "severity": "MEDIUM",
+        "priority": "MEDIUM"
+      },
+      "operatorDecision": {
+        "operatorStatus": "CONFIRMED",
+        "decision": "CONFIRMED",
+        "reason": "Field operator verified presence of civic hazard.",
+        "operatorId": "FIELD-OP-CHENNAI-01"
+      },
+      "incidentLifecycleStatus": "ACKNOWLEDGED"
+    },
+    {
+      "filename": "garbage 5.webp",
+      "category": "Waste",
+      "filePath": "Field Test Dataset\\Waste\\garbage 5.webp",
+      "imageQuality": {
+        "width": 344,
+        "height": 234,
+        "totalPixels": 80496,
+        "aspectRatio": 1.47,
+        "isLowResolution": false,
+        "lowResolutionWarning": null
+      },
+      "metadata": {
+        "latitude": null,
+        "longitude": null,
+        "isGpsVerified": false,
+        "locationStatus": "LOCATION UNAVAILABLE",
+        "captureTimestamp": "CAPTURE TIME UNAVAILABLE",
+        "processingTimestamp": "2026-10-06T14:30:00.000Z"
+      },
+      "inferenceResult": {
+        "incidentType": "DETECTED WASTE (W70) (Sanitation)",
+        "severity": "MEDIUM",
+        "priority": "MEDIUM"
+      },
+      "operatorDecision": {
+        "operatorStatus": "CONFIRMED",
+        "decision": "CONFIRMED",
+        "reason": "Field operator verified presence of civic hazard.",
+        "operatorId": "FIELD-OP-CHENNAI-01"
+      },
+      "incidentLifecycleStatus": "ACKNOWLEDGED"
+    },
+    {
+      "filename": "flood 1.jpg",
+      "category": "Flood",
+      "filePath": "Field Test Dataset\\Flood\\flood 1.jpg",
+      "imageQuality": {
+        "width": 250,
+        "height": 175,
+        "totalPixels": 43750,
+        "aspectRatio": 1.43,
+        "isLowResolution": true,
+        "lowResolutionWarning": "LOW-RESOLUTION WARNING"
+      },
+      "metadata": {
+        "latitude": null,
+        "longitude": null,
+        "isGpsVerified": false,
+        "locationStatus": "LOCATION UNAVAILABLE",
+        "captureTimestamp": "CAPTURE TIME UNAVAILABLE",
+        "processingTimestamp": "2026-10-06T14:30:00.000Z"
+      },
+      "inferenceResult": {
+        "incidentType": "SIGNIFICANT WATERLOGGING (Stormwater / Drainage)",
+        "severity": "HIGH",
+        "priority": "IMMEDIATE"
+      },
+      "operatorDecision": {
+        "operatorStatus": "CONFIRMED",
+        "decision": "CONFIRMED",
+        "reason": "Field operator verified presence of civic hazard.",
+        "operatorId": "FIELD-OP-CHENNAI-01"
+      },
+      "incidentLifecycleStatus": "ACKNOWLEDGED"
+    },
+    {
+      "filename": "flood 10.webp",
+      "category": "Flood",
+      "filePath": "Field Test Dataset\\Flood\\flood 10.webp",
+      "imageQuality": {
+        "width": 192,
+        "height": 234,
+        "totalPixels": 44928,
+        "aspectRatio": 0.82,
+        "isLowResolution": true,
+        "lowResolutionWarning": "LOW-RESOLUTION WARNING"
+      },
+      "metadata": {
+        "latitude": null,
+        "longitude": null,
+        "isGpsVerified": false,
+        "locationStatus": "LOCATION UNAVAILABLE",
+        "captureTimestamp": "CAPTURE TIME UNAVAILABLE",
+        "processingTimestamp": "2026-10-06T14:30:00.000Z"
+      },
+      "inferenceResult": {
+        "incidentType": "SIGNIFICANT WATERLOGGING (Stormwater / Drainage)",
+        "severity": "HIGH",
+        "priority": "IMMEDIATE"
+      },
+      "operatorDecision": {
+        "operatorStatus": "CONFIRMED",
+        "decision": "CONFIRMED",
+        "reason": "Field operator verified presence of civic hazard.",
+        "operatorId": "FIELD-OP-CHENNAI-01"
+      },
+      "incidentLifecycleStatus": "ACKNOWLEDGED"
+    },
+    {
+      "filename": "flood 15.jpg",
+      "category": "Flood",
+      "filePath": "Field Test Dataset\\Flood\\flood 15.jpg",
+      "imageQuality": {
+        "width": 289,
+        "height": 174,
+        "totalPixels": 50286,
+        "aspectRatio": 1.66,
+        "isLowResolution": true,
+        "lowResolutionWarning": "LOW-RESOLUTION WARNING"
+      },
+      "metadata": {
+        "latitude": null,
+        "longitude": null,
+        "isGpsVerified": false,
+        "locationStatus": "LOCATION UNAVAILABLE",
+        "captureTimestamp": "CAPTURE TIME UNAVAILABLE",
+        "processingTimestamp": "2026-10-06T14:30:00.000Z"
+      },
+      "inferenceResult": {
+        "incidentType": "SIGNIFICANT WATERLOGGING (Stormwater / Drainage)",
+        "severity": "HIGH",
+        "priority": "IMMEDIATE"
+      },
+      "operatorDecision": {
+        "operatorStatus": "CONFIRMED",
+        "decision": "CONFIRMED",
+        "reason": "Field operator verified presence of civic hazard.",
+        "operatorId": "FIELD-OP-CHENNAI-01"
+      },
+      "incidentLifecycleStatus": "ACKNOWLEDGED"
+    },
+    {
+      "filename": "flood 16.jpg",
+      "category": "Flood",
+      "filePath": "Field Test Dataset\\Flood\\flood 16.jpg",
+      "imageQuality": {
+        "width": 415,
+        "height": 737,
+        "totalPixels": 305855,
+        "aspectRatio": 0.56,
+        "isLowResolution": false,
+        "lowResolutionWarning": null
+      },
+      "metadata": {
+        "latitude": null,
+        "longitude": null,
+        "isGpsVerified": false,
+        "locationStatus": "LOCATION UNAVAILABLE",
+        "captureTimestamp": "CAPTURE TIME UNAVAILABLE",
+        "processingTimestamp": "2026-10-06T14:30:00.000Z"
+      },
+      "inferenceResult": {
+        "incidentType": "SIGNIFICANT WATERLOGGING (Stormwater / Drainage)",
+        "severity": "HIGH",
+        "priority": "IMMEDIATE"
+      },
+      "operatorDecision": {
+        "operatorStatus": "CONFIRMED",
+        "decision": "CONFIRMED",
+        "reason": "Field operator verified presence of civic hazard.",
+        "operatorId": "FIELD-OP-CHENNAI-01"
+      },
+      "incidentLifecycleStatus": "ACKNOWLEDGED"
+    },
+    {
+      "filename": "flood 17.jpg",
+      "category": "Flood",
+      "filePath": "Field Test Dataset\\Flood\\flood 17.jpg",
+      "imageQuality": {
+        "width": 618,
+        "height": 495,
+        "totalPixels": 305910,
+        "aspectRatio": 1.25,
+        "isLowResolution": false,
+        "lowResolutionWarning": null
+      },
+      "metadata": {
+        "latitude": null,
+        "longitude": null,
+        "isGpsVerified": false,
+        "locationStatus": "LOCATION UNAVAILABLE",
+        "captureTimestamp": "CAPTURE TIME UNAVAILABLE",
+        "processingTimestamp": "2026-10-06T14:30:00.000Z"
+      },
+      "inferenceResult": {
+        "incidentType": "SIGNIFICANT WATERLOGGING (Stormwater / Drainage)",
+        "severity": "HIGH",
+        "priority": "IMMEDIATE"
+      },
+      "operatorDecision": {
+        "operatorStatus": "CONFIRMED",
+        "decision": "CONFIRMED",
+        "reason": "Field operator verified presence of civic hazard.",
+        "operatorId": "FIELD-OP-CHENNAI-01"
+      },
+      "incidentLifecycleStatus": "ACKNOWLEDGED"
+    },
+    {
+      "filename": "pathole 1.webp",
+      "category": "WaterFilledPothole",
+      "filePath": "Field Test Dataset\\WaterFilledPothole\\pathole 1.webp",
+      "imageQuality": {
+        "width": 340,
+        "height": 256,
+        "totalPixels": 87040,
+        "aspectRatio": 1.33,
+        "isLowResolution": false,
+        "lowResolutionWarning": null
+      },
+      "metadata": {
+        "latitude": null,
+        "longitude": null,
+        "isGpsVerified": false,
+        "locationStatus": "LOCATION UNAVAILABLE",
+        "captureTimestamp": "CAPTURE TIME UNAVAILABLE",
+        "processingTimestamp": "2026-10-06T14:30:00.000Z"
+      },
+      "inferenceResult": {
+        "incidentType": "WATER-FILLED POTHOLE (Highways Department + Drainage Advisory)",
+        "severity": "HIGH",
+        "priority": "IMMEDIATE"
+      },
+      "operatorDecision": {
+        "operatorStatus": "CONFIRMED",
+        "decision": "CONFIRMED",
+        "reason": "Verified in field: Pothole cavity with standing rainwater.",
+        "operatorId": "FIELD-OP-CHENNAI-01"
+      },
+      "incidentLifecycleStatus": "ACKNOWLEDGED"
+    },
+    {
+      "filename": "pathole 10.webp",
+      "category": "WaterFilledPothole",
+      "filePath": "Field Test Dataset\\WaterFilledPothole\\pathole 10.webp",
+      "imageQuality": {
+        "width": 371,
+        "height": 234,
+        "totalPixels": 86814,
+        "aspectRatio": 1.59,
+        "isLowResolution": false,
+        "lowResolutionWarning": null
+      },
+      "metadata": {
+        "latitude": null,
+        "longitude": null,
+        "isGpsVerified": false,
+        "locationStatus": "LOCATION UNAVAILABLE",
+        "captureTimestamp": "CAPTURE TIME UNAVAILABLE",
+        "processingTimestamp": "2026-10-06T14:30:00.000Z"
+      },
+      "inferenceResult": {
+        "incidentType": "WATER-FILLED POTHOLE (Highways Department + Drainage Advisory)",
+        "severity": "HIGH",
+        "priority": "IMMEDIATE"
+      },
+      "operatorDecision": {
+        "operatorStatus": "CONFIRMED",
+        "decision": "CONFIRMED",
+        "reason": "Verified in field: Pothole cavity with standing rainwater.",
+        "operatorId": "FIELD-OP-CHENNAI-01"
+      },
+      "incidentLifecycleStatus": "ACKNOWLEDGED"
+    },
+    {
+      "filename": "pathole 13.webp",
+      "category": "WaterFilledPothole",
+      "filePath": "Field Test Dataset\\WaterFilledPothole\\pathole 13.webp",
+      "imageQuality": {
+        "width": 437,
+        "height": 702,
+        "totalPixels": 306774,
+        "aspectRatio": 0.62,
+        "isLowResolution": false,
+        "lowResolutionWarning": null
+      },
+      "metadata": {
+        "latitude": null,
+        "longitude": null,
+        "isGpsVerified": false,
+        "locationStatus": "LOCATION UNAVAILABLE",
+        "captureTimestamp": "CAPTURE TIME UNAVAILABLE",
+        "processingTimestamp": "2026-10-06T14:30:00.000Z"
+      },
+      "inferenceResult": {
+        "incidentType": "WATER-FILLED POTHOLE (Highways Department + Drainage Advisory)",
+        "severity": "HIGH",
+        "priority": "IMMEDIATE"
+      },
+      "operatorDecision": {
+        "operatorStatus": "CONFIRMED",
+        "decision": "CONFIRMED",
+        "reason": "Verified in field: Pothole cavity with standing rainwater.",
+        "operatorId": "FIELD-OP-CHENNAI-01"
+      },
+      "incidentLifecycleStatus": "ACKNOWLEDGED"
+    },
+    {
+      "filename": "pathole 14.webp",
+      "category": "WaterFilledPothole",
+      "filePath": "Field Test Dataset\\WaterFilledPothole\\pathole 14.webp",
+      "imageQuality": {
+        "width": 151,
+        "height": 200,
+        "totalPixels": 30200,
+        "aspectRatio": 0.76,
+        "isLowResolution": true,
+        "lowResolutionWarning": "LOW-RESOLUTION WARNING"
+      },
+      "metadata": {
+        "latitude": null,
+        "longitude": null,
+        "isGpsVerified": false,
+        "locationStatus": "LOCATION UNAVAILABLE",
+        "captureTimestamp": "CAPTURE TIME UNAVAILABLE",
+        "processingTimestamp": "2026-10-06T14:30:00.000Z"
+      },
+      "inferenceResult": {
+        "incidentType": "WATER-FILLED POTHOLE (Highways Department + Drainage Advisory)",
+        "severity": "HIGH",
+        "priority": "IMMEDIATE"
+      },
+      "operatorDecision": {
+        "operatorStatus": "CONFIRMED",
+        "decision": "CONFIRMED",
+        "reason": "Verified in field: Pothole cavity with standing rainwater.",
+        "operatorId": "FIELD-OP-CHENNAI-01"
+      },
+      "incidentLifecycleStatus": "ACKNOWLEDGED"
+    },
+    {
+      "filename": "pathole 25.webp",
+      "category": "WaterFilledPothole",
+      "filePath": "Field Test Dataset\\WaterFilledPothole\\pathole 25.webp",
+      "imageQuality": {
+        "width": 543,
+        "height": 360,
+        "totalPixels": 195480,
+        "aspectRatio": 1.51,
+        "isLowResolution": false,
+        "lowResolutionWarning": null
+      },
+      "metadata": {
+        "latitude": null,
+        "longitude": null,
+        "isGpsVerified": false,
+        "locationStatus": "LOCATION UNAVAILABLE",
+        "captureTimestamp": "CAPTURE TIME UNAVAILABLE",
+        "processingTimestamp": "2026-10-06T14:30:00.000Z"
+      },
+      "inferenceResult": {
+        "incidentType": "WATER-FILLED POTHOLE (Highways Department + Drainage Advisory)",
+        "severity": "HIGH",
+        "priority": "IMMEDIATE"
+      },
+      "operatorDecision": {
+        "operatorStatus": "CONFIRMED",
+        "decision": "CONFIRMED",
+        "reason": "Verified in field: Pothole cavity with standing rainwater.",
+        "operatorId": "FIELD-OP-CHENNAI-01"
+      },
+      "incidentLifecycleStatus": "ACKNOWLEDGED"
+    },
+    {
+      "filename": "pathole 26.webp",
+      "category": "WaterFilledPothole",
+      "filePath": "Field Test Dataset\\WaterFilledPothole\\pathole 26.webp",
+      "imageQuality": {
+        "width": 480,
+        "height": 359,
+        "totalPixels": 172320,
+        "aspectRatio": 1.34,
+        "isLowResolution": false,
+        "lowResolutionWarning": null
+      },
+      "metadata": {
+        "latitude": null,
+        "longitude": null,
+        "isGpsVerified": false,
+        "locationStatus": "LOCATION UNAVAILABLE",
+        "captureTimestamp": "CAPTURE TIME UNAVAILABLE",
+        "processingTimestamp": "2026-10-06T14:30:00.000Z"
+      },
+      "inferenceResult": {
+        "incidentType": "WATER-FILLED POTHOLE (Highways Department + Drainage Advisory)",
+        "severity": "HIGH",
+        "priority": "IMMEDIATE"
+      },
+      "operatorDecision": {
+        "operatorStatus": "CONFIRMED",
+        "decision": "CONFIRMED",
+        "reason": "Verified in field: Pothole cavity with standing rainwater.",
+        "operatorId": "FIELD-OP-CHENNAI-01"
+      },
+      "incidentLifecycleStatus": "ACKNOWLEDGED"
+    },
+    {
+      "filename": "pathole 30.webp",
+      "category": "WaterFilledPothole",
+      "filePath": "Field Test Dataset\\WaterFilledPothole\\pathole 30.webp",
+      "imageQuality": {
+        "width": 678,
+        "height": 452,
+        "totalPixels": 306456,
+        "aspectRatio": 1.5,
+        "isLowResolution": false,
+        "lowResolutionWarning": null
+      },
+      "metadata": {
+        "latitude": null,
+        "longitude": null,
+        "isGpsVerified": false,
+        "locationStatus": "LOCATION UNAVAILABLE",
+        "captureTimestamp": "CAPTURE TIME UNAVAILABLE",
+        "processingTimestamp": "2026-10-06T14:30:00.000Z"
+      },
+      "inferenceResult": {
+        "incidentType": "WATER-FILLED POTHOLE (Highways Department + Drainage Advisory)",
+        "severity": "HIGH",
+        "priority": "IMMEDIATE"
+      },
+      "operatorDecision": {
+        "operatorStatus": "CONFIRMED",
+        "decision": "CONFIRMED",
+        "reason": "Verified in field: Pothole cavity with standing rainwater.",
+        "operatorId": "FIELD-OP-CHENNAI-01"
+      },
+      "incidentLifecycleStatus": "ACKNOWLEDGED"
+    },
+    {
+      "filename": "pathole 4.webp",
+      "category": "WaterFilledPothole",
+      "filePath": "Field Test Dataset\\WaterFilledPothole\\pathole 4.webp",
+      "imageQuality": {
+        "width": 361,
+        "height": 262,
+        "totalPixels": 94582,
+        "aspectRatio": 1.38,
+        "isLowResolution": false,
+        "lowResolutionWarning": null
+      },
+      "metadata": {
+        "latitude": null,
+        "longitude": null,
+        "isGpsVerified": false,
+        "locationStatus": "LOCATION UNAVAILABLE",
+        "captureTimestamp": "CAPTURE TIME UNAVAILABLE",
+        "processingTimestamp": "2026-10-06T14:30:00.000Z"
+      },
+      "inferenceResult": {
+        "incidentType": "WATER-FILLED POTHOLE (Highways Department + Drainage Advisory)",
+        "severity": "HIGH",
+        "priority": "IMMEDIATE"
+      },
+      "operatorDecision": {
+        "operatorStatus": "CONFIRMED",
+        "decision": "CONFIRMED",
+        "reason": "Verified in field: Pothole cavity with standing rainwater.",
+        "operatorId": "FIELD-OP-CHENNAI-01"
+      },
+      "incidentLifecycleStatus": "ACKNOWLEDGED"
+    },
+    {
+      "filename": "pathole 8.webp",
+      "category": "WaterFilledPothole",
+      "filePath": "Field Test Dataset\\WaterFilledPothole\\pathole 8.webp",
+      "imageQuality": {
+        "width": 396,
+        "height": 234,
+        "totalPixels": 92664,
+        "aspectRatio": 1.69,
+        "isLowResolution": false,
+        "lowResolutionWarning": null
+      },
+      "metadata": {
+        "latitude": null,
+        "longitude": null,
+        "isGpsVerified": false,
+        "locationStatus": "LOCATION UNAVAILABLE",
+        "captureTimestamp": "CAPTURE TIME UNAVAILABLE",
+        "processingTimestamp": "2026-10-06T14:30:00.000Z"
+      },
+      "inferenceResult": {
+        "incidentType": "WATER-FILLED POTHOLE (Highways Department + Drainage Advisory)",
+        "severity": "HIGH",
+        "priority": "IMMEDIATE"
+      },
+      "operatorDecision": {
+        "operatorStatus": "CONFIRMED",
+        "decision": "CONFIRMED",
+        "reason": "Verified in field: Pothole cavity with standing rainwater.",
+        "operatorId": "FIELD-OP-CHENNAI-01"
+      },
+      "incidentLifecycleStatus": "ACKNOWLEDGED"
+    },
+    {
+      "filename": "pathole 2.webp",
+      "category": "Negative",
+      "filePath": "Field Test Dataset\\Negative\\pathole 2.webp",
+      "imageQuality": {
+        "width": 297,
+        "height": 234,
+        "totalPixels": 69498,
+        "aspectRatio": 1.27,
+        "isLowResolution": true,
+        "lowResolutionWarning": "LOW-RESOLUTION WARNING"
+      },
+      "metadata": {
+        "latitude": null,
+        "longitude": null,
+        "isGpsVerified": false,
+        "locationStatus": "LOCATION UNAVAILABLE",
+        "captureTimestamp": "CAPTURE TIME UNAVAILABLE",
+        "processingTimestamp": "2026-10-06T14:30:00.000Z"
+      },
+      "inferenceResult": {
+        "incidentType": "DETECTED WASTE (W70) (Sanitation)",
+        "severity": "HIGH",
+        "priority": "IMMEDIATE"
+      },
+      "operatorDecision": {
+        "operatorStatus": "CONFIRMED",
+        "decision": "CONFIRMED_CLEAN",
+        "reason": "Human inspection confirms surface is in clean operational condition.",
+        "operatorId": "FIELD-OP-CHENNAI-01"
+      },
+      "incidentLifecycleStatus": "RESOLVED"
+    },
+    {
+      "filename": "pathole 3.webp",
+      "category": "Negative",
+      "filePath": "Field Test Dataset\\Negative\\pathole 3.webp",
+      "imageQuality": {
+        "width": 370,
+        "height": 247,
+        "totalPixels": 91390,
+        "aspectRatio": 1.5,
+        "isLowResolution": false,
+        "lowResolutionWarning": null
+      },
+      "metadata": {
+        "latitude": null,
+        "longitude": null,
+        "isGpsVerified": false,
+        "locationStatus": "LOCATION UNAVAILABLE",
+        "captureTimestamp": "CAPTURE TIME UNAVAILABLE",
+        "processingTimestamp": "2026-10-06T14:30:00.000Z"
+      },
+      "inferenceResult": {
+        "incidentType": "DETECTED WASTE (W00) (Sanitation)",
+        "severity": "MEDIUM",
+        "priority": "MEDIUM"
+      },
+      "operatorDecision": {
+        "operatorStatus": "CONFIRMED",
+        "decision": "CONFIRMED_CLEAN",
+        "reason": "Human inspection confirms surface is in clean operational condition.",
+        "operatorId": "FIELD-OP-CHENNAI-01"
+      },
+      "incidentLifecycleStatus": "RESOLVED"
+    },
+    {
+      "filename": "test_a_gps_and_time.jpg",
+      "category": "Metadata",
+      "filePath": "Field Test Dataset\\Metadata\\test_a_gps_and_time.jpg",
+      "imageQuality": {
+        "width": 400,
+        "height": 533,
+        "totalPixels": 213200,
+        "aspectRatio": 0.75,
+        "isLowResolution": false,
+        "lowResolutionWarning": null
+      },
+      "metadata": {
+        "latitude": 12.9716,
+        "longitude": 80.2184,
+        "isGpsVerified": true,
+        "locationStatus": "GPS AVAILABLE (12.9716, 80.2184)",
+        "captureTimestamp": "2026:10:06 14:15:22",
+        "processingTimestamp": "2026-10-06T14:30:00.000Z"
+      },
+      "inferenceResult": {
+        "incidentType": "ROUTINE MONITORING",
+        "severity": "LOW",
+        "priority": "MEDIUM"
+      },
+      "operatorDecision": {
+        "operatorStatus": "CONFIRMED",
+        "decision": "CONFIRMED",
+        "reason": "Field operator verified presence of civic hazard.",
+        "operatorId": "FIELD-OP-CHENNAI-01"
+      },
+      "incidentLifecycleStatus": "ACKNOWLEDGED"
+    },
+    {
+      "filename": "test_b_time_no_gps.jpg",
+      "category": "Metadata",
+      "filePath": "Field Test Dataset\\Metadata\\test_b_time_no_gps.jpg",
+      "imageQuality": {
+        "width": 400,
+        "height": 533,
+        "totalPixels": 213200,
+        "aspectRatio": 0.75,
+        "isLowResolution": false,
+        "lowResolutionWarning": null
+      },
+      "metadata": {
+        "latitude": null,
+        "longitude": null,
+        "isGpsVerified": false,
+        "locationStatus": "LOCATION UNAVAILABLE",
+        "captureTimestamp": "2026:10:06 14:20:00",
+        "processingTimestamp": "2026-10-06T14:30:00.000Z"
+      },
+      "inferenceResult": {
+        "incidentType": "ROUTINE MONITORING",
+        "severity": "LOW",
+        "priority": "MEDIUM"
+      },
+      "operatorDecision": {
+        "operatorStatus": "CONFIRMED",
+        "decision": "CONFIRMED",
+        "reason": "Field operator verified presence of civic hazard.",
+        "operatorId": "FIELD-OP-CHENNAI-01"
+      },
+      "incidentLifecycleStatus": "ACKNOWLEDGED"
+    },
+    {
+      "filename": "test_c_gps_no_time.jpg",
+      "category": "Metadata",
+      "filePath": "Field Test Dataset\\Metadata\\test_c_gps_no_time.jpg",
+      "imageQuality": {
+        "width": 400,
+        "height": 533,
+        "totalPixels": 213200,
+        "aspectRatio": 0.75,
+        "isLowResolution": false,
+        "lowResolutionWarning": null
+      },
+      "metadata": {
+        "latitude": 12.981,
+        "longitude": 80.221,
+        "isGpsVerified": true,
+        "locationStatus": "GPS AVAILABLE (12.981, 80.221)",
+        "captureTimestamp": "CAPTURE TIME UNAVAILABLE",
+        "processingTimestamp": "2026-10-06T14:30:00.000Z"
+      },
+      "inferenceResult": {
+        "incidentType": "ROUTINE MONITORING",
+        "severity": "LOW",
+        "priority": "MEDIUM"
+      },
+      "operatorDecision": {
+        "operatorStatus": "CONFIRMED",
+        "decision": "CONFIRMED",
+        "reason": "Field operator verified presence of civic hazard.",
+        "operatorId": "FIELD-OP-CHENNAI-01"
+      },
+      "incidentLifecycleStatus": "ACKNOWLEDGED"
+    },
+    {
+      "filename": "test_d_neither.jpg",
+      "category": "Metadata",
+      "filePath": "Field Test Dataset\\Metadata\\test_d_neither.jpg",
+      "imageQuality": {
+        "width": 400,
+        "height": 533,
+        "totalPixels": 213200,
+        "aspectRatio": 0.75,
+        "isLowResolution": false,
+        "lowResolutionWarning": null
+      },
+      "metadata": {
+        "latitude": null,
+        "longitude": null,
+        "isGpsVerified": false,
+        "locationStatus": "LOCATION UNAVAILABLE",
+        "captureTimestamp": "CAPTURE TIME UNAVAILABLE",
+        "processingTimestamp": "2026-10-06T14:30:00.000Z"
+      },
+      "inferenceResult": {
+        "incidentType": "ROUTINE MONITORING",
+        "severity": "LOW",
+        "priority": "MEDIUM"
+      },
+      "operatorDecision": {
+        "operatorStatus": "CONFIRMED",
+        "decision": "CONFIRMED",
+        "reason": "Field operator verified presence of civic hazard.",
+        "operatorId": "FIELD-OP-CHENNAI-01"
+      },
+      "incidentLifecycleStatus": "ACKNOWLEDGED"
+    },
+    {
+      "filename": "test_e_low_res.jpg",
+      "category": "Metadata",
+      "filePath": "Field Test Dataset\\Metadata\\test_e_low_res.jpg",
+      "imageQuality": {
+        "width": 280,
+        "height": 190,
+        "totalPixels": 53200,
+        "aspectRatio": 1.47,
+        "isLowResolution": true,
+        "lowResolutionWarning": "LOW-RESOLUTION WARNING"
+      },
+      "metadata": {
+        "latitude": null,
+        "longitude": null,
+        "isGpsVerified": false,
+        "locationStatus": "LOCATION UNAVAILABLE",
+        "captureTimestamp": "CAPTURE TIME UNAVAILABLE",
+        "processingTimestamp": "2026-10-06T14:30:00.000Z"
+      },
+      "inferenceResult": {
+        "incidentType": "ROUTINE MONITORING",
+        "severity": "LOW",
+        "priority": "MEDIUM"
+      },
+      "operatorDecision": {
+        "operatorStatus": "CONFIRMED",
+        "decision": "CONFIRMED",
+        "reason": "Field operator verified presence of civic hazard.",
+        "operatorId": "FIELD-OP-CHENNAI-01"
+      },
+      "incidentLifecycleStatus": "ACKNOWLEDGED"
+    },
+    {
+      "filename": "test_f_high_res.jpg",
+      "category": "Metadata",
+      "filePath": "Field Test Dataset\\Metadata\\test_f_high_res.jpg",
+      "imageQuality": {
+        "width": 1280,
+        "height": 720,
+        "totalPixels": 921600,
+        "aspectRatio": 1.78,
+        "isLowResolution": false,
+        "lowResolutionWarning": null
+      },
+      "metadata": {
+        "latitude": null,
+        "longitude": null,
+        "isGpsVerified": false,
+        "locationStatus": "LOCATION UNAVAILABLE",
+        "captureTimestamp": "CAPTURE TIME UNAVAILABLE",
+        "processingTimestamp": "2026-10-06T14:30:00.000Z"
+      },
+      "inferenceResult": {
+        "incidentType": "ROUTINE MONITORING",
+        "severity": "LOW",
+        "priority": "MEDIUM"
+      },
+      "operatorDecision": {
+        "operatorStatus": "CONFIRMED",
+        "decision": "CONFIRMED",
+        "reason": "Field operator verified presence of civic hazard.",
+        "operatorId": "FIELD-OP-CHENNAI-01"
+      },
+      "incidentLifecycleStatus": "ACKNOWLEDGED"
+    }
+  ]
+}

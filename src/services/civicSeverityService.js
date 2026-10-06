@@ -1,8 +1,143 @@
 // CivicSense AI - Visual Civic Issue Severity, Contextual Cross-Model Arbitration & Final Incident Service
-// Phase 8C-3, 8C-5, 8C-6, 8C-8, 8C-9 & 8C-10 Production Integration
+// Phase 8C-3, 8C-5, 8C-6, 8C-8, 8C-9, 8C-10 & Phase 9 Live Field Pilot Integration
 // Deterministic Multi-Model Evidence-Based Orchestration
 // Strictly separates Raw Model Predictions, Contextual Interpretations, and Confirmed Civic Incidents
 // ZERO Math.random() – Completely deterministic logic
+
+import { routeIncidentToDepartment } from './boundaryService.js';
+
+/**
+ * Generates a deterministic incident ID without Math.random().
+ */
+export function generateDeterministicIncidentId(domainPrefix, evidenceStr, index = 1) {
+  const seed = `${domainPrefix}-${evidenceStr || 'EVIDENCE'}-${index}`;
+  let hash = 0;
+  for (let i = 0; i < seed.length; i++) {
+    hash = (hash << 5) - hash + seed.charCodeAt(i);
+    hash |= 0;
+  }
+  const hex = Math.abs(hash).toString(16).padStart(6, '0').slice(0, 6).toUpperCase();
+  return `CS-INC-${domainPrefix}-${hex}-${String(index).padStart(2, '0')}`;
+}
+
+/**
+ * Creates a deterministic 7-step Incident Audit Trail conforming to Phase 9 Section 9.
+ */
+export function createIncidentAuditTrail({
+  incidentId,
+  incidentType,
+  sourceEvidence,
+  arbitrationReason,
+  severity,
+  priority,
+  department,
+  locationFormatted,
+  processingTimestamp
+}) {
+  const pTime = processingTimestamp || new Date().toISOString();
+  return [
+    {
+      stepNumber: 1,
+      stepName: "INCIDENT_CREATED",
+      timestamp: pTime,
+      summary: `Deterministic Incident Initialized (${incidentId})`,
+      details: `Created from multi-modal sensor/visual detection pipeline without synthetic data.`
+    },
+    {
+      stepNumber: 2,
+      stepName: "AI_EVIDENCE_GENERATED",
+      timestamp: pTime,
+      summary: `Multi-Model Computer Vision Inferences Screened`,
+      details: sourceEvidence
+    },
+    {
+      stepNumber: 3,
+      stepName: "CONTEXTUAL_ARBITRATION",
+      timestamp: pTime,
+      summary: `Cross-Model Contextual Arbitration Evaluated`,
+      details: arbitrationReason || "Cross-category spatial and semantic conflicts arbitrated."
+    },
+    {
+      stepNumber: 4,
+      stepName: "SEVERITY_ASSIGNED",
+      timestamp: pTime,
+      summary: `Severity: ${severity} | Priority: ${priority}`,
+      details: `Assigned based on defect visual extent ratio and multi-modal hazard fusion.`
+    },
+    {
+      stepNumber: 5,
+      stepName: "DEPARTMENT_ROUTED",
+      timestamp: pTime,
+      summary: `Routed to ${department}`,
+      details: `Municipal routing evaluated. Location: ${locationFormatted}.`
+    },
+    {
+      stepNumber: 6,
+      stepName: "OPERATOR_REVIEW_PENDING",
+      timestamp: pTime,
+      summary: `Operator Status initialized to NEEDS REVIEW`,
+      details: `Awaiting field operator confirmation, rejection, or inspection notes.`
+    },
+    {
+      stepNumber: 7,
+      stepName: "STATUS_UPDATE",
+      timestamp: pTime,
+      summary: `Incident Lifecycle State initialized to NEW`,
+      details: `Triage queued for field operator action.`
+    }
+  ];
+}
+
+/**
+ * Updates an incident with a human operator review decision without modifying raw AI confidence or bounding boxes.
+ */
+export function applyOperatorReview(incident, { decision, reason = '', operatorId = 'FIELD-OP-01' }) {
+  if (!incident) return null;
+  const nowStr = new Date().toISOString();
+
+  const newAuditEntry = {
+    stepNumber: (incident.auditTrail?.length || 0) + 1,
+    stepName: `OPERATOR_${decision.replace(/\s+/g, '_')}`,
+    timestamp: nowStr,
+    summary: `Operator Decision: ${decision}`,
+    details: reason ? `Operator Notes: "${reason}" (Operator ID: ${operatorId})` : `Operator set status to ${decision} (Operator ID: ${operatorId}).`
+  };
+
+  return {
+    ...incident,
+    operatorStatus: decision,
+    operatorDecision: {
+      decision,
+      reason,
+      operatorId,
+      timestamp: nowStr
+    },
+    auditTrail: [...(incident.auditTrail || []), newAuditEntry]
+  };
+}
+
+/**
+ * Updates an incident lifecycle status (NEW, ACKNOWLEDGED, ACTION REQUIRED, IN PROGRESS, RESOLVED).
+ * Strictly requires explicit operator action; never automatically marks RESOLVED.
+ */
+export function updateIncidentLifecycleStatus(incident, newStatus, notes = '') {
+  if (!incident) return null;
+  const nowStr = new Date().toISOString();
+
+  const newAuditEntry = {
+    stepNumber: (incident.auditTrail?.length || 0) + 1,
+    stepName: `STATUS_${newStatus.replace(/\s+/g, '_')}`,
+    timestamp: nowStr,
+    summary: `Lifecycle Status Updated to ${newStatus}`,
+    details: notes ? `Notes: "${notes}"` : `Status transitioned to ${newStatus}.`
+  };
+
+  return {
+    ...incident,
+    incidentStatus: newStatus,
+    auditTrail: [...(incident.auditTrail || []), newAuditEntry]
+  };
+}
 
 /**
  * Calculates spatial connected-component topology on a binary water mask using 4-neighborhood BFS.
@@ -414,33 +549,75 @@ export function performContextualArbitration({
     }
   }
 
-  // 5. Generate Confirmed Final Civic Incidents
+  // 5. Generate Confirmed Final Civic Incidents (Phase 9 Specification)
   const civicIncidents = [];
-  const locFormatted = metadata.isGpsVerified && metadata.latitude !== null && metadata.longitude !== null
+  const isGpsValid = metadata.isGpsVerified && metadata.latitude !== null && metadata.longitude !== null;
+  const locFormatted = isGpsValid
     ? `${metadata.latitude}, ${metadata.longitude}`
     : "LOCATION UNAVAILABLE";
-  const timestampStr = metadata.timestamp || "CAPTURE TIME UNAVAILABLE";
-  const dateSuffix = Date.now().toString().slice(-4);
+  const locStatus = isGpsValid
+    ? `GPS AVAILABLE (${metadata.latitude}, ${metadata.longitude})`
+    : "LOCATION UNAVAILABLE";
+  const captureTimeStr = metadata.timestamp || "CAPTURE TIME UNAVAILABLE";
+  const processingTimeStr = processingTimestamp || new Date().toISOString();
 
   // A. PRIORITY 1: Water-Filled Pothole
   if (isWaterFilledPothole) {
+    const evidenceStr = `RDD2022 Pothole (D40, ${(potholeDet.confidence * 100).toFixed(0)}% conf) holding visible standing water (${waterCoverage}% coverage).`;
+    const incidentId = generateDeterministicIncidentId('WFP', `${evidenceStr}-${locFormatted}`, 1);
+    const routeInfo = routeIncidentToDepartment({
+      primaryDepartment: "Highways / Roads & Pavement Maintenance (Elevated Priority - Drainage Advisory)",
+      latitude: metadata.latitude,
+      longitude: metadata.longitude
+    });
+
+    const auditTrail = createIncidentAuditTrail({
+      incidentId,
+      incidentType: "WATER_FILLED_POTHOLE",
+      sourceEvidence: evidenceStr,
+      arbitrationReason: "Multi-modal hazard fusion: Structural road cavity (D40) holding standing water. High vehicular damage and drainage risk.",
+      severity: "HIGH",
+      priority: "IMMEDIATE",
+      department: routeInfo.primaryDepartment,
+      locationFormatted: locFormatted,
+      processingTimestamp: processingTimeStr
+    });
+
     civicIncidents.push({
-      id: `INC-WFP-${dateSuffix}-01`,
+      id: incidentId,
       incidentType: "WATER_FILLED_POTHOLE",
       title: "Water-Filled Pothole Hazard",
-      sourceEvidence: `RDD2022 Pothole (D40, ${(potholeDet.confidence * 100).toFixed(0)}% conf) holding visible standing water (${waterCoverage}% coverage).`,
+      sourceEvidence: evidenceStr,
       confidence: potholeDet.confidence,
       severity: "HIGH",
       priority: "IMMEDIATE",
       location: {
         latitude: metadata.latitude,
         longitude: metadata.longitude,
-        formatted: locFormatted
+        formatted: locFormatted,
+        isGpsVerified: isGpsValid
       },
-      timestamp: timestampStr,
+      locationStatus: locStatus,
+      captureTimestamp: captureTimeStr,
+      timestamp: captureTimeStr, // Backward compatibility
+      processingTimestamp: processingTimeStr,
       contextualInterpretation: "Multi-modal hazard fusion: Structural road cavity (D40) holding standing water. High vehicular damage and drainage risk.",
-      recommendedDepartment: "Highways / Roads & Pavement Maintenance (Elevated Priority - Drainage Advisory)",
+      recommendedDepartment: routeInfo.primaryDepartment,
+      wardAssignmentStatus: routeInfo.wardAssignmentStatus,
+      wardId: routeInfo.wardId,
+      wardName: routeInfo.wardName,
+      departmentOffice: routeInfo.departmentOffice,
+      departmentContact: routeInfo.departmentContact,
       recommendedAction: "Inspect and repair pothole and verify drainage/water accumulation.",
+      operatorStatus: "NEEDS REVIEW",
+      operatorDecision: {
+        decision: "NEEDS REVIEW",
+        reason: "",
+        operatorId: "FIELD-OP-01",
+        timestamp: null
+      },
+      incidentStatus: "NEW",
+      auditTrail,
       status: "ACTIVE_EVIDENCE",
       boundingBoxes: [potholeDet.boundingBox].filter(Boolean)
     });
@@ -448,44 +625,121 @@ export function performContextualArbitration({
 
   // B. PRIORITY 2: Significant Flood Inundation (when not captured as isolated WFP)
   if (isSignificantFlood && !isWaterFilledPothole) {
+    const evidenceStr = `Flood segmentation: ${waterCoverage}% water coverage (${topologyRatio !== null ? topologyRatio + '% component ratio' : 'continuous inundation'}).`;
+    const incidentId = generateDeterministicIncidentId('FLD', `${evidenceStr}-${locFormatted}`, 2);
+    const routeInfo = routeIncidentToDepartment({
+      primaryDepartment: "Stormwater / Drainage Department",
+      latitude: metadata.latitude,
+      longitude: metadata.longitude
+    });
+
+    const sev = waterCoverage >= 35.0 ? "CRITICAL" : "HIGH";
+    const auditTrail = createIncidentAuditTrail({
+      incidentId,
+      incidentType: "SIGNIFICANT_WATERLOGGING",
+      sourceEvidence: evidenceStr,
+      arbitrationReason: "Continuous roadway inundation confirmed by topological flood analysis.",
+      severity: sev,
+      priority: "IMMEDIATE",
+      department: routeInfo.primaryDepartment,
+      locationFormatted: locFormatted,
+      processingTimestamp: processingTimeStr
+    });
+
     civicIncidents.push({
-      id: `INC-FLD-${dateSuffix}-02`,
+      id: incidentId,
       incidentType: "SIGNIFICANT_WATERLOGGING",
       title: "Significant Roadway Waterlogging",
-      sourceEvidence: `Flood segmentation: ${waterCoverage}% water coverage (${topologyRatio !== null ? topologyRatio + '% component ratio' : 'continuous inundation'}).`,
+      sourceEvidence: evidenceStr,
       confidence: null,
-      severity: waterCoverage >= 35.0 ? "CRITICAL" : "HIGH",
+      severity: sev,
       priority: "IMMEDIATE",
       location: {
         latitude: metadata.latitude,
         longitude: metadata.longitude,
-        formatted: locFormatted
+        formatted: locFormatted,
+        isGpsVerified: isGpsValid
       },
-      timestamp: timestampStr,
+      locationStatus: locStatus,
+      captureTimestamp: captureTimeStr,
+      timestamp: captureTimeStr,
+      processingTimestamp: processingTimeStr,
       contextualInterpretation: "Continuous roadway inundation confirmed by topological flood analysis.",
-      recommendedDepartment: "Stormwater / Drainage Department",
+      recommendedDepartment: routeInfo.primaryDepartment,
+      wardAssignmentStatus: routeInfo.wardAssignmentStatus,
+      wardId: routeInfo.wardId,
+      wardName: routeInfo.wardName,
+      departmentOffice: routeInfo.departmentOffice,
+      departmentContact: routeInfo.departmentContact,
       recommendedAction: "Prioritize drainage inspection and emergency stormwater response.",
+      operatorStatus: "NEEDS REVIEW",
+      operatorDecision: {
+        decision: "NEEDS REVIEW",
+        reason: "",
+        operatorId: "FIELD-OP-01",
+        timestamp: null
+      },
+      incidentStatus: "NEW",
+      auditTrail,
       status: "ACTIVE_EVIDENCE",
       boundingBoxes: []
     });
   } else if (isPossibleWater && !isSignificantFlood && !isWaterFilledPothole) {
+    const evidenceStr = `Flood segmentation: ${waterCoverage}% localized water coverage.`;
+    const incidentId = generateDeterministicIncidentId('PFL', `${evidenceStr}-${locFormatted}`, 3);
+    const routeInfo = routeIncidentToDepartment({
+      primaryDepartment: "Stormwater / Drainage Department",
+      latitude: metadata.latitude,
+      longitude: metadata.longitude
+    });
+
+    const auditTrail = createIncidentAuditTrail({
+      incidentId,
+      incidentType: "POSSIBLE_WATERLOGGING",
+      sourceEvidence: evidenceStr,
+      arbitrationReason: "Localized standing water or runoff margin detected on road surface.",
+      severity: "MEDIUM",
+      priority: "MEDIUM",
+      department: routeInfo.primaryDepartment,
+      locationFormatted: locFormatted,
+      processingTimestamp: processingTimeStr
+    });
+
     civicIncidents.push({
-      id: `INC-PFL-${dateSuffix}-03`,
+      id: incidentId,
       incidentType: "POSSIBLE_WATERLOGGING",
       title: "Possible Roadway Waterlogging",
-      sourceEvidence: `Flood segmentation: ${waterCoverage}% localized water coverage.`,
+      sourceEvidence: evidenceStr,
       confidence: null,
       severity: "MEDIUM",
       priority: "MEDIUM",
       location: {
         latitude: metadata.latitude,
         longitude: metadata.longitude,
-        formatted: locFormatted
+        formatted: locFormatted,
+        isGpsVerified: isGpsValid
       },
-      timestamp: timestampStr,
+      locationStatus: locStatus,
+      captureTimestamp: captureTimeStr,
+      timestamp: captureTimeStr,
+      processingTimestamp: processingTimeStr,
       contextualInterpretation: "Localized standing water or runoff margin detected on road surface.",
-      recommendedDepartment: "Stormwater / Drainage Department",
+      recommendedDepartment: routeInfo.primaryDepartment,
+      wardAssignmentStatus: routeInfo.wardAssignmentStatus,
+      wardId: routeInfo.wardId,
+      wardName: routeInfo.wardName,
+      departmentOffice: routeInfo.departmentOffice,
+      departmentContact: routeInfo.departmentContact,
       recommendedAction: "Initiate stormwater watch and inspect local drainage.",
+      operatorStatus: "NEEDS REVIEW",
+      operatorDecision: {
+        decision: "NEEDS REVIEW",
+        reason: "",
+        operatorId: "FIELD-OP-01",
+        timestamp: null
+      },
+      incidentStatus: "NEW",
+      auditTrail,
       status: "ACTIVE_EVIDENCE",
       boundingBoxes: []
     });
@@ -495,24 +749,61 @@ export function performContextualArbitration({
   if (rawRoad.length > 0 && !isWaterFilledPothole) {
     const hasD40 = rawRoad.some(d => d.classCode === 'D40');
     const roadSev = hasD40 ? "HIGH" : (rawRoad.length >= 2 ? "MEDIUM" : "LOW");
+    const evidenceStr = `RDD2022 detections: ${rawRoad.map(d => `${d.type} (${Math.round(d.confidence * 100)}%)`).join(', ')}.`;
+    const incidentId = generateDeterministicIncidentId('RD', `${evidenceStr}-${locFormatted}`, 4);
+    const routeInfo = routeIncidentToDepartment({
+      primaryDepartment: "Highways / Roads & Pavement Maintenance",
+      latitude: metadata.latitude,
+      longitude: metadata.longitude
+    });
+
+    const auditTrail = createIncidentAuditTrail({
+      incidentId,
+      incidentType: "ROAD_DAMAGE",
+      sourceEvidence: evidenceStr,
+      arbitrationReason: `${rawRoad.length} pavement defect(s) detected via RDD2022 model.`,
+      severity: roadSev,
+      priority: roadSev === "HIGH" ? "HIGH" : "MEDIUM",
+      department: routeInfo.primaryDepartment,
+      locationFormatted: locFormatted,
+      processingTimestamp: processingTimeStr
+    });
 
     civicIncidents.push({
-      id: `INC-RD-${dateSuffix}-04`,
+      id: incidentId,
       incidentType: "ROAD_DAMAGE",
       title: rawRoad.length === 1 ? `${rawRoad[0].type} (${rawRoad[0].classCode})` : `${rawRoad.length} Road Surface Defects`,
-      sourceEvidence: `RDD2022 detections: ${rawRoad.map(d => `${d.type} (${Math.round(d.confidence * 100)}%)`).join(', ')}.`,
+      sourceEvidence: evidenceStr,
       confidence: rawRoad[0]?.confidence || 0.50,
       severity: roadSev,
       priority: roadSev === "HIGH" ? "HIGH" : "MEDIUM",
       location: {
         latitude: metadata.latitude,
         longitude: metadata.longitude,
-        formatted: locFormatted
+        formatted: locFormatted,
+        isGpsVerified: isGpsValid
       },
-      timestamp: timestampStr,
+      locationStatus: locStatus,
+      captureTimestamp: captureTimeStr,
+      timestamp: captureTimeStr,
+      processingTimestamp: processingTimeStr,
       contextualInterpretation: `${rawRoad.length} pavement defect(s) detected via RDD2022 model.`,
-      recommendedDepartment: "Highways / Roads & Pavement Maintenance",
+      recommendedDepartment: routeInfo.primaryDepartment,
+      wardAssignmentStatus: routeInfo.wardAssignmentStatus,
+      wardId: routeInfo.wardId,
+      wardName: routeInfo.wardName,
+      departmentOffice: routeInfo.departmentOffice,
+      departmentContact: routeInfo.departmentContact,
       recommendedAction: "Inspect and repair affected pavement section.",
+      operatorStatus: "NEEDS REVIEW",
+      operatorDecision: {
+        decision: "NEEDS REVIEW",
+        reason: "",
+        operatorId: "FIELD-OP-01",
+        timestamp: null
+      },
+      incidentStatus: "NEW",
+      auditTrail,
       status: "ACTIVE_EVIDENCE",
       boundingBoxes: rawRoad.map(d => d.boundingBox).filter(Boolean)
     });
@@ -525,24 +816,61 @@ export function performContextualArbitration({
       return ((box.width * box.height) / 10000) >= 0.10;
     });
     const wasteSev = hasLargeWaste || contextualWaste.length >= 3 ? "HIGH" : (contextualWaste.length >= 2 ? "MEDIUM" : "LOW");
+    const evidenceStr = `Waste model detections: ${contextualWaste.map(d => `${d.type} (${Math.round(d.confidence * 100)}%)`).join(', ')}.`;
+    const incidentId = generateDeterministicIncidentId('WST', `${evidenceStr}-${locFormatted}`, 5);
+    const routeInfo = routeIncidentToDepartment({
+      primaryDepartment: "Solid Waste Management",
+      latitude: metadata.latitude,
+      longitude: metadata.longitude
+    });
+
+    const auditTrail = createIncidentAuditTrail({
+      incidentId,
+      incidentType: "WASTE_ACCUMULATION",
+      sourceEvidence: evidenceStr,
+      arbitrationReason: `${contextualWaste.length} visible waste accumulation region(s) validated after contextual cross-model arbitration.`,
+      severity: wasteSev,
+      priority: wasteSev === "HIGH" ? "HIGH" : "MEDIUM",
+      department: routeInfo.primaryDepartment,
+      locationFormatted: locFormatted,
+      processingTimestamp: processingTimeStr
+    });
 
     civicIncidents.push({
-      id: `INC-WST-${dateSuffix}-05`,
+      id: incidentId,
       incidentType: "WASTE_ACCUMULATION",
       title: "Visible Waste Accumulation",
-      sourceEvidence: `Waste model detections: ${contextualWaste.map(d => `${d.type} (${Math.round(d.confidence * 100)}%)`).join(', ')}.`,
+      sourceEvidence: evidenceStr,
       confidence: contextualWaste[0]?.confidence || 0.50,
       severity: wasteSev,
       priority: wasteSev === "HIGH" ? "HIGH" : "MEDIUM",
       location: {
         latitude: metadata.latitude,
         longitude: metadata.longitude,
-        formatted: locFormatted
+        formatted: locFormatted,
+        isGpsVerified: isGpsValid
       },
-      timestamp: timestampStr,
+      locationStatus: locStatus,
+      captureTimestamp: captureTimeStr,
+      timestamp: captureTimeStr,
+      processingTimestamp: processingTimeStr,
       contextualInterpretation: `${contextualWaste.length} visible waste accumulation region(s) validated after contextual cross-model arbitration.`,
-      recommendedDepartment: "Solid Waste Management",
+      recommendedDepartment: routeInfo.primaryDepartment,
+      wardAssignmentStatus: routeInfo.wardAssignmentStatus,
+      wardId: routeInfo.wardId,
+      wardName: routeInfo.wardName,
+      departmentOffice: routeInfo.departmentOffice,
+      departmentContact: routeInfo.departmentContact,
       recommendedAction: "Inspect and clear visible waste accumulation.",
+      operatorStatus: "NEEDS REVIEW",
+      operatorDecision: {
+        decision: "NEEDS REVIEW",
+        reason: "",
+        operatorId: "FIELD-OP-01",
+        timestamp: null
+      },
+      incidentStatus: "NEW",
+      auditTrail,
       status: "ACTIVE_EVIDENCE",
       boundingBoxes: contextualWaste.map(d => d.boundingBox).filter(Boolean)
     });
@@ -658,13 +986,17 @@ export function calculateVisualDetectionsSeverity(visualDetections, satelliteRis
   const floodResult = visualDetections?.flood ?? null;
   const metadata = visualDetections?.metadata ?? { latitude: null, longitude: null, timestamp: null, isGpsVerified: false };
 
-  // 1. Run Contextual Cross-Model Arbitration
+  // 1. Run Contextual Cross-Model Arbitration (Benchmarked)
+  const arbStart = performance.now();
   const arbitration = performContextualArbitration({
     roadDetections: rawRoad,
     wasteDetections: rawWaste,
     floodResult,
-    metadata
+    metadata,
+    processingTimestamp: visualDetections?.processingTimestamp
   });
+  const arbEnd = performance.now();
+  const arbitrationTimeMs = Number((arbEnd - arbStart).toFixed(2));
 
   // 2. Process individual enriched road detections
   const enrichedRoadDetections = rawRoad.map(det => {
@@ -836,6 +1168,16 @@ export function calculateVisualDetectionsSeverity(visualDetections, satelliteRis
     overallPriority,
     priorityReason,
     metadata,
+    timingBreakdown: {
+      imageLoadTimeMs: visualDetections?.timingBreakdown?.imageLoadTimeMs ?? null,
+      roadInferenceTimeMs: visualDetections?.timingBreakdown?.roadInferenceTimeMs ?? null,
+      wasteInferenceTimeMs: visualDetections?.timingBreakdown?.wasteInferenceTimeMs ?? null,
+      floodInferenceTimeMs: visualDetections?.timingBreakdown?.floodInferenceTimeMs ?? null,
+      arbitrationTimeMs,
+      totalProcessingTimeMs: Number(((visualDetections?.timingBreakdown?.totalProcessingTimeMs || visualDetections?.inferenceTimeMs || 0) + arbitrationTimeMs).toFixed(1))
+    },
+    qualityAudit: visualDetections?.qualityAudit || null,
+    processingTimestamp: visualDetections?.processingTimestamp || new Date().toISOString(),
     source: visualDetections.source || 'Phase 8C ONNX inference',
     modelName: visualDetections.modelName || 'CivicSense ONNX Vision Engine',
     inferenceTimeMs: visualDetections.inferenceTimeMs || 0,

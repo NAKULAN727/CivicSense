@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { 
   Upload, 
+  Camera,
   Cpu, 
   Sliders, 
   Check, 
@@ -18,35 +19,93 @@ import {
   EyeOff,
   Building,
   Wrench,
-  CheckCircle2
+  CheckCircle2,
+  XCircle,
+  HelpCircle,
+  History,
+  UserCheck,
+  Timer,
+  FileText,
+  Smartphone,
+  Layers,
+  Info
 } from 'lucide-react';
 import { 
   runGenuineVisualInference, 
-  extractImageMetadata 
+  extractImageMetadata,
+  auditImageQuality
 } from '../services/visualInferenceService';
 import { 
-  calculateVisualDetectionsSeverity 
+  calculateVisualDetectionsSeverity,
+  applyOperatorReview,
+  updateIncidentLifecycleStatus
 } from '../services/civicSeverityService';
 
 export default function AIDetectionHub({ addCustomIssue, onVisualDetectionsChange }) {
   const samples = [
     {
       id: 'potholes',
-      name: 'Curated Test: Road Damage (RDD2022)',
+      name: 'Road Damage (RDD2022)',
       path: '/assets/potholes_drone.png',
-      sourceType: 'CURATED TEST IMAGE'
+      sourceType: 'CURATED TEST IMAGE',
+      badge: 'Base Sample'
     },
     {
       id: 'garbage',
-      name: 'Curated Test: Waste Accumulation',
+      name: 'Waste Accumulation',
       path: '/assets/garbage_drone.png',
-      sourceType: 'CURATED TEST IMAGE'
+      sourceType: 'CURATED TEST IMAGE',
+      badge: 'Base Sample'
     },
     {
       id: 'flooding',
-      name: 'Curated Test: Flood Water Inundation',
+      name: 'Flood Water Inundation',
       path: '/assets/flooding_drone.png',
-      sourceType: 'CURATED TEST IMAGE'
+      sourceType: 'CURATED TEST IMAGE',
+      badge: 'Base Sample'
+    },
+    // Field Pilot Matrix Test Cases (Tests A through F)
+    {
+      id: 'test_a',
+      name: 'Test A: EXIF GPS & Time',
+      path: '/assets/field_test/test_a_gps_and_time.jpg',
+      sourceType: 'FIELD TEST A (GPS + TIMESTAMP)',
+      badge: 'Test Matrix A'
+    },
+    {
+      id: 'test_b',
+      name: 'Test B: Timestamp Only',
+      path: '/assets/field_test/test_b_time_no_gps.jpg',
+      sourceType: 'FIELD TEST B (NO GPS)',
+      badge: 'Test Matrix B'
+    },
+    {
+      id: 'test_c',
+      name: 'Test C: GPS Only',
+      path: '/assets/field_test/test_c_gps_no_time.jpg',
+      sourceType: 'FIELD TEST C (NO TIMESTAMP)',
+      badge: 'Test Matrix C'
+    },
+    {
+      id: 'test_d',
+      name: 'Test D: Neither GPS/Time',
+      path: '/assets/field_test/test_d_neither.jpg',
+      sourceType: 'FIELD TEST D (NO METADATA)',
+      badge: 'Test Matrix D'
+    },
+    {
+      id: 'test_e',
+      name: 'Test E: Low-Res Image',
+      path: '/assets/field_test/test_e_low_res.jpg',
+      sourceType: 'FIELD TEST E (LOW-RESOLUTION)',
+      badge: 'Test Matrix E'
+    },
+    {
+      id: 'test_f',
+      name: 'Test F: High-Res Normal',
+      path: '/assets/field_test/test_f_high_res.jpg',
+      sourceType: 'FIELD TEST F (NORMAL HIGH-RES)',
+      badge: 'Test Matrix F'
     }
   ];
 
@@ -58,6 +117,14 @@ export default function AIDetectionHub({ addCustomIssue, onVisualDetectionsChang
   const [filedIssues, setFiledIssues] = useState({});
   const [showDiagnostics, setShowDiagnostics] = useState(false);
   const [showSuppressedBoxes, setShowSuppressedBoxes] = useState(true);
+  const [activeWorkflowStep, setActiveWorkflowStep] = useState(1);
+
+  // Field Operator Review & Lifecycle State
+  const [operatorDecisions, setOperatorDecisions] = useState({});
+  const [incidentStatuses, setIncidentStatuses] = useState({});
+  const [operatorNotes, setOperatorNotes] = useState({});
+  const [activeNotesInputId, setActiveNotesInputId] = useState(null);
+  const [activeAuditTrailIncident, setActiveAuditTrailIncident] = useState(null);
 
   // Real inference state & active request sequence tracker
   const [inferenceResult, setInferenceResult] = useState(null);
@@ -65,6 +132,8 @@ export default function AIDetectionHub({ addCustomIssue, onVisualDetectionsChang
 
   const imgRef = useRef(null);
   const maskCanvasRef = useRef(null);
+  const cameraInputRef = useRef(null);
+  const uploadInputRef = useRef(null);
 
   // Helper for sample switching with immediate state reset to prevent stale data bleed
   const handleSelectSample = (sample) => {
@@ -73,6 +142,7 @@ export default function AIDetectionHub({ addCustomIssue, onVisualDetectionsChang
       onVisualDetectionsChange(null);
     }
     setSelectedSample(sample);
+    setActiveWorkflowStep(1);
   };
 
   // Execute genuine model inference when selected sample, image, or threshold changes
@@ -88,6 +158,7 @@ export default function AIDetectionHub({ addCustomIssue, onVisualDetectionsChang
 
     const runInferencePipeline = async () => {
       setIsInferring(true);
+      setActiveWorkflowStep(3); // Step 3: Run AI analysis
       
       try {
         const imageElement = new Image();
@@ -96,21 +167,28 @@ export default function AIDetectionHub({ addCustomIssue, onVisualDetectionsChang
         }
         imageElement.src = selectedSample.path;
 
+        const loadStartTime = performance.now();
         await new Promise((resolve, reject) => {
           imageElement.onload = resolve;
           imageElement.onerror = reject;
         });
+        const loadEndTime = performance.now();
+        const imageLoadTimeMs = Number((loadEndTime - loadStartTime).toFixed(1));
 
         if (!isMounted || reqSeq !== activeRequestSeqRef.current) return;
 
-        // Parse genuine EXIF metadata (GPS & Timestamp)
-        let metadata = { latitude: null, longitude: null, timestamp: null, isGpsVerified: false };
+        // Step 2: Parse genuine EXIF metadata (GPS & Timestamp)
+        let metadata = { latitude: null, longitude: null, timestamp: null, isGpsVerified: false, orientation: "Normal" };
         if (selectedSample.file) {
           metadata = await extractImageMetadata(selectedSample.file);
-        } else if (selectedSample.path.startsWith('data:')) {
-          const fetchRes = await fetch(selectedSample.path);
-          const buf = await fetchRes.arrayBuffer();
-          metadata = await extractImageMetadata(buf);
+        } else if (selectedSample.path) {
+          try {
+            const fetchRes = await fetch(selectedSample.path);
+            const buf = await fetchRes.arrayBuffer();
+            metadata = await extractImageMetadata(buf);
+          } catch (e) {
+            console.warn("[METADATA_FETCH_NOTICE] Could not parse EXIF buffer from URL, proceeding without EXIF.");
+          }
         }
 
         if (!isMounted || reqSeq !== activeRequestSeqRef.current) return;
@@ -121,11 +199,12 @@ export default function AIDetectionHub({ addCustomIssue, onVisualDetectionsChang
           metadata,
           imageSourceType: selectedSample.sourceType,
           confidenceThreshold,
+          imageLoadTimeMs,
           floodModelUrl: '/models/flood-water-segmentation.onnx?v=phase8c6d'
         });
 
         if (!isMounted || reqSeq !== activeRequestSeqRef.current) {
-          console.log(`[STALE_INFERENCE_DISCARDED] Request #${reqSeq} discarded because newer request #${activeRequestSeqRef.current} is active.`);
+          console.log(`[STALE_INFERENCE_DISCARDED] Request #${reqSeq} discarded.`);
           return;
         }
 
@@ -141,8 +220,9 @@ export default function AIDetectionHub({ addCustomIssue, onVisualDetectionsChang
           isAvailable: true
         };
 
-        console.log(`[UI_STATE_UPDATE] Setting inferenceResult for Request #${reqSeq} (Incidents: ${fullResult.civicIncidents?.length ?? 0}, Suppressed: ${fullResult.suppressedDetections?.length ?? 0})`);
+        console.log(`[UI_STATE_UPDATE] Inference completed for Request #${reqSeq} (Incidents: ${fullResult.civicIncidents?.length ?? 0})`);
         setInferenceResult(fullResult);
+        setActiveWorkflowStep(6); // Progress to Step 6: Review FINAL CIVIC INCIDENT
 
         // Notify parent components / central state
         if (onVisualDetectionsChange) {
@@ -198,15 +278,16 @@ export default function AIDetectionHub({ addCustomIssue, onVisualDetectionsChang
         data[idx] = 0;
         data[idx + 1] = 0;
         data[idx + 2] = 0;
-        data[idx + 3] = 0;     // Completely transparent
+        data[idx + 3] = 0;     // Transparent
       }
     }
 
     ctx.putImageData(imgData, 0, 0);
   }, [inferenceResult]);
 
+  // Unified file/camera capture handler
   const handleCustomUpload = async (e) => {
-    const file = e.target.files[0];
+    const file = e.target.files?.[0];
     if (file) {
       setInferenceResult(null);
       if (onVisualDetectionsChange) onVisualDetectionsChange(null);
@@ -215,13 +296,14 @@ export default function AIDetectionHub({ addCustomIssue, onVisualDetectionsChang
       reader.onloadend = async () => {
         const customSample = {
           id: 'custom-' + Date.now(),
-          name: file.name,
+          name: file.name || 'Mobile Camera Capture',
           path: reader.result,
           file: file,
-          sourceType: 'USER-UPLOADED IMAGE'
+          sourceType: file.name ? `UPLOAD: ${file.name}` : 'MOBILE CAMERA CAPTURE'
         };
         setCustomImage(customSample);
         setSelectedSample(customSample);
+        setActiveWorkflowStep(2); // Step 2: Metadata Review
       };
       reader.readAsDataURL(file);
     }
@@ -237,6 +319,8 @@ export default function AIDetectionHub({ addCustomIssue, onVisualDetectionsChang
   const floodResult = inferenceResult?.flood;
   const floodInterp = inferenceResult?.floodInterpretation;
   const fusionEv = inferenceResult?.fusionEvidence;
+  const qualityAudit = inferenceResult?.qualityAudit;
+  const timing = inferenceResult?.timingBreakdown;
 
   const getBoxColor = (label) => {
     switch (label) {
@@ -257,6 +341,48 @@ export default function AIDetectionHub({ addCustomIssue, onVisualDetectionsChang
     }
   };
 
+  // Operator Action: Confirm, Reject, or Needs Review
+  const handleOperatorReview = (incident, decision) => {
+    const note = operatorNotes[incident.id] || '';
+    const updated = applyOperatorReview(incident, {
+      decision,
+      reason: note,
+      operatorId: 'FIELD-OP-01'
+    });
+
+    setOperatorDecisions(prev => ({ ...prev, [incident.id]: updated.operatorDecision }));
+    
+    // Update local incident in inferenceResult
+    if (inferenceResult?.civicIncidents) {
+      const newIncidents = inferenceResult.civicIncidents.map(inc => 
+        inc.id === incident.id ? updated : inc
+      );
+      const newResult = { ...inferenceResult, civicIncidents: newIncidents };
+      setInferenceResult(newResult);
+      if (onVisualDetectionsChange) onVisualDetectionsChange(newResult);
+    }
+
+    setActiveWorkflowStep(8); // Step 8 completed
+    setActiveNotesInputId(null);
+  };
+
+  // Lifecycle Status update (NEW -> ACKNOWLEDGED -> ACTION REQUIRED -> IN PROGRESS -> RESOLVED)
+  const handleLifecycleUpdate = (incident, newStatus) => {
+    const updated = updateIncidentLifecycleStatus(incident, newStatus, `Operator set state to ${newStatus}`);
+    setIncidentStatuses(prev => ({ ...prev, [incident.id]: newStatus }));
+
+    if (inferenceResult?.civicIncidents) {
+      const newIncidents = inferenceResult.civicIncidents.map(inc => 
+        inc.id === incident.id ? updated : inc
+      );
+      const newResult = { ...inferenceResult, civicIncidents: newIncidents };
+      setInferenceResult(newResult);
+      if (onVisualDetectionsChange) onVisualDetectionsChange(newResult);
+    }
+
+    setActiveWorkflowStep(9); // Step 9 completed
+  };
+
   const handleFileIssue = (incident) => {
     if (!incident) return;
     const issueId = incident.id || `CS-INC-${Date.now().toString().slice(-6)}`;
@@ -270,12 +396,12 @@ export default function AIDetectionHub({ addCustomIssue, onVisualDetectionsChang
         lat: inferenceResult?.metadata?.latitude,
         lng: inferenceResult?.metadata?.longitude,
         address: incident.location?.formatted || 'LOCATION UNAVAILABLE',
-        ward: 'Metropolitan Spatial District'
+        ward: incident.wardName || incident.wardAssignmentStatus || 'Metropolitan Spatial District'
       },
       severity: incident.severity,
       priority: incident.priority,
-      status: 'Pending Review',
-      reportedAt: incident.timestamp || new Date().toISOString(),
+      status: incidentStatuses[incident.id] || incident.incidentStatus || 'NEW',
+      reportedAt: incident.captureTimestamp || incident.timestamp || new Date().toISOString(),
       detectedBy: 'CivicSense Multi-Model ONNX Vision Engine',
       confidence: incident.confidence,
       image: selectedSample.path,
@@ -288,20 +414,21 @@ export default function AIDetectionHub({ addCustomIssue, onVisualDetectionsChang
       addCustomIssue(newIssue);
     }
     setFiledIssues(prev => ({ ...prev, [incident.id]: issueId }));
+    handleLifecycleUpdate(incident, 'ACKNOWLEDGED');
   };
 
   return (
     <div className="detection-container" style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
       
       {/* Header Banner */}
-      <div className="glass-card" style={{ padding: '20px 24px', display: 'flex', flexWrap: 'wrap', alignItems: 'center', justifyContent: 'space-between', gap: '16px' }}>
+      <div className="glass-card" style={{ padding: '18px 24px', display: 'flex', flexWrap: 'wrap', alignItems: 'center', justifyContent: 'space-between', gap: '16px' }}>
         <div>
           <h2 style={{ fontSize: '18px', fontWeight: '800', fontFamily: 'var(--font-header)', display: 'flex', alignItems: 'center', gap: '10px' }}>
             <Sparkles size={20} style={{ color: 'var(--accent-blue)' }} />
-            STREET-LEVEL CIVIC DETECTION & ARBITRATION HUB
+            PHASE 9 LIVE FIELD PILOT & MOBILE OPERATOR DETECTION HUB
           </h2>
           <p style={{ fontSize: '12px', color: 'var(--text-secondary)', marginTop: '4px' }}>
-            End-to-End Visual Intelligence: Raw AI Detections → Contextual Cross-Model Arbitration → Confirmed Civic Incidents
+            Multi-Model Computer Vision • Contextual Cross-Model Arbitration • Controlled Field Operator Workflow
           </p>
         </div>
 
@@ -318,22 +445,78 @@ export default function AIDetectionHub({ addCustomIssue, onVisualDetectionsChang
         </div>
       </div>
 
-      {/* Control Bar & Sample Selector */}
+      {/* 9-STEP FIELD OPERATOR WORKFLOW STEPPER */}
+      <div className="glass-card" style={{ padding: '14px 20px', overflowX: 'auto' }}>
+        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '8px' }}>
+          <strong style={{ fontSize: '12px', color: 'var(--accent-blue)', display: 'flex', alignItems: 'center', gap: '6px' }}>
+            <UserCheck size={15} /> FIELD OPERATOR WORKFLOW PIPELINE (9 STEPS)
+          </strong>
+          <span style={{ fontSize: '11px', color: 'var(--text-secondary)' }}>
+            Active Phase: Step {activeWorkflowStep} of 9
+          </span>
+        </div>
+
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(9, minmax(105px, 1fr))', gap: '6px', fontSize: '10px' }}>
+          {[
+            { num: 1, label: 'Capture/Upload' },
+            { num: 2, label: 'Review Metadata' },
+            { num: 3, label: 'Run AI Inference' },
+            { num: 4, label: 'Layer 1: Raw Output' },
+            { num: 5, label: 'Layer 2: Arbitration' },
+            { num: 6, label: 'Layer 3: Civic Incident' },
+            { num: 7, label: 'Routing & Actions' },
+            { num: 8, label: 'Operator Review' },
+            { num: 9, label: 'Lifecycle Update' }
+          ].map(st => {
+            const isDone = activeWorkflowStep > st.num;
+            const isCurrent = activeWorkflowStep === st.num;
+            return (
+              <div 
+                key={st.num}
+                style={{
+                  padding: '6px 8px',
+                  borderRadius: '6px',
+                  border: isCurrent ? '1.5px solid var(--accent-blue)' : '1px solid var(--border-card)',
+                  backgroundColor: isCurrent ? 'rgba(0, 168, 255, 0.15)' : isDone ? 'rgba(16, 185, 129, 0.1)' : 'rgba(255, 255, 255, 0.02)',
+                  color: isCurrent ? 'var(--accent-blue)' : isDone ? '#10b981' : 'var(--text-muted)',
+                  display: 'flex',
+                  flexDirection: 'column',
+                  gap: '2px',
+                  textAlign: 'center'
+                }}
+              >
+                <div style={{ fontWeight: '800' }}>STEP {st.num}</div>
+                <div style={{ whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>{st.label}</div>
+              </div>
+            );
+          })}
+        </div>
+      </div>
+
+      {/* Control Bar: Image Input & Hyperparameters */}
       <div className="grid-2" style={{ marginBottom: '0px' }}>
+        
+        {/* Left: Input Selection (Desktop Upload + Mobile Camera) */}
         <div className="glass-card" style={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
           <div>
-            <h3 style={{ fontSize: '14px', fontWeight: '700', marginBottom: '8px' }}>Select Image Source</h3>
+            <div className="flex-between" style={{ marginBottom: '8px' }}>
+              <h3 style={{ fontSize: '14px', fontWeight: '700', display: 'flex', alignItems: 'center', gap: '8px' }}>
+                <Smartphone size={16} /> Image Capture & Source Selection
+              </h3>
+              <span className="badge badge-blue" style={{ fontSize: '10px' }}>Mobile Ready</span>
+            </div>
             <p style={{ fontSize: '12px', color: 'var(--text-secondary)', marginBottom: '14px' }}>
-              Choose a curated dataset image or upload an arbitrary street image for multi-model inference.
+              Select a curated benchmark image, capture directly via mobile camera, or upload an arbitrary street photo.
             </p>
           </div>
 
-          <div style={{ display: 'flex', flexWrap: 'wrap', gap: '10px', marginBottom: '14px' }}>
+          {/* Quick Select Preset Buttons */}
+          <div style={{ display: 'flex', flexWrap: 'wrap', gap: '6px', marginBottom: '14px' }}>
             {samples.map((sample) => (
               <button
                 key={sample.id}
                 className={`btn ${selectedSample.id === sample.id ? 'btn-primary' : 'btn-secondary'}`}
-                style={{ padding: '8px 14px', fontSize: '12px' }}
+                style={{ padding: '6px 10px', fontSize: '11px', display: 'flex', alignItems: 'center', gap: '4px' }}
                 onClick={() => handleSelectSample(sample)}
               >
                 {sample.name}
@@ -342,25 +525,44 @@ export default function AIDetectionHub({ addCustomIssue, onVisualDetectionsChang
             {customImage && (
               <button
                 className={`btn ${selectedSample.id === customImage.id ? 'btn-primary' : 'btn-secondary'}`}
-                style={{ padding: '8px 14px', fontSize: '12px' }}
+                style={{ padding: '6px 10px', fontSize: '11px' }}
                 onClick={() => handleSelectSample(customImage)}
               >
-                Uploaded Image
+                Captured/Uploaded Image
               </button>
             )}
           </div>
 
-          <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
-            <label className="btn btn-secondary" style={{ fontSize: '12px', padding: '8px 14px', cursor: 'pointer' }}>
-              <Upload size={14} style={{ marginRight: '6px' }} />
-              Upload Image for AI Inference
+          {/* Direct Camera Capture & Gallery Upload Buttons */}
+          <div style={{ display: 'flex', alignItems: 'center', gap: '10px', flexWrap: 'wrap' }}>
+            
+            {/* Native Mobile Camera Button (capture="environment") */}
+            <label className="btn btn-primary" style={{ fontSize: '12px', padding: '8px 14px', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '6px' }}>
+              <Camera size={15} />
+              Take Photo / Camera
               <input 
+                ref={cameraInputRef}
+                type="file" 
+                accept="image/*" 
+                capture="environment" 
+                onChange={handleCustomUpload} 
+                style={{ display: 'none' }} 
+              />
+            </label>
+
+            {/* Standard File Upload */}
+            <label className="btn btn-secondary" style={{ fontSize: '12px', padding: '8px 14px', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '6px' }}>
+              <Upload size={15} />
+              Upload Image / Gallery
+              <input 
+                ref={uploadInputRef}
                 type="file" 
                 accept="image/*" 
                 onChange={handleCustomUpload} 
                 style={{ display: 'none' }} 
               />
             </label>
+
             {customImage && (
               <button 
                 className="action-btn" 
@@ -368,7 +570,7 @@ export default function AIDetectionHub({ addCustomIssue, onVisualDetectionsChang
                   setCustomImage(null);
                   handleSelectSample(samples[0]);
                 }}
-                title="Reset custom image"
+                title="Reset custom capture"
               >
                 <RotateCcw size={16} />
               </button>
@@ -376,13 +578,13 @@ export default function AIDetectionHub({ addCustomIssue, onVisualDetectionsChang
           </div>
         </div>
 
-        {/* Hyperparameters & Performance Metric */}
+        {/* Right: Hyperparameters & Latency Breakdown */}
         <div className="glass-card">
           <h3 style={{ fontSize: '14px', fontWeight: '700', marginBottom: '8px', display: 'flex', alignItems: 'center', gap: '8px' }}>
-            <Sliders size={16} /> Inference Hyperparameters & Pipeline Controls
+            <Sliders size={16} /> Inference Controls & Latency Monitor
           </h3>
-          <p style={{ fontSize: '12px', color: 'var(--text-secondary)', marginBottom: '16px' }}>
-            Adjust minimum confidence threshold and toggle diagnostic overlays
+          <p style={{ fontSize: '12px', color: 'var(--text-secondary)', marginBottom: '14px' }}>
+            Adjust detection threshold and observe genuine model latencies.
           </p>
 
           <div className="slider-container" style={{ marginBottom: '14px' }}>
@@ -401,7 +603,35 @@ export default function AIDetectionHub({ addCustomIssue, onVisualDetectionsChang
             />
           </div>
 
-          <div style={{ display: 'flex', gap: '10px', alignItems: 'center', flexWrap: 'wrap' }}>
+          {/* Latency Breakdown Grid */}
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(130px, 1fr))', gap: '6px', fontSize: '11px', marginBottom: '12px', padding: '8px', background: 'rgba(255,255,255,0.02)', borderRadius: '6px' }}>
+            <div>
+              <span style={{ color: 'var(--text-muted)' }}>Image Load:</span><br/>
+              <strong>{typeof timing?.imageLoadTimeMs === 'number' ? `${timing.imageLoadTimeMs}ms` : 'LATENCY NOT MEASURED'}</strong>
+            </div>
+            <div>
+              <span style={{ color: 'var(--text-muted)' }}>Road Model:</span><br/>
+              <strong>{typeof timing?.roadInferenceTimeMs === 'number' ? `${timing.roadInferenceTimeMs}ms` : 'LATENCY NOT MEASURED'}</strong>
+            </div>
+            <div>
+              <span style={{ color: 'var(--text-muted)' }}>Waste Model:</span><br/>
+              <strong>{typeof timing?.wasteInferenceTimeMs === 'number' ? `${timing.wasteInferenceTimeMs}ms` : 'LATENCY NOT MEASURED'}</strong>
+            </div>
+            <div>
+              <span style={{ color: 'var(--text-muted)' }}>Flood Model:</span><br/>
+              <strong>{typeof timing?.floodInferenceTimeMs === 'number' ? `${timing.floodInferenceTimeMs}ms` : 'LATENCY NOT MEASURED'}</strong>
+            </div>
+            <div>
+              <span style={{ color: 'var(--text-muted)' }}>Arbitration:</span><br/>
+              <strong>{typeof timing?.arbitrationTimeMs === 'number' ? `${timing.arbitrationTimeMs}ms` : 'LATENCY NOT MEASURED'}</strong>
+            </div>
+            <div>
+              <span style={{ color: 'var(--accent-blue)' }}>Total Processing:</span><br/>
+              <strong style={{ color: 'var(--accent-blue)' }}>{typeof timing?.totalProcessingTimeMs === 'number' ? `${timing.totalProcessingTimeMs}ms` : 'LATENCY NOT MEASURED'}</strong>
+            </div>
+          </div>
+
+          <div style={{ display: 'flex', gap: '8px', alignItems: 'center', flexWrap: 'wrap' }}>
             <button
               className="btn btn-secondary"
               onClick={() => setShowSuppressedBoxes(prev => !prev)}
@@ -417,7 +647,7 @@ export default function AIDetectionHub({ addCustomIssue, onVisualDetectionsChang
               style={{ fontSize: '11px', padding: '6px 12px', display: 'flex', alignItems: 'center', gap: '6px' }}
             >
               {showDiagnostics ? <ChevronUp size={13} /> : <ChevronDown size={13} />}
-              {showDiagnostics ? 'Hide Tensor Diagnostics' : 'Show Tensor Diagnostics'}
+              {showDiagnostics ? 'Hide Tensor Diagnostics' : 'Show Diagnostics'}
             </button>
           </div>
         </div>
@@ -433,7 +663,7 @@ export default function AIDetectionHub({ addCustomIssue, onVisualDetectionsChang
           fontSize: '11px'
         }}>
           <strong style={{ color: 'var(--accent-blue)', display: 'block', marginBottom: '8px' }}>
-            ⚙ TECHNICAL TENSOR & PREPROCESSING DIAGNOSTICS
+            ⚙ TECHNICAL TENSOR & HARDWARE DIAGNOSTICS
           </strong>
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: '8px', color: 'var(--text-secondary)' }}>
             <div><strong>Road Model:</strong> {inferenceResult?.devDiagnostics?.roadModelFile || '/models/rdd2022-road-damage.onnx'}</div>
@@ -443,23 +673,20 @@ export default function AIDetectionHub({ addCustomIssue, onVisualDetectionsChang
             <div><strong>Input Shape:</strong> [1, 3, 640, 640] (Flood: [1, 3, 512, 512])</div>
             <div><strong>Raw Candidates:</strong> Road: {inferenceResult?.devDiagnostics?.rawRoadCandidates ?? 0}, Waste: {inferenceResult?.devDiagnostics?.rawWasteCandidates ?? 0}</div>
             <div><strong>Post-NMS Detections:</strong> Road: {inferenceResult?.devDiagnostics?.postNmsRoadDetections ?? 0}, Waste: {inferenceResult?.devDiagnostics?.postNmsWasteDetections ?? 0}</div>
-            <div><strong>Pure Latency:</strong> Flood: {floodResult?.inferenceTimeMs || 0}ms, Total: {inferenceResult?.inferenceTimeMs || 0}ms</div>
+            <div><strong>Orientation:</strong> {qualityAudit?.orientation || 'Normal'}</div>
           </div>
         </div>
       )}
 
-      {/* Main Image View & 3-Layer Panel */}
+      {/* Main Image View & 3-Layer Architecture */}
       <div className="grid-2-1" style={{ alignItems: 'start' }}>
         
-        {/* Left Column: Image Canvas & Visual Overlays */}
+        {/* Left Column: Image Canvas, EXIF Metadata & Quality Diagnostics */}
         <div className="glass-card" style={{ padding: '16px', display: 'flex', flexDirection: 'column' }}>
           
-          <div className="flex-between" style={{ marginBottom: '12px', flexWrap: 'wrap', gap: '8px', fontSize: '12px' }}>
-            <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
-              <span style={{ color: 'var(--text-muted)' }}>Source:</span>
-              <strong style={{ color: 'var(--text-primary)' }}>{selectedSample.sourceType}</strong>
-            </div>
-
+          {/* Metadata Badges: STRICT EXIF GPS, CAPTURE TIME, and PROCESSING TIME */}
+          <div className="flex-between" style={{ marginBottom: '12px', flexWrap: 'wrap', gap: '8px', fontSize: '11px' }}>
+            
             {/* GPS Metadata Badge (Strict: NO fake coordinates) */}
             <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
               <MapPin size={14} style={{ color: inferenceResult?.metadata?.isGpsVerified ? '#10b981' : '#f59e0b' }} />
@@ -470,14 +697,59 @@ export default function AIDetectionHub({ addCustomIssue, onVisualDetectionsChang
               </span>
             </div>
 
-            {/* Timestamp Badge */}
+            {/* EXIF Capture Timestamp Badge */}
             <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
               <Clock size={14} style={{ color: inferenceResult?.metadata?.timestamp ? '#10b981' : 'var(--text-muted)' }} />
               <span style={{ color: inferenceResult?.metadata?.timestamp ? '#10b981' : 'var(--text-muted)' }}>
-                {inferenceResult?.metadata?.timestamp ? `Captured: ${inferenceResult.metadata.timestamp}` : 'CAPTURE TIME UNAVAILABLE'}
+                {inferenceResult?.metadata?.timestamp ? `CAPTURE TIME: ${inferenceResult.metadata.timestamp}` : 'CAPTURE TIME UNAVAILABLE'}
+              </span>
+            </div>
+
+            {/* Processing Timestamp Badge */}
+            <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
+              <Timer size={14} style={{ color: 'var(--accent-blue)' }} />
+              <span style={{ color: 'var(--text-secondary)' }}>
+                PROCESSING TIME: {inferenceResult?.processingTimestamp ? new Date(inferenceResult.processingTimestamp).toLocaleTimeString() : new Date().toLocaleTimeString()}
               </span>
             </div>
           </div>
+
+          {/* Image Quality Diagnostics Pill Bar */}
+          {qualityAudit && (
+            <div style={{ 
+              marginBottom: '10px', 
+              padding: '6px 12px', 
+              background: 'rgba(255,255,255,0.03)', 
+              borderRadius: '6px', 
+              display: 'flex', 
+              flexWrap: 'wrap', 
+              gap: '12px', 
+              alignItems: 'center',
+              fontSize: '11px',
+              color: 'var(--text-secondary)'
+            }}>
+              <div><strong>Resolution:</strong> {qualityAudit.originalWidth} × {qualityAudit.originalHeight} ({qualityAudit.totalPixels.toLocaleString()} px)</div>
+              <div><strong>Aspect Ratio:</strong> {qualityAudit.aspectRatio}:1</div>
+              <div><strong>Orientation:</strong> {qualityAudit.orientation}</div>
+              <div><strong>Quality Status:</strong> <span style={{ color: qualityAudit.isLowResolution ? '#f59e0b' : '#10b981', fontWeight: '700' }}>{qualityAudit.observations.join(', ')}</span></div>
+            </div>
+          )}
+
+          {/* Low-Resolution Warning Banner (Section 5) */}
+          {qualityAudit?.isLowResolution && (
+            <div style={{ marginBottom: '12px', padding: '8px 12px', backgroundColor: 'rgba(245, 158, 11, 0.1)', border: '1px solid rgba(245, 158, 11, 0.4)', borderRadius: '6px', color: '#f59e0b', fontSize: '11px', display: 'flex', alignItems: 'center', gap: '8px' }}>
+              <AlertTriangle size={15} style={{ flexShrink: 0 }} />
+              <span>{qualityAudit.lowResWarning}</span>
+            </div>
+          )}
+
+          {/* Extreme Aspect Ratio Warning Banner (Section 6) */}
+          {qualityAudit?.isExtremeAspectRatio && (
+            <div style={{ marginBottom: '12px', padding: '8px 12px', backgroundColor: 'rgba(245, 158, 11, 0.1)', border: '1px solid rgba(245, 158, 11, 0.4)', borderRadius: '6px', color: '#f59e0b', fontSize: '11px', display: 'flex', alignItems: 'center', gap: '8px' }}>
+              <AlertTriangle size={15} style={{ flexShrink: 0 }} />
+              <span>{qualityAudit.extremeAspectWarning}</span>
+            </div>
+          )}
 
           {/* Image & Overlay Canvas Container */}
           <div className="image-canvas-wrapper" style={{ position: 'relative', overflow: 'hidden', borderRadius: '8px' }}>
@@ -569,7 +841,7 @@ export default function AIDetectionHub({ addCustomIssue, onVisualDetectionsChang
               );
             })}
 
-            {/* Suppressed Monolithic Waste Boxes (Dashed Border with Audit Label) */}
+            {/* Suppressed Monolithic Waste Boxes */}
             {!isInferring && showSuppressedBoxes && suppressedWaste.map((box, index) => (
               <div
                 key={`supp-${box.id || index}`}
@@ -606,21 +878,13 @@ export default function AIDetectionHub({ addCustomIssue, onVisualDetectionsChang
               </div>
             ))}
           </div>
-
-          {/* Low Resolution Notice */}
-          {inferenceResult?.devDiagnostics?.isLowResolution && (
-            <div style={{ marginTop: '12px', padding: '8px 12px', backgroundColor: 'rgba(245, 158, 11, 0.1)', border: '1px solid rgba(245, 158, 11, 0.4)', borderRadius: '6px', color: '#f59e0b', fontSize: '11px', display: 'flex', alignItems: 'center', gap: '8px' }}>
-              <AlertTriangle size={14} style={{ flexShrink: 0 }} />
-              <span>Low-resolution image may reduce detection reliability.</span>
-            </div>
-          )}
         </div>
 
-        {/* Right Column: 3 DISTINCT ARCHITECTURAL LAYERS */}
+        {/* Right Column: 3 DISTINCT ARCHITECTURAL LAYERS & OPERATOR REVIEW */}
         <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
 
           {/* ======================================================== */}
-          {/* LAYER 3 (PRIMARY): FINAL CIVIC INTERPRETATION            */}
+          {/* LAYER 3: FINAL CIVIC INCIDENT(S) & FIELD OPERATOR REVIEW */}
           {/* ======================================================== */}
           <div className="glass-card" style={{ 
             padding: '18px', 
@@ -629,7 +893,7 @@ export default function AIDetectionHub({ addCustomIssue, onVisualDetectionsChang
           }}>
             <div className="flex-between" style={{ marginBottom: '12px' }}>
               <h3 style={{ fontSize: '14px', fontWeight: '800', display: 'flex', alignItems: 'center', gap: '8px', color: '#00a8ff' }}>
-                <ShieldCheck size={18} /> LAYER 3: FINAL CIVIC INCIDENT(S)
+                <ShieldCheck size={18} /> LAYER 3: FINAL CIVIC INCIDENTS
               </h3>
               <span className={`badge ${civicIncidents.length > 0 ? 'badge-blue' : 'badge-amber'}`} style={{ fontSize: '10px' }}>
                 {civicIncidents.length} Confirmed
@@ -638,74 +902,249 @@ export default function AIDetectionHub({ addCustomIssue, onVisualDetectionsChang
 
             {civicIncidents.length === 0 ? (
               <div style={{ padding: '16px 12px', textAlign: 'center', color: 'var(--text-secondary)', fontSize: '12px', backgroundColor: 'rgba(255,255,255,0.02)', borderRadius: '8px' }}>
-                {isInferring ? 'Evaluating multi-modal evidence...' : 'No verified civic incidents from current evidence.'}
+                {isInferring ? 'Evaluating multi-modal evidence...' : 'No actionable civic incidents from current evidence.'}
               </div>
             ) : (
-              <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
-                {civicIncidents.map((incident) => (
-                  <div 
-                    key={incident.id} 
-                    style={{
-                      padding: '14px',
-                      borderRadius: '8px',
-                      backgroundColor: 'rgba(255,255,255,0.02)',
-                      border: '1px solid var(--border-card)',
-                      display: 'flex',
-                      flexDirection: 'column',
-                      gap: '8px',
-                      fontSize: '12px'
-                    }}
-                  >
-                    <div className="flex-between">
-                      <strong style={{ fontSize: '13px', color: 'var(--text-primary)' }}>
-                        {incident.title}
-                      </strong>
-                      <div style={{ display: 'flex', gap: '6px' }}>
-                        <span className={`badge ${incident.severity === 'HIGH' || incident.severity === 'CRITICAL' ? 'badge-red' : 'badge-amber'}`} style={{ fontSize: '10px' }}>
-                          {incident.severity} SEVERITY
-                        </span>
-                        <span className={`badge ${incident.priority === 'IMMEDIATE' ? 'badge-red' : 'badge-purple'}`} style={{ fontSize: '10px' }}>
-                          {incident.priority} PRIORITY
-                        </span>
-                      </div>
-                    </div>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '14px' }}>
+                {civicIncidents.map((incident) => {
+                  const currentDecision = operatorDecisions[incident.id]?.decision || incident.operatorStatus || 'NEEDS REVIEW';
+                  const currentLifecycle = incidentStatuses[incident.id] || incident.incidentStatus || 'NEW';
+                  const isConfirmed = currentDecision === 'CONFIRMED';
+                  const isRejected = currentDecision === 'REJECTED';
 
-                    <div style={{ display: 'flex', flexDirection: 'column', gap: '4px', color: 'var(--text-secondary)', fontSize: '11px' }}>
-                      <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
-                        <Building size={13} style={{ color: '#c084fc' }} />
-                        <span><strong>Department:</strong> <span style={{ color: '#c084fc', fontWeight: '600' }}>{incident.recommendedDepartment}</span></span>
-                      </div>
-
-                      <div style={{ display: 'flex', alignItems: 'center', gap: '6px', background: 'rgba(0,168,255,0.06)', padding: '6px 8px', borderRadius: '4px', borderLeft: '2px solid var(--accent-blue)' }}>
-                        <Wrench size={13} style={{ color: 'var(--accent-blue)', flexShrink: 0 }} />
-                        <span><strong>AI Recommendation:</strong> {incident.recommendedAction}</span>
-                      </div>
-
-                      <div style={{ fontStyle: 'italic', color: '#94a3b8', marginTop: '2px' }}>
-                        {incident.contextualInterpretation}
-                      </div>
-                    </div>
-
-                    <button
-                      className="btn btn-primary"
-                      disabled={filedIssues[incident.id]}
-                      onClick={() => handleFileIssue(incident)}
-                      style={{ padding: '6px 12px', fontSize: '11px', alignSelf: 'flex-end', marginTop: '4px' }}
+                  return (
+                    <div 
+                      key={incident.id} 
+                      style={{
+                        padding: '14px',
+                        borderRadius: '8px',
+                        backgroundColor: 'rgba(255,255,255,0.02)',
+                        border: isRejected ? '1.5px solid rgba(244, 63, 94, 0.4)' : isConfirmed ? '1.5px solid rgba(16, 185, 129, 0.4)' : '1px solid var(--border-card)',
+                        display: 'flex',
+                        flexDirection: 'column',
+                        gap: '10px',
+                        fontSize: '12px'
+                      }}
                     >
-                      {filedIssues[incident.id] ? (
-                        <>
-                          <Check size={14} style={{ marginRight: '4px' }} />
-                          Dispatched ({filedIssues[incident.id]})
-                        </>
-                      ) : (
-                        <>
-                          <FilePlus2 size={14} style={{ marginRight: '4px' }} />
-                          Confirm & Dispatch Incident
-                        </>
-                      )}
-                    </button>
-                  </div>
-                ))}
+                      {/* Incident Header & Badges */}
+                      <div className="flex-between" style={{ flexWrap: 'wrap', gap: '6px' }}>
+                        <div>
+                          <strong style={{ fontSize: '13px', color: 'var(--text-primary)' }}>
+                            {incident.title}
+                          </strong>
+                          <div style={{ fontSize: '10px', color: 'var(--text-muted)', fontFamily: 'monospace' }}>
+                            ID: {incident.id}
+                          </div>
+                        </div>
+
+                        <div style={{ display: 'flex', gap: '6px', flexWrap: 'wrap' }}>
+                          <span className={`badge ${incident.severity === 'HIGH' || incident.severity === 'CRITICAL' ? 'badge-red' : 'badge-amber'}`} style={{ fontSize: '10px' }}>
+                            {incident.severity} SEVERITY
+                          </span>
+                          <span className={`badge ${incident.priority === 'IMMEDIATE' ? 'badge-red' : 'badge-purple'}`} style={{ fontSize: '10px' }}>
+                            {incident.priority} PRIORITY
+                          </span>
+                        </div>
+                      </div>
+
+                      {/* 10-Field Incident Specification Table (Section 13) */}
+                      <div style={{ display: 'flex', flexDirection: 'column', gap: '5px', color: 'var(--text-secondary)', fontSize: '11px' }}>
+                        
+                        <div><strong>Incident Type:</strong> <code>{incident.incidentType}</code></div>
+                        
+                        <div><strong>AI Confidence / Evidence:</strong> {incident.confidence ? `${Math.round(incident.confidence * 100)}% confidence • ` : ''}{incident.sourceEvidence}</div>
+                        
+                        <div>
+                          <strong>Location Status:</strong>{' '}
+                          <span style={{ color: incident.location?.isGpsVerified ? '#10b981' : '#f59e0b', fontWeight: '600' }}>
+                            {incident.locationStatus || (incident.location?.isGpsVerified ? `GPS AVAILABLE (${incident.location.formatted})` : 'LOCATION UNAVAILABLE')}
+                          </span>
+                        </div>
+
+                        <div>
+                          <strong>Capture Time:</strong> {incident.captureTimestamp || 'CAPTURE TIME UNAVAILABLE'}
+                        </div>
+
+                        <div>
+                          <strong>Processing Time:</strong> {incident.processingTimestamp ? new Date(incident.processingTimestamp).toLocaleTimeString() : new Date().toLocaleTimeString()}
+                        </div>
+
+                        <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
+                          <Building size={13} style={{ color: '#c084fc', flexShrink: 0 }} />
+                          <span><strong>Department & Ward:</strong> <span style={{ color: '#c084fc', fontWeight: '600' }}>{incident.recommendedDepartment}</span> • <span style={{ fontStyle: 'italic' }}>{incident.wardAssignmentStatus || 'WARD ASSIGNMENT UNAVAILABLE'}</span></span>
+                        </div>
+
+                        <div style={{ display: 'flex', alignItems: 'center', gap: '6px', background: 'rgba(0,168,255,0.06)', padding: '6px 8px', borderRadius: '4px', borderLeft: '2px solid var(--accent-blue)' }}>
+                          <Wrench size={13} style={{ color: 'var(--accent-blue)', flexShrink: 0 }} />
+                          <span><strong>AI Action:</strong> {incident.recommendedAction}</span>
+                        </div>
+
+                        {/* Distinction: AI Interpretation vs Human Operator Decision (Section 8) */}
+                        <div style={{ padding: '8px', background: isRejected ? 'rgba(244,63,94,0.08)' : isConfirmed ? 'rgba(16,185,129,0.08)' : 'rgba(255,255,255,0.02)', borderRadius: '6px', border: '1px solid var(--border-card)' }}>
+                          <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '4px' }}>
+                            <span><strong>AI Interpretation:</strong> {incident.contextualInterpretation}</span>
+                          </div>
+                          <div>
+                            <strong>Human Operator Status:</strong>{' '}
+                            <span style={{ 
+                              fontWeight: '800', 
+                              color: isConfirmed ? '#10b981' : isRejected ? '#f43f5e' : '#f59e0b' 
+                            }}>
+                              {currentDecision}
+                            </span>
+                            {operatorDecisions[incident.id]?.reason && (
+                              <div style={{ fontStyle: 'italic', marginTop: '3px', color: 'var(--text-primary)' }}>
+                                Reason: "{operatorDecisions[incident.id].reason}"
+                              </div>
+                            )}
+                          </div>
+                        </div>
+
+                        {/* Lifecycle Status Pill */}
+                        <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
+                          <span><strong>Incident Lifecycle State:</strong></span>
+                          <span className={`badge ${currentLifecycle === 'RESOLVED' ? 'badge-green' : currentLifecycle === 'IN PROGRESS' ? 'badge-purple' : 'badge-blue'}`} style={{ fontSize: '10px' }}>
+                            {currentLifecycle}
+                          </span>
+                        </div>
+                      </div>
+
+                      {/* Operator Action Buttons: Confirm, Reject, Needs Review (Section 8) */}
+                      <div style={{ borderTop: '1px solid var(--border-card)', paddingTop: '8px', display: 'flex', flexDirection: 'column', gap: '8px' }}>
+                        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: '6px' }}>
+                          <span style={{ fontSize: '11px', fontWeight: '700', color: 'var(--text-muted)' }}>
+                            Operator Triage:
+                          </span>
+
+                          <div style={{ display: 'flex', gap: '6px' }}>
+                            <button
+                              className="btn btn-secondary"
+                              onClick={() => handleOperatorReview(incident, 'CONFIRMED')}
+                              style={{ 
+                                padding: '4px 8px', 
+                                fontSize: '11px', 
+                                borderColor: isConfirmed ? '#10b981' : 'var(--border-card)',
+                                color: isConfirmed ? '#10b981' : 'var(--text-secondary)'
+                              }}
+                            >
+                              <CheckCircle2 size={13} style={{ marginRight: '4px' }} />
+                              Confirm
+                            </button>
+
+                            <button
+                              className="btn btn-secondary"
+                              onClick={() => {
+                                setActiveNotesInputId(incident.id);
+                              }}
+                              style={{ 
+                                padding: '4px 8px', 
+                                fontSize: '11px', 
+                                borderColor: isRejected ? '#f43f5e' : 'var(--border-card)',
+                                color: isRejected ? '#f43f5e' : 'var(--text-secondary)'
+                              }}
+                            >
+                              <XCircle size={13} style={{ marginRight: '4px' }} />
+                              Reject
+                            </button>
+
+                            <button
+                              className="btn btn-secondary"
+                              onClick={() => handleOperatorReview(incident, 'NEEDS REVIEW')}
+                              style={{ padding: '4px 8px', fontSize: '11px' }}
+                            >
+                              <HelpCircle size={13} style={{ marginRight: '4px' }} />
+                              Needs Review
+                            </button>
+                          </div>
+                        </div>
+
+                        {/* Optional Inline Reason Input for Rejection / Notes */}
+                        {activeNotesInputId === incident.id && (
+                          <div style={{ display: 'flex', gap: '6px', alignItems: 'center' }}>
+                            <input 
+                              type="text"
+                              placeholder='Reason (e.g. "No visible waste at detected location")'
+                              value={operatorNotes[incident.id] || ''}
+                              onChange={(e) => setOperatorNotes({ ...operatorNotes, [incident.id]: e.target.value })}
+                              style={{ 
+                                flex: 1, 
+                                padding: '5px 8px', 
+                                fontSize: '11px', 
+                                background: 'rgba(0,0,0,0.3)', 
+                                border: '1px solid var(--border-card)',
+                                borderRadius: '4px',
+                                color: '#fff'
+                              }}
+                            />
+                            <button 
+                              className="btn btn-primary"
+                              style={{ padding: '5px 10px', fontSize: '11px' }}
+                              onClick={() => handleOperatorReview(incident, 'REJECTED')}
+                            >
+                              Submit Rejection
+                            </button>
+                          </div>
+                        )}
+
+                        {/* Lifecycle Status Buttons (Section 7) */}
+                        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: '6px' }}>
+                          <span style={{ fontSize: '11px', fontWeight: '700', color: 'var(--text-muted)' }}>
+                            Lifecycle Transition:
+                          </span>
+
+                          <div style={{ display: 'flex', gap: '4px', flexWrap: 'wrap' }}>
+                            {['NEW', 'ACKNOWLEDGED', 'ACTION REQUIRED', 'IN PROGRESS', 'RESOLVED'].map(st => (
+                              <button
+                                key={st}
+                                className="btn btn-secondary"
+                                onClick={() => handleLifecycleUpdate(incident, st)}
+                                style={{ 
+                                  padding: '3px 6px', 
+                                  fontSize: '10px',
+                                  borderColor: currentLifecycle === st ? 'var(--accent-blue)' : 'var(--border-card)',
+                                  color: currentLifecycle === st ? 'var(--accent-blue)' : 'var(--text-secondary)'
+                                }}
+                              >
+                                {st}
+                              </button>
+                            ))}
+                          </div>
+                        </div>
+
+                        {/* Audit Trail & Dispatch Button */}
+                        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginTop: '4px' }}>
+                          <button
+                            className="btn btn-secondary"
+                            onClick={() => setActiveAuditTrailIncident(incident)}
+                            style={{ padding: '5px 8px', fontSize: '11px', display: 'flex', alignItems: 'center', gap: '4px' }}
+                          >
+                            <History size={13} />
+                            View Audit Trail ({incident.auditTrail?.length || 7} Steps)
+                          </button>
+
+                          <button
+                            className="btn btn-primary"
+                            disabled={filedIssues[incident.id]}
+                            onClick={() => handleFileIssue(incident)}
+                            style={{ padding: '5px 12px', fontSize: '11px' }}
+                          >
+                            {filedIssues[incident.id] ? (
+                              <>
+                                <Check size={13} style={{ marginRight: '4px' }} />
+                                Dispatched ({filedIssues[incident.id]})
+                              </>
+                            ) : (
+                              <>
+                                <FilePlus2 size={13} style={{ marginRight: '4px' }} />
+                                Dispatch to Department
+                              </>
+                            )}
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                  );
+                })}
               </div>
             )}
           </div>
@@ -787,6 +1226,81 @@ export default function AIDetectionHub({ addCustomIssue, onVisualDetectionsChang
 
         </div>
       </div>
+
+      {/* AUDIT TRAIL MODAL VIEWER (Section 9) */}
+      {activeAuditTrailIncident && (
+        <div style={{
+          position: 'fixed',
+          top: 0, left: 0, right: 0, bottom: 0,
+          backgroundColor: 'rgba(0,0,0,0.8)',
+          zIndex: 9999,
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          padding: '20px'
+        }}>
+          <div className="glass-card" style={{
+            width: '100%',
+            maxWidth: '680px',
+            maxHeight: '85vh',
+            overflowY: 'auto',
+            padding: '24px',
+            backgroundColor: 'var(--bg-card-solid)',
+            borderRadius: '12px',
+            border: '1px solid var(--accent-blue)'
+          }}>
+            <div className="flex-between" style={{ marginBottom: '16px', borderBottom: '1px solid var(--border-card)', paddingBottom: '12px' }}>
+              <div>
+                <h3 style={{ fontSize: '16px', fontWeight: '800', color: 'var(--accent-blue)', display: 'flex', alignItems: 'center', gap: '8px' }}>
+                  <History size={18} /> INCIDENT AUDIT TRAIL
+                </h3>
+                <div style={{ fontSize: '11px', color: 'var(--text-muted)', marginTop: '2px' }}>
+                  ID: {activeAuditTrailIncident.id} • Type: {activeAuditTrailIncident.incidentType}
+                </div>
+              </div>
+
+              <button 
+                className="btn btn-secondary" 
+                onClick={() => setActiveAuditTrailIncident(null)}
+                style={{ padding: '4px 10px', fontSize: '11px' }}
+              >
+                Close
+              </button>
+            </div>
+
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
+              {(activeAuditTrailIncident.auditTrail || []).map((step, idx) => (
+                <div 
+                  key={idx}
+                  style={{
+                    padding: '10px 14px',
+                    borderRadius: '8px',
+                    backgroundColor: 'rgba(255,255,255,0.02)',
+                    borderLeft: '3px solid var(--accent-blue)',
+                    fontSize: '11px'
+                  }}
+                >
+                  <div className="flex-between" style={{ marginBottom: '4px' }}>
+                    <strong style={{ color: 'var(--accent-blue)' }}>
+                      STEP {step.stepNumber}: {step.stepName}
+                    </strong>
+                    <span style={{ color: 'var(--text-muted)', fontSize: '10px' }}>
+                      {new Date(step.timestamp).toLocaleTimeString()}
+                    </span>
+                  </div>
+                  <div style={{ fontWeight: '600', color: 'var(--text-primary)', marginBottom: '2px' }}>
+                    {step.summary}
+                  </div>
+                  <div style={{ color: 'var(--text-secondary)' }}>
+                    {step.details}
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      )}
+
     </div>
   );
 }

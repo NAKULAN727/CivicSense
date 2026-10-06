@@ -50,7 +50,7 @@ export const FLOOD_CLASSES = {
 };
 
 /**
- * Extracts verified EXIF metadata (GPS Latitude, Longitude, Capture Timestamp) from an Image File or ArrayBuffer.
+ * Extracts verified EXIF metadata (GPS Latitude, Longitude, Capture Timestamp, Orientation) from an Image File or ArrayBuffer.
  */
 export async function extractImageMetadata(fileOrBuffer) {
   try {
@@ -66,6 +66,7 @@ export async function extractImageMetadata(fileOrBuffer) {
     let latitude = null;
     let longitude = null;
     let timestamp = null;
+    let orientation = null;
 
     if (tags.gps && typeof tags.gps.Latitude === 'number' && typeof tags.gps.Longitude === 'number') {
       latitude = Number(tags.gps.Latitude.toFixed(6));
@@ -78,20 +79,79 @@ export async function extractImageMetadata(fileOrBuffer) {
       timestamp = tags.exif.DateTime.description;
     }
 
+    if (tags.exif && tags.exif.Orientation && tags.exif.Orientation.description) {
+      orientation = tags.exif.Orientation.description;
+    } else if (tags.exif && tags.exif.Orientation && tags.exif.Orientation.value) {
+      orientation = String(tags.exif.Orientation.value);
+    }
+
     return {
       latitude,
       longitude,
       timestamp,
-      isGpsVerified: latitude !== null && longitude !== null
+      captureTimestamp: timestamp,
+      isGpsVerified: latitude !== null && longitude !== null,
+      orientation: orientation || "Normal"
     };
   } catch (err) {
     return {
       latitude: null,
       longitude: null,
       timestamp: null,
-      isGpsVerified: false
+      captureTimestamp: null,
+      isGpsVerified: false,
+      orientation: "Normal"
     };
   }
+}
+
+/**
+ * Deterministic Mobile Image Quality Diagnostics (Phase 9 Specification).
+ * Reports: width, height, total pixels, aspect ratio, orientation, low-res warning.
+ * Thresholds:
+ * LOW RESOLUTION: width < 300 OR height < 200 OR total pixels < 60,000.
+ * EXTREME ASPECT RATIO: aspect ratio > 3.0 OR < 0.33.
+ * Strictly NO fake environmental condition detection (no fake nighttime/glare/rain/fog/motion blur).
+ */
+export function auditImageQuality({ width, height, orientation = 'Normal' }) {
+  const originalWidth = typeof width === 'number' && width > 0 ? width : 640;
+  const originalHeight = typeof height === 'number' && height > 0 ? height : 640;
+  const totalPixels = originalWidth * originalHeight;
+  const aspectRatio = originalHeight > 0 ? Number((originalWidth / originalHeight).toFixed(2)) : 1.0;
+
+  const isLowResolution = originalWidth < 300 || originalHeight < 200 || totalPixels < 60000;
+  const isExtremeAspectRatio = aspectRatio > 3.0 || aspectRatio < 0.33;
+
+  const observations = [];
+  let lowResWarning = null;
+  let extremeAspectWarning = null;
+
+  if (isLowResolution) {
+    lowResWarning = `LOW-RESOLUTION WARNING: Image resolution (${originalWidth} × ${originalHeight}, ${totalPixels.toLocaleString()} px) is below recommended threshold (<300×200 or <60,000 px). Inference will proceed.`;
+    observations.push("LOW RESOLUTION");
+  }
+
+  if (isExtremeAspectRatio) {
+    extremeAspectWarning = `EXTREME ASPECT RATIO: Aspect ratio (${aspectRatio}:1) is unusually elongated.`;
+    observations.push("EXTREME ASPECT RATIO");
+  }
+
+  if (observations.length === 0) {
+    observations.push("STANDARD QUALITY");
+  }
+
+  return {
+    originalWidth,
+    originalHeight,
+    totalPixels,
+    aspectRatio,
+    orientation: orientation || 'Normal',
+    isLowResolution,
+    isExtremeAspectRatio,
+    lowResWarning,
+    extremeAspectWarning,
+    observations
+  };
 }
 
 /**
@@ -282,6 +342,7 @@ export async function runGenuineVisualInference({
   metadata = { latitude: null, longitude: null, timestamp: null },
   imageSourceType = 'USER-UPLOADED IMAGE',
   confidenceThreshold = 0.50,
+  imageLoadTimeMs = null,
   roadModelUrl = '/models/rdd2022-road-damage.onnx',
   wasteModelUrl = '/models/waste-detection.onnx',
   floodModelUrl = '/models/flood-water-segmentation.onnx?v=phase8c6d'
@@ -289,7 +350,7 @@ export async function runGenuineVisualInference({
   const totalStartTime = performance.now();
 
   const preprocessMeta = preprocessImage(imageElement, 640, 640);
-  const { tensor, originalWidth, originalHeight, resizedWidth, resizedHeight, scale, padX, padY, isLowResolution, lowResWarning } = preprocessMeta;
+  const { tensor, originalWidth, originalHeight, resizedWidth, resizedHeight, scale, padX, padY, isLowResolution, lowResWarning, qualityAudit } = preprocessMeta;
 
   const rawDetections = {
     road: [],
@@ -298,15 +359,17 @@ export async function runGenuineVisualInference({
 
   let activeRoadModelName = "RDD2022 YOLOv8s Road Damage Detector";
   let isRoadModelVerified = false;
-  let roadModelProvenance = "MODEL LOAD FAILED";
+  let roadModelProvenance = "ROAD MODEL UNAVAILABLE";
   let roadOutputShapeStr = "None";
   let rawRoadCountTotal = 0;
+  let roadInferenceTimeMs = 0;
 
   let activeWasteModelName = "YOLOv8 Multi-Class Waste Detector";
   let isWasteModelVerified = false;
   let wasteModelProvenance = "WASTE MODEL UNAVAILABLE";
   let wasteOutputShapeStr = "None";
   let rawWasteCountTotal = 0;
+  let wasteInferenceTimeMs = 0;
 
   // 1. EXECUTE ROAD DAMAGE MODEL INFERENCE (SERIALIZED SINGLE-FLIGHT)
   await (roadInferenceMutex = roadInferenceMutex.then(async () => {
@@ -325,7 +388,11 @@ export async function runGenuineVisualInference({
         const feeds = {};
         feeds[inputName] = tensor;
 
+        const roadRunStart = performance.now();
         const results = await roadModelSession.run(feeds);
+        const roadRunEnd = performance.now();
+        roadInferenceTimeMs = Number((roadRunEnd - roadRunStart).toFixed(1));
+
         const outputName = roadModelSession.outputNames[0] || 'output0';
         const outputTensor = results[outputName];
         
@@ -420,7 +487,11 @@ export async function runGenuineVisualInference({
         const feeds = {};
         feeds[inputName] = tensor;
 
+        const wasteRunStart = performance.now();
         const results = await wasteModelSession.run(feeds);
+        const wasteRunEnd = performance.now();
+        wasteInferenceTimeMs = Number((wasteRunEnd - wasteRunStart).toFixed(1));
+
         const outputName = wasteModelSession.outputNames[0] || 'output0';
         const outputTensor = results[outputName];
         
@@ -734,6 +805,12 @@ export async function runGenuineVisualInference({
   console.log("Class Argmax Pixel Distribution:", classPixelCounts);
   console.log("==================================================");
 
+  const qualityAuditResult = preprocessMeta.qualityAudit || auditImageQuality({ 
+    width: originalWidth, 
+    height: originalHeight, 
+    orientation: metadata?.orientation 
+  });
+
   return {
     detections: {
       road: finalRoad,
@@ -741,7 +818,22 @@ export async function runGenuineVisualInference({
     },
     flood: floodResult,
     inferenceTimeMs,
-    modelName: isRoadModelVerified ? activeRoadModelName : "MODEL LOAD FAILED",
+    timingBreakdown: {
+      imageLoadTimeMs: typeof imageLoadTimeMs === 'number' ? imageLoadTimeMs : null,
+      roadInferenceTimeMs,
+      wasteInferenceTimeMs,
+      floodInferenceTimeMs,
+      arbitrationTimeMs: null, // Populated post-arbitration
+      totalProcessingTimeMs: inferenceTimeMs
+    },
+    qualityAudit: qualityAuditResult,
+    processingTimestamp: new Date().toISOString(),
+    modelStatuses: {
+      road: isRoadModelVerified ? "VERIFIED_ONNX" : "ROAD MODEL UNAVAILABLE",
+      waste: isWasteModelVerified ? "VERIFIED_ONNX" : "WASTE MODEL UNAVAILABLE",
+      flood: isFloodModelVerified ? "VERIFIED_ONNX" : "FLOOD MODEL UNAVAILABLE"
+    },
+    modelName: isRoadModelVerified ? activeRoadModelName : "ROAD MODEL UNAVAILABLE",
     wasteModelName: isWasteModelVerified ? activeWasteModelName : "WASTE MODEL UNAVAILABLE",
     floodModelName: isFloodModelVerified ? activeFloodModelName : "FLOOD MODEL UNAVAILABLE",
     metadata,

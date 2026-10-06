@@ -1182,7 +1182,7 @@ h1, h2, h3, h4, h5, h6 {
   .sidebar .logo-text, .sidebar .menu-item span, .sidebar-footer {
     display: none;
   }
-  .grid-4, .grid-3, .grid-2 {
+  .grid-4, .grid-3, .grid-2, .grid-2-1, .grid-1-2 {
     grid-template-columns: 1fr;
   }
   .header {
@@ -1190,5 +1190,28 @@ h1, h2, h3, h4, h5, h6 {
   }
   .search-bar {
     display: none;
+  }
+  .main-content {
+    padding: 16px;
+  }
+}
+
+@media (max-width: 480px) {
+  .detection-container {
+    gap: 14px;
+  }
+  .glass-card {
+    padding: 14px;
+    border-radius: 10px;
+  }
+  .btn {
+    min-height: 40px;
+  }
+  .image-canvas-wrapper {
+    max-height: 380px;
+  }
+  .yolo-box-label {
+    font-size: 9px !important;
+    padding: 1px 4px !important;
   }
 }
