@@ -1,0 +1,5799 @@
+[
+  {
+    "index": 1,
+    "filename": "flood 1.jpg",
+    "folder": "Flood",
+    "category": "FLOOD",
+    "width": 250,
+    "height": 175,
+    "total_pixels": 43750,
+    "lowResolutionWarning": true,
+    "lowResolutionText": "LOW RESOLUTION (250x175 < 300x200 / < 60k px)",
+    "sha256": "84994dd7382cd0bd1ad6439dacc24d76565a9e1ed7b586cc56048d3024375dbe",
+    "road_raw_count": 0,
+    "road_post_nms_count": 0,
+    "road_classes": [],
+    "road_confidences": [],
+    "road_highest_conf": null,
+    "road_has_d40": false,
+    "road_has_d40_conf_025": false,
+    "road_detections": [],
+    "waste_raw_count": 6,
+    "waste_post_nms_count": 1,
+    "waste_classes": [
+      "W50"
+    ],
+    "waste_confidences": [
+      0.668
+    ],
+    "waste_highest_conf": 0.668,
+    "waste_detections": [
+      {
+        "type": "Organic Waste",
+        "classCode": "W50",
+        "confidence": 0.668,
+        "boundingBox": {
+          "x": 0.14000000059604645,
+          "y": 0.11999999731779099,
+          "width": 80.7300033569336,
+          "height": 99.87999725341797
+        }
+      }
+    ],
+    "vflood_water_coverage_pct": 49.59,
+    "vflood_water_pixels": 85819,
+    "vflood_mean_water_prob": 0.4959,
+    "vflood_max_water_prob": 1.0,
+    "vflood_waterlogging_status": "SIGNIFICANT WATERLOGGING",
+    "vflood_severity_tier": "LEVEL 3",
+    "vflood_spatial_topology": "LARGE_CONTINUOUS_ROAD_FLOOD",
+    "vflood_num_connected_components": 4,
+    "vflood_largest_comp_area_pct": 49.58,
+    "vflood_largest_comp_ratio_pct": 99.98,
+    "vflood_vertical_distribution": {
+      "sky_upper_pct": 0.0,
+      "mid_scene_pct": 39.4,
+      "road_ground_pct": 60.6
+    },
+    "vflood_latency_ms": 471.94,
+    "is_water_filled_pothole": false,
+    "final_civicsense_interpretation": "Waterlogging: SIGNIFICANT WATERLOGGING (49.59%) | Detected Waste: W50"
+  },
+  {
+    "index": 2,
+    "filename": "flood 10.webp",
+    "folder": "Flood",
+    "category": "FLOOD",
+    "width": 192,
+    "height": 234,
+    "total_pixels": 44928,
+    "lowResolutionWarning": true,
+    "lowResolutionText": "LOW RESOLUTION (192x234 < 300x200 / < 60k px)",
+    "sha256": "d795881689c03fcf754a23d48be94f5d764fd897e008cc2329b863fff07c7c00",
+    "road_raw_count": 0,
+    "road_post_nms_count": 0,
+    "road_classes": [],
+    "road_confidences": [],
+    "road_highest_conf": null,
+    "road_has_d40": false,
+    "road_has_d40_conf_025": false,
+    "road_detections": [],
+    "waste_raw_count": 3,
+    "waste_post_nms_count": 1,
+    "waste_classes": [
+      "W50"
+    ],
+    "waste_confidences": [
+      0.6343
+    ],
+    "waste_highest_conf": 0.6343,
+    "waste_detections": [
+      {
+        "type": "Organic Waste",
+        "classCode": "W50",
+        "confidence": 0.6343,
+        "boundingBox": {
+          "x": 0.10999999940395355,
+          "y": 0.0,
+          "width": 91.80999755859375,
+          "height": 79.94000244140625
+        }
+      }
+    ],
+    "vflood_water_coverage_pct": 66.42,
+    "vflood_water_pixels": 114940,
+    "vflood_mean_water_prob": 0.6641,
+    "vflood_max_water_prob": 1.0,
+    "vflood_waterlogging_status": "SIGNIFICANT WATERLOGGING",
+    "vflood_severity_tier": "LEVEL 3",
+    "vflood_spatial_topology": "LARGE_CONTINUOUS_ROAD_FLOOD",
+    "vflood_num_connected_components": 3,
+    "vflood_largest_comp_area_pct": 66.42,
+    "vflood_largest_comp_ratio_pct": 100.0,
+    "vflood_vertical_distribution": {
+      "sky_upper_pct": 3.5,
+      "mid_scene_pct": 51.3,
+      "road_ground_pct": 45.2
+    },
+    "vflood_latency_ms": 407.91,
+    "is_water_filled_pothole": false,
+    "final_civicsense_interpretation": "Waterlogging: SIGNIFICANT WATERLOGGING (66.42%) | Detected Waste: W50"
+  },
+  {
+    "index": 3,
+    "filename": "flood 11.webp",
+    "folder": "Flood",
+    "category": "FLOOD",
+    "width": 392,
+    "height": 261,
+    "total_pixels": 102312,
+    "lowResolutionWarning": false,
+    "lowResolutionText": null,
+    "sha256": "e6e1c90c051f4f01d886b97ff4d51149f1ea223f385f83be18952f1bb7fa87dd",
+    "road_raw_count": 0,
+    "road_post_nms_count": 0,
+    "road_classes": [],
+    "road_confidences": [],
+    "road_highest_conf": null,
+    "road_has_d40": false,
+    "road_has_d40_conf_025": false,
+    "road_detections": [],
+    "waste_raw_count": 1,
+    "waste_post_nms_count": 1,
+    "waste_classes": [
+      "W50"
+    ],
+    "waste_confidences": [
+      0.5448
+    ],
+    "waste_highest_conf": 0.5448,
+    "waste_detections": [
+      {
+        "type": "Organic Waste",
+        "classCode": "W50",
+        "confidence": 0.5448,
+        "boundingBox": {
+          "x": 0.009999999776482582,
+          "y": 0.0,
+          "width": 79.4800033569336,
+          "height": 99.9000015258789
+        }
+      }
+    ],
+    "vflood_water_coverage_pct": 43.28,
+    "vflood_water_pixels": 74900,
+    "vflood_mean_water_prob": 0.4328,
+    "vflood_max_water_prob": 1.0,
+    "vflood_waterlogging_status": "SIGNIFICANT WATERLOGGING",
+    "vflood_severity_tier": "LEVEL 3",
+    "vflood_spatial_topology": "LARGE_CONTINUOUS_ROAD_FLOOD",
+    "vflood_num_connected_components": 6,
+    "vflood_largest_comp_area_pct": 43.26,
+    "vflood_largest_comp_ratio_pct": 99.94,
+    "vflood_vertical_distribution": {
+      "sky_upper_pct": 0.0,
+      "mid_scene_pct": 33.5,
+      "road_ground_pct": 66.5
+    },
+    "vflood_latency_ms": 447.79,
+    "is_water_filled_pothole": false,
+    "final_civicsense_interpretation": "Waterlogging: SIGNIFICANT WATERLOGGING (43.28%) | Detected Waste: W50"
+  },
+  {
+    "index": 4,
+    "filename": "flood 12.webp",
+    "folder": "Flood",
+    "category": "FLOOD",
+    "width": 417,
+    "height": 234,
+    "total_pixels": 97578,
+    "lowResolutionWarning": false,
+    "lowResolutionText": null,
+    "sha256": "9a7003f589b5b8a050dad9b62044bf704fafa65af6123eaf76b501ee54e73bd4",
+    "road_raw_count": 0,
+    "road_post_nms_count": 0,
+    "road_classes": [],
+    "road_confidences": [],
+    "road_highest_conf": null,
+    "road_has_d40": false,
+    "road_has_d40_conf_025": false,
+    "road_detections": [],
+    "waste_raw_count": 0,
+    "waste_post_nms_count": 0,
+    "waste_classes": [],
+    "waste_confidences": [],
+    "waste_highest_conf": null,
+    "waste_detections": [],
+    "vflood_water_coverage_pct": 59.25,
+    "vflood_water_pixels": 102543,
+    "vflood_mean_water_prob": 0.5925,
+    "vflood_max_water_prob": 1.0,
+    "vflood_waterlogging_status": "SIGNIFICANT WATERLOGGING",
+    "vflood_severity_tier": "LEVEL 3",
+    "vflood_spatial_topology": "LARGE_CONTINUOUS_ROAD_FLOOD",
+    "vflood_num_connected_components": 4,
+    "vflood_largest_comp_area_pct": 59.03,
+    "vflood_largest_comp_ratio_pct": 99.62,
+    "vflood_vertical_distribution": {
+      "sky_upper_pct": 0.2,
+      "mid_scene_pct": 49.1,
+      "road_ground_pct": 50.7
+    },
+    "vflood_latency_ms": 548.45,
+    "is_water_filled_pothole": false,
+    "final_civicsense_interpretation": "Waterlogging: SIGNIFICANT WATERLOGGING (59.25%)"
+  },
+  {
+    "index": 5,
+    "filename": "flood 13.webp",
+    "folder": "Flood",
+    "category": "FLOOD",
+    "width": 344,
+    "height": 234,
+    "total_pixels": 80496,
+    "lowResolutionWarning": false,
+    "lowResolutionText": null,
+    "sha256": "42e56eb7bdfdeaf1c5def38eb94801ddc48766b5b05a59000e565bf7547dfa6c",
+    "road_raw_count": 0,
+    "road_post_nms_count": 0,
+    "road_classes": [],
+    "road_confidences": [],
+    "road_highest_conf": null,
+    "road_has_d40": false,
+    "road_has_d40_conf_025": false,
+    "road_detections": [],
+    "waste_raw_count": 0,
+    "waste_post_nms_count": 0,
+    "waste_classes": [],
+    "waste_confidences": [],
+    "waste_highest_conf": null,
+    "waste_detections": [],
+    "vflood_water_coverage_pct": 7.39,
+    "vflood_water_pixels": 12781,
+    "vflood_mean_water_prob": 0.0738,
+    "vflood_max_water_prob": 1.0,
+    "vflood_waterlogging_status": "POSSIBLE WATERLOGGING",
+    "vflood_severity_tier": "LEVEL 2",
+    "vflood_spatial_topology": "DISPERSED_WET_PATCHES",
+    "vflood_num_connected_components": 7,
+    "vflood_largest_comp_area_pct": 5.55,
+    "vflood_largest_comp_ratio_pct": 75.14,
+    "vflood_vertical_distribution": {
+      "sky_upper_pct": 0.0,
+      "mid_scene_pct": 24.9,
+      "road_ground_pct": 75.1
+    },
+    "vflood_latency_ms": 217.97,
+    "is_water_filled_pothole": false,
+    "final_civicsense_interpretation": "Waterlogging: POSSIBLE WATERLOGGING (7.39%)"
+  },
+  {
+    "index": 6,
+    "filename": "flood 14.webp",
+    "folder": "Flood",
+    "category": "FLOOD",
+    "width": 347,
+    "height": 280,
+    "total_pixels": 97160,
+    "lowResolutionWarning": false,
+    "lowResolutionText": null,
+    "sha256": "fb516090999303392fcaab76ec13071254002769a602ef5eaea87332891633c0",
+    "road_raw_count": 0,
+    "road_post_nms_count": 0,
+    "road_classes": [],
+    "road_confidences": [],
+    "road_highest_conf": null,
+    "road_has_d40": false,
+    "road_has_d40_conf_025": false,
+    "road_detections": [],
+    "waste_raw_count": 7,
+    "waste_post_nms_count": 1,
+    "waste_classes": [
+      "W20"
+    ],
+    "waste_confidences": [
+      0.8971
+    ],
+    "waste_highest_conf": 0.8971,
+    "waste_detections": [
+      {
+        "type": "Glass Waste",
+        "classCode": "W20",
+        "confidence": 0.8971,
+        "boundingBox": {
+          "x": 0.11999999731779099,
+          "y": 0.20999999344348907,
+          "width": 79.5199966430664,
+          "height": 99.79000091552734
+        }
+      }
+    ],
+    "vflood_water_coverage_pct": 27.48,
+    "vflood_water_pixels": 47554,
+    "vflood_mean_water_prob": 0.2747,
+    "vflood_max_water_prob": 1.0,
+    "vflood_waterlogging_status": "SIGNIFICANT WATERLOGGING",
+    "vflood_severity_tier": "LEVEL 3",
+    "vflood_spatial_topology": "LARGE_CONTINUOUS_ROAD_FLOOD",
+    "vflood_num_connected_components": 21,
+    "vflood_largest_comp_area_pct": 27.41,
+    "vflood_largest_comp_ratio_pct": 99.75,
+    "vflood_vertical_distribution": {
+      "sky_upper_pct": 0.0,
+      "mid_scene_pct": 12.9,
+      "road_ground_pct": 87.1
+    },
+    "vflood_latency_ms": 317.86,
+    "is_water_filled_pothole": false,
+    "final_civicsense_interpretation": "Waterlogging: SIGNIFICANT WATERLOGGING (27.48%) | Detected Waste: W20"
+  },
+  {
+    "index": 7,
+    "filename": "flood 15.jpg",
+    "folder": "Flood",
+    "category": "FLOOD",
+    "width": 289,
+    "height": 174,
+    "total_pixels": 50286,
+    "lowResolutionWarning": true,
+    "lowResolutionText": "LOW RESOLUTION (289x174 < 300x200 / < 60k px)",
+    "sha256": "84b26917be5591debc63079baa6347b67f4991da84acf01b915c729537b092f3",
+    "road_raw_count": 0,
+    "road_post_nms_count": 0,
+    "road_classes": [],
+    "road_confidences": [],
+    "road_highest_conf": null,
+    "road_has_d40": false,
+    "road_has_d40_conf_025": false,
+    "road_detections": [],
+    "waste_raw_count": 2,
+    "waste_post_nms_count": 1,
+    "waste_classes": [
+      "W50"
+    ],
+    "waste_confidences": [
+      0.6271
+    ],
+    "waste_highest_conf": 0.6271,
+    "waste_detections": [
+      {
+        "type": "Organic Waste",
+        "classCode": "W50",
+        "confidence": 0.6271,
+        "boundingBox": {
+          "x": 0.009999999776482582,
+          "y": 0.1899999976158142,
+          "width": 79.36000061035156,
+          "height": 99.7300033569336
+        }
+      }
+    ],
+    "vflood_water_coverage_pct": 37.83,
+    "vflood_water_pixels": 65469,
+    "vflood_mean_water_prob": 0.3782,
+    "vflood_max_water_prob": 1.0,
+    "vflood_waterlogging_status": "SIGNIFICANT WATERLOGGING",
+    "vflood_severity_tier": "LEVEL 3",
+    "vflood_spatial_topology": "LARGE_CONTINUOUS_ROAD_FLOOD",
+    "vflood_num_connected_components": 1,
+    "vflood_largest_comp_area_pct": 37.83,
+    "vflood_largest_comp_ratio_pct": 100.0,
+    "vflood_vertical_distribution": {
+      "sky_upper_pct": 0.0,
+      "mid_scene_pct": 34.5,
+      "road_ground_pct": 65.5
+    },
+    "vflood_latency_ms": 344.87,
+    "is_water_filled_pothole": false,
+    "final_civicsense_interpretation": "Waterlogging: SIGNIFICANT WATERLOGGING (37.83%) | Detected Waste: W50"
+  },
+  {
+    "index": 8,
+    "filename": "flood 16.jpg",
+    "folder": "Flood",
+    "category": "FLOOD",
+    "width": 415,
+    "height": 737,
+    "total_pixels": 305855,
+    "lowResolutionWarning": false,
+    "lowResolutionText": null,
+    "sha256": "6be06e4556e9a9b55b630259043ab01acd23eec34b649a9e07f2455139e0789b",
+    "road_raw_count": 0,
+    "road_post_nms_count": 0,
+    "road_classes": [],
+    "road_confidences": [],
+    "road_highest_conf": null,
+    "road_has_d40": false,
+    "road_has_d40_conf_025": false,
+    "road_detections": [],
+    "waste_raw_count": 2,
+    "waste_post_nms_count": 1,
+    "waste_classes": [
+      "W70"
+    ],
+    "waste_confidences": [
+      0.5659
+    ],
+    "waste_highest_conf": 0.5659,
+    "waste_detections": [
+      {
+        "type": "Plastic Waste",
+        "classCode": "W70",
+        "confidence": 0.5659,
+        "boundingBox": {
+          "x": 0.0,
+          "y": 0.0,
+          "width": 100.0,
+          "height": 79.56999969482422
+        }
+      }
+    ],
+    "vflood_water_coverage_pct": 27.7,
+    "vflood_water_pixels": 47938,
+    "vflood_mean_water_prob": 0.2765,
+    "vflood_max_water_prob": 1.0,
+    "vflood_waterlogging_status": "SIGNIFICANT WATERLOGGING",
+    "vflood_severity_tier": "LEVEL 3",
+    "vflood_spatial_topology": "LARGE_CONTINUOUS_ROAD_FLOOD",
+    "vflood_num_connected_components": 15,
+    "vflood_largest_comp_area_pct": 27.67,
+    "vflood_largest_comp_ratio_pct": 99.91,
+    "vflood_vertical_distribution": {
+      "sky_upper_pct": 0.0,
+      "mid_scene_pct": 32.0,
+      "road_ground_pct": 68.0
+    },
+    "vflood_latency_ms": 335.32,
+    "is_water_filled_pothole": false,
+    "final_civicsense_interpretation": "Waterlogging: SIGNIFICANT WATERLOGGING (27.7%) | Detected Waste: W70"
+  },
+  {
+    "index": 9,
+    "filename": "flood 17.jpg",
+    "folder": "Flood",
+    "category": "FLOOD",
+    "width": 618,
+    "height": 495,
+    "total_pixels": 305910,
+    "lowResolutionWarning": false,
+    "lowResolutionText": null,
+    "sha256": "200a1a5653263336e31db4f1e2c156a8a4f7bc456f7f17e1d374fe478fb2a1a7",
+    "road_raw_count": 0,
+    "road_post_nms_count": 0,
+    "road_classes": [],
+    "road_confidences": [],
+    "road_highest_conf": null,
+    "road_has_d40": false,
+    "road_has_d40_conf_025": false,
+    "road_detections": [],
+    "waste_raw_count": 5,
+    "waste_post_nms_count": 1,
+    "waste_classes": [
+      "W70"
+    ],
+    "waste_confidences": [
+      0.6776
+    ],
+    "waste_highest_conf": 0.6776,
+    "waste_detections": [
+      {
+        "type": "Plastic Waste",
+        "classCode": "W70",
+        "confidence": 0.6776,
+        "boundingBox": {
+          "x": 0.0,
+          "y": 0.05000000074505806,
+          "width": 79.19000244140625,
+          "height": 99.94999694824219
+        }
+      }
+    ],
+    "vflood_water_coverage_pct": 48.8,
+    "vflood_water_pixels": 84459,
+    "vflood_mean_water_prob": 0.488,
+    "vflood_max_water_prob": 1.0,
+    "vflood_waterlogging_status": "SIGNIFICANT WATERLOGGING",
+    "vflood_severity_tier": "LEVEL 3",
+    "vflood_spatial_topology": "LARGE_CONTINUOUS_ROAD_FLOOD",
+    "vflood_num_connected_components": 8,
+    "vflood_largest_comp_area_pct": 48.8,
+    "vflood_largest_comp_ratio_pct": 99.99,
+    "vflood_vertical_distribution": {
+      "sky_upper_pct": 0.0,
+      "mid_scene_pct": 40.2,
+      "road_ground_pct": 59.8
+    },
+    "vflood_latency_ms": 331.9,
+    "is_water_filled_pothole": false,
+    "final_civicsense_interpretation": "Waterlogging: SIGNIFICANT WATERLOGGING (48.8%) | Detected Waste: W70"
+  },
+  {
+    "index": 10,
+    "filename": "flood 18.jpg",
+    "folder": "Flood",
+    "category": "FLOOD",
+    "width": 387,
+    "height": 516,
+    "total_pixels": 199692,
+    "lowResolutionWarning": false,
+    "lowResolutionText": null,
+    "sha256": "429134e823fe8b4b8382be6112b49b1ccd834c30774fc563a8bbf7787f0c464e",
+    "road_raw_count": 0,
+    "road_post_nms_count": 0,
+    "road_classes": [],
+    "road_confidences": [],
+    "road_highest_conf": null,
+    "road_has_d40": false,
+    "road_has_d40_conf_025": false,
+    "road_detections": [],
+    "waste_raw_count": 14,
+    "waste_post_nms_count": 1,
+    "waste_classes": [
+      "W20"
+    ],
+    "waste_confidences": [
+      0.8936
+    ],
+    "waste_highest_conf": 0.8936,
+    "waste_detections": [
+      {
+        "type": "Glass Waste",
+        "classCode": "W20",
+        "confidence": 0.8936,
+        "boundingBox": {
+          "x": 0.0,
+          "y": 20.09000015258789,
+          "width": 100.0,
+          "height": 79.8499984741211
+        }
+      }
+    ],
+    "vflood_water_coverage_pct": 6.21,
+    "vflood_water_pixels": 10755,
+    "vflood_mean_water_prob": 0.0621,
+    "vflood_max_water_prob": 1.0,
+    "vflood_waterlogging_status": "POSSIBLE WATERLOGGING",
+    "vflood_severity_tier": "LEVEL 2",
+    "vflood_spatial_topology": "DISPERSED_WET_PATCHES",
+    "vflood_num_connected_components": 5,
+    "vflood_largest_comp_area_pct": 6.21,
+    "vflood_largest_comp_ratio_pct": 99.94,
+    "vflood_vertical_distribution": {
+      "sky_upper_pct": 0.0,
+      "mid_scene_pct": 100.0,
+      "road_ground_pct": 0.0
+    },
+    "vflood_latency_ms": 325.66,
+    "is_water_filled_pothole": false,
+    "final_civicsense_interpretation": "Waterlogging: POSSIBLE WATERLOGGING (6.21%) | Detected Waste: W20"
+  },
+  {
+    "index": 11,
+    "filename": "flood 19.jpg",
+    "folder": "Flood",
+    "category": "FLOOD",
+    "width": 554,
+    "height": 554,
+    "total_pixels": 306916,
+    "lowResolutionWarning": false,
+    "lowResolutionText": null,
+    "sha256": "4626fc6eadb75bf9b07c37fb539fa80076f76c749d6eedf57cf944302f21837e",
+    "road_raw_count": 0,
+    "road_post_nms_count": 0,
+    "road_classes": [],
+    "road_confidences": [],
+    "road_highest_conf": null,
+    "road_has_d40": false,
+    "road_has_d40_conf_025": false,
+    "road_detections": [],
+    "waste_raw_count": 0,
+    "waste_post_nms_count": 0,
+    "waste_classes": [],
+    "waste_confidences": [],
+    "waste_highest_conf": null,
+    "waste_detections": [],
+    "vflood_water_coverage_pct": 10.46,
+    "vflood_water_pixels": 18097,
+    "vflood_mean_water_prob": 0.1046,
+    "vflood_max_water_prob": 1.0,
+    "vflood_waterlogging_status": "POSSIBLE WATERLOGGING",
+    "vflood_severity_tier": "LEVEL 2",
+    "vflood_spatial_topology": "DISPERSED_WET_PATCHES",
+    "vflood_num_connected_components": 29,
+    "vflood_largest_comp_area_pct": 5.57,
+    "vflood_largest_comp_ratio_pct": 53.22,
+    "vflood_vertical_distribution": {
+      "sky_upper_pct": 89.3,
+      "mid_scene_pct": 10.7,
+      "road_ground_pct": 0.0
+    },
+    "vflood_latency_ms": 353.32,
+    "is_water_filled_pothole": false,
+    "final_civicsense_interpretation": "Waterlogging: POSSIBLE WATERLOGGING (10.46%)"
+  },
+  {
+    "index": 12,
+    "filename": "flood 2",
+    "folder": "Flood",
+    "category": "FLOOD",
+    "width": 365,
+    "height": 237,
+    "total_pixels": 86505,
+    "lowResolutionWarning": false,
+    "lowResolutionText": null,
+    "sha256": "5ff40e579d7f4d687b4ee89b54f22ce59c3d584d822abfd043a26705bb3c24fe",
+    "road_raw_count": 0,
+    "road_post_nms_count": 0,
+    "road_classes": [],
+    "road_confidences": [],
+    "road_highest_conf": null,
+    "road_has_d40": false,
+    "road_has_d40_conf_025": false,
+    "road_detections": [],
+    "waste_raw_count": 0,
+    "waste_post_nms_count": 0,
+    "waste_classes": [],
+    "waste_confidences": [],
+    "waste_highest_conf": null,
+    "waste_detections": [],
+    "vflood_water_coverage_pct": 53.03,
+    "vflood_water_pixels": 91773,
+    "vflood_mean_water_prob": 0.5302,
+    "vflood_max_water_prob": 1.0,
+    "vflood_waterlogging_status": "SIGNIFICANT WATERLOGGING",
+    "vflood_severity_tier": "LEVEL 3",
+    "vflood_spatial_topology": "LARGE_CONTINUOUS_ROAD_FLOOD",
+    "vflood_num_connected_components": 5,
+    "vflood_largest_comp_area_pct": 53.03,
+    "vflood_largest_comp_ratio_pct": 100.0,
+    "vflood_vertical_distribution": {
+      "sky_upper_pct": 0.0,
+      "mid_scene_pct": 46.0,
+      "road_ground_pct": 54.0
+    },
+    "vflood_latency_ms": 292.52,
+    "is_water_filled_pothole": false,
+    "final_civicsense_interpretation": "Waterlogging: SIGNIFICANT WATERLOGGING (53.03%)"
+  },
+  {
+    "index": 13,
+    "filename": "flood 20.webp",
+    "folder": "Flood",
+    "category": "FLOOD",
+    "width": 638,
+    "height": 480,
+    "total_pixels": 306240,
+    "lowResolutionWarning": false,
+    "lowResolutionText": null,
+    "sha256": "b2d95e2ef30521a89f96af1a6d03ca4a40646b09a0e1a112a71d3002043ac811",
+    "road_raw_count": 0,
+    "road_post_nms_count": 0,
+    "road_classes": [],
+    "road_confidences": [],
+    "road_highest_conf": null,
+    "road_has_d40": false,
+    "road_has_d40_conf_025": false,
+    "road_detections": [],
+    "waste_raw_count": 5,
+    "waste_post_nms_count": 2,
+    "waste_classes": [
+      "W20",
+      "W70"
+    ],
+    "waste_confidences": [
+      0.5874,
+      0.5469
+    ],
+    "waste_highest_conf": 0.5874,
+    "waste_detections": [
+      {
+        "type": "Glass Waste",
+        "classCode": "W20",
+        "confidence": 0.5874,
+        "boundingBox": {
+          "x": 0.05999999865889549,
+          "y": 0.0,
+          "width": 79.02999877929688,
+          "height": 100.0
+        }
+      },
+      {
+        "type": "Plastic Waste",
+        "classCode": "W70",
+        "confidence": 0.5469,
+        "boundingBox": {
+          "x": 0.6800000071525574,
+          "y": 0.0,
+          "width": 81.43000030517578,
+          "height": 98.5
+        }
+      }
+    ],
+    "vflood_water_coverage_pct": 56.1,
+    "vflood_water_pixels": 97089,
+    "vflood_mean_water_prob": 0.5608,
+    "vflood_max_water_prob": 1.0,
+    "vflood_waterlogging_status": "SIGNIFICANT WATERLOGGING",
+    "vflood_severity_tier": "LEVEL 3",
+    "vflood_spatial_topology": "LARGE_CONTINUOUS_ROAD_FLOOD",
+    "vflood_num_connected_components": 5,
+    "vflood_largest_comp_area_pct": 56.1,
+    "vflood_largest_comp_ratio_pct": 99.99,
+    "vflood_vertical_distribution": {
+      "sky_upper_pct": 0.0,
+      "mid_scene_pct": 46.9,
+      "road_ground_pct": 53.1
+    },
+    "vflood_latency_ms": 368.64,
+    "is_water_filled_pothole": false,
+    "final_civicsense_interpretation": "Waterlogging: SIGNIFICANT WATERLOGGING (56.1%) | Detected Waste: W20, W70"
+  },
+  {
+    "index": 14,
+    "filename": "flood 21.webp",
+    "folder": "Flood",
+    "category": "FLOOD",
+    "width": 515,
+    "height": 388,
+    "total_pixels": 199820,
+    "lowResolutionWarning": false,
+    "lowResolutionText": null,
+    "sha256": "cbc9df75fa5d06cfff41aea84dffc60386ba87e474eaf3a4d67056fc3b187381",
+    "road_raw_count": 0,
+    "road_post_nms_count": 0,
+    "road_classes": [],
+    "road_confidences": [],
+    "road_highest_conf": null,
+    "road_has_d40": false,
+    "road_has_d40_conf_025": false,
+    "road_detections": [],
+    "waste_raw_count": 3,
+    "waste_post_nms_count": 1,
+    "waste_classes": [
+      "W20"
+    ],
+    "waste_confidences": [
+      0.532
+    ],
+    "waste_highest_conf": 0.532,
+    "waste_detections": [
+      {
+        "type": "Glass Waste",
+        "classCode": "W20",
+        "confidence": 0.532,
+        "boundingBox": {
+          "x": 0.07999999821186066,
+          "y": 0.05000000074505806,
+          "width": 80.83999633789062,
+          "height": 99.83999633789062
+        }
+      }
+    ],
+    "vflood_water_coverage_pct": 34.68,
+    "vflood_water_pixels": 60010,
+    "vflood_mean_water_prob": 0.3467,
+    "vflood_max_water_prob": 1.0,
+    "vflood_waterlogging_status": "SIGNIFICANT WATERLOGGING",
+    "vflood_severity_tier": "LEVEL 3",
+    "vflood_spatial_topology": "LARGE_CONTINUOUS_ROAD_FLOOD",
+    "vflood_num_connected_components": 3,
+    "vflood_largest_comp_area_pct": 34.68,
+    "vflood_largest_comp_ratio_pct": 100.0,
+    "vflood_vertical_distribution": {
+      "sky_upper_pct": 0.0,
+      "mid_scene_pct": 13.4,
+      "road_ground_pct": 86.6
+    },
+    "vflood_latency_ms": 344.02,
+    "is_water_filled_pothole": false,
+    "final_civicsense_interpretation": "Waterlogging: SIGNIFICANT WATERLOGGING (34.68%) | Detected Waste: W20"
+  },
+  {
+    "index": 15,
+    "filename": "flood 22.webp",
+    "folder": "Flood",
+    "category": "FLOOD",
+    "width": 554,
+    "height": 554,
+    "total_pixels": 306916,
+    "lowResolutionWarning": false,
+    "lowResolutionText": null,
+    "sha256": "2ea18258d668b3f05daa9423921455aa667212668b52caa59ad974b9cf30492e",
+    "road_raw_count": 0,
+    "road_post_nms_count": 0,
+    "road_classes": [],
+    "road_confidences": [],
+    "road_highest_conf": null,
+    "road_has_d40": false,
+    "road_has_d40_conf_025": false,
+    "road_detections": [],
+    "waste_raw_count": 3,
+    "waste_post_nms_count": 1,
+    "waste_classes": [
+      "W20"
+    ],
+    "waste_confidences": [
+      0.5503
+    ],
+    "waste_highest_conf": 0.5503,
+    "waste_detections": [
+      {
+        "type": "Glass Waste",
+        "classCode": "W20",
+        "confidence": 0.5503,
+        "boundingBox": {
+          "x": 0.14000000059604645,
+          "y": 0.23000000417232513,
+          "width": 80.66999816894531,
+          "height": 81.16000366210938
+        }
+      }
+    ],
+    "vflood_water_coverage_pct": 61.06,
+    "vflood_water_pixels": 105660,
+    "vflood_mean_water_prob": 0.6098,
+    "vflood_max_water_prob": 1.0,
+    "vflood_waterlogging_status": "SIGNIFICANT WATERLOGGING",
+    "vflood_severity_tier": "LEVEL 3",
+    "vflood_spatial_topology": "LARGE_CONTINUOUS_ROAD_FLOOD",
+    "vflood_num_connected_components": 40,
+    "vflood_largest_comp_area_pct": 60.98,
+    "vflood_largest_comp_ratio_pct": 99.88,
+    "vflood_vertical_distribution": {
+      "sky_upper_pct": 15.6,
+      "mid_scene_pct": 42.9,
+      "road_ground_pct": 41.5
+    },
+    "vflood_latency_ms": 270.12,
+    "is_water_filled_pothole": false,
+    "final_civicsense_interpretation": "Waterlogging: SIGNIFICANT WATERLOGGING (61.06%) | Detected Waste: W20"
+  },
+  {
+    "index": 16,
+    "filename": "flood 23.webp",
+    "folder": "Flood",
+    "category": "FLOOD",
+    "width": 528,
+    "height": 378,
+    "total_pixels": 199584,
+    "lowResolutionWarning": false,
+    "lowResolutionText": null,
+    "sha256": "8b0730b36168abe74cf0bbc521f323ecec413e48533c78e5df74550864f405fc",
+    "road_raw_count": 0,
+    "road_post_nms_count": 0,
+    "road_classes": [],
+    "road_confidences": [],
+    "road_highest_conf": null,
+    "road_has_d40": false,
+    "road_has_d40_conf_025": false,
+    "road_detections": [],
+    "waste_raw_count": 10,
+    "waste_post_nms_count": 1,
+    "waste_classes": [
+      "W50"
+    ],
+    "waste_confidences": [
+      0.8947
+    ],
+    "waste_highest_conf": 0.8947,
+    "waste_detections": [
+      {
+        "type": "Organic Waste",
+        "classCode": "W50",
+        "confidence": 0.8947,
+        "boundingBox": {
+          "x": 0.1599999964237213,
+          "y": 0.12999999523162842,
+          "width": 81.11000061035156,
+          "height": 99.87000274658203
+        }
+      }
+    ],
+    "vflood_water_coverage_pct": 2.68,
+    "vflood_water_pixels": 4639,
+    "vflood_mean_water_prob": 0.0268,
+    "vflood_max_water_prob": 1.0,
+    "vflood_waterlogging_status": "NO SIGNIFICANT WATER",
+    "vflood_severity_tier": "LEVEL 1",
+    "vflood_spatial_topology": "TRACE_OR_SPECULAR_WATER",
+    "vflood_num_connected_components": 6,
+    "vflood_largest_comp_area_pct": 1.22,
+    "vflood_largest_comp_ratio_pct": 45.68,
+    "vflood_vertical_distribution": {
+      "sky_upper_pct": 100.0,
+      "mid_scene_pct": 0.0,
+      "road_ground_pct": 0.0
+    },
+    "vflood_latency_ms": 363.88,
+    "is_water_filled_pothole": false,
+    "final_civicsense_interpretation": "Detected Waste: W50"
+  },
+  {
+    "index": 17,
+    "filename": "flood 24.webp",
+    "folder": "Flood",
+    "category": "FLOOD",
+    "width": 638,
+    "height": 480,
+    "total_pixels": 306240,
+    "lowResolutionWarning": false,
+    "lowResolutionText": null,
+    "sha256": "2bda20c689f9c2fc2a2dbed56fff9a26e15e10f18310d247b7d777ff58b2aeae",
+    "road_raw_count": 0,
+    "road_post_nms_count": 0,
+    "road_classes": [],
+    "road_confidences": [],
+    "road_highest_conf": null,
+    "road_has_d40": false,
+    "road_has_d40_conf_025": false,
+    "road_detections": [],
+    "waste_raw_count": 0,
+    "waste_post_nms_count": 0,
+    "waste_classes": [],
+    "waste_confidences": [],
+    "waste_highest_conf": null,
+    "waste_detections": [],
+    "vflood_water_coverage_pct": 51.77,
+    "vflood_water_pixels": 89598,
+    "vflood_mean_water_prob": 0.5174,
+    "vflood_max_water_prob": 1.0,
+    "vflood_waterlogging_status": "SIGNIFICANT WATERLOGGING",
+    "vflood_severity_tier": "LEVEL 3",
+    "vflood_spatial_topology": "LARGE_CONTINUOUS_ROAD_FLOOD",
+    "vflood_num_connected_components": 3,
+    "vflood_largest_comp_area_pct": 51.77,
+    "vflood_largest_comp_ratio_pct": 99.99,
+    "vflood_vertical_distribution": {
+      "sky_upper_pct": 0.0,
+      "mid_scene_pct": 44.6,
+      "road_ground_pct": 55.4
+    },
+    "vflood_latency_ms": 344.64,
+    "is_water_filled_pothole": false,
+    "final_civicsense_interpretation": "Waterlogging: SIGNIFICANT WATERLOGGING (51.77%)"
+  },
+  {
+    "index": 18,
+    "filename": "flood 25.webp",
+    "folder": "Flood",
+    "category": "FLOOD",
+    "width": 738,
+    "height": 414,
+    "total_pixels": 305532,
+    "lowResolutionWarning": false,
+    "lowResolutionText": null,
+    "sha256": "fa26b4d6f5020d66282b2701cba869270f4d7ff9bd368202805d651a4fd861b1",
+    "road_raw_count": 0,
+    "road_post_nms_count": 0,
+    "road_classes": [],
+    "road_confidences": [],
+    "road_highest_conf": null,
+    "road_has_d40": false,
+    "road_has_d40_conf_025": false,
+    "road_detections": [],
+    "waste_raw_count": 7,
+    "waste_post_nms_count": 1,
+    "waste_classes": [
+      "W00"
+    ],
+    "waste_confidences": [
+      0.7649
+    ],
+    "waste_highest_conf": 0.7649,
+    "waste_detections": [
+      {
+        "type": "Cardboard Waste",
+        "classCode": "W00",
+        "confidence": 0.7649,
+        "boundingBox": {
+          "x": 0.5199999809265137,
+          "y": 0.0,
+          "width": 77.16999816894531,
+          "height": 99.83999633789062
+        }
+      }
+    ],
+    "vflood_water_coverage_pct": 54.82,
+    "vflood_water_pixels": 94869,
+    "vflood_mean_water_prob": 0.5482,
+    "vflood_max_water_prob": 1.0,
+    "vflood_waterlogging_status": "SIGNIFICANT WATERLOGGING",
+    "vflood_severity_tier": "LEVEL 3",
+    "vflood_spatial_topology": "LARGE_CONTINUOUS_ROAD_FLOOD",
+    "vflood_num_connected_components": 1,
+    "vflood_largest_comp_area_pct": 54.82,
+    "vflood_largest_comp_ratio_pct": 100.0,
+    "vflood_vertical_distribution": {
+      "sky_upper_pct": 0.0,
+      "mid_scene_pct": 45.4,
+      "road_ground_pct": 54.6
+    },
+    "vflood_latency_ms": 273.61,
+    "is_water_filled_pothole": false,
+    "final_civicsense_interpretation": "Waterlogging: SIGNIFICANT WATERLOGGING (54.82%) | Detected Waste: W00"
+  },
+  {
+    "index": 19,
+    "filename": "flood 26.webp",
+    "folder": "Flood",
+    "category": "FLOOD",
+    "width": 738,
+    "height": 414,
+    "total_pixels": 305532,
+    "lowResolutionWarning": false,
+    "lowResolutionText": null,
+    "sha256": "e62517f17ce4263fc944d66f5ffe85bb0a76d202b18cc82e655f943593154022",
+    "road_raw_count": 0,
+    "road_post_nms_count": 0,
+    "road_classes": [],
+    "road_confidences": [],
+    "road_highest_conf": null,
+    "road_has_d40": false,
+    "road_has_d40_conf_025": false,
+    "road_detections": [],
+    "waste_raw_count": 0,
+    "waste_post_nms_count": 0,
+    "waste_classes": [],
+    "waste_confidences": [],
+    "waste_highest_conf": null,
+    "waste_detections": [],
+    "vflood_water_coverage_pct": 32.01,
+    "vflood_water_pixels": 55389,
+    "vflood_mean_water_prob": 0.3199,
+    "vflood_max_water_prob": 1.0,
+    "vflood_waterlogging_status": "SIGNIFICANT WATERLOGGING",
+    "vflood_severity_tier": "LEVEL 3",
+    "vflood_spatial_topology": "LARGE_CONTINUOUS_ROAD_FLOOD",
+    "vflood_num_connected_components": 29,
+    "vflood_largest_comp_area_pct": 29.39,
+    "vflood_largest_comp_ratio_pct": 91.81,
+    "vflood_vertical_distribution": {
+      "sky_upper_pct": 0.5,
+      "mid_scene_pct": 30.9,
+      "road_ground_pct": 68.6
+    },
+    "vflood_latency_ms": 467.66,
+    "is_water_filled_pothole": false,
+    "final_civicsense_interpretation": "Waterlogging: SIGNIFICANT WATERLOGGING (32.01%)"
+  },
+  {
+    "index": 20,
+    "filename": "flood 27.webp",
+    "folder": "Flood",
+    "category": "FLOOD",
+    "width": 738,
+    "height": 414,
+    "total_pixels": 305532,
+    "lowResolutionWarning": false,
+    "lowResolutionText": null,
+    "sha256": "9f713685168298cddf555b724dd5360430ea95fcdfff3a9e0b202881333ba702",
+    "road_raw_count": 0,
+    "road_post_nms_count": 0,
+    "road_classes": [],
+    "road_confidences": [],
+    "road_highest_conf": null,
+    "road_has_d40": false,
+    "road_has_d40_conf_025": false,
+    "road_detections": [],
+    "waste_raw_count": 2,
+    "waste_post_nms_count": 1,
+    "waste_classes": [
+      "W70"
+    ],
+    "waste_confidences": [
+      0.5346
+    ],
+    "waste_highest_conf": 0.5346,
+    "waste_detections": [
+      {
+        "type": "Plastic Waste",
+        "classCode": "W70",
+        "confidence": 0.5346,
+        "boundingBox": {
+          "x": 0.0,
+          "y": 0.0,
+          "width": 79.69000244140625,
+          "height": 99.93000030517578
+        }
+      }
+    ],
+    "vflood_water_coverage_pct": 2.46,
+    "vflood_water_pixels": 4263,
+    "vflood_mean_water_prob": 0.0245,
+    "vflood_max_water_prob": 1.0,
+    "vflood_waterlogging_status": "NO SIGNIFICANT WATER",
+    "vflood_severity_tier": "LEVEL 1",
+    "vflood_spatial_topology": "TRACE_OR_SPECULAR_WATER",
+    "vflood_num_connected_components": 19,
+    "vflood_largest_comp_area_pct": 1.08,
+    "vflood_largest_comp_ratio_pct": 43.94,
+    "vflood_vertical_distribution": {
+      "sky_upper_pct": 84.8,
+      "mid_scene_pct": 15.2,
+      "road_ground_pct": 0.0
+    },
+    "vflood_latency_ms": 357.73,
+    "is_water_filled_pothole": false,
+    "final_civicsense_interpretation": "Detected Waste: W70"
+  },
+  {
+    "index": 21,
+    "filename": "flood 28.webp",
+    "folder": "Flood",
+    "category": "FLOOD",
+    "width": 556,
+    "height": 359,
+    "total_pixels": 199604,
+    "lowResolutionWarning": false,
+    "lowResolutionText": null,
+    "sha256": "12061935af594dbf59ba3729cd03763a6942c6bcb042598f829ae1402b4de60e",
+    "road_raw_count": 0,
+    "road_post_nms_count": 0,
+    "road_classes": [],
+    "road_confidences": [],
+    "road_highest_conf": null,
+    "road_has_d40": false,
+    "road_has_d40_conf_025": false,
+    "road_detections": [],
+    "waste_raw_count": 1,
+    "waste_post_nms_count": 1,
+    "waste_classes": [
+      "W60"
+    ],
+    "waste_confidences": [
+      0.5085
+    ],
+    "waste_highest_conf": 0.5085,
+    "waste_detections": [
+      {
+        "type": "Paper Waste",
+        "classCode": "W60",
+        "confidence": 0.5085,
+        "boundingBox": {
+          "x": 0.10999999940395355,
+          "y": 0.10000000149011612,
+          "width": 80.88999938964844,
+          "height": 99.9000015258789
+        }
+      }
+    ],
+    "vflood_water_coverage_pct": 47.21,
+    "vflood_water_pixels": 81706,
+    "vflood_mean_water_prob": 0.4713,
+    "vflood_max_water_prob": 1.0,
+    "vflood_waterlogging_status": "SIGNIFICANT WATERLOGGING",
+    "vflood_severity_tier": "LEVEL 3",
+    "vflood_spatial_topology": "LARGE_CONTINUOUS_ROAD_FLOOD",
+    "vflood_num_connected_components": 38,
+    "vflood_largest_comp_area_pct": 41.35,
+    "vflood_largest_comp_ratio_pct": 87.58,
+    "vflood_vertical_distribution": {
+      "sky_upper_pct": 34.6,
+      "mid_scene_pct": 32.1,
+      "road_ground_pct": 33.2
+    },
+    "vflood_latency_ms": 383.26,
+    "is_water_filled_pothole": false,
+    "final_civicsense_interpretation": "Waterlogging: SIGNIFICANT WATERLOGGING (47.21%) | Detected Waste: W60"
+  },
+  {
+    "index": 22,
+    "filename": "flood 29.webp",
+    "folder": "Flood",
+    "category": "FLOOD",
+    "width": 638,
+    "height": 480,
+    "total_pixels": 306240,
+    "lowResolutionWarning": false,
+    "lowResolutionText": null,
+    "sha256": "4877d52f6af359a25fa2d3448fa9629116bad2d43b8061a4c6dafbf361cdbb6c",
+    "road_raw_count": 0,
+    "road_post_nms_count": 0,
+    "road_classes": [],
+    "road_confidences": [],
+    "road_highest_conf": null,
+    "road_has_d40": false,
+    "road_has_d40_conf_025": false,
+    "road_detections": [],
+    "waste_raw_count": 6,
+    "waste_post_nms_count": 1,
+    "waste_classes": [
+      "W70"
+    ],
+    "waste_confidences": [
+      0.8607
+    ],
+    "waste_highest_conf": 0.8607,
+    "waste_detections": [
+      {
+        "type": "Plastic Waste",
+        "classCode": "W70",
+        "confidence": 0.8607,
+        "boundingBox": {
+          "x": 0.5400000214576721,
+          "y": 0.0,
+          "width": 80.69000244140625,
+          "height": 98.9000015258789
+        }
+      }
+    ],
+    "vflood_water_coverage_pct": 21.1,
+    "vflood_water_pixels": 36516,
+    "vflood_mean_water_prob": 0.2109,
+    "vflood_max_water_prob": 1.0,
+    "vflood_waterlogging_status": "POSSIBLE WATERLOGGING",
+    "vflood_severity_tier": "LEVEL 2",
+    "vflood_spatial_topology": "SUBSTANTIAL_SPREAD_WATERLOGGING",
+    "vflood_num_connected_components": 4,
+    "vflood_largest_comp_area_pct": 18.23,
+    "vflood_largest_comp_ratio_pct": 86.38,
+    "vflood_vertical_distribution": {
+      "sky_upper_pct": 0.0,
+      "mid_scene_pct": 11.5,
+      "road_ground_pct": 88.5
+    },
+    "vflood_latency_ms": 396.65,
+    "is_water_filled_pothole": false,
+    "final_civicsense_interpretation": "Waterlogging: POSSIBLE WATERLOGGING (21.1%) | Detected Waste: W70"
+  },
+  {
+    "index": 23,
+    "filename": "flood 3.webp",
+    "folder": "Flood",
+    "category": "FLOOD",
+    "width": 408,
+    "height": 234,
+    "total_pixels": 95472,
+    "lowResolutionWarning": false,
+    "lowResolutionText": null,
+    "sha256": "8ce36111e007bcc86aae7ac953995385750d3d44ab1c562bb2d49c49e7077268",
+    "road_raw_count": 0,
+    "road_post_nms_count": 0,
+    "road_classes": [],
+    "road_confidences": [],
+    "road_highest_conf": null,
+    "road_has_d40": false,
+    "road_has_d40_conf_025": false,
+    "road_detections": [],
+    "waste_raw_count": 0,
+    "waste_post_nms_count": 0,
+    "waste_classes": [],
+    "waste_confidences": [],
+    "waste_highest_conf": null,
+    "waste_detections": [],
+    "vflood_water_coverage_pct": 62.74,
+    "vflood_water_pixels": 108571,
+    "vflood_mean_water_prob": 0.6273,
+    "vflood_max_water_prob": 1.0,
+    "vflood_waterlogging_status": "SIGNIFICANT WATERLOGGING",
+    "vflood_severity_tier": "LEVEL 3",
+    "vflood_spatial_topology": "LARGE_CONTINUOUS_ROAD_FLOOD",
+    "vflood_num_connected_components": 6,
+    "vflood_largest_comp_area_pct": 62.57,
+    "vflood_largest_comp_ratio_pct": 99.73,
+    "vflood_vertical_distribution": {
+      "sky_upper_pct": 0.5,
+      "mid_scene_pct": 51.6,
+      "road_ground_pct": 47.9
+    },
+    "vflood_latency_ms": 449.96,
+    "is_water_filled_pothole": false,
+    "final_civicsense_interpretation": "Waterlogging: SIGNIFICANT WATERLOGGING (62.74%)"
+  },
+  {
+    "index": 24,
+    "filename": "flood 30.webp",
+    "folder": "Flood",
+    "category": "FLOOD",
+    "width": 738,
+    "height": 414,
+    "total_pixels": 305532,
+    "lowResolutionWarning": false,
+    "lowResolutionText": null,
+    "sha256": "5ef89858e0e1806f1b8b2a3893ee153e1b4f237abc9ec7f1b0f0de6724e4f3cc",
+    "road_raw_count": 0,
+    "road_post_nms_count": 0,
+    "road_classes": [],
+    "road_confidences": [],
+    "road_highest_conf": null,
+    "road_has_d40": false,
+    "road_has_d40_conf_025": false,
+    "road_detections": [],
+    "waste_raw_count": 8,
+    "waste_post_nms_count": 1,
+    "waste_classes": [
+      "W20"
+    ],
+    "waste_confidences": [
+      0.7225
+    ],
+    "waste_highest_conf": 0.7225,
+    "waste_detections": [
+      {
+        "type": "Glass Waste",
+        "classCode": "W20",
+        "confidence": 0.7225,
+        "boundingBox": {
+          "x": 0.03999999910593033,
+          "y": 0.0,
+          "width": 77.94999694824219,
+          "height": 99.7300033569336
+        }
+      }
+    ],
+    "vflood_water_coverage_pct": 45.79,
+    "vflood_water_pixels": 79236,
+    "vflood_mean_water_prob": 0.4576,
+    "vflood_max_water_prob": 1.0,
+    "vflood_waterlogging_status": "SIGNIFICANT WATERLOGGING",
+    "vflood_severity_tier": "LEVEL 3",
+    "vflood_spatial_topology": "LARGE_CONTINUOUS_ROAD_FLOOD",
+    "vflood_num_connected_components": 13,
+    "vflood_largest_comp_area_pct": 45.38,
+    "vflood_largest_comp_ratio_pct": 99.1,
+    "vflood_vertical_distribution": {
+      "sky_upper_pct": 0.0,
+      "mid_scene_pct": 51.1,
+      "road_ground_pct": 48.9
+    },
+    "vflood_latency_ms": 385.41,
+    "is_water_filled_pothole": false,
+    "final_civicsense_interpretation": "Waterlogging: SIGNIFICANT WATERLOGGING (45.79%) | Detected Waste: W20"
+  },
+  {
+    "index": 25,
+    "filename": "flood 4.webp",
+    "folder": "Flood",
+    "category": "FLOOD",
+    "width": 403,
+    "height": 234,
+    "total_pixels": 94302,
+    "lowResolutionWarning": false,
+    "lowResolutionText": null,
+    "sha256": "895956b628b19b5a175ea0b4201759097bf9932a4c01064cf3197bfe1e0a5faa",
+    "road_raw_count": 0,
+    "road_post_nms_count": 0,
+    "road_classes": [],
+    "road_confidences": [],
+    "road_highest_conf": null,
+    "road_has_d40": false,
+    "road_has_d40_conf_025": false,
+    "road_detections": [],
+    "waste_raw_count": 3,
+    "waste_post_nms_count": 1,
+    "waste_classes": [
+      "W00"
+    ],
+    "waste_confidences": [
+      0.521
+    ],
+    "waste_highest_conf": 0.521,
+    "waste_detections": [
+      {
+        "type": "Cardboard Waste",
+        "classCode": "W00",
+        "confidence": 0.521,
+        "boundingBox": {
+          "x": 0.07999999821186066,
+          "y": 0.14000000059604645,
+          "width": 80.30999755859375,
+          "height": 99.86000061035156
+        }
+      }
+    ],
+    "vflood_water_coverage_pct": 5.89,
+    "vflood_water_pixels": 10197,
+    "vflood_mean_water_prob": 0.0588,
+    "vflood_max_water_prob": 1.0,
+    "vflood_waterlogging_status": "POSSIBLE WATERLOGGING",
+    "vflood_severity_tier": "LEVEL 2",
+    "vflood_spatial_topology": "LOCALIZED_PUDDLE_OR_POTHOLE_WATER",
+    "vflood_num_connected_components": 2,
+    "vflood_largest_comp_area_pct": 5.89,
+    "vflood_largest_comp_ratio_pct": 99.99,
+    "vflood_vertical_distribution": {
+      "sky_upper_pct": 0.0,
+      "mid_scene_pct": 0.0,
+      "road_ground_pct": 100.0
+    },
+    "vflood_latency_ms": 339.23,
+    "is_water_filled_pothole": false,
+    "final_civicsense_interpretation": "Waterlogging: POSSIBLE WATERLOGGING (5.89%) | Detected Waste: W00"
+  },
+  {
+    "index": 26,
+    "filename": "flood 5.webp",
+    "folder": "Flood",
+    "category": "FLOOD",
+    "width": 308,
+    "height": 234,
+    "total_pixels": 72072,
+    "lowResolutionWarning": false,
+    "lowResolutionText": null,
+    "sha256": "b05874e30edb43c4ea945b180428cb705f6fdd0eaafe966b647abd882c54ae78",
+    "road_raw_count": 0,
+    "road_post_nms_count": 0,
+    "road_classes": [],
+    "road_confidences": [],
+    "road_highest_conf": null,
+    "road_has_d40": false,
+    "road_has_d40_conf_025": false,
+    "road_detections": [],
+    "waste_raw_count": 0,
+    "waste_post_nms_count": 0,
+    "waste_classes": [],
+    "waste_confidences": [],
+    "waste_highest_conf": null,
+    "waste_detections": [],
+    "vflood_water_coverage_pct": 45.01,
+    "vflood_water_pixels": 77890,
+    "vflood_mean_water_prob": 0.45,
+    "vflood_max_water_prob": 1.0,
+    "vflood_waterlogging_status": "SIGNIFICANT WATERLOGGING",
+    "vflood_severity_tier": "LEVEL 3",
+    "vflood_spatial_topology": "LARGE_CONTINUOUS_ROAD_FLOOD",
+    "vflood_num_connected_components": 6,
+    "vflood_largest_comp_area_pct": 44.98,
+    "vflood_largest_comp_ratio_pct": 99.94,
+    "vflood_vertical_distribution": {
+      "sky_upper_pct": 0.0,
+      "mid_scene_pct": 49.0,
+      "road_ground_pct": 51.0
+    },
+    "vflood_latency_ms": 155.52,
+    "is_water_filled_pothole": false,
+    "final_civicsense_interpretation": "Waterlogging: SIGNIFICANT WATERLOGGING (45.01%)"
+  },
+  {
+    "index": 27,
+    "filename": "flood 6.webp",
+    "folder": "Flood",
+    "category": "FLOOD",
+    "width": 432,
+    "height": 243,
+    "total_pixels": 104976,
+    "lowResolutionWarning": false,
+    "lowResolutionText": null,
+    "sha256": "7d17883e1ff6f331ddee8a4dfe1c303e6e49d453732bb989456e16cc7e2c2cfd",
+    "road_raw_count": 0,
+    "road_post_nms_count": 0,
+    "road_classes": [],
+    "road_confidences": [],
+    "road_highest_conf": null,
+    "road_has_d40": false,
+    "road_has_d40_conf_025": false,
+    "road_detections": [],
+    "waste_raw_count": 3,
+    "waste_post_nms_count": 1,
+    "waste_classes": [
+      "W20"
+    ],
+    "waste_confidences": [
+      0.6021
+    ],
+    "waste_highest_conf": 0.6021,
+    "waste_detections": [
+      {
+        "type": "Glass Waste",
+        "classCode": "W20",
+        "confidence": 0.6021,
+        "boundingBox": {
+          "x": 0.44999998807907104,
+          "y": 0.0,
+          "width": 76.87999725341797,
+          "height": 99.98999786376953
+        }
+      }
+    ],
+    "vflood_water_coverage_pct": 51.17,
+    "vflood_water_pixels": 88545,
+    "vflood_mean_water_prob": 0.5116,
+    "vflood_max_water_prob": 1.0,
+    "vflood_waterlogging_status": "SIGNIFICANT WATERLOGGING",
+    "vflood_severity_tier": "LEVEL 3",
+    "vflood_spatial_topology": "LARGE_CONTINUOUS_ROAD_FLOOD",
+    "vflood_num_connected_components": 6,
+    "vflood_largest_comp_area_pct": 51.15,
+    "vflood_largest_comp_ratio_pct": 99.97,
+    "vflood_vertical_distribution": {
+      "sky_upper_pct": 0.2,
+      "mid_scene_pct": 51.2,
+      "road_ground_pct": 48.6
+    },
+    "vflood_latency_ms": 461.0,
+    "is_water_filled_pothole": false,
+    "final_civicsense_interpretation": "Waterlogging: SIGNIFICANT WATERLOGGING (51.17%) | Detected Waste: W20"
+  },
+  {
+    "index": 28,
+    "filename": "flood 7.webp",
+    "folder": "Flood",
+    "category": "FLOOD",
+    "width": 351,
+    "height": 234,
+    "total_pixels": 82134,
+    "lowResolutionWarning": false,
+    "lowResolutionText": null,
+    "sha256": "d06f9007b62531b486a423a839e8d70ef9a1c36badb2be35b0be10587e92de54",
+    "road_raw_count": 0,
+    "road_post_nms_count": 0,
+    "road_classes": [],
+    "road_confidences": [],
+    "road_highest_conf": null,
+    "road_has_d40": false,
+    "road_has_d40_conf_025": false,
+    "road_detections": [],
+    "waste_raw_count": 0,
+    "waste_post_nms_count": 0,
+    "waste_classes": [],
+    "waste_confidences": [],
+    "waste_highest_conf": null,
+    "waste_detections": [],
+    "vflood_water_coverage_pct": 46.83,
+    "vflood_water_pixels": 81050,
+    "vflood_mean_water_prob": 0.4683,
+    "vflood_max_water_prob": 1.0,
+    "vflood_waterlogging_status": "SIGNIFICANT WATERLOGGING",
+    "vflood_severity_tier": "LEVEL 3",
+    "vflood_spatial_topology": "LARGE_CONTINUOUS_ROAD_FLOOD",
+    "vflood_num_connected_components": 2,
+    "vflood_largest_comp_area_pct": 46.83,
+    "vflood_largest_comp_ratio_pct": 100.0,
+    "vflood_vertical_distribution": {
+      "sky_upper_pct": 0.0,
+      "mid_scene_pct": 35.8,
+      "road_ground_pct": 64.2
+    },
+    "vflood_latency_ms": 286.42,
+    "is_water_filled_pothole": false,
+    "final_civicsense_interpretation": "Waterlogging: SIGNIFICANT WATERLOGGING (46.83%)"
+  },
+  {
+    "index": 29,
+    "filename": "flood 8.webp",
+    "folder": "Flood",
+    "category": "FLOOD",
+    "width": 345,
+    "height": 245,
+    "total_pixels": 84525,
+    "lowResolutionWarning": false,
+    "lowResolutionText": null,
+    "sha256": "10d5f957ac4ea9bc19be5f5b4d3ed7a059a6d530bbf8b5b4a463f70230e519a1",
+    "road_raw_count": 0,
+    "road_post_nms_count": 0,
+    "road_classes": [],
+    "road_confidences": [],
+    "road_highest_conf": null,
+    "road_has_d40": false,
+    "road_has_d40_conf_025": false,
+    "road_detections": [],
+    "waste_raw_count": 8,
+    "waste_post_nms_count": 1,
+    "waste_classes": [
+      "W70"
+    ],
+    "waste_confidences": [
+      0.972
+    ],
+    "waste_highest_conf": 0.972,
+    "waste_detections": [
+      {
+        "type": "Plastic Waste",
+        "classCode": "W70",
+        "confidence": 0.972,
+        "boundingBox": {
+          "x": 0.0,
+          "y": 0.03999999910593033,
+          "width": 79.19999694824219,
+          "height": 99.83999633789062
+        }
+      }
+    ],
+    "vflood_water_coverage_pct": 60.73,
+    "vflood_water_pixels": 105091,
+    "vflood_mean_water_prob": 0.6072,
+    "vflood_max_water_prob": 1.0,
+    "vflood_waterlogging_status": "SIGNIFICANT WATERLOGGING",
+    "vflood_severity_tier": "LEVEL 3",
+    "vflood_spatial_topology": "LARGE_CONTINUOUS_ROAD_FLOOD",
+    "vflood_num_connected_components": 3,
+    "vflood_largest_comp_area_pct": 60.73,
+    "vflood_largest_comp_ratio_pct": 100.0,
+    "vflood_vertical_distribution": {
+      "sky_upper_pct": 0.0,
+      "mid_scene_pct": 50.5,
+      "road_ground_pct": 49.5
+    },
+    "vflood_latency_ms": 314.46,
+    "is_water_filled_pothole": false,
+    "final_civicsense_interpretation": "Waterlogging: SIGNIFICANT WATERLOGGING (60.73%) | Detected Waste: W70"
+  },
+  {
+    "index": 30,
+    "filename": "flood 9.webp",
+    "folder": "Flood",
+    "category": "FLOOD",
+    "width": 427,
+    "height": 240,
+    "total_pixels": 102480,
+    "lowResolutionWarning": false,
+    "lowResolutionText": null,
+    "sha256": "b056b7a5390afd0938b46665a5fe57e258ab4b18a263b3df20bdcb7a745e02f1",
+    "road_raw_count": 0,
+    "road_post_nms_count": 0,
+    "road_classes": [],
+    "road_confidences": [],
+    "road_highest_conf": null,
+    "road_has_d40": false,
+    "road_has_d40_conf_025": false,
+    "road_detections": [],
+    "waste_raw_count": 0,
+    "waste_post_nms_count": 0,
+    "waste_classes": [],
+    "waste_confidences": [],
+    "waste_highest_conf": null,
+    "waste_detections": [],
+    "vflood_water_coverage_pct": 59.07,
+    "vflood_water_pixels": 102225,
+    "vflood_mean_water_prob": 0.5906,
+    "vflood_max_water_prob": 1.0,
+    "vflood_waterlogging_status": "SIGNIFICANT WATERLOGGING",
+    "vflood_severity_tier": "LEVEL 3",
+    "vflood_spatial_topology": "LARGE_CONTINUOUS_ROAD_FLOOD",
+    "vflood_num_connected_components": 2,
+    "vflood_largest_comp_area_pct": 59.07,
+    "vflood_largest_comp_ratio_pct": 100.0,
+    "vflood_vertical_distribution": {
+      "sky_upper_pct": 0.0,
+      "mid_scene_pct": 49.6,
+      "road_ground_pct": 50.4
+    },
+    "vflood_latency_ms": 380.2,
+    "is_water_filled_pothole": false,
+    "final_civicsense_interpretation": "Waterlogging: SIGNIFICANT WATERLOGGING (59.07%)"
+  },
+  {
+    "index": 31,
+    "filename": "flood.jpg",
+    "folder": "Flood",
+    "category": "FLOOD",
+    "width": 193,
+    "height": 135,
+    "total_pixels": 26055,
+    "lowResolutionWarning": true,
+    "lowResolutionText": "LOW RESOLUTION (193x135 < 300x200 / < 60k px)",
+    "sha256": "93548d2312218bde7dc40c74a948955c54811d856aa1d9935071a06c377f3aa8",
+    "road_raw_count": 0,
+    "road_post_nms_count": 0,
+    "road_classes": [],
+    "road_confidences": [],
+    "road_highest_conf": null,
+    "road_has_d40": false,
+    "road_has_d40_conf_025": false,
+    "road_detections": [],
+    "waste_raw_count": 10,
+    "waste_post_nms_count": 1,
+    "waste_classes": [
+      "W50"
+    ],
+    "waste_confidences": [
+      0.9701
+    ],
+    "waste_highest_conf": 0.9701,
+    "waste_detections": [
+      {
+        "type": "Organic Waste",
+        "classCode": "W50",
+        "confidence": 0.9701,
+        "boundingBox": {
+          "x": 0.14000000059604645,
+          "y": 0.17000000178813934,
+          "width": 80.73999786376953,
+          "height": 99.83000183105469
+        }
+      }
+    ],
+    "vflood_water_coverage_pct": 39.49,
+    "vflood_water_pixels": 68340,
+    "vflood_mean_water_prob": 0.3948,
+    "vflood_max_water_prob": 1.0,
+    "vflood_waterlogging_status": "SIGNIFICANT WATERLOGGING",
+    "vflood_severity_tier": "LEVEL 3",
+    "vflood_spatial_topology": "LARGE_CONTINUOUS_ROAD_FLOOD",
+    "vflood_num_connected_components": 3,
+    "vflood_largest_comp_area_pct": 39.49,
+    "vflood_largest_comp_ratio_pct": 100.0,
+    "vflood_vertical_distribution": {
+      "sky_upper_pct": 0.0,
+      "mid_scene_pct": 23.9,
+      "road_ground_pct": 76.1
+    },
+    "vflood_latency_ms": 383.84,
+    "is_water_filled_pothole": false,
+    "final_civicsense_interpretation": "Waterlogging: SIGNIFICANT WATERLOGGING (39.49%) | Detected Waste: W50"
+  },
+  {
+    "index": 32,
+    "filename": "puddles.jpg",
+    "folder": "Flood",
+    "category": "FLOOD",
+    "width": 502,
+    "height": 398,
+    "total_pixels": 199796,
+    "lowResolutionWarning": false,
+    "lowResolutionText": null,
+    "sha256": "a67824686de7982503765e94ddf812cbb035d4ab5865bd4fc8c94d9f5262887a",
+    "road_raw_count": 0,
+    "road_post_nms_count": 0,
+    "road_classes": [],
+    "road_confidences": [],
+    "road_highest_conf": null,
+    "road_has_d40": false,
+    "road_has_d40_conf_025": false,
+    "road_detections": [],
+    "waste_raw_count": 10,
+    "waste_post_nms_count": 1,
+    "waste_classes": [
+      "W70"
+    ],
+    "waste_confidences": [
+      0.9295
+    ],
+    "waste_highest_conf": 0.9295,
+    "waste_detections": [
+      {
+        "type": "Plastic Waste",
+        "classCode": "W70",
+        "confidence": 0.9295,
+        "boundingBox": {
+          "x": 0.0,
+          "y": 0.0,
+          "width": 79.2300033569336,
+          "height": 99.86000061035156
+        }
+      }
+    ],
+    "vflood_water_coverage_pct": 40.85,
+    "vflood_water_pixels": 70698,
+    "vflood_mean_water_prob": 0.4085,
+    "vflood_max_water_prob": 1.0,
+    "vflood_waterlogging_status": "SIGNIFICANT WATERLOGGING",
+    "vflood_severity_tier": "LEVEL 3",
+    "vflood_spatial_topology": "LARGE_CONTINUOUS_ROAD_FLOOD",
+    "vflood_num_connected_components": 7,
+    "vflood_largest_comp_area_pct": 40.85,
+    "vflood_largest_comp_ratio_pct": 99.99,
+    "vflood_vertical_distribution": {
+      "sky_upper_pct": 15.4,
+      "mid_scene_pct": 68.2,
+      "road_ground_pct": 16.4
+    },
+    "vflood_latency_ms": 328.98,
+    "is_water_filled_pothole": false,
+    "final_civicsense_interpretation": "Waterlogging: SIGNIFICANT WATERLOGGING (40.85%) | Detected Waste: W70"
+  },
+  {
+    "index": 33,
+    "filename": "garbage 1.webp",
+    "folder": "Garbage",
+    "category": "GARBAGE",
+    "width": 321,
+    "height": 236,
+    "total_pixels": 75756,
+    "lowResolutionWarning": false,
+    "lowResolutionText": null,
+    "sha256": "dbfd9e70afeecc259affbefc1e9d2243b8d8a721b591840f482d9ffdbbba7c8a",
+    "road_raw_count": 0,
+    "road_post_nms_count": 0,
+    "road_classes": [],
+    "road_confidences": [],
+    "road_highest_conf": null,
+    "road_has_d40": false,
+    "road_has_d40_conf_025": false,
+    "road_detections": [],
+    "waste_raw_count": 10,
+    "waste_post_nms_count": 1,
+    "waste_classes": [
+      "W50"
+    ],
+    "waste_confidences": [
+      0.8237
+    ],
+    "waste_highest_conf": 0.8237,
+    "waste_detections": [
+      {
+        "type": "Organic Waste",
+        "classCode": "W50",
+        "confidence": 0.8237,
+        "boundingBox": {
+          "x": 0.6200000047683716,
+          "y": 0.029999999329447746,
+          "width": 79.86000061035156,
+          "height": 99.69999694824219
+        }
+      }
+    ],
+    "vflood_water_coverage_pct": 0.0,
+    "vflood_water_pixels": 0,
+    "vflood_mean_water_prob": 0.0,
+    "vflood_max_water_prob": 0.0083,
+    "vflood_waterlogging_status": "NO SIGNIFICANT WATER",
+    "vflood_severity_tier": "LEVEL 1",
+    "vflood_spatial_topology": "NO_WATER",
+    "vflood_num_connected_components": 0,
+    "vflood_largest_comp_area_pct": 0.0,
+    "vflood_largest_comp_ratio_pct": 0.0,
+    "vflood_vertical_distribution": {
+      "sky_upper_pct": 0.0,
+      "mid_scene_pct": 0.0,
+      "road_ground_pct": 0.0
+    },
+    "vflood_latency_ms": 318.74,
+    "is_water_filled_pothole": false,
+    "final_civicsense_interpretation": "Detected Waste: W50"
+  },
+  {
+    "index": 34,
+    "filename": "garbage 10.jpg",
+    "folder": "Garbage",
+    "category": "GARBAGE",
+    "width": 678,
+    "height": 452,
+    "total_pixels": 306456,
+    "lowResolutionWarning": false,
+    "lowResolutionText": null,
+    "sha256": "c8ab5b0a8a5ba62095cd6625919ca26c95c68b1dc37c06a76b5ef7e7827bee10",
+    "road_raw_count": 0,
+    "road_post_nms_count": 0,
+    "road_classes": [],
+    "road_confidences": [],
+    "road_highest_conf": null,
+    "road_has_d40": false,
+    "road_has_d40_conf_025": false,
+    "road_detections": [],
+    "waste_raw_count": 0,
+    "waste_post_nms_count": 0,
+    "waste_classes": [],
+    "waste_confidences": [],
+    "waste_highest_conf": null,
+    "waste_detections": [],
+    "vflood_water_coverage_pct": 0.15,
+    "vflood_water_pixels": 260,
+    "vflood_mean_water_prob": 0.0015,
+    "vflood_max_water_prob": 0.9998,
+    "vflood_waterlogging_status": "NO SIGNIFICANT WATER",
+    "vflood_severity_tier": "LEVEL 1",
+    "vflood_spatial_topology": "TRACE_OR_SPECULAR_WATER",
+    "vflood_num_connected_components": 8,
+    "vflood_largest_comp_area_pct": 0.09,
+    "vflood_largest_comp_ratio_pct": 61.15,
+    "vflood_vertical_distribution": {
+      "sky_upper_pct": 33.5,
+      "mid_scene_pct": 66.5,
+      "road_ground_pct": 0.0
+    },
+    "vflood_latency_ms": 360.78,
+    "is_water_filled_pothole": false,
+    "final_civicsense_interpretation": "No Significant Defects Detected (Clean / Low Severity)"
+  },
+  {
+    "index": 35,
+    "filename": "garbage 11.jpg",
+    "folder": "Garbage",
+    "category": "GARBAGE",
+    "width": 738,
+    "height": 414,
+    "total_pixels": 305532,
+    "lowResolutionWarning": false,
+    "lowResolutionText": null,
+    "sha256": "e306efabdaf781df5bc65e39d4a0596035b23c34e1003e4583f0556a4dce1311",
+    "road_raw_count": 0,
+    "road_post_nms_count": 0,
+    "road_classes": [],
+    "road_confidences": [],
+    "road_highest_conf": null,
+    "road_has_d40": false,
+    "road_has_d40_conf_025": false,
+    "road_detections": [],
+    "waste_raw_count": 5,
+    "waste_post_nms_count": 1,
+    "waste_classes": [
+      "W20"
+    ],
+    "waste_confidences": [
+      0.538
+    ],
+    "waste_highest_conf": 0.538,
+    "waste_detections": [
+      {
+        "type": "Glass Waste",
+        "classCode": "W20",
+        "confidence": 0.538,
+        "boundingBox": {
+          "x": 0.07999999821186066,
+          "y": 0.0,
+          "width": 81.08999633789062,
+          "height": 99.80999755859375
+        }
+      }
+    ],
+    "vflood_water_coverage_pct": 2.86,
+    "vflood_water_pixels": 4957,
+    "vflood_mean_water_prob": 0.0286,
+    "vflood_max_water_prob": 1.0,
+    "vflood_waterlogging_status": "NO SIGNIFICANT WATER",
+    "vflood_severity_tier": "LEVEL 1",
+    "vflood_spatial_topology": "TRACE_OR_SPECULAR_WATER",
+    "vflood_num_connected_components": 4,
+    "vflood_largest_comp_area_pct": 2.86,
+    "vflood_largest_comp_ratio_pct": 99.9,
+    "vflood_vertical_distribution": {
+      "sky_upper_pct": 0.0,
+      "mid_scene_pct": 100.0,
+      "road_ground_pct": 0.0
+    },
+    "vflood_latency_ms": 356.02,
+    "is_water_filled_pothole": false,
+    "final_civicsense_interpretation": "Detected Waste: W20"
+  },
+  {
+    "index": 36,
+    "filename": "garbage 12.jpg",
+    "folder": "Garbage",
+    "category": "GARBAGE",
+    "width": 480,
+    "height": 638,
+    "total_pixels": 306240,
+    "lowResolutionWarning": false,
+    "lowResolutionText": null,
+    "sha256": "10976b87603c461da3434ca274345a3a42485491b1b9fb13482ae9e8a06ab899",
+    "road_raw_count": 0,
+    "road_post_nms_count": 0,
+    "road_classes": [],
+    "road_confidences": [],
+    "road_highest_conf": null,
+    "road_has_d40": false,
+    "road_has_d40_conf_025": false,
+    "road_detections": [],
+    "waste_raw_count": 11,
+    "waste_post_nms_count": 1,
+    "waste_classes": [
+      "W70"
+    ],
+    "waste_confidences": [
+      0.7155
+    ],
+    "waste_highest_conf": 0.7155,
+    "waste_detections": [
+      {
+        "type": "Plastic Waste",
+        "classCode": "W70",
+        "confidence": 0.7155,
+        "boundingBox": {
+          "x": 0.0,
+          "y": 20.139999389648438,
+          "width": 100.0,
+          "height": 79.79000091552734
+        }
+      }
+    ],
+    "vflood_water_coverage_pct": 0.01,
+    "vflood_water_pixels": 16,
+    "vflood_mean_water_prob": 0.0001,
+    "vflood_max_water_prob": 0.9948,
+    "vflood_waterlogging_status": "NO SIGNIFICANT WATER",
+    "vflood_severity_tier": "LEVEL 1",
+    "vflood_spatial_topology": "TRACE_OR_SPECULAR_WATER",
+    "vflood_num_connected_components": 1,
+    "vflood_largest_comp_area_pct": 0.01,
+    "vflood_largest_comp_ratio_pct": 100.0,
+    "vflood_vertical_distribution": {
+      "sky_upper_pct": 0.0,
+      "mid_scene_pct": 100.0,
+      "road_ground_pct": 0.0
+    },
+    "vflood_latency_ms": 365.0,
+    "is_water_filled_pothole": false,
+    "final_civicsense_interpretation": "Detected Waste: W70"
+  },
+  {
+    "index": 37,
+    "filename": "garbage 13.jpg",
+    "folder": "Garbage",
+    "category": "GARBAGE",
+    "width": 638,
+    "height": 480,
+    "total_pixels": 306240,
+    "lowResolutionWarning": false,
+    "lowResolutionText": null,
+    "sha256": "ade07f030ce9465d11ba16b0d333ed9eafc8d27cbeac5aa8e38305de899fe106",
+    "road_raw_count": 0,
+    "road_post_nms_count": 0,
+    "road_classes": [],
+    "road_confidences": [],
+    "road_highest_conf": null,
+    "road_has_d40": false,
+    "road_has_d40_conf_025": false,
+    "road_detections": [],
+    "waste_raw_count": 9,
+    "waste_post_nms_count": 1,
+    "waste_classes": [
+      "W20"
+    ],
+    "waste_confidences": [
+      0.6942
+    ],
+    "waste_highest_conf": 0.6942,
+    "waste_detections": [
+      {
+        "type": "Glass Waste",
+        "classCode": "W20",
+        "confidence": 0.6942,
+        "boundingBox": {
+          "x": 0.12999999523162842,
+          "y": 0.0,
+          "width": 81.3499984741211,
+          "height": 100.0
+        }
+      }
+    ],
+    "vflood_water_coverage_pct": 32.99,
+    "vflood_water_pixels": 57093,
+    "vflood_mean_water_prob": 0.3299,
+    "vflood_max_water_prob": 1.0,
+    "vflood_waterlogging_status": "SIGNIFICANT WATERLOGGING",
+    "vflood_severity_tier": "LEVEL 3",
+    "vflood_spatial_topology": "LARGE_CONTINUOUS_ROAD_FLOOD",
+    "vflood_num_connected_components": 6,
+    "vflood_largest_comp_area_pct": 32.99,
+    "vflood_largest_comp_ratio_pct": 99.99,
+    "vflood_vertical_distribution": {
+      "sky_upper_pct": 85.1,
+      "mid_scene_pct": 14.9,
+      "road_ground_pct": 0.0
+    },
+    "vflood_latency_ms": 323.57,
+    "is_water_filled_pothole": false,
+    "final_civicsense_interpretation": "Waterlogging: SIGNIFICANT WATERLOGGING (32.99%) | Detected Waste: W20"
+  },
+  {
+    "index": 38,
+    "filename": "garbage 14.jpg",
+    "folder": "Garbage",
+    "category": "GARBAGE",
+    "width": 480,
+    "height": 638,
+    "total_pixels": 306240,
+    "lowResolutionWarning": false,
+    "lowResolutionText": null,
+    "sha256": "9da07795a6e5803b078a806a0e510c1400d8ffcde79751c20a0020a3046878af",
+    "road_raw_count": 0,
+    "road_post_nms_count": 0,
+    "road_classes": [],
+    "road_confidences": [],
+    "road_highest_conf": null,
+    "road_has_d40": false,
+    "road_has_d40_conf_025": false,
+    "road_detections": [],
+    "waste_raw_count": 5,
+    "waste_post_nms_count": 2,
+    "waste_classes": [
+      "W20",
+      "W70"
+    ],
+    "waste_confidences": [
+      0.6222,
+      0.5732
+    ],
+    "waste_highest_conf": 0.6222,
+    "waste_detections": [
+      {
+        "type": "Glass Waste",
+        "classCode": "W20",
+        "confidence": 0.6222,
+        "boundingBox": {
+          "x": 0.029999999329447746,
+          "y": 0.11999999731779099,
+          "width": 99.97000122070312,
+          "height": 81.37000274658203
+        }
+      },
+      {
+        "type": "Plastic Waste",
+        "classCode": "W70",
+        "confidence": 0.5732,
+        "boundingBox": {
+          "x": 0.0,
+          "y": 20.139999389648438,
+          "width": 100.0,
+          "height": 79.80999755859375
+        }
+      }
+    ],
+    "vflood_water_coverage_pct": 0.0,
+    "vflood_water_pixels": 0,
+    "vflood_mean_water_prob": 0.0,
+    "vflood_max_water_prob": 0.1092,
+    "vflood_waterlogging_status": "NO SIGNIFICANT WATER",
+    "vflood_severity_tier": "LEVEL 1",
+    "vflood_spatial_topology": "NO_WATER",
+    "vflood_num_connected_components": 0,
+    "vflood_largest_comp_area_pct": 0.0,
+    "vflood_largest_comp_ratio_pct": 0.0,
+    "vflood_vertical_distribution": {
+      "sky_upper_pct": 0.0,
+      "mid_scene_pct": 0.0,
+      "road_ground_pct": 0.0
+    },
+    "vflood_latency_ms": 325.24,
+    "is_water_filled_pothole": false,
+    "final_civicsense_interpretation": "Detected Waste: W20, W70"
+  },
+  {
+    "index": 39,
+    "filename": "garbage 15.jpg",
+    "folder": "Garbage",
+    "category": "GARBAGE",
+    "width": 515,
+    "height": 388,
+    "total_pixels": 199820,
+    "lowResolutionWarning": false,
+    "lowResolutionText": null,
+    "sha256": "629b073a086d9c6cd3839523a8ef0a5e9c50811db2c72b54b45115f4f22664eb",
+    "road_raw_count": 0,
+    "road_post_nms_count": 0,
+    "road_classes": [],
+    "road_confidences": [],
+    "road_highest_conf": null,
+    "road_has_d40": false,
+    "road_has_d40_conf_025": false,
+    "road_detections": [],
+    "waste_raw_count": 2,
+    "waste_post_nms_count": 1,
+    "waste_classes": [
+      "W70"
+    ],
+    "waste_confidences": [
+      0.5536
+    ],
+    "waste_highest_conf": 0.5536,
+    "waste_detections": [
+      {
+        "type": "Plastic Waste",
+        "classCode": "W70",
+        "confidence": 0.5536,
+        "boundingBox": {
+          "x": 0.23999999463558197,
+          "y": 0.10000000149011612,
+          "width": 76.63999938964844,
+          "height": 99.8499984741211
+        }
+      }
+    ],
+    "vflood_water_coverage_pct": 0.0,
+    "vflood_water_pixels": 1,
+    "vflood_mean_water_prob": 0.0,
+    "vflood_max_water_prob": 0.5716,
+    "vflood_waterlogging_status": "NO SIGNIFICANT WATER",
+    "vflood_severity_tier": "LEVEL 1",
+    "vflood_spatial_topology": "TRACE_OR_SPECULAR_WATER",
+    "vflood_num_connected_components": 1,
+    "vflood_largest_comp_area_pct": 0.0,
+    "vflood_largest_comp_ratio_pct": 100.0,
+    "vflood_vertical_distribution": {
+      "sky_upper_pct": 0.0,
+      "mid_scene_pct": 0.0,
+      "road_ground_pct": 100.0
+    },
+    "vflood_latency_ms": 351.46,
+    "is_water_filled_pothole": false,
+    "final_civicsense_interpretation": "Detected Waste: W70"
+  },
+  {
+    "index": 40,
+    "filename": "garbage 16.jpg",
+    "folder": "Garbage",
+    "category": "GARBAGE",
+    "width": 678,
+    "height": 452,
+    "total_pixels": 306456,
+    "lowResolutionWarning": false,
+    "lowResolutionText": null,
+    "sha256": "de112abc8a850e1f7d428cfd8d67d6cc5792e7a722054aca7cedf5ea595acaee",
+    "road_raw_count": 0,
+    "road_post_nms_count": 0,
+    "road_classes": [],
+    "road_confidences": [],
+    "road_highest_conf": null,
+    "road_has_d40": false,
+    "road_has_d40_conf_025": false,
+    "road_detections": [],
+    "waste_raw_count": 3,
+    "waste_post_nms_count": 1,
+    "waste_classes": [
+      "W70"
+    ],
+    "waste_confidences": [
+      0.5634
+    ],
+    "waste_highest_conf": 0.5634,
+    "waste_detections": [
+      {
+        "type": "Plastic Waste",
+        "classCode": "W70",
+        "confidence": 0.5634,
+        "boundingBox": {
+          "x": 0.5600000023841858,
+          "y": 0.0,
+          "width": 80.4000015258789,
+          "height": 100.0
+        }
+      }
+    ],
+    "vflood_water_coverage_pct": 0.08,
+    "vflood_water_pixels": 143,
+    "vflood_mean_water_prob": 0.0009,
+    "vflood_max_water_prob": 0.999,
+    "vflood_waterlogging_status": "NO SIGNIFICANT WATER",
+    "vflood_severity_tier": "LEVEL 1",
+    "vflood_spatial_topology": "TRACE_OR_SPECULAR_WATER",
+    "vflood_num_connected_components": 6,
+    "vflood_largest_comp_area_pct": 0.06,
+    "vflood_largest_comp_ratio_pct": 75.52,
+    "vflood_vertical_distribution": {
+      "sky_upper_pct": 4.9,
+      "mid_scene_pct": 95.1,
+      "road_ground_pct": 0.0
+    },
+    "vflood_latency_ms": 377.74,
+    "is_water_filled_pothole": false,
+    "final_civicsense_interpretation": "Detected Waste: W70"
+  },
+  {
+    "index": 41,
+    "filename": "garbage 17.jpg",
+    "folder": "Garbage",
+    "category": "GARBAGE",
+    "width": 678,
+    "height": 452,
+    "total_pixels": 306456,
+    "lowResolutionWarning": false,
+    "lowResolutionText": null,
+    "sha256": "ed8b466f7456d8c6104978c5afcca0f770988bbf1b95a602783bf7b798ecd32a",
+    "road_raw_count": 0,
+    "road_post_nms_count": 0,
+    "road_classes": [],
+    "road_confidences": [],
+    "road_highest_conf": null,
+    "road_has_d40": false,
+    "road_has_d40_conf_025": false,
+    "road_detections": [],
+    "waste_raw_count": 5,
+    "waste_post_nms_count": 1,
+    "waste_classes": [
+      "W70"
+    ],
+    "waste_confidences": [
+      0.7362
+    ],
+    "waste_highest_conf": 0.7362,
+    "waste_detections": [
+      {
+        "type": "Plastic Waste",
+        "classCode": "W70",
+        "confidence": 0.7362,
+        "boundingBox": {
+          "x": 0.0,
+          "y": 0.0,
+          "width": 79.5,
+          "height": 100.0
+        }
+      }
+    ],
+    "vflood_water_coverage_pct": 3.1,
+    "vflood_water_pixels": 5357,
+    "vflood_mean_water_prob": 0.0309,
+    "vflood_max_water_prob": 1.0,
+    "vflood_waterlogging_status": "NO SIGNIFICANT WATER",
+    "vflood_severity_tier": "LEVEL 1",
+    "vflood_spatial_topology": "TRACE_OR_SPECULAR_WATER",
+    "vflood_num_connected_components": 12,
+    "vflood_largest_comp_area_pct": 3.07,
+    "vflood_largest_comp_ratio_pct": 99.23,
+    "vflood_vertical_distribution": {
+      "sky_upper_pct": 100.0,
+      "mid_scene_pct": 0.0,
+      "road_ground_pct": 0.0
+    },
+    "vflood_latency_ms": 295.89,
+    "is_water_filled_pothole": false,
+    "final_civicsense_interpretation": "Detected Waste: W70"
+  },
+  {
+    "index": 42,
+    "filename": "garbage 18.jpg",
+    "folder": "Garbage",
+    "category": "GARBAGE",
+    "width": 678,
+    "height": 452,
+    "total_pixels": 306456,
+    "lowResolutionWarning": false,
+    "lowResolutionText": null,
+    "sha256": "28cd56dec2e6f25d029fcb1af6c739f90affcc1fc239eded8bac826485cb9f06",
+    "road_raw_count": 0,
+    "road_post_nms_count": 0,
+    "road_classes": [],
+    "road_confidences": [],
+    "road_highest_conf": null,
+    "road_has_d40": false,
+    "road_has_d40_conf_025": false,
+    "road_detections": [],
+    "waste_raw_count": 10,
+    "waste_post_nms_count": 1,
+    "waste_classes": [
+      "W70"
+    ],
+    "waste_confidences": [
+      0.9585
+    ],
+    "waste_highest_conf": 0.9585,
+    "waste_detections": [
+      {
+        "type": "Plastic Waste",
+        "classCode": "W70",
+        "confidence": 0.9585,
+        "boundingBox": {
+          "x": 0.4300000071525574,
+          "y": 0.0,
+          "width": 78.9800033569336,
+          "height": 99.94000244140625
+        }
+      }
+    ],
+    "vflood_water_coverage_pct": 0.0,
+    "vflood_water_pixels": 0,
+    "vflood_mean_water_prob": 0.0,
+    "vflood_max_water_prob": 0.3072,
+    "vflood_waterlogging_status": "NO SIGNIFICANT WATER",
+    "vflood_severity_tier": "LEVEL 1",
+    "vflood_spatial_topology": "NO_WATER",
+    "vflood_num_connected_components": 0,
+    "vflood_largest_comp_area_pct": 0.0,
+    "vflood_largest_comp_ratio_pct": 0.0,
+    "vflood_vertical_distribution": {
+      "sky_upper_pct": 0.0,
+      "mid_scene_pct": 0.0,
+      "road_ground_pct": 0.0
+    },
+    "vflood_latency_ms": 361.05,
+    "is_water_filled_pothole": false,
+    "final_civicsense_interpretation": "Detected Waste: W70"
+  },
+  {
+    "index": 43,
+    "filename": "garbage 19.jpg",
+    "folder": "Garbage",
+    "category": "GARBAGE",
+    "width": 527,
+    "height": 379,
+    "total_pixels": 199733,
+    "lowResolutionWarning": false,
+    "lowResolutionText": null,
+    "sha256": "7679550ea17857abd68565e6de2d8f522e7f11dc503a6b9e99e78f39418360fd",
+    "road_raw_count": 0,
+    "road_post_nms_count": 0,
+    "road_classes": [],
+    "road_confidences": [],
+    "road_highest_conf": null,
+    "road_has_d40": false,
+    "road_has_d40_conf_025": false,
+    "road_detections": [],
+    "waste_raw_count": 8,
+    "waste_post_nms_count": 1,
+    "waste_classes": [
+      "W70"
+    ],
+    "waste_confidences": [
+      0.9179
+    ],
+    "waste_highest_conf": 0.9179,
+    "waste_detections": [
+      {
+        "type": "Plastic Waste",
+        "classCode": "W70",
+        "confidence": 0.9179,
+        "boundingBox": {
+          "x": 0.5299999713897705,
+          "y": 0.4000000059604645,
+          "width": 79.95999908447266,
+          "height": 99.5999984741211
+        }
+      }
+    ],
+    "vflood_water_coverage_pct": 0.0,
+    "vflood_water_pixels": 0,
+    "vflood_mean_water_prob": 0.0,
+    "vflood_max_water_prob": 0.0198,
+    "vflood_waterlogging_status": "NO SIGNIFICANT WATER",
+    "vflood_severity_tier": "LEVEL 1",
+    "vflood_spatial_topology": "NO_WATER",
+    "vflood_num_connected_components": 0,
+    "vflood_largest_comp_area_pct": 0.0,
+    "vflood_largest_comp_ratio_pct": 0.0,
+    "vflood_vertical_distribution": {
+      "sky_upper_pct": 0.0,
+      "mid_scene_pct": 0.0,
+      "road_ground_pct": 0.0
+    },
+    "vflood_latency_ms": 341.1,
+    "is_water_filled_pothole": false,
+    "final_civicsense_interpretation": "Detected Waste: W70"
+  },
+  {
+    "index": 44,
+    "filename": "garbage 2.webp",
+    "folder": "Garbage",
+    "category": "GARBAGE",
+    "width": 393,
+    "height": 234,
+    "total_pixels": 91962,
+    "lowResolutionWarning": false,
+    "lowResolutionText": null,
+    "sha256": "806b1bc5d7f45e518c3b79780ff2b115df84869330345fddcbfd0b6c5482e467",
+    "road_raw_count": 0,
+    "road_post_nms_count": 0,
+    "road_classes": [],
+    "road_confidences": [],
+    "road_highest_conf": null,
+    "road_has_d40": false,
+    "road_has_d40_conf_025": false,
+    "road_detections": [],
+    "waste_raw_count": 9,
+    "waste_post_nms_count": 1,
+    "waste_classes": [
+      "W70"
+    ],
+    "waste_confidences": [
+      0.7223
+    ],
+    "waste_highest_conf": 0.7223,
+    "waste_detections": [
+      {
+        "type": "Plastic Waste",
+        "classCode": "W70",
+        "confidence": 0.7223,
+        "boundingBox": {
+          "x": 0.4000000059604645,
+          "y": 0.14000000059604645,
+          "width": 77.91999816894531,
+          "height": 99.8499984741211
+        }
+      }
+    ],
+    "vflood_water_coverage_pct": 0.0,
+    "vflood_water_pixels": 0,
+    "vflood_mean_water_prob": 0.0,
+    "vflood_max_water_prob": 0.0004,
+    "vflood_waterlogging_status": "NO SIGNIFICANT WATER",
+    "vflood_severity_tier": "LEVEL 1",
+    "vflood_spatial_topology": "NO_WATER",
+    "vflood_num_connected_components": 0,
+    "vflood_largest_comp_area_pct": 0.0,
+    "vflood_largest_comp_ratio_pct": 0.0,
+    "vflood_vertical_distribution": {
+      "sky_upper_pct": 0.0,
+      "mid_scene_pct": 0.0,
+      "road_ground_pct": 0.0
+    },
+    "vflood_latency_ms": 411.45,
+    "is_water_filled_pothole": false,
+    "final_civicsense_interpretation": "Detected Waste: W70"
+  },
+  {
+    "index": 45,
+    "filename": "garbage 20.jpg",
+    "folder": "Garbage",
+    "category": "GARBAGE",
+    "width": 738,
+    "height": 360,
+    "total_pixels": 265680,
+    "lowResolutionWarning": false,
+    "lowResolutionText": null,
+    "sha256": "50280ec6b112176aca8d3f8e924df302b5cffd8e1e60b2d2c2ef7a77a8b07795",
+    "road_raw_count": 0,
+    "road_post_nms_count": 0,
+    "road_classes": [],
+    "road_confidences": [],
+    "road_highest_conf": null,
+    "road_has_d40": false,
+    "road_has_d40_conf_025": false,
+    "road_detections": [],
+    "waste_raw_count": 3,
+    "waste_post_nms_count": 1,
+    "waste_classes": [
+      "W70"
+    ],
+    "waste_confidences": [
+      0.5635
+    ],
+    "waste_highest_conf": 0.5635,
+    "waste_detections": [
+      {
+        "type": "Plastic Waste",
+        "classCode": "W70",
+        "confidence": 0.5635,
+        "boundingBox": {
+          "x": 0.0,
+          "y": 0.07999999821186066,
+          "width": 79.41999816894531,
+          "height": 99.87000274658203
+        }
+      }
+    ],
+    "vflood_water_coverage_pct": 0.0,
+    "vflood_water_pixels": 0,
+    "vflood_mean_water_prob": 0.0,
+    "vflood_max_water_prob": 0.2025,
+    "vflood_waterlogging_status": "NO SIGNIFICANT WATER",
+    "vflood_severity_tier": "LEVEL 1",
+    "vflood_spatial_topology": "NO_WATER",
+    "vflood_num_connected_components": 0,
+    "vflood_largest_comp_area_pct": 0.0,
+    "vflood_largest_comp_ratio_pct": 0.0,
+    "vflood_vertical_distribution": {
+      "sky_upper_pct": 0.0,
+      "mid_scene_pct": 0.0,
+      "road_ground_pct": 0.0
+    },
+    "vflood_latency_ms": 350.46,
+    "is_water_filled_pothole": false,
+    "final_civicsense_interpretation": "Detected Waste: W70"
+  },
+  {
+    "index": 46,
+    "filename": "garbage 21.jpg",
+    "folder": "Garbage",
+    "category": "GARBAGE",
+    "width": 680,
+    "height": 451,
+    "total_pixels": 306680,
+    "lowResolutionWarning": false,
+    "lowResolutionText": null,
+    "sha256": "a9c870a6bef8ef75121b3a6dbf2d5e3c29b43c14a25ab5ffb8e8c2612940b760",
+    "road_raw_count": 0,
+    "road_post_nms_count": 0,
+    "road_classes": [],
+    "road_confidences": [],
+    "road_highest_conf": null,
+    "road_has_d40": false,
+    "road_has_d40_conf_025": false,
+    "road_detections": [],
+    "waste_raw_count": 9,
+    "waste_post_nms_count": 1,
+    "waste_classes": [
+      "W70"
+    ],
+    "waste_confidences": [
+      0.8601
+    ],
+    "waste_highest_conf": 0.8601,
+    "waste_detections": [
+      {
+        "type": "Plastic Waste",
+        "classCode": "W70",
+        "confidence": 0.8601,
+        "boundingBox": {
+          "x": 0.4699999988079071,
+          "y": 0.05999999865889549,
+          "width": 78.55999755859375,
+          "height": 99.86000061035156
+        }
+      }
+    ],
+    "vflood_water_coverage_pct": 0.77,
+    "vflood_water_pixels": 1330,
+    "vflood_mean_water_prob": 0.0078,
+    "vflood_max_water_prob": 1.0,
+    "vflood_waterlogging_status": "NO SIGNIFICANT WATER",
+    "vflood_severity_tier": "LEVEL 1",
+    "vflood_spatial_topology": "TRACE_OR_SPECULAR_WATER",
+    "vflood_num_connected_components": 12,
+    "vflood_largest_comp_area_pct": 0.73,
+    "vflood_largest_comp_ratio_pct": 94.66,
+    "vflood_vertical_distribution": {
+      "sky_upper_pct": 0.0,
+      "mid_scene_pct": 100.0,
+      "road_ground_pct": 0.0
+    },
+    "vflood_latency_ms": 396.02,
+    "is_water_filled_pothole": false,
+    "final_civicsense_interpretation": "Detected Waste: W70"
+  },
+  {
+    "index": 47,
+    "filename": "garbage 22.jpg",
+    "folder": "Garbage",
+    "category": "GARBAGE",
+    "width": 398,
+    "height": 225,
+    "total_pixels": 89550,
+    "lowResolutionWarning": false,
+    "lowResolutionText": null,
+    "sha256": "16dab19d5953bb67ce33c561afd8cd77714423bc8bc6efe185dbe6ddbba88627",
+    "road_raw_count": 0,
+    "road_post_nms_count": 0,
+    "road_classes": [],
+    "road_confidences": [],
+    "road_highest_conf": null,
+    "road_has_d40": false,
+    "road_has_d40_conf_025": false,
+    "road_detections": [],
+    "waste_raw_count": 8,
+    "waste_post_nms_count": 1,
+    "waste_classes": [
+      "W70"
+    ],
+    "waste_confidences": [
+      0.6832
+    ],
+    "waste_highest_conf": 0.6832,
+    "waste_detections": [
+      {
+        "type": "Plastic Waste",
+        "classCode": "W70",
+        "confidence": 0.6832,
+        "boundingBox": {
+          "x": 0.8199999928474426,
+          "y": 0.019999999552965164,
+          "width": 83.05999755859375,
+          "height": 99.9800033569336
+        }
+      }
+    ],
+    "vflood_water_coverage_pct": 5.02,
+    "vflood_water_pixels": 8694,
+    "vflood_mean_water_prob": 0.05,
+    "vflood_max_water_prob": 1.0,
+    "vflood_waterlogging_status": "POSSIBLE WATERLOGGING",
+    "vflood_severity_tier": "LEVEL 2",
+    "vflood_spatial_topology": "DISPERSED_WET_PATCHES",
+    "vflood_num_connected_components": 7,
+    "vflood_largest_comp_area_pct": 4.19,
+    "vflood_largest_comp_ratio_pct": 83.33,
+    "vflood_vertical_distribution": {
+      "sky_upper_pct": 0.3,
+      "mid_scene_pct": 83.3,
+      "road_ground_pct": 16.4
+    },
+    "vflood_latency_ms": 389.92,
+    "is_water_filled_pothole": false,
+    "final_civicsense_interpretation": "Waterlogging: POSSIBLE WATERLOGGING (5.02%) | Detected Waste: W70"
+  },
+  {
+    "index": 48,
+    "filename": "garbage 23.jpg",
+    "folder": "Garbage",
+    "category": "GARBAGE",
+    "width": 678,
+    "height": 452,
+    "total_pixels": 306456,
+    "lowResolutionWarning": false,
+    "lowResolutionText": null,
+    "sha256": "b83a5c5c9a4db686036d47a8a323004e706041ac63100a29cefa2f226ed50532",
+    "road_raw_count": 0,
+    "road_post_nms_count": 0,
+    "road_classes": [],
+    "road_confidences": [],
+    "road_highest_conf": null,
+    "road_has_d40": false,
+    "road_has_d40_conf_025": false,
+    "road_detections": [],
+    "waste_raw_count": 0,
+    "waste_post_nms_count": 0,
+    "waste_classes": [],
+    "waste_confidences": [],
+    "waste_highest_conf": null,
+    "waste_detections": [],
+    "vflood_water_coverage_pct": 4.51,
+    "vflood_water_pixels": 7797,
+    "vflood_mean_water_prob": 0.045,
+    "vflood_max_water_prob": 1.0,
+    "vflood_waterlogging_status": "NO SIGNIFICANT WATER",
+    "vflood_severity_tier": "LEVEL 1",
+    "vflood_spatial_topology": "TRACE_OR_SPECULAR_WATER",
+    "vflood_num_connected_components": 5,
+    "vflood_largest_comp_area_pct": 2.58,
+    "vflood_largest_comp_ratio_pct": 57.27,
+    "vflood_vertical_distribution": {
+      "sky_upper_pct": 45.4,
+      "mid_scene_pct": 54.6,
+      "road_ground_pct": 0.0
+    },
+    "vflood_latency_ms": 360.42,
+    "is_water_filled_pothole": false,
+    "final_civicsense_interpretation": "No Significant Defects Detected (Clean / Low Severity)"
+  },
+  {
+    "index": 49,
+    "filename": "garbage 24.jpg",
+    "folder": "Garbage",
+    "category": "GARBAGE",
+    "width": 447,
+    "height": 447,
+    "total_pixels": 199809,
+    "lowResolutionWarning": false,
+    "lowResolutionText": null,
+    "sha256": "7833e2edd6e47ffdacbcb80bc1a6ede7bf2e860be29c4a8df41ddf87252f85c8",
+    "road_raw_count": 0,
+    "road_post_nms_count": 0,
+    "road_classes": [],
+    "road_confidences": [],
+    "road_highest_conf": null,
+    "road_has_d40": false,
+    "road_has_d40_conf_025": false,
+    "road_detections": [],
+    "waste_raw_count": 10,
+    "waste_post_nms_count": 1,
+    "waste_classes": [
+      "W70"
+    ],
+    "waste_confidences": [
+      0.8126
+    ],
+    "waste_highest_conf": 0.8126,
+    "waste_detections": [
+      {
+        "type": "Plastic Waste",
+        "classCode": "W70",
+        "confidence": 0.8126,
+        "boundingBox": {
+          "x": 0.0,
+          "y": 0.25999999046325684,
+          "width": 78.88999938964844,
+          "height": 76.9800033569336
+        }
+      }
+    ],
+    "vflood_water_coverage_pct": 91.2,
+    "vflood_water_pixels": 157824,
+    "vflood_mean_water_prob": 0.9114,
+    "vflood_max_water_prob": 1.0,
+    "vflood_waterlogging_status": "SIGNIFICANT WATERLOGGING",
+    "vflood_severity_tier": "LEVEL 3",
+    "vflood_spatial_topology": "LARGE_CONTINUOUS_ROAD_FLOOD",
+    "vflood_num_connected_components": 19,
+    "vflood_largest_comp_area_pct": 91.11,
+    "vflood_largest_comp_ratio_pct": 99.9,
+    "vflood_vertical_distribution": {
+      "sky_upper_pct": 27.5,
+      "mid_scene_pct": 41.5,
+      "road_ground_pct": 30.9
+    },
+    "vflood_latency_ms": 240.19,
+    "is_water_filled_pothole": false,
+    "final_civicsense_interpretation": "Waterlogging: SIGNIFICANT WATERLOGGING (91.2%) | Detected Waste: W70"
+  },
+  {
+    "index": 50,
+    "filename": "garbage 25.jpg",
+    "folder": "Garbage",
+    "category": "GARBAGE",
+    "width": 678,
+    "height": 452,
+    "total_pixels": 306456,
+    "lowResolutionWarning": false,
+    "lowResolutionText": null,
+    "sha256": "3e98bf3305a6a44051c1abca3f8f751deb0ae97f219ebfb10d994b6326bcba74",
+    "road_raw_count": 0,
+    "road_post_nms_count": 0,
+    "road_classes": [],
+    "road_confidences": [],
+    "road_highest_conf": null,
+    "road_has_d40": false,
+    "road_has_d40_conf_025": false,
+    "road_detections": [],
+    "waste_raw_count": 9,
+    "waste_post_nms_count": 1,
+    "waste_classes": [
+      "W70"
+    ],
+    "waste_confidences": [
+      0.8472
+    ],
+    "waste_highest_conf": 0.8472,
+    "waste_detections": [
+      {
+        "type": "Plastic Waste",
+        "classCode": "W70",
+        "confidence": 0.8472,
+        "boundingBox": {
+          "x": 0.4300000071525574,
+          "y": 0.0,
+          "width": 79.08999633789062,
+          "height": 100.0
+        }
+      }
+    ],
+    "vflood_water_coverage_pct": 0.0,
+    "vflood_water_pixels": 0,
+    "vflood_mean_water_prob": 0.0,
+    "vflood_max_water_prob": 0.0968,
+    "vflood_waterlogging_status": "NO SIGNIFICANT WATER",
+    "vflood_severity_tier": "LEVEL 1",
+    "vflood_spatial_topology": "NO_WATER",
+    "vflood_num_connected_components": 0,
+    "vflood_largest_comp_area_pct": 0.0,
+    "vflood_largest_comp_ratio_pct": 0.0,
+    "vflood_vertical_distribution": {
+      "sky_upper_pct": 0.0,
+      "mid_scene_pct": 0.0,
+      "road_ground_pct": 0.0
+    },
+    "vflood_latency_ms": 406.92,
+    "is_water_filled_pothole": false,
+    "final_civicsense_interpretation": "Detected Waste: W70"
+  },
+  {
+    "index": 51,
+    "filename": "garbage 26.jpg",
+    "folder": "Garbage",
+    "category": "GARBAGE",
+    "width": 515,
+    "height": 388,
+    "total_pixels": 199820,
+    "lowResolutionWarning": false,
+    "lowResolutionText": null,
+    "sha256": "f33a0e403cf5214a97c51fbad5fcb55d1f57a748cd5f081d49fdc44515bb934c",
+    "road_raw_count": 0,
+    "road_post_nms_count": 0,
+    "road_classes": [],
+    "road_confidences": [],
+    "road_highest_conf": null,
+    "road_has_d40": false,
+    "road_has_d40_conf_025": false,
+    "road_detections": [],
+    "waste_raw_count": 2,
+    "waste_post_nms_count": 1,
+    "waste_classes": [
+      "W70"
+    ],
+    "waste_confidences": [
+      0.585
+    ],
+    "waste_highest_conf": 0.585,
+    "waste_detections": [
+      {
+        "type": "Plastic Waste",
+        "classCode": "W70",
+        "confidence": 0.585,
+        "boundingBox": {
+          "x": 0.019999999552965164,
+          "y": 0.009999999776482582,
+          "width": 79.29000091552734,
+          "height": 99.8499984741211
+        }
+      }
+    ],
+    "vflood_water_coverage_pct": 0.28,
+    "vflood_water_pixels": 493,
+    "vflood_mean_water_prob": 0.0028,
+    "vflood_max_water_prob": 1.0,
+    "vflood_waterlogging_status": "NO SIGNIFICANT WATER",
+    "vflood_severity_tier": "LEVEL 1",
+    "vflood_spatial_topology": "TRACE_OR_SPECULAR_WATER",
+    "vflood_num_connected_components": 2,
+    "vflood_largest_comp_area_pct": 0.21,
+    "vflood_largest_comp_ratio_pct": 72.01,
+    "vflood_vertical_distribution": {
+      "sky_upper_pct": 0.0,
+      "mid_scene_pct": 100.0,
+      "road_ground_pct": 0.0
+    },
+    "vflood_latency_ms": 380.76,
+    "is_water_filled_pothole": false,
+    "final_civicsense_interpretation": "Detected Waste: W70"
+  },
+  {
+    "index": 52,
+    "filename": "garbage 27.jpg",
+    "folder": "Garbage",
+    "category": "GARBAGE",
+    "width": 678,
+    "height": 452,
+    "total_pixels": 306456,
+    "lowResolutionWarning": false,
+    "lowResolutionText": null,
+    "sha256": "1692e2dfb568aae8206a12c00b1822ca70415d8af38622be3ac0815bce8a2b18",
+    "road_raw_count": 0,
+    "road_post_nms_count": 0,
+    "road_classes": [],
+    "road_confidences": [],
+    "road_highest_conf": null,
+    "road_has_d40": false,
+    "road_has_d40_conf_025": false,
+    "road_detections": [],
+    "waste_raw_count": 1,
+    "waste_post_nms_count": 1,
+    "waste_classes": [
+      "W70"
+    ],
+    "waste_confidences": [
+      0.517
+    ],
+    "waste_highest_conf": 0.517,
+    "waste_detections": [
+      {
+        "type": "Plastic Waste",
+        "classCode": "W70",
+        "confidence": 0.517,
+        "boundingBox": {
+          "x": 0.0,
+          "y": 0.0,
+          "width": 79.55999755859375,
+          "height": 100.0
+        }
+      }
+    ],
+    "vflood_water_coverage_pct": 0.0,
+    "vflood_water_pixels": 0,
+    "vflood_mean_water_prob": 0.0,
+    "vflood_max_water_prob": 0.0348,
+    "vflood_waterlogging_status": "NO SIGNIFICANT WATER",
+    "vflood_severity_tier": "LEVEL 1",
+    "vflood_spatial_topology": "NO_WATER",
+    "vflood_num_connected_components": 0,
+    "vflood_largest_comp_area_pct": 0.0,
+    "vflood_largest_comp_ratio_pct": 0.0,
+    "vflood_vertical_distribution": {
+      "sky_upper_pct": 0.0,
+      "mid_scene_pct": 0.0,
+      "road_ground_pct": 0.0
+    },
+    "vflood_latency_ms": 368.66,
+    "is_water_filled_pothole": false,
+    "final_civicsense_interpretation": "Detected Waste: W70"
+  },
+  {
+    "index": 53,
+    "filename": "garbage 28.jpg",
+    "folder": "Garbage",
+    "category": "GARBAGE",
+    "width": 678,
+    "height": 452,
+    "total_pixels": 306456,
+    "lowResolutionWarning": false,
+    "lowResolutionText": null,
+    "sha256": "18466861f0a9dc138ad11ccef5db26ab7ed2796d50d8e85ce41e740291a573bf",
+    "road_raw_count": 0,
+    "road_post_nms_count": 0,
+    "road_classes": [],
+    "road_confidences": [],
+    "road_highest_conf": null,
+    "road_has_d40": false,
+    "road_has_d40_conf_025": false,
+    "road_detections": [],
+    "waste_raw_count": 0,
+    "waste_post_nms_count": 0,
+    "waste_classes": [],
+    "waste_confidences": [],
+    "waste_highest_conf": null,
+    "waste_detections": [],
+    "vflood_water_coverage_pct": 0.74,
+    "vflood_water_pixels": 1281,
+    "vflood_mean_water_prob": 0.0074,
+    "vflood_max_water_prob": 1.0,
+    "vflood_waterlogging_status": "NO SIGNIFICANT WATER",
+    "vflood_severity_tier": "LEVEL 1",
+    "vflood_spatial_topology": "TRACE_OR_SPECULAR_WATER",
+    "vflood_num_connected_components": 1,
+    "vflood_largest_comp_area_pct": 0.74,
+    "vflood_largest_comp_ratio_pct": 100.0,
+    "vflood_vertical_distribution": {
+      "sky_upper_pct": 0.1,
+      "mid_scene_pct": 99.9,
+      "road_ground_pct": 0.0
+    },
+    "vflood_latency_ms": 386.14,
+    "is_water_filled_pothole": false,
+    "final_civicsense_interpretation": "No Significant Defects Detected (Clean / Low Severity)"
+  },
+  {
+    "index": 54,
+    "filename": "garbage 29.jpg",
+    "folder": "Garbage",
+    "category": "GARBAGE",
+    "width": 638,
+    "height": 480,
+    "total_pixels": 306240,
+    "lowResolutionWarning": false,
+    "lowResolutionText": null,
+    "sha256": "422c3de04267771953c71d1c43586855caed87a9ff4501a3e1db0e7a5af5fc45",
+    "road_raw_count": 0,
+    "road_post_nms_count": 0,
+    "road_classes": [],
+    "road_confidences": [],
+    "road_highest_conf": null,
+    "road_has_d40": false,
+    "road_has_d40_conf_025": false,
+    "road_detections": [],
+    "waste_raw_count": 2,
+    "waste_post_nms_count": 1,
+    "waste_classes": [
+      "W20"
+    ],
+    "waste_confidences": [
+      0.5377
+    ],
+    "waste_highest_conf": 0.5377,
+    "waste_detections": [
+      {
+        "type": "Glass Waste",
+        "classCode": "W20",
+        "confidence": 0.5377,
+        "boundingBox": {
+          "x": 0.0,
+          "y": 0.029999999329447746,
+          "width": 79.43000030517578,
+          "height": 99.97000122070312
+        }
+      }
+    ],
+    "vflood_water_coverage_pct": 0.0,
+    "vflood_water_pixels": 0,
+    "vflood_mean_water_prob": 0.0,
+    "vflood_max_water_prob": 0.0027,
+    "vflood_waterlogging_status": "NO SIGNIFICANT WATER",
+    "vflood_severity_tier": "LEVEL 1",
+    "vflood_spatial_topology": "NO_WATER",
+    "vflood_num_connected_components": 0,
+    "vflood_largest_comp_area_pct": 0.0,
+    "vflood_largest_comp_ratio_pct": 0.0,
+    "vflood_vertical_distribution": {
+      "sky_upper_pct": 0.0,
+      "mid_scene_pct": 0.0,
+      "road_ground_pct": 0.0
+    },
+    "vflood_latency_ms": 473.56,
+    "is_water_filled_pothole": false,
+    "final_civicsense_interpretation": "Detected Waste: W20"
+  },
+  {
+    "index": 55,
+    "filename": "garbage 3.webp",
+    "folder": "Garbage",
+    "category": "GARBAGE",
+    "width": 431,
+    "height": 234,
+    "total_pixels": 100854,
+    "lowResolutionWarning": false,
+    "lowResolutionText": null,
+    "sha256": "0fcbaba1df63a6494f6fb22f12b919a1167ee573c759b8f66f7f67c54e1f6d58",
+    "road_raw_count": 0,
+    "road_post_nms_count": 0,
+    "road_classes": [],
+    "road_confidences": [],
+    "road_highest_conf": null,
+    "road_has_d40": false,
+    "road_has_d40_conf_025": false,
+    "road_detections": [],
+    "waste_raw_count": 0,
+    "waste_post_nms_count": 0,
+    "waste_classes": [],
+    "waste_confidences": [],
+    "waste_highest_conf": null,
+    "waste_detections": [],
+    "vflood_water_coverage_pct": 2.58,
+    "vflood_water_pixels": 4462,
+    "vflood_mean_water_prob": 0.0258,
+    "vflood_max_water_prob": 1.0,
+    "vflood_waterlogging_status": "NO SIGNIFICANT WATER",
+    "vflood_severity_tier": "LEVEL 1",
+    "vflood_spatial_topology": "TRACE_OR_SPECULAR_WATER",
+    "vflood_num_connected_components": 2,
+    "vflood_largest_comp_area_pct": 2.58,
+    "vflood_largest_comp_ratio_pct": 99.98,
+    "vflood_vertical_distribution": {
+      "sky_upper_pct": 0.0,
+      "mid_scene_pct": 100.0,
+      "road_ground_pct": 0.0
+    },
+    "vflood_latency_ms": 449.68,
+    "is_water_filled_pothole": false,
+    "final_civicsense_interpretation": "No Significant Defects Detected (Clean / Low Severity)"
+  },
+  {
+    "index": 56,
+    "filename": "garbage 30.jpg",
+    "folder": "Garbage",
+    "category": "GARBAGE",
+    "width": 515,
+    "height": 388,
+    "total_pixels": 199820,
+    "lowResolutionWarning": false,
+    "lowResolutionText": null,
+    "sha256": "bd30715053534ce9c2174147a429c46ca9b0c8c3cc9efd917fadb2354d64f48a",
+    "road_raw_count": 0,
+    "road_post_nms_count": 0,
+    "road_classes": [],
+    "road_confidences": [],
+    "road_highest_conf": null,
+    "road_has_d40": false,
+    "road_has_d40_conf_025": false,
+    "road_detections": [],
+    "waste_raw_count": 10,
+    "waste_post_nms_count": 1,
+    "waste_classes": [
+      "W70"
+    ],
+    "waste_confidences": [
+      0.9617
+    ],
+    "waste_highest_conf": 0.9617,
+    "waste_detections": [
+      {
+        "type": "Plastic Waste",
+        "classCode": "W70",
+        "confidence": 0.9617,
+        "boundingBox": {
+          "x": 0.0,
+          "y": 0.05999999865889549,
+          "width": 79.37000274658203,
+          "height": 99.8499984741211
+        }
+      }
+    ],
+    "vflood_water_coverage_pct": 1.33,
+    "vflood_water_pixels": 2300,
+    "vflood_mean_water_prob": 0.0133,
+    "vflood_max_water_prob": 1.0,
+    "vflood_waterlogging_status": "NO SIGNIFICANT WATER",
+    "vflood_severity_tier": "LEVEL 1",
+    "vflood_spatial_topology": "TRACE_OR_SPECULAR_WATER",
+    "vflood_num_connected_components": 7,
+    "vflood_largest_comp_area_pct": 1.1,
+    "vflood_largest_comp_ratio_pct": 83.04,
+    "vflood_vertical_distribution": {
+      "sky_upper_pct": 0.0,
+      "mid_scene_pct": 0.0,
+      "road_ground_pct": 100.0
+    },
+    "vflood_latency_ms": 301.08,
+    "is_water_filled_pothole": false,
+    "final_civicsense_interpretation": "Detected Waste: W70"
+  },
+  {
+    "index": 57,
+    "filename": "garbage 4.webp",
+    "folder": "Garbage",
+    "category": "GARBAGE",
+    "width": 357,
+    "height": 257,
+    "total_pixels": 91749,
+    "lowResolutionWarning": false,
+    "lowResolutionText": null,
+    "sha256": "c9290c699c0957553a85f1ec04fd0a8420db8e9855250dd3c53119238f07bf97",
+    "road_raw_count": 0,
+    "road_post_nms_count": 0,
+    "road_classes": [],
+    "road_confidences": [],
+    "road_highest_conf": null,
+    "road_has_d40": false,
+    "road_has_d40_conf_025": false,
+    "road_detections": [],
+    "waste_raw_count": 0,
+    "waste_post_nms_count": 0,
+    "waste_classes": [],
+    "waste_confidences": [],
+    "waste_highest_conf": null,
+    "waste_detections": [],
+    "vflood_water_coverage_pct": 9.45,
+    "vflood_water_pixels": 16354,
+    "vflood_mean_water_prob": 0.0944,
+    "vflood_max_water_prob": 1.0,
+    "vflood_waterlogging_status": "POSSIBLE WATERLOGGING",
+    "vflood_severity_tier": "LEVEL 2",
+    "vflood_spatial_topology": "LOCALIZED_PUDDLE_OR_POTHOLE_WATER",
+    "vflood_num_connected_components": 2,
+    "vflood_largest_comp_area_pct": 9.45,
+    "vflood_largest_comp_ratio_pct": 99.99,
+    "vflood_vertical_distribution": {
+      "sky_upper_pct": 0.0,
+      "mid_scene_pct": 21.2,
+      "road_ground_pct": 78.8
+    },
+    "vflood_latency_ms": 347.87,
+    "is_water_filled_pothole": false,
+    "final_civicsense_interpretation": "Waterlogging: POSSIBLE WATERLOGGING (9.45%)"
+  },
+  {
+    "index": 58,
+    "filename": "garbage 5.webp",
+    "folder": "Garbage",
+    "category": "GARBAGE",
+    "width": 344,
+    "height": 234,
+    "total_pixels": 80496,
+    "lowResolutionWarning": false,
+    "lowResolutionText": null,
+    "sha256": "ed0ddcceefbffa96ac8deaeb33c75c056f8d47ab3493d99d401553ce1f166369",
+    "road_raw_count": 0,
+    "road_post_nms_count": 0,
+    "road_classes": [],
+    "road_confidences": [],
+    "road_highest_conf": null,
+    "road_has_d40": false,
+    "road_has_d40_conf_025": false,
+    "road_detections": [],
+    "waste_raw_count": 7,
+    "waste_post_nms_count": 1,
+    "waste_classes": [
+      "W70"
+    ],
+    "waste_confidences": [
+      0.8748
+    ],
+    "waste_highest_conf": 0.8748,
+    "waste_detections": [
+      {
+        "type": "Plastic Waste",
+        "classCode": "W70",
+        "confidence": 0.8748,
+        "boundingBox": {
+          "x": 0.4000000059604645,
+          "y": 0.0,
+          "width": 77.9800033569336,
+          "height": 99.73999786376953
+        }
+      }
+    ],
+    "vflood_water_coverage_pct": 1.95,
+    "vflood_water_pixels": 3367,
+    "vflood_mean_water_prob": 0.0194,
+    "vflood_max_water_prob": 1.0,
+    "vflood_waterlogging_status": "NO SIGNIFICANT WATER",
+    "vflood_severity_tier": "LEVEL 1",
+    "vflood_spatial_topology": "TRACE_OR_SPECULAR_WATER",
+    "vflood_num_connected_components": 17,
+    "vflood_largest_comp_area_pct": 1.43,
+    "vflood_largest_comp_ratio_pct": 73.27,
+    "vflood_vertical_distribution": {
+      "sky_upper_pct": 0.0,
+      "mid_scene_pct": 22.9,
+      "road_ground_pct": 77.1
+    },
+    "vflood_latency_ms": 357.99,
+    "is_water_filled_pothole": false,
+    "final_civicsense_interpretation": "Detected Waste: W70"
+  },
+  {
+    "index": 59,
+    "filename": "garbage 6.webp",
+    "folder": "Garbage",
+    "category": "GARBAGE",
+    "width": 354,
+    "height": 236,
+    "total_pixels": 83544,
+    "lowResolutionWarning": false,
+    "lowResolutionText": null,
+    "sha256": "d1b56be9903dcab9896fe63100244f699907fbd56a669c9a83f2c77dd21efc7a",
+    "road_raw_count": 0,
+    "road_post_nms_count": 0,
+    "road_classes": [],
+    "road_confidences": [],
+    "road_highest_conf": null,
+    "road_has_d40": false,
+    "road_has_d40_conf_025": false,
+    "road_detections": [],
+    "waste_raw_count": 8,
+    "waste_post_nms_count": 1,
+    "waste_classes": [
+      "W20"
+    ],
+    "waste_confidences": [
+      0.8162
+    ],
+    "waste_highest_conf": 0.8162,
+    "waste_detections": [
+      {
+        "type": "Glass Waste",
+        "classCode": "W20",
+        "confidence": 0.8162,
+        "boundingBox": {
+          "x": 0.3700000047683716,
+          "y": 0.0,
+          "width": 76.33000183105469,
+          "height": 99.88999938964844
+        }
+      }
+    ],
+    "vflood_water_coverage_pct": 2.38,
+    "vflood_water_pixels": 4116,
+    "vflood_mean_water_prob": 0.0237,
+    "vflood_max_water_prob": 1.0,
+    "vflood_waterlogging_status": "NO SIGNIFICANT WATER",
+    "vflood_severity_tier": "LEVEL 1",
+    "vflood_spatial_topology": "TRACE_OR_SPECULAR_WATER",
+    "vflood_num_connected_components": 8,
+    "vflood_largest_comp_area_pct": 2.29,
+    "vflood_largest_comp_ratio_pct": 96.33,
+    "vflood_vertical_distribution": {
+      "sky_upper_pct": 0.0,
+      "mid_scene_pct": 100.0,
+      "road_ground_pct": 0.0
+    },
+    "vflood_latency_ms": 375.1,
+    "is_water_filled_pothole": false,
+    "final_civicsense_interpretation": "Detected Waste: W20"
+  },
+  {
+    "index": 60,
+    "filename": "garbage 7.webp",
+    "folder": "Garbage",
+    "category": "GARBAGE",
+    "width": 391,
+    "height": 260,
+    "total_pixels": 101660,
+    "lowResolutionWarning": false,
+    "lowResolutionText": null,
+    "sha256": "ce998d660c75cb50ab09b5f655c4f8bc2a7e5323fc8e2e8c238c7bacbba834eb",
+    "road_raw_count": 0,
+    "road_post_nms_count": 0,
+    "road_classes": [],
+    "road_confidences": [],
+    "road_highest_conf": null,
+    "road_has_d40": false,
+    "road_has_d40_conf_025": false,
+    "road_detections": [],
+    "waste_raw_count": 6,
+    "waste_post_nms_count": 1,
+    "waste_classes": [
+      "W70"
+    ],
+    "waste_confidences": [
+      0.8455
+    ],
+    "waste_highest_conf": 0.8455,
+    "waste_detections": [
+      {
+        "type": "Plastic Waste",
+        "classCode": "W70",
+        "confidence": 0.8455,
+        "boundingBox": {
+          "x": 0.41999998688697815,
+          "y": 0.0,
+          "width": 79.26000213623047,
+          "height": 100.0
+        }
+      }
+    ],
+    "vflood_water_coverage_pct": 0.0,
+    "vflood_water_pixels": 3,
+    "vflood_mean_water_prob": 0.0,
+    "vflood_max_water_prob": 0.817,
+    "vflood_waterlogging_status": "NO SIGNIFICANT WATER",
+    "vflood_severity_tier": "LEVEL 1",
+    "vflood_spatial_topology": "TRACE_OR_SPECULAR_WATER",
+    "vflood_num_connected_components": 1,
+    "vflood_largest_comp_area_pct": 0.0,
+    "vflood_largest_comp_ratio_pct": 100.0,
+    "vflood_vertical_distribution": {
+      "sky_upper_pct": 100.0,
+      "mid_scene_pct": 0.0,
+      "road_ground_pct": 0.0
+    },
+    "vflood_latency_ms": 315.18,
+    "is_water_filled_pothole": false,
+    "final_civicsense_interpretation": "Detected Waste: W70"
+  },
+  {
+    "index": 61,
+    "filename": "garbage 8.webp",
+    "folder": "Garbage",
+    "category": "GARBAGE",
+    "width": 358,
+    "height": 234,
+    "total_pixels": 83772,
+    "lowResolutionWarning": false,
+    "lowResolutionText": null,
+    "sha256": "869abaa7843a6cc408158e4a735289de9ec66d2e17e2cc72570c7bbd42312594",
+    "road_raw_count": 0,
+    "road_post_nms_count": 0,
+    "road_classes": [],
+    "road_confidences": [],
+    "road_highest_conf": null,
+    "road_has_d40": false,
+    "road_has_d40_conf_025": false,
+    "road_detections": [],
+    "waste_raw_count": 0,
+    "waste_post_nms_count": 0,
+    "waste_classes": [],
+    "waste_confidences": [],
+    "waste_highest_conf": null,
+    "waste_detections": [],
+    "vflood_water_coverage_pct": 15.5,
+    "vflood_water_pixels": 26816,
+    "vflood_mean_water_prob": 0.1548,
+    "vflood_max_water_prob": 1.0,
+    "vflood_waterlogging_status": "POSSIBLE WATERLOGGING",
+    "vflood_severity_tier": "LEVEL 2",
+    "vflood_spatial_topology": "DISPERSED_WET_PATCHES",
+    "vflood_num_connected_components": 39,
+    "vflood_largest_comp_area_pct": 13.41,
+    "vflood_largest_comp_ratio_pct": 86.57,
+    "vflood_vertical_distribution": {
+      "sky_upper_pct": 0.3,
+      "mid_scene_pct": 83.7,
+      "road_ground_pct": 15.9
+    },
+    "vflood_latency_ms": 379.16,
+    "is_water_filled_pothole": false,
+    "final_civicsense_interpretation": "Waterlogging: POSSIBLE WATERLOGGING (15.5%)"
+  },
+  {
+    "index": 62,
+    "filename": "garbage 9.webp",
+    "folder": "Garbage",
+    "category": "GARBAGE",
+    "width": 332,
+    "height": 244,
+    "total_pixels": 81008,
+    "lowResolutionWarning": false,
+    "lowResolutionText": null,
+    "sha256": "3f3a145fbc74190acedcb148d1607088c463123faeeaf939cef8f76631e0b015",
+    "road_raw_count": 0,
+    "road_post_nms_count": 0,
+    "road_classes": [],
+    "road_confidences": [],
+    "road_highest_conf": null,
+    "road_has_d40": false,
+    "road_has_d40_conf_025": false,
+    "road_detections": [],
+    "waste_raw_count": 8,
+    "waste_post_nms_count": 1,
+    "waste_classes": [
+      "W70"
+    ],
+    "waste_confidences": [
+      0.9036
+    ],
+    "waste_highest_conf": 0.9036,
+    "waste_detections": [
+      {
+        "type": "Plastic Waste",
+        "classCode": "W70",
+        "confidence": 0.9036,
+        "boundingBox": {
+          "x": 0.4399999976158142,
+          "y": 0.4099999964237213,
+          "width": 78.55000305175781,
+          "height": 99.56999969482422
+        }
+      }
+    ],
+    "vflood_water_coverage_pct": 0.0,
+    "vflood_water_pixels": 0,
+    "vflood_mean_water_prob": 0.0,
+    "vflood_max_water_prob": 0.0084,
+    "vflood_waterlogging_status": "NO SIGNIFICANT WATER",
+    "vflood_severity_tier": "LEVEL 1",
+    "vflood_spatial_topology": "NO_WATER",
+    "vflood_num_connected_components": 0,
+    "vflood_largest_comp_area_pct": 0.0,
+    "vflood_largest_comp_ratio_pct": 0.0,
+    "vflood_vertical_distribution": {
+      "sky_upper_pct": 0.0,
+      "mid_scene_pct": 0.0,
+      "road_ground_pct": 0.0
+    },
+    "vflood_latency_ms": 359.07,
+    "is_water_filled_pothole": false,
+    "final_civicsense_interpretation": "Detected Waste: W70"
+  },
+  {
+    "index": 63,
+    "filename": "pathole 1.webp",
+    "folder": "Pathole",
+    "category": "POTHOLE",
+    "width": 340,
+    "height": 256,
+    "total_pixels": 87040,
+    "lowResolutionWarning": false,
+    "lowResolutionText": null,
+    "sha256": "c4642870aaf3d89eae667128e6ed2b236cba9e8285728095029e9855e4b05baf",
+    "road_raw_count": 7,
+    "road_post_nms_count": 1,
+    "road_classes": [
+      "D40"
+    ],
+    "road_confidences": [
+      0.8157
+    ],
+    "road_highest_conf": 0.8157,
+    "road_has_d40": true,
+    "road_has_d40_conf_025": true,
+    "road_detections": [
+      {
+        "type": "Pothole",
+        "classCode": "D40",
+        "confidence": 0.8157,
+        "boundingBox": {
+          "x": 21.90999984741211,
+          "y": 41.5,
+          "width": 42.720001220703125,
+          "height": 26.969999313354492
+        }
+      }
+    ],
+    "waste_raw_count": 0,
+    "waste_post_nms_count": 0,
+    "waste_classes": [],
+    "waste_confidences": [],
+    "waste_highest_conf": null,
+    "waste_detections": [],
+    "vflood_water_coverage_pct": 51.08,
+    "vflood_water_pixels": 88390,
+    "vflood_mean_water_prob": 0.51,
+    "vflood_max_water_prob": 1.0,
+    "vflood_waterlogging_status": "WATER-FILLED POTHOLE",
+    "vflood_severity_tier": "HIGH_ROAD_HAZARD",
+    "vflood_spatial_topology": "LARGE_CONTINUOUS_ROAD_FLOOD",
+    "vflood_num_connected_components": 22,
+    "vflood_largest_comp_area_pct": 50.98,
+    "vflood_largest_comp_ratio_pct": 99.81,
+    "vflood_vertical_distribution": {
+      "sky_upper_pct": 45.8,
+      "mid_scene_pct": 54.2,
+      "road_ground_pct": 0.0
+    },
+    "vflood_latency_ms": 251.82,
+    "is_water_filled_pothole": true,
+    "final_civicsense_interpretation": "Water-Filled Pothole (51.08% water, D40 conf=0.8157)"
+  },
+  {
+    "index": 64,
+    "filename": "pathole 10.webp",
+    "folder": "Pathole",
+    "category": "POTHOLE",
+    "width": 371,
+    "height": 234,
+    "total_pixels": 86814,
+    "lowResolutionWarning": false,
+    "lowResolutionText": null,
+    "sha256": "3ce3d4f00fa95ce9f96b846b872bc6efde096ed09f9afd27c80f8f9cf4f3031f",
+    "road_raw_count": 1,
+    "road_post_nms_count": 1,
+    "road_classes": [
+      "D40"
+    ],
+    "road_confidences": [
+      0.5403
+    ],
+    "road_highest_conf": 0.5403,
+    "road_has_d40": true,
+    "road_has_d40_conf_025": true,
+    "road_detections": [
+      {
+        "type": "Pothole",
+        "classCode": "D40",
+        "confidence": 0.5403,
+        "boundingBox": {
+          "x": 9.229999542236328,
+          "y": 44.630001068115234,
+          "width": 57.56999969482422,
+          "height": 41.880001068115234
+        }
+      }
+    ],
+    "waste_raw_count": 0,
+    "waste_post_nms_count": 0,
+    "waste_classes": [],
+    "waste_confidences": [],
+    "waste_highest_conf": null,
+    "waste_detections": [],
+    "vflood_water_coverage_pct": 29.02,
+    "vflood_water_pixels": 50220,
+    "vflood_mean_water_prob": 0.29,
+    "vflood_max_water_prob": 1.0,
+    "vflood_waterlogging_status": "WATER-FILLED POTHOLE",
+    "vflood_severity_tier": "HIGH_ROAD_HAZARD",
+    "vflood_spatial_topology": "LARGE_CONTINUOUS_ROAD_FLOOD",
+    "vflood_num_connected_components": 6,
+    "vflood_largest_comp_area_pct": 23.17,
+    "vflood_largest_comp_ratio_pct": 79.83,
+    "vflood_vertical_distribution": {
+      "sky_upper_pct": 6.8,
+      "mid_scene_pct": 65.1,
+      "road_ground_pct": 28.1
+    },
+    "vflood_latency_ms": 362.41,
+    "is_water_filled_pothole": true,
+    "final_civicsense_interpretation": "Water-Filled Pothole (29.02% water, D40 conf=0.5403)"
+  },
+  {
+    "index": 65,
+    "filename": "pathole 11.webp",
+    "folder": "Pathole",
+    "category": "POTHOLE",
+    "width": 391,
+    "height": 234,
+    "total_pixels": 91494,
+    "lowResolutionWarning": false,
+    "lowResolutionText": null,
+    "sha256": "c8645e368bb2c60ef5ec6bcd4dd33e65cb7731eeee80d2f07731e40d8a963567",
+    "road_raw_count": 5,
+    "road_post_nms_count": 1,
+    "road_classes": [
+      "D20"
+    ],
+    "road_confidences": [
+      0.6416
+    ],
+    "road_highest_conf": 0.6416,
+    "road_has_d40": false,
+    "road_has_d40_conf_025": false,
+    "road_detections": [
+      {
+        "type": "Alligator Crack",
+        "classCode": "D20",
+        "confidence": 0.6416,
+        "boundingBox": {
+          "x": 0.47999998927116394,
+          "y": 43.189998626708984,
+          "width": 83.44999694824219,
+          "height": 56.349998474121094
+        }
+      }
+    ],
+    "waste_raw_count": 3,
+    "waste_post_nms_count": 1,
+    "waste_classes": [
+      "W50"
+    ],
+    "waste_confidences": [
+      0.6538
+    ],
+    "waste_highest_conf": 0.6538,
+    "waste_detections": [
+      {
+        "type": "Organic Waste",
+        "classCode": "W50",
+        "confidence": 0.6538,
+        "boundingBox": {
+          "x": 0.0,
+          "y": 0.0,
+          "width": 79.41999816894531,
+          "height": 99.86000061035156
+        }
+      }
+    ],
+    "vflood_water_coverage_pct": 0.19,
+    "vflood_water_pixels": 335,
+    "vflood_mean_water_prob": 0.0019,
+    "vflood_max_water_prob": 0.9999,
+    "vflood_waterlogging_status": "NO SIGNIFICANT WATER",
+    "vflood_severity_tier": "LEVEL 1",
+    "vflood_spatial_topology": "TRACE_OR_SPECULAR_WATER",
+    "vflood_num_connected_components": 1,
+    "vflood_largest_comp_area_pct": 0.19,
+    "vflood_largest_comp_ratio_pct": 100.0,
+    "vflood_vertical_distribution": {
+      "sky_upper_pct": 0.0,
+      "mid_scene_pct": 0.0,
+      "road_ground_pct": 100.0
+    },
+    "vflood_latency_ms": 367.23,
+    "is_water_filled_pothole": false,
+    "final_civicsense_interpretation": "Road Damage: D20 | Detected Waste: W50"
+  },
+  {
+    "index": 66,
+    "filename": "pathole 12.webp",
+    "folder": "Pathole",
+    "category": "POTHOLE",
+    "width": 387,
+    "height": 516,
+    "total_pixels": 199692,
+    "lowResolutionWarning": false,
+    "lowResolutionText": null,
+    "sha256": "c39ca2a872e655e3a8d2da91dd3b64e2b9cd0ed0b6e3086651aeadf015626439",
+    "road_raw_count": 40,
+    "road_post_nms_count": 6,
+    "road_classes": [
+      "D40",
+      "D40",
+      "D40",
+      "D40",
+      "D40",
+      "D40"
+    ],
+    "road_confidences": [
+      0.7788,
+      0.7237,
+      0.6466,
+      0.6357,
+      0.58,
+      0.5229
+    ],
+    "road_highest_conf": 0.7788,
+    "road_has_d40": true,
+    "road_has_d40_conf_025": true,
+    "road_detections": [
+      {
+        "type": "Pothole",
+        "classCode": "D40",
+        "confidence": 0.7788,
+        "boundingBox": {
+          "x": 63.619998931884766,
+          "y": 58.59000015258789,
+          "width": 29.25,
+          "height": 8.420000076293945
+        }
+      },
+      {
+        "type": "Pothole",
+        "classCode": "D40",
+        "confidence": 0.7237,
+        "boundingBox": {
+          "x": 9.760000228881836,
+          "y": 68.44000244140625,
+          "width": 53.75,
+          "height": 20.90999984741211
+        }
+      },
+      {
+        "type": "Pothole",
+        "classCode": "D40",
+        "confidence": 0.6466,
+        "boundingBox": {
+          "x": 77.79000091552734,
+          "y": 48.0099983215332,
+          "width": 15.359999656677246,
+          "height": 3.6700000762939453
+        }
+      },
+      {
+        "type": "Pothole",
+        "classCode": "D40",
+        "confidence": 0.6357,
+        "boundingBox": {
+          "x": 40.810001373291016,
+          "y": 48.72999954223633,
+          "width": 21.299999237060547,
+          "height": 5.5
+        }
+      },
+      {
+        "type": "Pothole",
+        "classCode": "D40",
+        "confidence": 0.58,
+        "boundingBox": {
+          "x": 11.670000076293945,
+          "y": 70.16999816894531,
+          "width": 12.350000381469727,
+          "height": 5.139999866485596
+        }
+      },
+      {
+        "type": "Pothole",
+        "classCode": "D40",
+        "confidence": 0.5229,
+        "boundingBox": {
+          "x": 84.80999755859375,
+          "y": 40.58000183105469,
+          "width": 9.899999618530273,
+          "height": 2.950000047683716
+        }
+      }
+    ],
+    "waste_raw_count": 14,
+    "waste_post_nms_count": 1,
+    "waste_classes": [
+      "W70"
+    ],
+    "waste_confidences": [
+      0.9856
+    ],
+    "waste_highest_conf": 0.9856,
+    "waste_detections": [
+      {
+        "type": "Plastic Waste",
+        "classCode": "W70",
+        "confidence": 0.9856,
+        "boundingBox": {
+          "x": 0.0,
+          "y": 20.06999969482422,
+          "width": 100.0,
+          "height": 79.91000366210938
+        }
+      }
+    ],
+    "vflood_water_coverage_pct": 0.45,
+    "vflood_water_pixels": 775,
+    "vflood_mean_water_prob": 0.0045,
+    "vflood_max_water_prob": 1.0,
+    "vflood_waterlogging_status": "NO SIGNIFICANT WATER",
+    "vflood_severity_tier": "LEVEL 1",
+    "vflood_spatial_topology": "TRACE_OR_SPECULAR_WATER",
+    "vflood_num_connected_components": 14,
+    "vflood_largest_comp_area_pct": 0.38,
+    "vflood_largest_comp_ratio_pct": 84.52,
+    "vflood_vertical_distribution": {
+      "sky_upper_pct": 0.0,
+      "mid_scene_pct": 13.9,
+      "road_ground_pct": 86.1
+    },
+    "vflood_latency_ms": 311.17,
+    "is_water_filled_pothole": false,
+    "final_civicsense_interpretation": "Road Damage: D40, D40, D40, D40, D40, D40 | Detected Waste: W70"
+  },
+  {
+    "index": 67,
+    "filename": "pathole 13.webp",
+    "folder": "Pathole",
+    "category": "POTHOLE",
+    "width": 437,
+    "height": 702,
+    "total_pixels": 306774,
+    "lowResolutionWarning": false,
+    "lowResolutionText": null,
+    "sha256": "18830392e975ed96c393ef4ee490bbe2f0fc753f48a2e8f7eb47b2b8c4ae6383",
+    "road_raw_count": 3,
+    "road_post_nms_count": 2,
+    "road_classes": [
+      "D10",
+      "D40"
+    ],
+    "road_confidences": [
+      0.5277,
+      0.5194
+    ],
+    "road_highest_conf": 0.5277,
+    "road_has_d40": true,
+    "road_has_d40_conf_025": true,
+    "road_detections": [
+      {
+        "type": "Transverse Crack",
+        "classCode": "D10",
+        "confidence": 0.5277,
+        "boundingBox": {
+          "x": 57.130001068115234,
+          "y": 15.649999618530273,
+          "width": 28.260000228881836,
+          "height": 3.1600000858306885
+        }
+      },
+      {
+        "type": "Pothole",
+        "classCode": "D40",
+        "confidence": 0.5194,
+        "boundingBox": {
+          "x": 38.029998779296875,
+          "y": 45.470001220703125,
+          "width": 24.09000015258789,
+          "height": 47.709999084472656
+        }
+      }
+    ],
+    "waste_raw_count": 11,
+    "waste_post_nms_count": 1,
+    "waste_classes": [
+      "W70"
+    ],
+    "waste_confidences": [
+      0.9815
+    ],
+    "waste_highest_conf": 0.9815,
+    "waste_detections": [
+      {
+        "type": "Plastic Waste",
+        "classCode": "W70",
+        "confidence": 0.9815,
+        "boundingBox": {
+          "x": 0.0,
+          "y": 0.3400000035762787,
+          "width": 99.79000091552734,
+          "height": 75.75
+        }
+      }
+    ],
+    "vflood_water_coverage_pct": 78.78,
+    "vflood_water_pixels": 136328,
+    "vflood_mean_water_prob": 0.7872,
+    "vflood_max_water_prob": 1.0,
+    "vflood_waterlogging_status": "WATER-FILLED POTHOLE",
+    "vflood_severity_tier": "HIGH_ROAD_HAZARD",
+    "vflood_spatial_topology": "LARGE_CONTINUOUS_ROAD_FLOOD",
+    "vflood_num_connected_components": 41,
+    "vflood_largest_comp_area_pct": 78.5,
+    "vflood_largest_comp_ratio_pct": 99.65,
+    "vflood_vertical_distribution": {
+      "sky_upper_pct": 29.8,
+      "mid_scene_pct": 47.1,
+      "road_ground_pct": 23.0
+    },
+    "vflood_latency_ms": 432.96,
+    "is_water_filled_pothole": true,
+    "final_civicsense_interpretation": "Water-Filled Pothole (78.78% water, D40 conf=0.5194) | Detected Waste: W70"
+  },
+  {
+    "index": 68,
+    "filename": "pathole 14.webp",
+    "folder": "Pathole",
+    "category": "POTHOLE",
+    "width": 151,
+    "height": 200,
+    "total_pixels": 30200,
+    "lowResolutionWarning": true,
+    "lowResolutionText": "LOW RESOLUTION (151x200 < 300x200 / < 60k px)",
+    "sha256": "33afcf3f064849da84b331845681a547286d5eaa995a04c99b1ab17a9c31bcc3",
+    "road_raw_count": 10,
+    "road_post_nms_count": 1,
+    "road_classes": [
+      "D20"
+    ],
+    "road_confidences": [
+      0.7089
+    ],
+    "road_highest_conf": 0.7089,
+    "road_has_d40": false,
+    "road_has_d40_conf_025": true,
+    "road_detections": [
+      {
+        "type": "Alligator Crack",
+        "classCode": "D20",
+        "confidence": 0.7089,
+        "boundingBox": {
+          "x": 6.199999809265137,
+          "y": 24.270000457763672,
+          "width": 91.80999755859375,
+          "height": 75.7300033569336
+        }
+      }
+    ],
+    "waste_raw_count": 14,
+    "waste_post_nms_count": 1,
+    "waste_classes": [
+      "W50"
+    ],
+    "waste_confidences": [
+      0.9385
+    ],
+    "waste_highest_conf": 0.9385,
+    "waste_detections": [
+      {
+        "type": "Organic Waste",
+        "classCode": "W50",
+        "confidence": 0.9385,
+        "boundingBox": {
+          "x": 0.0,
+          "y": 20.1299991607666,
+          "width": 99.98999786376953,
+          "height": 79.83000183105469
+        }
+      }
+    ],
+    "vflood_water_coverage_pct": 7.51,
+    "vflood_water_pixels": 12988,
+    "vflood_mean_water_prob": 0.0751,
+    "vflood_max_water_prob": 1.0,
+    "vflood_waterlogging_status": "WATER-FILLED POTHOLE",
+    "vflood_severity_tier": "HIGH_ROAD_HAZARD",
+    "vflood_spatial_topology": "DISPERSED_WET_PATCHES",
+    "vflood_num_connected_components": 19,
+    "vflood_largest_comp_area_pct": 7.01,
+    "vflood_largest_comp_ratio_pct": 93.36,
+    "vflood_vertical_distribution": {
+      "sky_upper_pct": 0.0,
+      "mid_scene_pct": 97.5,
+      "road_ground_pct": 2.5
+    },
+    "vflood_latency_ms": 308.89,
+    "is_water_filled_pothole": true,
+    "final_civicsense_interpretation": "Water-Filled Pothole (7.51% water, D40 conf=0.3008) | Detected Waste: W50"
+  },
+  {
+    "index": 69,
+    "filename": "pathole 15.webp",
+    "folder": "Pathole",
+    "category": "POTHOLE",
+    "width": 738,
+    "height": 414,
+    "total_pixels": 305532,
+    "lowResolutionWarning": false,
+    "lowResolutionText": null,
+    "sha256": "7fe7d3ab95ccc178e8ca2cfaf796682b24ca5d1c47df57eccceb79bbfd7b3dcb",
+    "road_raw_count": 1,
+    "road_post_nms_count": 1,
+    "road_classes": [
+      "D20"
+    ],
+    "road_confidences": [
+      0.5038
+    ],
+    "road_highest_conf": 0.5038,
+    "road_has_d40": false,
+    "road_has_d40_conf_025": false,
+    "road_detections": [
+      {
+        "type": "Alligator Crack",
+        "classCode": "D20",
+        "confidence": 0.5038,
+        "boundingBox": {
+          "x": 0.0,
+          "y": 36.810001373291016,
+          "width": 75.9800033569336,
+          "height": 62.81999969482422
+        }
+      }
+    ],
+    "waste_raw_count": 1,
+    "waste_post_nms_count": 1,
+    "waste_classes": [
+      "W70"
+    ],
+    "waste_confidences": [
+      0.5187
+    ],
+    "waste_highest_conf": 0.5187,
+    "waste_detections": [
+      {
+        "type": "Plastic Waste",
+        "classCode": "W70",
+        "confidence": 0.5187,
+        "boundingBox": {
+          "x": 0.07999999821186066,
+          "y": 0.0,
+          "width": 78.11000061035156,
+          "height": 99.91000366210938
+        }
+      }
+    ],
+    "vflood_water_coverage_pct": 48.26,
+    "vflood_water_pixels": 83522,
+    "vflood_mean_water_prob": 0.4825,
+    "vflood_max_water_prob": 1.0,
+    "vflood_waterlogging_status": "SIGNIFICANT WATERLOGGING",
+    "vflood_severity_tier": "LEVEL 3",
+    "vflood_spatial_topology": "LARGE_CONTINUOUS_ROAD_FLOOD",
+    "vflood_num_connected_components": 21,
+    "vflood_largest_comp_area_pct": 48.2,
+    "vflood_largest_comp_ratio_pct": 99.86,
+    "vflood_vertical_distribution": {
+      "sky_upper_pct": 0.1,
+      "mid_scene_pct": 55.8,
+      "road_ground_pct": 44.1
+    },
+    "vflood_latency_ms": 382.11,
+    "is_water_filled_pothole": false,
+    "final_civicsense_interpretation": "Waterlogging: SIGNIFICANT WATERLOGGING (48.26%) | Road Damage: D20 | Detected Waste: W70"
+  },
+  {
+    "index": 70,
+    "filename": "pathole 16.webp",
+    "folder": "Pathole",
+    "category": "POTHOLE",
+    "width": 452,
+    "height": 678,
+    "total_pixels": 306456,
+    "lowResolutionWarning": false,
+    "lowResolutionText": null,
+    "sha256": "685588c27d715566eb47feceb8d050224636ea031b413f1b6583817ecebdd9ef",
+    "road_raw_count": 6,
+    "road_post_nms_count": 2,
+    "road_classes": [
+      "D20",
+      "D20"
+    ],
+    "road_confidences": [
+      0.619,
+      0.5198
+    ],
+    "road_highest_conf": 0.619,
+    "road_has_d40": false,
+    "road_has_d40_conf_025": false,
+    "road_detections": [
+      {
+        "type": "Alligator Crack",
+        "classCode": "D20",
+        "confidence": 0.619,
+        "boundingBox": {
+          "x": 7.449999809265137,
+          "y": 28.299999237060547,
+          "width": 91.79000091552734,
+          "height": 46.72999954223633
+        }
+      },
+      {
+        "type": "Alligator Crack",
+        "classCode": "D20",
+        "confidence": 0.5198,
+        "boundingBox": {
+          "x": 0.30000001192092896,
+          "y": 17.280000686645508,
+          "width": 21.770000457763672,
+          "height": 10.65999984741211
+        }
+      }
+    ],
+    "waste_raw_count": 8,
+    "waste_post_nms_count": 1,
+    "waste_classes": [
+      "W70"
+    ],
+    "waste_confidences": [
+      0.9477
+    ],
+    "waste_highest_conf": 0.9477,
+    "waste_detections": [
+      {
+        "type": "Plastic Waste",
+        "classCode": "W70",
+        "confidence": 0.9477,
+        "boundingBox": {
+          "x": 0.12999999523162842,
+          "y": 1.25,
+          "width": 99.87000274658203,
+          "height": 84.5199966430664
+        }
+      }
+    ],
+    "vflood_water_coverage_pct": 2.46,
+    "vflood_water_pixels": 4249,
+    "vflood_mean_water_prob": 0.0245,
+    "vflood_max_water_prob": 1.0,
+    "vflood_waterlogging_status": "NO SIGNIFICANT WATER",
+    "vflood_severity_tier": "LEVEL 1",
+    "vflood_spatial_topology": "TRACE_OR_SPECULAR_WATER",
+    "vflood_num_connected_components": 13,
+    "vflood_largest_comp_area_pct": 2.39,
+    "vflood_largest_comp_ratio_pct": 97.39,
+    "vflood_vertical_distribution": {
+      "sky_upper_pct": 0.0,
+      "mid_scene_pct": 0.0,
+      "road_ground_pct": 100.0
+    },
+    "vflood_latency_ms": 360.08,
+    "is_water_filled_pothole": false,
+    "final_civicsense_interpretation": "Road Damage: D20, D20 | Detected Waste: W70"
+  },
+  {
+    "index": 71,
+    "filename": "pathole 17.webp",
+    "folder": "Pathole",
+    "category": "POTHOLE",
+    "width": 200,
+    "height": 200,
+    "total_pixels": 40000,
+    "lowResolutionWarning": true,
+    "lowResolutionText": "LOW RESOLUTION (200x200 < 300x200 / < 60k px)",
+    "sha256": "a1b8d3e9667cca25e4370894bf6df9aaf7655d9f4f587da23ceff676122a2faa",
+    "road_raw_count": 0,
+    "road_post_nms_count": 0,
+    "road_classes": [],
+    "road_confidences": [],
+    "road_highest_conf": null,
+    "road_has_d40": false,
+    "road_has_d40_conf_025": false,
+    "road_detections": [],
+    "waste_raw_count": 11,
+    "waste_post_nms_count": 1,
+    "waste_classes": [
+      "W50"
+    ],
+    "waste_confidences": [
+      0.8873
+    ],
+    "waste_highest_conf": 0.8873,
+    "waste_detections": [
+      {
+        "type": "Organic Waste",
+        "classCode": "W50",
+        "confidence": 0.8873,
+        "boundingBox": {
+          "x": 0.2199999988079071,
+          "y": 0.0,
+          "width": 81.33000183105469,
+          "height": 79.87000274658203
+        }
+      }
+    ],
+    "vflood_water_coverage_pct": 0.0,
+    "vflood_water_pixels": 0,
+    "vflood_mean_water_prob": 0.0,
+    "vflood_max_water_prob": 0.012,
+    "vflood_waterlogging_status": "NO SIGNIFICANT WATER",
+    "vflood_severity_tier": "LEVEL 1",
+    "vflood_spatial_topology": "NO_WATER",
+    "vflood_num_connected_components": 0,
+    "vflood_largest_comp_area_pct": 0.0,
+    "vflood_largest_comp_ratio_pct": 0.0,
+    "vflood_vertical_distribution": {
+      "sky_upper_pct": 0.0,
+      "mid_scene_pct": 0.0,
+      "road_ground_pct": 0.0
+    },
+    "vflood_latency_ms": 282.89,
+    "is_water_filled_pothole": false,
+    "final_civicsense_interpretation": "Detected Waste: W50"
+  },
+  {
+    "index": 72,
+    "filename": "pathole 18.webp",
+    "folder": "Pathole",
+    "category": "POTHOLE",
+    "width": 400,
+    "height": 533,
+    "total_pixels": 213200,
+    "lowResolutionWarning": false,
+    "lowResolutionText": null,
+    "sha256": "a868a4da51c781875c39d5307e158841dc8b9e971094cda2effc2a21dc1cd619",
+    "road_raw_count": 8,
+    "road_post_nms_count": 1,
+    "road_classes": [
+      "D40"
+    ],
+    "road_confidences": [
+      0.7695
+    ],
+    "road_highest_conf": 0.7695,
+    "road_has_d40": true,
+    "road_has_d40_conf_025": true,
+    "road_detections": [
+      {
+        "type": "Pothole",
+        "classCode": "D40",
+        "confidence": 0.7695,
+        "boundingBox": {
+          "x": 38.70000076293945,
+          "y": 44.0099983215332,
+          "width": 30.280000686645508,
+          "height": 14.520000457763672
+        }
+      }
+    ],
+    "waste_raw_count": 10,
+    "waste_post_nms_count": 1,
+    "waste_classes": [
+      "W70"
+    ],
+    "waste_confidences": [
+      0.9823
+    ],
+    "waste_highest_conf": 0.9823,
+    "waste_detections": [
+      {
+        "type": "Plastic Waste",
+        "classCode": "W70",
+        "confidence": 0.9823,
+        "boundingBox": {
+          "x": 0.0,
+          "y": 20.079999923706055,
+          "width": 100.0,
+          "height": 79.87999725341797
+        }
+      }
+    ],
+    "vflood_water_coverage_pct": 0.0,
+    "vflood_water_pixels": 0,
+    "vflood_mean_water_prob": 0.0,
+    "vflood_max_water_prob": 0.0727,
+    "vflood_waterlogging_status": "NO SIGNIFICANT WATER",
+    "vflood_severity_tier": "LEVEL 1",
+    "vflood_spatial_topology": "NO_WATER",
+    "vflood_num_connected_components": 0,
+    "vflood_largest_comp_area_pct": 0.0,
+    "vflood_largest_comp_ratio_pct": 0.0,
+    "vflood_vertical_distribution": {
+      "sky_upper_pct": 0.0,
+      "mid_scene_pct": 0.0,
+      "road_ground_pct": 0.0
+    },
+    "vflood_latency_ms": 303.83,
+    "is_water_filled_pothole": false,
+    "final_civicsense_interpretation": "Road Damage: D40 | Detected Waste: W70"
+  },
+  {
+    "index": 73,
+    "filename": "pathole 19.webp",
+    "folder": "Pathole",
+    "category": "POTHOLE",
+    "width": 389,
+    "height": 280,
+    "total_pixels": 108920,
+    "lowResolutionWarning": false,
+    "lowResolutionText": null,
+    "sha256": "2750570ff0891bcd4990c3780d07b6be2c6ec82d2c065f3d6f8f0adf8821734e",
+    "road_raw_count": 0,
+    "road_post_nms_count": 0,
+    "road_classes": [],
+    "road_confidences": [],
+    "road_highest_conf": null,
+    "road_has_d40": false,
+    "road_has_d40_conf_025": false,
+    "road_detections": [],
+    "waste_raw_count": 9,
+    "waste_post_nms_count": 1,
+    "waste_classes": [
+      "W70"
+    ],
+    "waste_confidences": [
+      0.9878
+    ],
+    "waste_highest_conf": 0.9878,
+    "waste_detections": [
+      {
+        "type": "Plastic Waste",
+        "classCode": "W70",
+        "confidence": 0.9878,
+        "boundingBox": {
+          "x": 0.0,
+          "y": 0.09000000357627869,
+          "width": 79.52999877929688,
+          "height": 99.87999725341797
+        }
+      }
+    ],
+    "vflood_water_coverage_pct": 74.64,
+    "vflood_water_pixels": 129169,
+    "vflood_mean_water_prob": 0.7461,
+    "vflood_max_water_prob": 1.0,
+    "vflood_waterlogging_status": "SIGNIFICANT WATERLOGGING",
+    "vflood_severity_tier": "LEVEL 3",
+    "vflood_spatial_topology": "LARGE_CONTINUOUS_ROAD_FLOOD",
+    "vflood_num_connected_components": 16,
+    "vflood_largest_comp_area_pct": 74.63,
+    "vflood_largest_comp_ratio_pct": 99.98,
+    "vflood_vertical_distribution": {
+      "sky_upper_pct": 16.6,
+      "mid_scene_pct": 53.3,
+      "road_ground_pct": 30.2
+    },
+    "vflood_latency_ms": 317.88,
+    "is_water_filled_pothole": false,
+    "final_civicsense_interpretation": "Waterlogging: SIGNIFICANT WATERLOGGING (74.64%) | Detected Waste: W70"
+  },
+  {
+    "index": 74,
+    "filename": "pathole 2.webp",
+    "folder": "Pathole",
+    "category": "POTHOLE",
+    "width": 297,
+    "height": 234,
+    "total_pixels": 69498,
+    "lowResolutionWarning": true,
+    "lowResolutionText": "LOW RESOLUTION (297x234 < 300x200 / < 60k px)",
+    "sha256": "a1db6a1743382d6d1929d8ee299a91f3b112dddfdf16de7eac63c8abea0046c5",
+    "road_raw_count": 0,
+    "road_post_nms_count": 0,
+    "road_classes": [],
+    "road_confidences": [],
+    "road_highest_conf": null,
+    "road_has_d40": false,
+    "road_has_d40_conf_025": true,
+    "road_detections": [],
+    "waste_raw_count": 10,
+    "waste_post_nms_count": 1,
+    "waste_classes": [
+      "W70"
+    ],
+    "waste_confidences": [
+      0.8969
+    ],
+    "waste_highest_conf": 0.8969,
+    "waste_detections": [
+      {
+        "type": "Plastic Waste",
+        "classCode": "W70",
+        "confidence": 0.8969,
+        "boundingBox": {
+          "x": 0.4099999964237213,
+          "y": 0.0,
+          "width": 78.66999816894531,
+          "height": 99.95999908447266
+        }
+      }
+    ],
+    "vflood_water_coverage_pct": 0.0,
+    "vflood_water_pixels": 0,
+    "vflood_mean_water_prob": 0.0,
+    "vflood_max_water_prob": 0.261,
+    "vflood_waterlogging_status": "NO SIGNIFICANT WATER",
+    "vflood_severity_tier": "LEVEL 1",
+    "vflood_spatial_topology": "NO_WATER",
+    "vflood_num_connected_components": 0,
+    "vflood_largest_comp_area_pct": 0.0,
+    "vflood_largest_comp_ratio_pct": 0.0,
+    "vflood_vertical_distribution": {
+      "sky_upper_pct": 0.0,
+      "mid_scene_pct": 0.0,
+      "road_ground_pct": 0.0
+    },
+    "vflood_latency_ms": 292.13,
+    "is_water_filled_pothole": false,
+    "final_civicsense_interpretation": "Detected Waste: W70"
+  },
+  {
+    "index": 75,
+    "filename": "pathole 20.webp",
+    "folder": "Pathole",
+    "category": "POTHOLE",
+    "width": 320,
+    "height": 173,
+    "total_pixels": 55360,
+    "lowResolutionWarning": true,
+    "lowResolutionText": "LOW RESOLUTION (320x173 < 300x200 / < 60k px)",
+    "sha256": "ce32b06ba5af781a8f0cdec72b227f84a1e10c444cca1e4b53a6b745d2763b19",
+    "road_raw_count": 0,
+    "road_post_nms_count": 0,
+    "road_classes": [],
+    "road_confidences": [],
+    "road_highest_conf": null,
+    "road_has_d40": false,
+    "road_has_d40_conf_025": false,
+    "road_detections": [],
+    "waste_raw_count": 10,
+    "waste_post_nms_count": 1,
+    "waste_classes": [
+      "W50"
+    ],
+    "waste_confidences": [
+      0.8628
+    ],
+    "waste_highest_conf": 0.8628,
+    "waste_detections": [
+      {
+        "type": "Organic Waste",
+        "classCode": "W50",
+        "confidence": 0.8628,
+        "boundingBox": {
+          "x": 0.41999998688697815,
+          "y": 0.0,
+          "width": 73.01000213623047,
+          "height": 99.8499984741211
+        }
+      }
+    ],
+    "vflood_water_coverage_pct": 71.03,
+    "vflood_water_pixels": 122926,
+    "vflood_mean_water_prob": 0.7098,
+    "vflood_max_water_prob": 1.0,
+    "vflood_waterlogging_status": "SIGNIFICANT WATERLOGGING",
+    "vflood_severity_tier": "LEVEL 3",
+    "vflood_spatial_topology": "LARGE_CONTINUOUS_ROAD_FLOOD",
+    "vflood_num_connected_components": 18,
+    "vflood_largest_comp_area_pct": 70.99,
+    "vflood_largest_comp_ratio_pct": 99.95,
+    "vflood_vertical_distribution": {
+      "sky_upper_pct": 38.2,
+      "mid_scene_pct": 31.9,
+      "road_ground_pct": 30.0
+    },
+    "vflood_latency_ms": 226.14,
+    "is_water_filled_pothole": false,
+    "final_civicsense_interpretation": "Waterlogging: SIGNIFICANT WATERLOGGING (71.03%) | Detected Waste: W50"
+  },
+  {
+    "index": 76,
+    "filename": "pathole 21.webp",
+    "folder": "Pathole",
+    "category": "POTHOLE",
+    "width": 540,
+    "height": 360,
+    "total_pixels": 194400,
+    "lowResolutionWarning": false,
+    "lowResolutionText": null,
+    "sha256": "5602dca814be6337df6ee7be725328b29a84c89246d1f33b0fcccdd81640dbfa",
+    "road_raw_count": 4,
+    "road_post_nms_count": 1,
+    "road_classes": [
+      "D40"
+    ],
+    "road_confidences": [
+      0.5702
+    ],
+    "road_highest_conf": 0.5702,
+    "road_has_d40": true,
+    "road_has_d40_conf_025": true,
+    "road_detections": [
+      {
+        "type": "Pothole",
+        "classCode": "D40",
+        "confidence": 0.5702,
+        "boundingBox": {
+          "x": 84.94000244140625,
+          "y": 31.799999237060547,
+          "width": 12.149999618530273,
+          "height": 9.359999656677246
+        }
+      }
+    ],
+    "waste_raw_count": 10,
+    "waste_post_nms_count": 1,
+    "waste_classes": [
+      "W70"
+    ],
+    "waste_confidences": [
+      0.9481
+    ],
+    "waste_highest_conf": 0.9481,
+    "waste_detections": [
+      {
+        "type": "Plastic Waste",
+        "classCode": "W70",
+        "confidence": 0.9481,
+        "boundingBox": {
+          "x": 0.0,
+          "y": 0.0,
+          "width": 79.47000122070312,
+          "height": 100.0
+        }
+      }
+    ],
+    "vflood_water_coverage_pct": 3.24,
+    "vflood_water_pixels": 5603,
+    "vflood_mean_water_prob": 0.0324,
+    "vflood_max_water_prob": 1.0,
+    "vflood_waterlogging_status": "NO SIGNIFICANT WATER",
+    "vflood_severity_tier": "LEVEL 1",
+    "vflood_spatial_topology": "TRACE_OR_SPECULAR_WATER",
+    "vflood_num_connected_components": 3,
+    "vflood_largest_comp_area_pct": 3.24,
+    "vflood_largest_comp_ratio_pct": 99.95,
+    "vflood_vertical_distribution": {
+      "sky_upper_pct": 0.0,
+      "mid_scene_pct": 100.0,
+      "road_ground_pct": 0.0
+    },
+    "vflood_latency_ms": 367.77,
+    "is_water_filled_pothole": false,
+    "final_civicsense_interpretation": "Road Damage: D40 | Detected Waste: W70"
+  },
+  {
+    "index": 77,
+    "filename": "pathole 22.webp",
+    "folder": "Pathole",
+    "category": "POTHOLE",
+    "width": 525,
+    "height": 350,
+    "total_pixels": 183750,
+    "lowResolutionWarning": false,
+    "lowResolutionText": null,
+    "sha256": "21232e4acde7a7992dad98e05f3121070ae1070840fb372cfee32845397312f2",
+    "road_raw_count": 0,
+    "road_post_nms_count": 0,
+    "road_classes": [],
+    "road_confidences": [],
+    "road_highest_conf": null,
+    "road_has_d40": false,
+    "road_has_d40_conf_025": true,
+    "road_detections": [],
+    "waste_raw_count": 10,
+    "waste_post_nms_count": 1,
+    "waste_classes": [
+      "W70"
+    ],
+    "waste_confidences": [
+      0.959
+    ],
+    "waste_highest_conf": 0.959,
+    "waste_detections": [
+      {
+        "type": "Plastic Waste",
+        "classCode": "W70",
+        "confidence": 0.959,
+        "boundingBox": {
+          "x": 0.0,
+          "y": 0.0,
+          "width": 79.55000305175781,
+          "height": 99.83999633789062
+        }
+      }
+    ],
+    "vflood_water_coverage_pct": 0.73,
+    "vflood_water_pixels": 1264,
+    "vflood_mean_water_prob": 0.0073,
+    "vflood_max_water_prob": 1.0,
+    "vflood_waterlogging_status": "NO SIGNIFICANT WATER",
+    "vflood_severity_tier": "LEVEL 1",
+    "vflood_spatial_topology": "TRACE_OR_SPECULAR_WATER",
+    "vflood_num_connected_components": 4,
+    "vflood_largest_comp_area_pct": 0.72,
+    "vflood_largest_comp_ratio_pct": 99.05,
+    "vflood_vertical_distribution": {
+      "sky_upper_pct": 0.0,
+      "mid_scene_pct": 100.0,
+      "road_ground_pct": 0.0
+    },
+    "vflood_latency_ms": 479.62,
+    "is_water_filled_pothole": false,
+    "final_civicsense_interpretation": "Detected Waste: W70"
+  },
+  {
+    "index": 78,
+    "filename": "pathole 23.webp",
+    "folder": "Pathole",
+    "category": "POTHOLE",
+    "width": 678,
+    "height": 452,
+    "total_pixels": 306456,
+    "lowResolutionWarning": false,
+    "lowResolutionText": null,
+    "sha256": "e8c08ae7da7c11843e5c1a28194e251a91c04bc954c87b32800b126f2fc68ee0",
+    "road_raw_count": 0,
+    "road_post_nms_count": 0,
+    "road_classes": [],
+    "road_confidences": [],
+    "road_highest_conf": null,
+    "road_has_d40": false,
+    "road_has_d40_conf_025": false,
+    "road_detections": [],
+    "waste_raw_count": 0,
+    "waste_post_nms_count": 0,
+    "waste_classes": [],
+    "waste_confidences": [],
+    "waste_highest_conf": null,
+    "waste_detections": [],
+    "vflood_water_coverage_pct": 1.43,
+    "vflood_water_pixels": 2475,
+    "vflood_mean_water_prob": 0.0147,
+    "vflood_max_water_prob": 1.0,
+    "vflood_waterlogging_status": "NO SIGNIFICANT WATER",
+    "vflood_severity_tier": "LEVEL 1",
+    "vflood_spatial_topology": "TRACE_OR_SPECULAR_WATER",
+    "vflood_num_connected_components": 41,
+    "vflood_largest_comp_area_pct": 0.83,
+    "vflood_largest_comp_ratio_pct": 58.18,
+    "vflood_vertical_distribution": {
+      "sky_upper_pct": 14.3,
+      "mid_scene_pct": 85.6,
+      "road_ground_pct": 0.1
+    },
+    "vflood_latency_ms": 376.58,
+    "is_water_filled_pothole": false,
+    "final_civicsense_interpretation": "No Significant Defects Detected (Clean / Low Severity)"
+  },
+  {
+    "index": 79,
+    "filename": "pathole 24.webp",
+    "folder": "Pathole",
+    "category": "POTHOLE",
+    "width": 736,
+    "height": 416,
+    "total_pixels": 306176,
+    "lowResolutionWarning": false,
+    "lowResolutionText": null,
+    "sha256": "6924c1e81e5e7320888787c974863aeadda5e36641cebd0519b1d6c7007a3a9d",
+    "road_raw_count": 0,
+    "road_post_nms_count": 0,
+    "road_classes": [],
+    "road_confidences": [],
+    "road_highest_conf": null,
+    "road_has_d40": false,
+    "road_has_d40_conf_025": false,
+    "road_detections": [],
+    "waste_raw_count": 10,
+    "waste_post_nms_count": 1,
+    "waste_classes": [
+      "W70"
+    ],
+    "waste_confidences": [
+      0.9818
+    ],
+    "waste_highest_conf": 0.9818,
+    "waste_detections": [
+      {
+        "type": "Plastic Waste",
+        "classCode": "W70",
+        "confidence": 0.9818,
+        "boundingBox": {
+          "x": 0.009999999776482582,
+          "y": 0.0,
+          "width": 79.70999908447266,
+          "height": 100.0
+        }
+      }
+    ],
+    "vflood_water_coverage_pct": 23.06,
+    "vflood_water_pixels": 39900,
+    "vflood_mean_water_prob": 0.2305,
+    "vflood_max_water_prob": 1.0,
+    "vflood_waterlogging_status": "POSSIBLE WATERLOGGING",
+    "vflood_severity_tier": "LEVEL 2",
+    "vflood_spatial_topology": "SUBSTANTIAL_SPREAD_WATERLOGGING",
+    "vflood_num_connected_components": 16,
+    "vflood_largest_comp_area_pct": 23.04,
+    "vflood_largest_comp_ratio_pct": 99.92,
+    "vflood_vertical_distribution": {
+      "sky_upper_pct": 7.6,
+      "mid_scene_pct": 92.1,
+      "road_ground_pct": 0.2
+    },
+    "vflood_latency_ms": 404.53,
+    "is_water_filled_pothole": false,
+    "final_civicsense_interpretation": "Waterlogging: POSSIBLE WATERLOGGING (23.06%) | Detected Waste: W70"
+  },
+  {
+    "index": 80,
+    "filename": "pathole 25.webp",
+    "folder": "Pathole",
+    "category": "POTHOLE",
+    "width": 543,
+    "height": 360,
+    "total_pixels": 195480,
+    "lowResolutionWarning": false,
+    "lowResolutionText": null,
+    "sha256": "da5482fed8928b225341373c6437b7d87a9fe4b72c393501ad840a7c36377a5f",
+    "road_raw_count": 2,
+    "road_post_nms_count": 1,
+    "road_classes": [
+      "D40"
+    ],
+    "road_confidences": [
+      0.5457
+    ],
+    "road_highest_conf": 0.5457,
+    "road_has_d40": true,
+    "road_has_d40_conf_025": true,
+    "road_detections": [
+      {
+        "type": "Pothole",
+        "classCode": "D40",
+        "confidence": 0.5457,
+        "boundingBox": {
+          "x": 35.650001525878906,
+          "y": 50.849998474121094,
+          "width": 38.650001525878906,
+          "height": 13.119999885559082
+        }
+      }
+    ],
+    "waste_raw_count": 10,
+    "waste_post_nms_count": 1,
+    "waste_classes": [
+      "W70"
+    ],
+    "waste_confidences": [
+      0.8953
+    ],
+    "waste_highest_conf": 0.8953,
+    "waste_detections": [
+      {
+        "type": "Plastic Waste",
+        "classCode": "W70",
+        "confidence": 0.8953,
+        "boundingBox": {
+          "x": 0.0,
+          "y": 0.05000000074505806,
+          "width": 79.37999725341797,
+          "height": 99.8499984741211
+        }
+      }
+    ],
+    "vflood_water_coverage_pct": 45.19,
+    "vflood_water_pixels": 78197,
+    "vflood_mean_water_prob": 0.4497,
+    "vflood_max_water_prob": 1.0,
+    "vflood_waterlogging_status": "WATER-FILLED POTHOLE",
+    "vflood_severity_tier": "HIGH_ROAD_HAZARD",
+    "vflood_spatial_topology": "LARGE_CONTINUOUS_ROAD_FLOOD",
+    "vflood_num_connected_components": 117,
+    "vflood_largest_comp_area_pct": 42.78,
+    "vflood_largest_comp_ratio_pct": 94.68,
+    "vflood_vertical_distribution": {
+      "sky_upper_pct": 11.3,
+      "mid_scene_pct": 54.2,
+      "road_ground_pct": 34.4
+    },
+    "vflood_latency_ms": 331.5,
+    "is_water_filled_pothole": true,
+    "final_civicsense_interpretation": "Water-Filled Pothole (45.19% water, D40 conf=0.5457) | Detected Waste: W70"
+  },
+  {
+    "index": 81,
+    "filename": "pathole 26.webp",
+    "folder": "Pathole",
+    "category": "POTHOLE",
+    "width": 480,
+    "height": 359,
+    "total_pixels": 172320,
+    "lowResolutionWarning": false,
+    "lowResolutionText": null,
+    "sha256": "67c2c83525204d9aa304a27ef025bb6d639018c6ad249af53cfd9beae24267b3",
+    "road_raw_count": 29,
+    "road_post_nms_count": 4,
+    "road_classes": [
+      "D40",
+      "D40",
+      "D40",
+      "D40"
+    ],
+    "road_confidences": [
+      0.7539,
+      0.7354,
+      0.7106,
+      0.7018
+    ],
+    "road_highest_conf": 0.7539,
+    "road_has_d40": true,
+    "road_has_d40_conf_025": true,
+    "road_detections": [
+      {
+        "type": "Pothole",
+        "classCode": "D40",
+        "confidence": 0.7539,
+        "boundingBox": {
+          "x": 80.30999755859375,
+          "y": 15.470000267028809,
+          "width": 19.690000534057617,
+          "height": 14.300000190734863
+        }
+      },
+      {
+        "type": "Pothole",
+        "classCode": "D40",
+        "confidence": 0.7354,
+        "boundingBox": {
+          "x": 80.45999908447266,
+          "y": 33.900001525878906,
+          "width": 9.329999923706055,
+          "height": 8.09000015258789
+        }
+      },
+      {
+        "type": "Pothole",
+        "classCode": "D40",
+        "confidence": 0.7106,
+        "boundingBox": {
+          "x": 49.439998626708984,
+          "y": 37.59000015258789,
+          "width": 45.93000030517578,
+          "height": 42.9900016784668
+        }
+      },
+      {
+        "type": "Pothole",
+        "classCode": "D40",
+        "confidence": 0.7018,
+        "boundingBox": {
+          "x": 0.05000000074505806,
+          "y": 14.069999694824219,
+          "width": 47.650001525878906,
+          "height": 37.56999969482422
+        }
+      }
+    ],
+    "waste_raw_count": 9,
+    "waste_post_nms_count": 1,
+    "waste_classes": [
+      "W70"
+    ],
+    "waste_confidences": [
+      0.996
+    ],
+    "waste_highest_conf": 0.996,
+    "waste_detections": [
+      {
+        "type": "Plastic Waste",
+        "classCode": "W70",
+        "confidence": 0.996,
+        "boundingBox": {
+          "x": 0.0,
+          "y": 0.0,
+          "width": 79.37999725341797,
+          "height": 99.94999694824219
+        }
+      }
+    ],
+    "vflood_water_coverage_pct": 15.75,
+    "vflood_water_pixels": 27255,
+    "vflood_mean_water_prob": 0.1579,
+    "vflood_max_water_prob": 1.0,
+    "vflood_waterlogging_status": "WATER-FILLED POTHOLE",
+    "vflood_severity_tier": "HIGH_ROAD_HAZARD",
+    "vflood_spatial_topology": "DISPERSED_WET_PATCHES",
+    "vflood_num_connected_components": 153,
+    "vflood_largest_comp_area_pct": 13.9,
+    "vflood_largest_comp_ratio_pct": 88.24,
+    "vflood_vertical_distribution": {
+      "sky_upper_pct": 3.6,
+      "mid_scene_pct": 40.8,
+      "road_ground_pct": 55.7
+    },
+    "vflood_latency_ms": 324.37,
+    "is_water_filled_pothole": true,
+    "final_civicsense_interpretation": "Water-Filled Pothole (15.75% water, D40 conf=0.7539) | Detected Waste: W70"
+  },
+  {
+    "index": 82,
+    "filename": "pathole 27.webp",
+    "folder": "Pathole",
+    "category": "POTHOLE",
+    "width": 389,
+    "height": 280,
+    "total_pixels": 108920,
+    "lowResolutionWarning": false,
+    "lowResolutionText": null,
+    "sha256": "e459fe09a354f3b47b13e059d015179092ff716801130583bf1b7b42bc7d0512",
+    "road_raw_count": 0,
+    "road_post_nms_count": 0,
+    "road_classes": [],
+    "road_confidences": [],
+    "road_highest_conf": null,
+    "road_has_d40": false,
+    "road_has_d40_conf_025": false,
+    "road_detections": [],
+    "waste_raw_count": 3,
+    "waste_post_nms_count": 1,
+    "waste_classes": [
+      "W70"
+    ],
+    "waste_confidences": [
+      0.5599
+    ],
+    "waste_highest_conf": 0.5599,
+    "waste_detections": [
+      {
+        "type": "Plastic Waste",
+        "classCode": "W70",
+        "confidence": 0.5599,
+        "boundingBox": {
+          "x": 0.10000000149011612,
+          "y": 0.10000000149011612,
+          "width": 80.4000015258789,
+          "height": 99.9000015258789
+        }
+      }
+    ],
+    "vflood_water_coverage_pct": 0.0,
+    "vflood_water_pixels": 0,
+    "vflood_mean_water_prob": 0.0,
+    "vflood_max_water_prob": 0.4201,
+    "vflood_waterlogging_status": "NO SIGNIFICANT WATER",
+    "vflood_severity_tier": "LEVEL 1",
+    "vflood_spatial_topology": "NO_WATER",
+    "vflood_num_connected_components": 0,
+    "vflood_largest_comp_area_pct": 0.0,
+    "vflood_largest_comp_ratio_pct": 0.0,
+    "vflood_vertical_distribution": {
+      "sky_upper_pct": 0.0,
+      "mid_scene_pct": 0.0,
+      "road_ground_pct": 0.0
+    },
+    "vflood_latency_ms": 331.61,
+    "is_water_filled_pothole": false,
+    "final_civicsense_interpretation": "Detected Waste: W70"
+  },
+  {
+    "index": 83,
+    "filename": "pathole 28.webp",
+    "folder": "Pathole",
+    "category": "POTHOLE",
+    "width": 479,
+    "height": 360,
+    "total_pixels": 172440,
+    "lowResolutionWarning": false,
+    "lowResolutionText": null,
+    "sha256": "1330ee98db419260d91d2b66b86eb779c12fb181c426b00209f0cbee9f3dd784",
+    "road_raw_count": 0,
+    "road_post_nms_count": 0,
+    "road_classes": [],
+    "road_confidences": [],
+    "road_highest_conf": null,
+    "road_has_d40": false,
+    "road_has_d40_conf_025": false,
+    "road_detections": [],
+    "waste_raw_count": 7,
+    "waste_post_nms_count": 1,
+    "waste_classes": [
+      "W70"
+    ],
+    "waste_confidences": [
+      0.8101
+    ],
+    "waste_highest_conf": 0.8101,
+    "waste_detections": [
+      {
+        "type": "Plastic Waste",
+        "classCode": "W70",
+        "confidence": 0.8101,
+        "boundingBox": {
+          "x": 0.09000000357627869,
+          "y": 0.0,
+          "width": 81.33000183105469,
+          "height": 100.0
+        }
+      }
+    ],
+    "vflood_water_coverage_pct": 0.9,
+    "vflood_water_pixels": 1557,
+    "vflood_mean_water_prob": 0.009,
+    "vflood_max_water_prob": 1.0,
+    "vflood_waterlogging_status": "NO SIGNIFICANT WATER",
+    "vflood_severity_tier": "LEVEL 1",
+    "vflood_spatial_topology": "TRACE_OR_SPECULAR_WATER",
+    "vflood_num_connected_components": 5,
+    "vflood_largest_comp_area_pct": 0.9,
+    "vflood_largest_comp_ratio_pct": 99.61,
+    "vflood_vertical_distribution": {
+      "sky_upper_pct": 0.0,
+      "mid_scene_pct": 58.7,
+      "road_ground_pct": 41.3
+    },
+    "vflood_latency_ms": 266.94,
+    "is_water_filled_pothole": false,
+    "final_civicsense_interpretation": "Detected Waste: W70"
+  },
+  {
+    "index": 84,
+    "filename": "pathole 29.webp",
+    "folder": "Pathole",
+    "category": "POTHOLE",
+    "width": 540,
+    "height": 360,
+    "total_pixels": 194400,
+    "lowResolutionWarning": false,
+    "lowResolutionText": null,
+    "sha256": "df323d022d8273bbb3cbc41ab0272aaa33050c07710e260966894c3537b7a55d",
+    "road_raw_count": 18,
+    "road_post_nms_count": 2,
+    "road_classes": [
+      "D40",
+      "D40"
+    ],
+    "road_confidences": [
+      0.8564,
+      0.7995
+    ],
+    "road_highest_conf": 0.8564,
+    "road_has_d40": true,
+    "road_has_d40_conf_025": true,
+    "road_detections": [
+      {
+        "type": "Pothole",
+        "classCode": "D40",
+        "confidence": 0.8564,
+        "boundingBox": {
+          "x": 45.5,
+          "y": 30.459999084472656,
+          "width": 20.1200008392334,
+          "height": 17.979999542236328
+        }
+      },
+      {
+        "type": "Pothole",
+        "classCode": "D40",
+        "confidence": 0.7995,
+        "boundingBox": {
+          "x": 42.91999816894531,
+          "y": 54.77000045776367,
+          "width": 10.09000015258789,
+          "height": 13.270000457763672
+        }
+      }
+    ],
+    "waste_raw_count": 8,
+    "waste_post_nms_count": 1,
+    "waste_classes": [
+      "W70"
+    ],
+    "waste_confidences": [
+      0.9728
+    ],
+    "waste_highest_conf": 0.9728,
+    "waste_detections": [
+      {
+        "type": "Plastic Waste",
+        "classCode": "W70",
+        "confidence": 0.9728,
+        "boundingBox": {
+          "x": 0.0,
+          "y": 0.0,
+          "width": 79.58000183105469,
+          "height": 99.9000015258789
+        }
+      }
+    ],
+    "vflood_water_coverage_pct": 0.0,
+    "vflood_water_pixels": 0,
+    "vflood_mean_water_prob": 0.0,
+    "vflood_max_water_prob": 0.1211,
+    "vflood_waterlogging_status": "NO SIGNIFICANT WATER",
+    "vflood_severity_tier": "LEVEL 1",
+    "vflood_spatial_topology": "NO_WATER",
+    "vflood_num_connected_components": 0,
+    "vflood_largest_comp_area_pct": 0.0,
+    "vflood_largest_comp_ratio_pct": 0.0,
+    "vflood_vertical_distribution": {
+      "sky_upper_pct": 0.0,
+      "mid_scene_pct": 0.0,
+      "road_ground_pct": 0.0
+    },
+    "vflood_latency_ms": 336.46,
+    "is_water_filled_pothole": false,
+    "final_civicsense_interpretation": "Road Damage: D40, D40 | Detected Waste: W70"
+  },
+  {
+    "index": 85,
+    "filename": "pathole 3.webp",
+    "folder": "Pathole",
+    "category": "POTHOLE",
+    "width": 370,
+    "height": 247,
+    "total_pixels": 91390,
+    "lowResolutionWarning": false,
+    "lowResolutionText": null,
+    "sha256": "593bf51c7734ee83bd0eae1592c2fc7b8ac6c90cf99d3c567e97b6b0ea40ed90",
+    "road_raw_count": 0,
+    "road_post_nms_count": 0,
+    "road_classes": [],
+    "road_confidences": [],
+    "road_highest_conf": null,
+    "road_has_d40": false,
+    "road_has_d40_conf_025": false,
+    "road_detections": [],
+    "waste_raw_count": 4,
+    "waste_post_nms_count": 1,
+    "waste_classes": [
+      "W00"
+    ],
+    "waste_confidences": [
+      0.6032
+    ],
+    "waste_highest_conf": 0.6032,
+    "waste_detections": [
+      {
+        "type": "Cardboard Waste",
+        "classCode": "W00",
+        "confidence": 0.6032,
+        "boundingBox": {
+          "x": 0.019999999552965164,
+          "y": 0.0,
+          "width": 79.38999938964844,
+          "height": 99.80999755859375
+        }
+      }
+    ],
+    "vflood_water_coverage_pct": 0.0,
+    "vflood_water_pixels": 0,
+    "vflood_mean_water_prob": 0.0,
+    "vflood_max_water_prob": 0.0042,
+    "vflood_waterlogging_status": "NO SIGNIFICANT WATER",
+    "vflood_severity_tier": "LEVEL 1",
+    "vflood_spatial_topology": "NO_WATER",
+    "vflood_num_connected_components": 0,
+    "vflood_largest_comp_area_pct": 0.0,
+    "vflood_largest_comp_ratio_pct": 0.0,
+    "vflood_vertical_distribution": {
+      "sky_upper_pct": 0.0,
+      "mid_scene_pct": 0.0,
+      "road_ground_pct": 0.0
+    },
+    "vflood_latency_ms": 354.92,
+    "is_water_filled_pothole": false,
+    "final_civicsense_interpretation": "Detected Waste: W00"
+  },
+  {
+    "index": 86,
+    "filename": "pathole 30.webp",
+    "folder": "Pathole",
+    "category": "POTHOLE",
+    "width": 678,
+    "height": 452,
+    "total_pixels": 306456,
+    "lowResolutionWarning": false,
+    "lowResolutionText": null,
+    "sha256": "794cc064f80a423e0cee16c7d271d2d1be00ca1b33badc5535f07ef55a9a721f",
+    "road_raw_count": 0,
+    "road_post_nms_count": 0,
+    "road_classes": [],
+    "road_confidences": [],
+    "road_highest_conf": null,
+    "road_has_d40": false,
+    "road_has_d40_conf_025": true,
+    "road_detections": [],
+    "waste_raw_count": 10,
+    "waste_post_nms_count": 1,
+    "waste_classes": [
+      "W70"
+    ],
+    "waste_confidences": [
+      0.9536
+    ],
+    "waste_highest_conf": 0.9536,
+    "waste_detections": [
+      {
+        "type": "Plastic Waste",
+        "classCode": "W70",
+        "confidence": 0.9536,
+        "boundingBox": {
+          "x": 0.0,
+          "y": 0.0,
+          "width": 79.45999908447266,
+          "height": 99.87000274658203
+        }
+      }
+    ],
+    "vflood_water_coverage_pct": 11.69,
+    "vflood_water_pixels": 20232,
+    "vflood_mean_water_prob": 0.1166,
+    "vflood_max_water_prob": 1.0,
+    "vflood_waterlogging_status": "WATER-FILLED POTHOLE",
+    "vflood_severity_tier": "HIGH_ROAD_HAZARD",
+    "vflood_spatial_topology": "DISPERSED_WET_PATCHES",
+    "vflood_num_connected_components": 9,
+    "vflood_largest_comp_area_pct": 10.65,
+    "vflood_largest_comp_ratio_pct": 91.14,
+    "vflood_vertical_distribution": {
+      "sky_upper_pct": 5.0,
+      "mid_scene_pct": 80.4,
+      "road_ground_pct": 14.6
+    },
+    "vflood_latency_ms": 362.04,
+    "is_water_filled_pothole": true,
+    "final_civicsense_interpretation": "Water-Filled Pothole (11.69% water, D40 conf=0.4021) | Detected Waste: W70"
+  },
+  {
+    "index": 87,
+    "filename": "pathole 4.webp",
+    "folder": "Pathole",
+    "category": "POTHOLE",
+    "width": 361,
+    "height": 262,
+    "total_pixels": 94582,
+    "lowResolutionWarning": false,
+    "lowResolutionText": null,
+    "sha256": "d4b54472400efce04b1380c8ae1e761860e991dc4bb91e4e183a8901acd4ab35",
+    "road_raw_count": 32,
+    "road_post_nms_count": 5,
+    "road_classes": [
+      "D40",
+      "D40",
+      "D40",
+      "D40",
+      "D40"
+    ],
+    "road_confidences": [
+      0.7448,
+      0.6948,
+      0.6899,
+      0.6369,
+      0.5665
+    ],
+    "road_highest_conf": 0.7448,
+    "road_has_d40": true,
+    "road_has_d40_conf_025": true,
+    "road_detections": [
+      {
+        "type": "Pothole",
+        "classCode": "D40",
+        "confidence": 0.7448,
+        "boundingBox": {
+          "x": 0.27000001072883606,
+          "y": 46.119998931884766,
+          "width": 27.3700008392334,
+          "height": 17.709999084472656
+        }
+      },
+      {
+        "type": "Pothole",
+        "classCode": "D40",
+        "confidence": 0.6948,
+        "boundingBox": {
+          "x": 57.7599983215332,
+          "y": 62.56999969482422,
+          "width": 12.479999542236328,
+          "height": 11.279999732971191
+        }
+      },
+      {
+        "type": "Pothole",
+        "classCode": "D40",
+        "confidence": 0.6899,
+        "boundingBox": {
+          "x": 50.209999084472656,
+          "y": 45.560001373291016,
+          "width": 22.950000762939453,
+          "height": 14.630000114440918
+        }
+      },
+      {
+        "type": "Pothole",
+        "classCode": "D40",
+        "confidence": 0.6369,
+        "boundingBox": {
+          "x": 41.150001525878906,
+          "y": 20.309999465942383,
+          "width": 10.949999809265137,
+          "height": 7.300000190734863
+        }
+      },
+      {
+        "type": "Pothole",
+        "classCode": "D40",
+        "confidence": 0.5665,
+        "boundingBox": {
+          "x": 28.040000915527344,
+          "y": 54.38999938964844,
+          "width": 16.31999969482422,
+          "height": 12.319999694824219
+        }
+      }
+    ],
+    "waste_raw_count": 7,
+    "waste_post_nms_count": 1,
+    "waste_classes": [
+      "W70"
+    ],
+    "waste_confidences": [
+      0.737
+    ],
+    "waste_highest_conf": 0.737,
+    "waste_detections": [
+      {
+        "type": "Plastic Waste",
+        "classCode": "W70",
+        "confidence": 0.737,
+        "boundingBox": {
+          "x": 0.0,
+          "y": 0.2199999988079071,
+          "width": 79.4800033569336,
+          "height": 99.62999725341797
+        }
+      }
+    ],
+    "vflood_water_coverage_pct": 83.22,
+    "vflood_water_pixels": 144009,
+    "vflood_mean_water_prob": 0.8319,
+    "vflood_max_water_prob": 1.0,
+    "vflood_waterlogging_status": "WATER-FILLED POTHOLE",
+    "vflood_severity_tier": "HIGH_ROAD_HAZARD",
+    "vflood_spatial_topology": "LARGE_CONTINUOUS_ROAD_FLOOD",
+    "vflood_num_connected_components": 13,
+    "vflood_largest_comp_area_pct": 83.06,
+    "vflood_largest_comp_ratio_pct": 99.81,
+    "vflood_vertical_distribution": {
+      "sky_upper_pct": 29.2,
+      "mid_scene_pct": 47.4,
+      "road_ground_pct": 23.4
+    },
+    "vflood_latency_ms": 346.03,
+    "is_water_filled_pothole": true,
+    "final_civicsense_interpretation": "Water-Filled Pothole (83.22% water, D40 conf=0.7448) | Detected Waste: W70"
+  },
+  {
+    "index": 88,
+    "filename": "pathole 5.webp",
+    "folder": "Pathole",
+    "category": "POTHOLE",
+    "width": 419,
+    "height": 235,
+    "total_pixels": 98465,
+    "lowResolutionWarning": false,
+    "lowResolutionText": null,
+    "sha256": "66448c26b624a8eaafee327423aaac04e3af2bcb595843f7c26234a305f3545b",
+    "road_raw_count": 3,
+    "road_post_nms_count": 1,
+    "road_classes": [
+      "D20"
+    ],
+    "road_confidences": [
+      0.5879
+    ],
+    "road_highest_conf": 0.5879,
+    "road_has_d40": false,
+    "road_has_d40_conf_025": false,
+    "road_detections": [
+      {
+        "type": "Alligator Crack",
+        "classCode": "D20",
+        "confidence": 0.5879,
+        "boundingBox": {
+          "x": 1.1699999570846558,
+          "y": 4.840000152587891,
+          "width": 98.75,
+          "height": 95.16000366210938
+        }
+      }
+    ],
+    "waste_raw_count": 1,
+    "waste_post_nms_count": 1,
+    "waste_classes": [
+      "W70"
+    ],
+    "waste_confidences": [
+      0.5188
+    ],
+    "waste_highest_conf": 0.5188,
+    "waste_detections": [
+      {
+        "type": "Plastic Waste",
+        "classCode": "W70",
+        "confidence": 0.5188,
+        "boundingBox": {
+          "x": 0.009999999776482582,
+          "y": 0.0,
+          "width": 79.29000091552734,
+          "height": 99.83999633789062
+        }
+      }
+    ],
+    "vflood_water_coverage_pct": 18.43,
+    "vflood_water_pixels": 31893,
+    "vflood_mean_water_prob": 0.1842,
+    "vflood_max_water_prob": 1.0,
+    "vflood_waterlogging_status": "POSSIBLE WATERLOGGING",
+    "vflood_severity_tier": "LEVEL 2",
+    "vflood_spatial_topology": "DISPERSED_WET_PATCHES",
+    "vflood_num_connected_components": 6,
+    "vflood_largest_comp_area_pct": 18.43,
+    "vflood_largest_comp_ratio_pct": 99.98,
+    "vflood_vertical_distribution": {
+      "sky_upper_pct": 0.0,
+      "mid_scene_pct": 86.7,
+      "road_ground_pct": 13.3
+    },
+    "vflood_latency_ms": 377.31,
+    "is_water_filled_pothole": false,
+    "final_civicsense_interpretation": "Waterlogging: POSSIBLE WATERLOGGING (18.43%) | Road Damage: D20 | Detected Waste: W70"
+  },
+  {
+    "index": 89,
+    "filename": "pathole 6.webp",
+    "folder": "Pathole",
+    "category": "POTHOLE",
+    "width": 334,
+    "height": 250,
+    "total_pixels": 83500,
+    "lowResolutionWarning": false,
+    "lowResolutionText": null,
+    "sha256": "8e30f6626518a7243ea304490d0c506201492029eb541535571d2fbd36db1570",
+    "road_raw_count": 0,
+    "road_post_nms_count": 0,
+    "road_classes": [],
+    "road_confidences": [],
+    "road_highest_conf": null,
+    "road_has_d40": false,
+    "road_has_d40_conf_025": true,
+    "road_detections": [],
+    "waste_raw_count": 0,
+    "waste_post_nms_count": 0,
+    "waste_classes": [],
+    "waste_confidences": [],
+    "waste_highest_conf": null,
+    "waste_detections": [],
+    "vflood_water_coverage_pct": 0.18,
+    "vflood_water_pixels": 312,
+    "vflood_mean_water_prob": 0.0018,
+    "vflood_max_water_prob": 0.9999,
+    "vflood_waterlogging_status": "NO SIGNIFICANT WATER",
+    "vflood_severity_tier": "LEVEL 1",
+    "vflood_spatial_topology": "TRACE_OR_SPECULAR_WATER",
+    "vflood_num_connected_components": 9,
+    "vflood_largest_comp_area_pct": 0.06,
+    "vflood_largest_comp_ratio_pct": 32.37,
+    "vflood_vertical_distribution": {
+      "sky_upper_pct": 100.0,
+      "mid_scene_pct": 0.0,
+      "road_ground_pct": 0.0
+    },
+    "vflood_latency_ms": 291.76,
+    "is_water_filled_pothole": false,
+    "final_civicsense_interpretation": "No Significant Defects Detected (Clean / Low Severity)"
+  },
+  {
+    "index": 90,
+    "filename": "pathole 7.webp",
+    "folder": "Pathole",
+    "category": "POTHOLE",
+    "width": 232,
+    "height": 234,
+    "total_pixels": 54288,
+    "lowResolutionWarning": true,
+    "lowResolutionText": "LOW RESOLUTION (232x234 < 300x200 / < 60k px)",
+    "sha256": "72200ceda314c314bea1394194589edb5968f683bf88352ce5adcda7364b853a",
+    "road_raw_count": 1,
+    "road_post_nms_count": 1,
+    "road_classes": [
+      "D40"
+    ],
+    "road_confidences": [
+      0.5395
+    ],
+    "road_highest_conf": 0.5395,
+    "road_has_d40": true,
+    "road_has_d40_conf_025": true,
+    "road_detections": [
+      {
+        "type": "Pothole",
+        "classCode": "D40",
+        "confidence": 0.5395,
+        "boundingBox": {
+          "x": 20.969999313354492,
+          "y": 38.459999084472656,
+          "width": 17.489999771118164,
+          "height": 5.190000057220459
+        }
+      }
+    ],
+    "waste_raw_count": 3,
+    "waste_post_nms_count": 1,
+    "waste_classes": [
+      "W50"
+    ],
+    "waste_confidences": [
+      0.6399
+    ],
+    "waste_highest_conf": 0.6399,
+    "waste_detections": [
+      {
+        "type": "Organic Waste",
+        "classCode": "W50",
+        "confidence": 0.6399,
+        "boundingBox": {
+          "x": 0.0,
+          "y": 0.0,
+          "width": 79.51000213623047,
+          "height": 79.91000366210938
+        }
+      }
+    ],
+    "vflood_water_coverage_pct": 1.84,
+    "vflood_water_pixels": 3187,
+    "vflood_mean_water_prob": 0.0184,
+    "vflood_max_water_prob": 1.0,
+    "vflood_waterlogging_status": "NO SIGNIFICANT WATER",
+    "vflood_severity_tier": "LEVEL 1",
+    "vflood_spatial_topology": "TRACE_OR_SPECULAR_WATER",
+    "vflood_num_connected_components": 4,
+    "vflood_largest_comp_area_pct": 1.84,
+    "vflood_largest_comp_ratio_pct": 99.91,
+    "vflood_vertical_distribution": {
+      "sky_upper_pct": 0.0,
+      "mid_scene_pct": 100.0,
+      "road_ground_pct": 0.0
+    },
+    "vflood_latency_ms": 256.81,
+    "is_water_filled_pothole": false,
+    "final_civicsense_interpretation": "Road Damage: D40 | Detected Waste: W50"
+  },
+  {
+    "index": 91,
+    "filename": "pathole 8.webp",
+    "folder": "Pathole",
+    "category": "POTHOLE",
+    "width": 396,
+    "height": 234,
+    "total_pixels": 92664,
+    "lowResolutionWarning": false,
+    "lowResolutionText": null,
+    "sha256": "79a510f1a6f4eca4add4949eb1110174465e19b543529775a08f4c79327235c7",
+    "road_raw_count": 8,
+    "road_post_nms_count": 1,
+    "road_classes": [
+      "D40"
+    ],
+    "road_confidences": [
+      0.6068
+    ],
+    "road_highest_conf": 0.6068,
+    "road_has_d40": true,
+    "road_has_d40_conf_025": true,
+    "road_detections": [
+      {
+        "type": "Pothole",
+        "classCode": "D40",
+        "confidence": 0.6068,
+        "boundingBox": {
+          "x": 9.399999618530273,
+          "y": 45.08000183105469,
+          "width": 53.220001220703125,
+          "height": 41.16999816894531
+        }
+      }
+    ],
+    "waste_raw_count": 10,
+    "waste_post_nms_count": 1,
+    "waste_classes": [
+      "W70"
+    ],
+    "waste_confidences": [
+      0.8601
+    ],
+    "waste_highest_conf": 0.8601,
+    "waste_detections": [
+      {
+        "type": "Plastic Waste",
+        "classCode": "W70",
+        "confidence": 0.8601,
+        "boundingBox": {
+          "x": 0.0,
+          "y": 0.0,
+          "width": 79.45999908447266,
+          "height": 100.0
+        }
+      }
+    ],
+    "vflood_water_coverage_pct": 32.34,
+    "vflood_water_pixels": 55960,
+    "vflood_mean_water_prob": 0.3232,
+    "vflood_max_water_prob": 1.0,
+    "vflood_waterlogging_status": "WATER-FILLED POTHOLE",
+    "vflood_severity_tier": "HIGH_ROAD_HAZARD",
+    "vflood_spatial_topology": "LARGE_CONTINUOUS_ROAD_FLOOD",
+    "vflood_num_connected_components": 14,
+    "vflood_largest_comp_area_pct": 32.03,
+    "vflood_largest_comp_ratio_pct": 99.05,
+    "vflood_vertical_distribution": {
+      "sky_upper_pct": 4.5,
+      "mid_scene_pct": 63.7,
+      "road_ground_pct": 31.8
+    },
+    "vflood_latency_ms": 408.97,
+    "is_water_filled_pothole": true,
+    "final_civicsense_interpretation": "Water-Filled Pothole (32.34% water, D40 conf=0.6068) | Detected Waste: W70"
+  },
+  {
+    "index": 92,
+    "filename": "pathole 9.webp",
+    "folder": "Pathole",
+    "category": "POTHOLE",
+    "width": 319,
+    "height": 234,
+    "total_pixels": 74646,
+    "lowResolutionWarning": false,
+    "lowResolutionText": null,
+    "sha256": "9ebc97c5bcb88013efbb6323d0b5f7e2558be03194adc76cb783e7fef1255634",
+    "road_raw_count": 0,
+    "road_post_nms_count": 0,
+    "road_classes": [],
+    "road_confidences": [],
+    "road_highest_conf": null,
+    "road_has_d40": false,
+    "road_has_d40_conf_025": false,
+    "road_detections": [],
+    "waste_raw_count": 3,
+    "waste_post_nms_count": 1,
+    "waste_classes": [
+      "W50"
+    ],
+    "waste_confidences": [
+      0.5741
+    ],
+    "waste_highest_conf": 0.5741,
+    "waste_detections": [
+      {
+        "type": "Organic Waste",
+        "classCode": "W50",
+        "confidence": 0.5741,
+        "boundingBox": {
+          "x": 0.11999999731779099,
+          "y": 0.15000000596046448,
+          "width": 81.23999786376953,
+          "height": 99.48999786376953
+        }
+      }
+    ],
+    "vflood_water_coverage_pct": 0.0,
+    "vflood_water_pixels": 0,
+    "vflood_mean_water_prob": 0.0,
+    "vflood_max_water_prob": 0.0067,
+    "vflood_waterlogging_status": "NO SIGNIFICANT WATER",
+    "vflood_severity_tier": "LEVEL 1",
+    "vflood_spatial_topology": "NO_WATER",
+    "vflood_num_connected_components": 0,
+    "vflood_largest_comp_area_pct": 0.0,
+    "vflood_largest_comp_ratio_pct": 0.0,
+    "vflood_vertical_distribution": {
+      "sky_upper_pct": 0.0,
+      "mid_scene_pct": 0.0,
+      "road_ground_pct": 0.0
+    },
+    "vflood_latency_ms": 270.3,
+    "is_water_filled_pothole": false,
+    "final_civicsense_interpretation": "Detected Waste: W50"
+  },
+  {
+    "index": 93,
+    "filename": "road without pothole.webp",
+    "folder": "Pathole",
+    "category": "POTHOLE",
+    "width": 353,
+    "height": 226,
+    "total_pixels": 79778,
+    "lowResolutionWarning": false,
+    "lowResolutionText": null,
+    "sha256": "219b69c3911d5e113d91ee9cfa36ee18f6cc73e0f2062499242c487eee91b3ed",
+    "road_raw_count": 0,
+    "road_post_nms_count": 0,
+    "road_classes": [],
+    "road_confidences": [],
+    "road_highest_conf": null,
+    "road_has_d40": false,
+    "road_has_d40_conf_025": false,
+    "road_detections": [],
+    "waste_raw_count": 0,
+    "waste_post_nms_count": 0,
+    "waste_classes": [],
+    "waste_confidences": [],
+    "waste_highest_conf": null,
+    "waste_detections": [],
+    "vflood_water_coverage_pct": 0.0,
+    "vflood_water_pixels": 0,
+    "vflood_mean_water_prob": 0.0,
+    "vflood_max_water_prob": 0.0008,
+    "vflood_waterlogging_status": "NO SIGNIFICANT WATER",
+    "vflood_severity_tier": "LEVEL 1",
+    "vflood_spatial_topology": "NO_WATER",
+    "vflood_num_connected_components": 0,
+    "vflood_largest_comp_area_pct": 0.0,
+    "vflood_largest_comp_ratio_pct": 0.0,
+    "vflood_vertical_distribution": {
+      "sky_upper_pct": 0.0,
+      "mid_scene_pct": 0.0,
+      "road_ground_pct": 0.0
+    },
+    "vflood_latency_ms": 349.87,
+    "is_water_filled_pothole": false,
+    "final_civicsense_interpretation": "No Significant Defects Detected (Clean / Low Severity)"
+  },
+  {
+    "index": 94,
+    "filename": "water filled patholes.jpg",
+    "folder": "Pathole",
+    "category": "POTHOLE",
+    "width": 346,
+    "height": 280,
+    "total_pixels": 96880,
+    "lowResolutionWarning": false,
+    "lowResolutionText": null,
+    "sha256": "2887f0457c0566316b539ee22bda3cbfc21c72991c273cfc9255b9987ae7421f",
+    "road_raw_count": 0,
+    "road_post_nms_count": 0,
+    "road_classes": [],
+    "road_confidences": [],
+    "road_highest_conf": null,
+    "road_has_d40": false,
+    "road_has_d40_conf_025": false,
+    "road_detections": [],
+    "waste_raw_count": 10,
+    "waste_post_nms_count": 1,
+    "waste_classes": [
+      "W50"
+    ],
+    "waste_confidences": [
+      0.881
+    ],
+    "waste_highest_conf": 0.881,
+    "waste_detections": [
+      {
+        "type": "Organic Waste",
+        "classCode": "W50",
+        "confidence": 0.881,
+        "boundingBox": {
+          "x": 0.10000000149011612,
+          "y": 0.0,
+          "width": 81.30000305175781,
+          "height": 99.26000213623047
+        }
+      }
+    ],
+    "vflood_water_coverage_pct": 77.59,
+    "vflood_water_pixels": 134276,
+    "vflood_mean_water_prob": 0.7756,
+    "vflood_max_water_prob": 1.0,
+    "vflood_waterlogging_status": "SIGNIFICANT WATERLOGGING",
+    "vflood_severity_tier": "LEVEL 3",
+    "vflood_spatial_topology": "LARGE_CONTINUOUS_ROAD_FLOOD",
+    "vflood_num_connected_components": 10,
+    "vflood_largest_comp_area_pct": 77.58,
+    "vflood_largest_comp_ratio_pct": 99.99,
+    "vflood_vertical_distribution": {
+      "sky_upper_pct": 25.4,
+      "mid_scene_pct": 46.1,
+      "road_ground_pct": 28.5
+    },
+    "vflood_latency_ms": 303.21,
+    "is_water_filled_pothole": false,
+    "final_civicsense_interpretation": "Waterlogging: SIGNIFICANT WATERLOGGING (77.59%) | Detected Waste: W50"
+  }
+]

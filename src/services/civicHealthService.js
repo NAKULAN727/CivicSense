@@ -281,18 +281,22 @@ export const calculateCivicHealth = ({
   const availableCount = availableDimensions.length;
   const unavailableCount = allDimensions.length - availableCount;
   
-  let overallHealthLevel = "STABLE";
-  let primaryConcern = "Routine surveillance";
+  let overallHealthLevel = unavailableCount > 0 ? "PARTIAL" : "STABLE";
+  let primaryConcern = unavailableCount > 0 
+    ? `Civic health assessment is partial (${unavailableCount} required sensor/model dimension(s) offline)` 
+    : "Routine surveillance";
 
   if (road.severity === 'HIGH' || waste.severity === 'HIGH' || drainage.level === 'HIGH' || drainage.level === 'CRITICAL' || drainage.level === 'SEVERE') {
-    overallHealthLevel = "CRITICAL CONCERN";
+    overallHealthLevel = unavailableCount > 0 ? "CRITICAL CONCERN (PARTIAL DATA)" : "CRITICAL CONCERN";
     primaryConcern = "High-severity flood risk or severe visual infrastructure defect detected";
   } else if (road.severity === 'MEDIUM' || waste.severity === 'MEDIUM' || drainage.level === 'MODERATE' || drainage.level === 'MEDIUM') {
-    overallHealthLevel = "ATTENTION REQUIRED";
+    overallHealthLevel = unavailableCount > 0 ? "ATTENTION REQUIRED (PARTIAL DATA)" : "ATTENTION REQUIRED";
     primaryConcern = "Moderate civic hazard or infrastructure defect flagged for field review";
   } else {
-    overallHealthLevel = "STABLE";
-    primaryConcern = "No severe civic hazards flagged across active sensors";
+    overallHealthLevel = unavailableCount > 0 ? "PARTIAL" : "STABLE";
+    primaryConcern = unavailableCount > 0 
+      ? `Civic health assessment is partial (${unavailableCount} required dimension(s) offline)` 
+      : "No severe civic hazards flagged across active sensors";
   }
 
   // Evidence array

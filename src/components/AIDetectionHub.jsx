@@ -5,12 +5,20 @@ import {
   Sliders, 
   Check, 
   FilePlus2,
-  MapPin,
-  Clock,
-  RotateCcw,
-  Sparkles,
-  AlertTriangle,
-  Waves
+  MapPin, 
+  Clock, 
+  RotateCcw, 
+  Sparkles, 
+  AlertTriangle, 
+  Waves,
+  ShieldCheck,
+  ChevronDown,
+  ChevronUp,
+  Eye,
+  EyeOff,
+  Building,
+  Wrench,
+  CheckCircle2
 } from 'lucide-react';
 import { 
   runGenuineVisualInference, 
@@ -48,6 +56,8 @@ export default function AIDetectionHub({ addCustomIssue, onVisualDetectionsChang
   const [confidenceThreshold, setConfidenceThreshold] = useState(0.50);
   const [hoveredBox, setHoveredBox] = useState(null);
   const [filedIssues, setFiledIssues] = useState({});
+  const [showDiagnostics, setShowDiagnostics] = useState(false);
+  const [showSuppressedBoxes, setShowSuppressedBoxes] = useState(true);
 
   // Real inference state & active request sequence tracker
   const [inferenceResult, setInferenceResult] = useState(null);
@@ -56,10 +66,25 @@ export default function AIDetectionHub({ addCustomIssue, onVisualDetectionsChang
   const imgRef = useRef(null);
   const maskCanvasRef = useRef(null);
 
+  // Helper for sample switching with immediate state reset to prevent stale data bleed
+  const handleSelectSample = (sample) => {
+    setInferenceResult(null);
+    if (onVisualDetectionsChange) {
+      onVisualDetectionsChange(null);
+    }
+    setSelectedSample(sample);
+  };
+
   // Execute genuine model inference when selected sample, image, or threshold changes
   useEffect(() => {
     let isMounted = true;
     const reqSeq = ++activeRequestSeqRef.current;
+
+    // Reset previous results immediately upon parameter/sample change
+    setInferenceResult(null);
+    if (onVisualDetectionsChange) {
+      onVisualDetectionsChange(null);
+    }
 
     const runInferencePipeline = async () => {
       setIsInferring(true);
@@ -104,7 +129,7 @@ export default function AIDetectionHub({ addCustomIssue, onVisualDetectionsChang
           return;
         }
 
-        // Calculate prototype severity and priority from actual visual evidence
+        // Calculate contextual arbitration, severity, priority, and confirmed civic incidents
         const severityAnalysis = calculateVisualDetectionsSeverity({
           ...rawResult,
           isAvailable: true
@@ -112,25 +137,25 @@ export default function AIDetectionHub({ addCustomIssue, onVisualDetectionsChang
 
         const fullResult = {
           ...rawResult,
-          detections: {
-            road: severityAnalysis.road.detections,
-            waste: severityAnalysis.waste.detections
-          },
-          overallPriority: severityAnalysis.overallPriority,
-          priorityReason: severityAnalysis.priorityReason,
-          severityAnalysis,
+          ...severityAnalysis,
           isAvailable: true
         };
 
-        console.log(`[UI_STATE_UPDATE] Setting inferenceResult for Request #${reqSeq} (Flood: ${fullResult.flood.floodPixelsCount}px / ${fullResult.flood.floodedAreaPercent}%)`);
+        console.log(`[UI_STATE_UPDATE] Setting inferenceResult for Request #${reqSeq} (Incidents: ${fullResult.civicIncidents?.length ?? 0}, Suppressed: ${fullResult.suppressedDetections?.length ?? 0})`);
         setInferenceResult(fullResult);
 
-        // Notify parent components / Civic Health contract if listener attached
+        // Notify parent components / central state
         if (onVisualDetectionsChange) {
           onVisualDetectionsChange(fullResult);
         }
       } catch (err) {
         console.warn(`[INFERENCE_PIPELINE_ERROR] Request #${reqSeq} error:`, err);
+        if (isMounted && reqSeq === activeRequestSeqRef.current) {
+          setInferenceResult(null);
+          if (onVisualDetectionsChange) {
+            onVisualDetectionsChange(null);
+          }
+        }
       } finally {
         if (isMounted && reqSeq === activeRequestSeqRef.current) {
           setIsInferring(false);
@@ -164,7 +189,7 @@ export default function AIDetectionHub({ addCustomIssue, onVisualDetectionsChang
     for (let i = 0; i < maskArr.length; i++) {
       const cls = maskArr[i];
       const idx = i * 4;
-      if (cls === 1 || cls === 3 || cls === 5) { // Target flood water classes: flooded building, flooded road, water
+      if (cls === 1 || cls === 3 || cls === 5) {
         data[idx] = 0;        // Red
         data[idx + 1] = 180;  // Green
         data[idx + 2] = 255;  // Blue
@@ -173,7 +198,7 @@ export default function AIDetectionHub({ addCustomIssue, onVisualDetectionsChang
         data[idx] = 0;
         data[idx + 1] = 0;
         data[idx + 2] = 0;
-        data[idx + 3] = 0; // Completely transparent
+        data[idx + 3] = 0;     // Completely transparent
       }
     }
 
@@ -183,6 +208,9 @@ export default function AIDetectionHub({ addCustomIssue, onVisualDetectionsChang
   const handleCustomUpload = async (e) => {
     const file = e.target.files[0];
     if (file) {
+      setInferenceResult(null);
+      if (onVisualDetectionsChange) onVisualDetectionsChange(null);
+
       const reader = new FileReader();
       reader.onloadend = async () => {
         const customSample = {
@@ -199,11 +227,16 @@ export default function AIDetectionHub({ addCustomIssue, onVisualDetectionsChang
     }
   };
 
-  // Combine all active bounding box detections (Road + Waste)
-  const roadDetections = inferenceResult?.detections?.road || [];
-  const wasteDetections = inferenceResult?.detections?.waste || [];
-  const allDetections = [...roadDetections, ...wasteDetections];
+  // Extract layers from inferenceResult
+  const rawRoad = inferenceResult?.rawDetections?.road || [];
+  const rawWaste = inferenceResult?.rawDetections?.waste || [];
+  const acceptedRoad = inferenceResult?.contextualDetections?.road || [];
+  const acceptedWaste = inferenceResult?.contextualDetections?.waste || [];
+  const suppressedWaste = inferenceResult?.suppressedDetections || [];
+  const civicIncidents = inferenceResult?.civicIncidents || [];
   const floodResult = inferenceResult?.flood;
+  const floodInterp = inferenceResult?.floodInterpretation;
+  const fusionEv = inferenceResult?.fusionEvidence;
 
   const getBoxColor = (label) => {
     switch (label) {
@@ -224,41 +257,37 @@ export default function AIDetectionHub({ addCustomIssue, onVisualDetectionsChang
     }
   };
 
-  const handleFileIssue = () => {
-    if (allDetections.length === 0 && (!floodResult || !floodResult.detected)) return;
-    
-    const isFloodPrimary = floodResult && floodResult.detected && allDetections.length === 0;
-    const newId = `CS-2026-${Math.floor(100 + (floodResult?.floodedAreaPercent || 50))}`;
-    
+  const handleFileIssue = (incident) => {
+    if (!incident) return;
+    const issueId = incident.id || `CS-INC-${Date.now().toString().slice(-6)}`;
+
     const newIssue = {
-      id: newId,
-      type: isFloodPrimary ? 'Street/Road Waterlogging' : (allDetections[0]?.type || 'Civic Defect'),
-      title: isFloodPrimary 
-        ? `Automated Detection: Visible Flood Water (${floodResult.floodedAreaPercent}% coverage)` 
-        : `Automated Detection: ${allDetections[0].type} (${allDetections[0].classCode})`,
-      description: `Verified by ${inferenceResult?.modelName}. Source: ${inferenceResult?.source}.`,
+      id: issueId,
+      type: incident.title,
+      title: `${incident.title} (${incident.severity} Severity)`,
+      description: incident.sourceEvidence,
       location: {
         lat: inferenceResult?.metadata?.latitude,
         lng: inferenceResult?.metadata?.longitude,
-        address: inferenceResult?.metadata?.latitude !== null ? `GPS: ${inferenceResult.metadata.latitude}, ${inferenceResult.metadata.longitude}` : 'LOCATION UNAVAILABLE',
-        ward: 'Unassigned Spatial Ward'
+        address: incident.location?.formatted || 'LOCATION UNAVAILABLE',
+        ward: 'Metropolitan Spatial District'
       },
-      severity: isFloodPrimary ? (inferenceResult?.severityAnalysis?.flood?.severity || 'Moderate') : 'Moderate',
+      severity: incident.severity,
+      priority: incident.priority,
       status: 'Pending Review',
-      reportedAt: inferenceResult?.metadata?.timestamp || new Date().toISOString(),
+      reportedAt: incident.timestamp || new Date().toISOString(),
       detectedBy: 'CivicSense Multi-Model ONNX Vision Engine',
-      confidence: isFloodPrimary ? null : allDetections[0]?.confidence,
+      confidence: incident.confidence,
       image: selectedSample.path,
-      recommendedDept: isFloodPrimary 
-        ? 'Stormwater Drainage & Flood Management (SWDFM)' 
-        : (allDetections[0]?.type.includes('Waste') ? 'Sanitation & Solid Waste (SSWM)' : 'Public Works Department (PWD)'),
-      boundingBoxes: allDetections.map(d => d.boundingBox)
+      recommendedDept: incident.recommendedDepartment,
+      recommendedAction: incident.recommendedAction,
+      boundingBoxes: incident.boundingBoxes || []
     };
 
     if (addCustomIssue) {
       addCustomIssue(newIssue);
     }
-    setFiledIssues({ ...filedIssues, [selectedSample.id]: newId });
+    setFiledIssues(prev => ({ ...prev, [incident.id]: issueId }));
   };
 
   return (
@@ -269,10 +298,10 @@ export default function AIDetectionHub({ addCustomIssue, onVisualDetectionsChang
         <div>
           <h2 style={{ fontSize: '18px', fontWeight: '800', fontFamily: 'var(--font-header)', display: 'flex', alignItems: 'center', gap: '10px' }}>
             <Sparkles size={20} style={{ color: 'var(--accent-blue)' }} />
-            STREET-LEVEL CIVIC DETECTION (MULTI-MODEL AI ENGINE)
+            STREET-LEVEL CIVIC DETECTION & ARBITRATION HUB
           </h2>
           <p style={{ fontSize: '12px', color: 'var(--text-secondary)', marginTop: '4px' }}>
-            3 Verified Real ONNX AI Models: Road Damage (RDD2022), Waste Detection (YOLOv8), and Flood/Water Segmentation (SegFormer FloodNet)
+            End-to-End Visual Intelligence: Raw AI Detections → Contextual Cross-Model Arbitration → Confirmed Civic Incidents
           </p>
         </div>
 
@@ -289,14 +318,13 @@ export default function AIDetectionHub({ addCustomIssue, onVisualDetectionsChang
         </div>
       </div>
 
-      {/* Control Bar & Hyperparameters */}
+      {/* Control Bar & Sample Selector */}
       <div className="grid-2" style={{ marginBottom: '0px' }}>
-        {/* Sample Selector & File Upload */}
         <div className="glass-card" style={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
           <div>
             <h3 style={{ fontSize: '14px', fontWeight: '700', marginBottom: '8px' }}>Select Image Source</h3>
             <p style={{ fontSize: '12px', color: 'var(--text-secondary)', marginBottom: '14px' }}>
-              Choose a curated dataset image or upload a custom geotagged photo.
+              Choose a curated dataset image or upload an arbitrary street image for multi-model inference.
             </p>
           </div>
 
@@ -306,7 +334,7 @@ export default function AIDetectionHub({ addCustomIssue, onVisualDetectionsChang
                 key={sample.id}
                 className={`btn ${selectedSample.id === sample.id ? 'btn-primary' : 'btn-secondary'}`}
                 style={{ padding: '8px 14px', fontSize: '12px' }}
-                onClick={() => setSelectedSample(sample)}
+                onClick={() => handleSelectSample(sample)}
               >
                 {sample.name}
               </button>
@@ -315,7 +343,7 @@ export default function AIDetectionHub({ addCustomIssue, onVisualDetectionsChang
               <button
                 className={`btn ${selectedSample.id === customImage.id ? 'btn-primary' : 'btn-secondary'}`}
                 style={{ padding: '8px 14px', fontSize: '12px' }}
-                onClick={() => setSelectedSample(customImage)}
+                onClick={() => handleSelectSample(customImage)}
               >
                 Uploaded Image
               </button>
@@ -338,7 +366,7 @@ export default function AIDetectionHub({ addCustomIssue, onVisualDetectionsChang
                 className="action-btn" 
                 onClick={() => {
                   setCustomImage(null);
-                  setSelectedSample(samples[0]);
+                  handleSelectSample(samples[0]);
                 }}
                 title="Reset custom image"
               >
@@ -351,15 +379,15 @@ export default function AIDetectionHub({ addCustomIssue, onVisualDetectionsChang
         {/* Hyperparameters & Performance Metric */}
         <div className="glass-card">
           <h3 style={{ fontSize: '14px', fontWeight: '700', marginBottom: '8px', display: 'flex', alignItems: 'center', gap: '8px' }}>
-            <Sliders size={16} /> Inference Hyperparameters & Latency
+            <Sliders size={16} /> Inference Hyperparameters & Pipeline Controls
           </h3>
           <p style={{ fontSize: '12px', color: 'var(--text-secondary)', marginBottom: '16px' }}>
-            Adjust minimum confidence threshold for bounding box detection models
+            Adjust minimum confidence threshold and toggle diagnostic overlays
           </p>
 
-          <div className="slider-container" style={{ marginBottom: '16px' }}>
+          <div className="slider-container" style={{ marginBottom: '14px' }}>
             <div className="slider-header">
-              <span className="slider-label">Min Confidence Threshold</span>
+              <span className="slider-label">Detection Confidence Threshold</span>
               <span className="slider-value">{Math.round(confidenceThreshold * 100)}%</span>
             </div>
             <input 
@@ -373,61 +401,57 @@ export default function AIDetectionHub({ addCustomIssue, onVisualDetectionsChang
             />
           </div>
 
-          <div style={{ display: 'flex', gap: '12px', fontSize: '11px', color: 'var(--text-secondary)' }}>
-            <div style={{ flex: 1, backgroundColor: 'rgba(0, 168, 255, 0.04)', padding: '8px 12px', borderRadius: '6px', border: '1px solid var(--border-card)' }}>
-              <strong>BBox Detections:</strong> {allDetections.length} objects
-            </div>
-            <div style={{ flex: 1, backgroundColor: 'rgba(16, 185, 129, 0.04)', padding: '8px 12px', borderRadius: '6px', border: '1px solid var(--border-card)' }}>
-              <strong>Visible Flood Coverage:</strong> {floodResult?.floodedAreaPercent ?? 0}%
-            </div>
-            <div style={{ flex: 1, backgroundColor: 'rgba(192, 132, 252, 0.04)', padding: '8px 12px', borderRadius: '6px', border: '1px solid var(--border-card)' }}>
-              <strong>Pure Tensor Latency:</strong> {isInferring ? 'Measuring...' : `${floodResult?.inferenceTimeMs || 0} ms`}
-            </div>
+          <div style={{ display: 'flex', gap: '10px', alignItems: 'center', flexWrap: 'wrap' }}>
+            <button
+              className="btn btn-secondary"
+              onClick={() => setShowSuppressedBoxes(prev => !prev)}
+              style={{ fontSize: '11px', padding: '6px 12px', display: 'flex', alignItems: 'center', gap: '6px' }}
+            >
+              {showSuppressedBoxes ? <Eye size={13} /> : <EyeOff size={13} />}
+              {showSuppressedBoxes ? 'Hide Suppressed Boxes' : 'Show Suppressed Boxes'}
+            </button>
+
+            <button
+              className="btn btn-secondary"
+              onClick={() => setShowDiagnostics(prev => !prev)}
+              style={{ fontSize: '11px', padding: '6px 12px', display: 'flex', alignItems: 'center', gap: '6px' }}
+            >
+              {showDiagnostics ? <ChevronUp size={13} /> : <ChevronDown size={13} />}
+              {showDiagnostics ? 'Hide Tensor Diagnostics' : 'Show Tensor Diagnostics'}
+            </button>
           </div>
         </div>
       </div>
 
-      {/* DEVELOPER DIAGNOSTICS PANEL */}
-      <div className="glass-card" style={{ 
-        padding: '14px 18px', 
-        border: inferenceResult?.isModelVerified ? '1px solid var(--border-card)' : '1px dashed rgba(245, 158, 11, 0.5)',
-        backgroundColor: inferenceResult?.isModelVerified ? 'rgba(0,168,255,0.02)' : 'rgba(245, 158, 11, 0.03)',
-        borderRadius: '10px',
-        fontSize: '11px'
-      }}>
-        <div className="flex-between" style={{ marginBottom: '8px' }}>
-          <strong style={{ color: 'var(--accent-blue)', display: 'flex', alignItems: 'center', gap: '6px' }}>
-            <Sliders size={14} /> MULTI-MODEL DIAGNOSTICS & PREPROCESSING
+      {/* EXPANDABLE DEVELOPER DIAGNOSTICS */}
+      {showDiagnostics && (
+        <div className="glass-card" style={{ 
+          padding: '14px 18px', 
+          border: '1px solid var(--border-card)',
+          backgroundColor: 'rgba(0,168,255,0.02)',
+          borderRadius: '10px',
+          fontSize: '11px'
+        }}>
+          <strong style={{ color: 'var(--accent-blue)', display: 'block', marginBottom: '8px' }}>
+            ⚙ TECHNICAL TENSOR & PREPROCESSING DIAGNOSTICS
           </strong>
-          <span style={{ fontWeight: '700', color: '#10b981' }}>
-            VERIFIED ONNX INFERENCE ENGINE
-          </span>
-        </div>
-
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(180px, 1fr))', gap: '10px', color: 'var(--text-secondary)' }}>
-          <div><strong>Road Model Shape:</strong> [1, 3, 640, 640]</div>
-          <div><strong>Waste Model Shape:</strong> [1, 3, 640, 640]</div>
-          <div><strong>Flood Model Shape:</strong> [1, 3, 512, 512]</div>
-          <div><strong>Flood Output Shape:</strong> {inferenceResult?.devDiagnostics?.floodOutputShape || '[1, 10, 128, 128]'}</div>
-          <div><strong>Natural Resolution:</strong> {inferenceResult?.devDiagnostics?.naturalResolution || 'Unknown'}</div>
-          <div><strong>Mask Dimensions:</strong> 128 × 128 (16,384 px)</div>
-          <div><strong>Flood Pixels:</strong> {inferenceResult?.devDiagnostics?.floodPixels ?? 0} / 16,384</div>
-          <div><strong>Flooded Area Ratio:</strong> {inferenceResult?.devDiagnostics?.floodedAreaRatio ?? 0}</div>
-          <div><strong>Confidence Threshold:</strong> {Math.round(confidenceThreshold * 100)}%</div>
-          <div><strong>Postprocessing Status:</strong> {inferenceResult?.devDiagnostics?.postprocessingStatus || 'COMPLETED'}</div>
-        </div>
-
-        {inferenceResult?.devDiagnostics?.isLowResolution && (
-          <div style={{ marginTop: '10px', padding: '8px 12px', backgroundColor: 'rgba(245, 158, 11, 0.1)', border: '1px solid rgba(245, 158, 11, 0.4)', borderRadius: '6px', color: '#f59e0b', fontSize: '11px', fontWeight: '600', display: 'flex', alignItems: 'center', gap: '8px' }}>
-            <AlertTriangle size={14} style={{ flexShrink: 0 }} />
-            <span>⚠ <strong>LOW-RESOLUTION IMAGE:</strong> Flood segmentation & detection quality may be reduced because the uploaded image is below recommended resolution.</span>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: '8px', color: 'var(--text-secondary)' }}>
+            <div><strong>Road Model:</strong> {inferenceResult?.devDiagnostics?.roadModelFile || '/models/rdd2022-road-damage.onnx'}</div>
+            <div><strong>Waste Model:</strong> {inferenceResult?.devDiagnostics?.wasteModelFile || '/models/waste-detection.onnx'}</div>
+            <div><strong>Flood Model:</strong> {inferenceResult?.devDiagnostics?.floodModelFile || '/models/flood-water-segmentation.onnx'}</div>
+            <div><strong>Natural Resolution:</strong> {inferenceResult?.devDiagnostics?.naturalResolution || 'Unknown'}</div>
+            <div><strong>Input Shape:</strong> [1, 3, 640, 640] (Flood: [1, 3, 512, 512])</div>
+            <div><strong>Raw Candidates:</strong> Road: {inferenceResult?.devDiagnostics?.rawRoadCandidates ?? 0}, Waste: {inferenceResult?.devDiagnostics?.rawWasteCandidates ?? 0}</div>
+            <div><strong>Post-NMS Detections:</strong> Road: {inferenceResult?.devDiagnostics?.postNmsRoadDetections ?? 0}, Waste: {inferenceResult?.devDiagnostics?.postNmsWasteDetections ?? 0}</div>
+            <div><strong>Pure Latency:</strong> Flood: {floodResult?.inferenceTimeMs || 0}ms, Total: {inferenceResult?.inferenceTimeMs || 0}ms</div>
           </div>
-        )}
-      </div>
+        </div>
+      )}
 
-      {/* Main Image View & AI Diagnostics */}
+      {/* Main Image View & 3-Layer Panel */}
       <div className="grid-2-1" style={{ alignItems: 'start' }}>
-        {/* Bounding Box & Segmentation Mask Canvas Overlay */}
+        
+        {/* Left Column: Image Canvas & Visual Overlays */}
         <div className="glass-card" style={{ padding: '16px', display: 'flex', flexDirection: 'column' }}>
           
           <div className="flex-between" style={{ marginBottom: '12px', flexWrap: 'wrap', gap: '8px', fontSize: '12px' }}>
@@ -436,13 +460,10 @@ export default function AIDetectionHub({ addCustomIssue, onVisualDetectionsChang
               <strong style={{ color: 'var(--text-primary)' }}>{selectedSample.sourceType}</strong>
             </div>
 
-            {/* GPS Metadata Badge */}
+            {/* GPS Metadata Badge (Strict: NO fake coordinates) */}
             <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
               <MapPin size={14} style={{ color: inferenceResult?.metadata?.isGpsVerified ? '#10b981' : '#f59e0b' }} />
-              <span style={{
-                fontWeight: '700',
-                color: inferenceResult?.metadata?.isGpsVerified ? '#10b981' : '#f59e0b'
-              }}>
+              <span style={{ fontWeight: '700', color: inferenceResult?.metadata?.isGpsVerified ? '#10b981' : '#f59e0b' }}>
                 {inferenceResult?.metadata?.isGpsVerified 
                   ? `GPS: ${inferenceResult.metadata.latitude}, ${inferenceResult.metadata.longitude}` 
                   : 'LOCATION UNAVAILABLE'}
@@ -498,11 +519,12 @@ export default function AIDetectionHub({ addCustomIssue, onVisualDetectionsChang
                 zIndex: 20
               }}>
                 <Cpu className="spin" size={32} style={{ marginBottom: '8px' }} />
-                Running ONNX Model Tensor Inference...
+                Executing Multi-Model Tensor Inference & Contextual Arbitration...
               </div>
             )}
 
-            {!isInferring && allDetections.map((box, index) => {
+            {/* Accepted Bounding Boxes */}
+            {!isInferring && [...acceptedRoad, ...acceptedWaste].map((box, index) => {
               const borderCol = getBoxColor(box.type);
               return (
                 <div
@@ -546,194 +568,219 @@ export default function AIDetectionHub({ addCustomIssue, onVisualDetectionsChang
                 </div>
               );
             })}
+
+            {/* Suppressed Monolithic Waste Boxes (Dashed Border with Audit Label) */}
+            {!isInferring && showSuppressedBoxes && suppressedWaste.map((box, index) => (
+              <div
+                key={`supp-${box.id || index}`}
+                className="bounding-box suppressed-box"
+                style={{
+                  position: 'absolute',
+                  left: `${box.boundingBox.x}%`,
+                  top: `${box.boundingBox.y}%`,
+                  width: `${box.boundingBox.width}%`,
+                  height: `${box.boundingBox.height}%`,
+                  border: '2px dashed #f59e0b',
+                  backgroundColor: hoveredBox === box ? 'rgba(245, 158, 11, 0.15)' : 'transparent',
+                  boxShadow: '0 0 8px rgba(245, 158, 11, 0.4)',
+                  zIndex: 8
+                }}
+                onMouseEnter={() => setHoveredBox(box)}
+                onMouseLeave={() => setHoveredBox(null)}
+              >
+                <span 
+                  style={{
+                    position: 'absolute',
+                    top: '2px',
+                    left: '2px',
+                    backgroundColor: 'rgba(245, 158, 11, 0.9)',
+                    color: '#000',
+                    fontWeight: '800',
+                    fontSize: '10px',
+                    padding: '2px 5px',
+                    borderRadius: '3px'
+                  }}
+                >
+                  ⚠ SUPPRESSED (Contextual Conflict)
+                </span>
+              </div>
+            ))}
           </div>
 
-          {/* Action Bar: File Report Button */}
-          <div style={{ marginTop: '16px', display: 'flex', justifyContent: 'flex-end' }}>
-            <button
-              className="btn btn-primary"
-              disabled={(allDetections.length === 0 && (!floodResult || !floodResult.detected)) || filedIssues[selectedSample.id]}
-              onClick={handleFileIssue}
-              style={{ padding: '10px 18px', fontSize: '13px' }}
-            >
-              {filedIssues[selectedSample.id] ? (
-                <>
-                  <Check size={16} style={{ marginRight: '6px' }} />
-                  Issue Filed ({filedIssues[selectedSample.id]})
-                </>
-              ) : (
-                <>
-                  <FilePlus2 size={16} style={{ marginRight: '6px' }} />
-                  File Verified Civic Issue ({allDetections.length + (floodResult?.detected ? 1 : 0)} Identified)
-                </>
-              )}
-            </button>
-          </div>
+          {/* Low Resolution Notice */}
+          {inferenceResult?.devDiagnostics?.isLowResolution && (
+            <div style={{ marginTop: '12px', padding: '8px 12px', backgroundColor: 'rgba(245, 158, 11, 0.1)', border: '1px solid rgba(245, 158, 11, 0.4)', borderRadius: '6px', color: '#f59e0b', fontSize: '11px', display: 'flex', alignItems: 'center', gap: '8px' }}>
+              <AlertTriangle size={14} style={{ flexShrink: 0 }} />
+              <span>Low-resolution image may reduce detection reliability.</span>
+            </div>
+          )}
         </div>
 
-        {/* AI Detection Breakdown & 3-Model Summary Panel */}
+        {/* Right Column: 3 DISTINCT ARCHITECTURAL LAYERS */}
         <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
-          
-          {/* 🌊 FLOOD / WATER MODEL PANEL */}
-          <div className="glass-card" style={{ padding: '18px', border: '1px solid rgba(0, 168, 255, 0.3)', backgroundColor: 'rgba(0, 168, 255, 0.02)' }}>
-            <h3 style={{ fontSize: '14px', fontWeight: '800', marginBottom: '12px', display: 'flex', alignItems: 'center', gap: '8px', color: '#00a8ff' }}>
-              <Waves size={18} /> 🌊 FLOOD / WATER AI MODEL
-            </h3>
 
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '8px', fontSize: '12px' }}>
-              <div className="flex-between">
-                <span style={{ color: 'var(--text-muted)' }}>Model Session:</span>
-                <span className={`badge ${floodResult?.modelStatus === 'VERIFIED_ONNX' ? 'badge-blue' : 'badge-amber'}`} style={{ fontSize: '10px' }}>
-                  {floodResult?.modelStatus || 'MODEL UNAVAILABLE'}
-                </span>
-              </div>
-
-              <div className="flex-between">
-                <span style={{ color: 'var(--text-muted)' }}>Inference Execution:</span>
-                <span className={`badge ${floodResult?.inferenceStatus === 'SUCCESS' ? 'badge-purple' : 'badge-amber'}`} style={{ fontSize: '10px' }}>
-                  {floodResult?.inferenceStatus || 'FAILED'}
-                </span>
-              </div>
-
-              <div className="flex-between">
-                <span style={{ color: 'var(--text-muted)' }}>Detection Status:</span>
-                <strong style={{ color: floodResult?.detected ? '#ef4444' : '#10b981' }}>
-                  {floodResult?.inferenceStatus === 'SUCCESS'
-                    ? (floodResult.detected ? 'DETECTED' : 'NOT DETECTED')
-                    : 'UNAVAILABLE'}
-                </strong>
-              </div>
-
-              <div className="flex-between">
-                <span style={{ color: 'var(--text-muted)' }}>Target Flood Pixels:</span>
-                <strong style={{ color: floodResult?.floodPixelsCount > 0 ? '#00a8ff' : 'var(--text-muted)' }}>
-                  {floodResult?.floodPixelsCount ?? 0} / 16,384
-                </strong>
-              </div>
-
-              <div className="flex-between">
-                <span style={{ color: 'var(--text-muted)' }}>Visible Water Coverage:</span>
-                <strong style={{ fontSize: '14px', color: floodResult?.floodedAreaPercent > 15 ? '#ef4444' : floodResult?.floodedAreaPercent > 3 ? '#f59e0b' : '#10b981' }}>
-                  {floodResult?.floodedAreaPercent ?? 0}%
-                </strong>
-              </div>
-
-              <div className="flex-between">
-                <span style={{ color: 'var(--text-muted)' }}>Flood Severity:</span>
-                <span className={`badge ${
-                  inferenceResult?.severityAnalysis?.flood?.severity === 'CRITICAL' ? 'badge-red' :
-                  inferenceResult?.severityAnalysis?.flood?.severity === 'HIGH' ? 'badge-amber' :
-                  inferenceResult?.severityAnalysis?.flood?.severity === 'MEDIUM' ? 'badge-purple' : 'badge-blue'
-                }`} style={{ fontSize: '10px' }}>
-                  {inferenceResult?.severityAnalysis?.flood?.severity || 'UNAVAILABLE'}
-                </span>
-              </div>
-
-              <div className="flex-between">
-                <span style={{ color: 'var(--text-muted)' }}>Tensor Inference Latency:</span>
-                <span>{floodResult?.inferenceTimeMs || 0} ms</span>
-              </div>
-
-              <div className="flex-between">
-                <span style={{ color: 'var(--text-muted)' }}>Image Resolution:</span>
-                <span>{inferenceResult?.devDiagnostics?.naturalResolution || 'Unknown'}</span>
-              </div>
+          {/* ======================================================== */}
+          {/* LAYER 3 (PRIMARY): FINAL CIVIC INTERPRETATION            */}
+          {/* ======================================================== */}
+          <div className="glass-card" style={{ 
+            padding: '18px', 
+            border: civicIncidents.length > 0 ? '1.5px solid rgba(0, 168, 255, 0.4)' : '1px solid var(--border-card)',
+            backgroundColor: civicIncidents.length > 0 ? 'rgba(0, 168, 255, 0.03)' : 'var(--bg-card)'
+          }}>
+            <div className="flex-between" style={{ marginBottom: '12px' }}>
+              <h3 style={{ fontSize: '14px', fontWeight: '800', display: 'flex', alignItems: 'center', gap: '8px', color: '#00a8ff' }}>
+                <ShieldCheck size={18} /> LAYER 3: FINAL CIVIC INCIDENT(S)
+              </h3>
+              <span className={`badge ${civicIncidents.length > 0 ? 'badge-blue' : 'badge-amber'}`} style={{ fontSize: '10px' }}>
+                {civicIncidents.length} Confirmed
+              </span>
             </div>
 
-            <p style={{ fontSize: '10px', color: 'var(--text-muted)', marginTop: '10px', fontStyle: 'italic', borderTop: '1px solid var(--border-card)', paddingTop: '8px' }}>
-              Prototype visual severity derived directly from SegFormer FloodNet ONNX pixel segmentation map.
-            </p>
-          </div>
-
-          {/* Detected Objects List (Road & Waste) */}
-          <div className="glass-card" style={{ padding: '18px' }}>
-            <h3 style={{ fontSize: '14px', fontWeight: '700', marginBottom: '14px', display: 'flex', alignItems: 'center', gap: '8px' }}>
-              <Cpu size={16} style={{ color: 'var(--accent-blue)' }} /> Detected Visual Objects ({allDetections.length})
-            </h3>
-
-            {allDetections.length === 0 ? (
-              <div style={{ textAlign: 'center', padding: '20px 10px', color: 'var(--text-secondary)', fontSize: '12px' }}>
-                No bounding box defects detected above threshold ({Math.round(confidenceThreshold * 100)}%).
+            {civicIncidents.length === 0 ? (
+              <div style={{ padding: '16px 12px', textAlign: 'center', color: 'var(--text-secondary)', fontSize: '12px', backgroundColor: 'rgba(255,255,255,0.02)', borderRadius: '8px' }}>
+                {isInferring ? 'Evaluating multi-modal evidence...' : 'No verified civic incidents from current evidence.'}
               </div>
             ) : (
-              <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
-                {allDetections.map((det) => (
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
+                {civicIncidents.map((incident) => (
                   <div 
-                    key={det.id}
-                    onMouseEnter={() => setHoveredBox(det)}
-                    onMouseLeave={() => setHoveredBox(null)}
+                    key={incident.id} 
                     style={{
-                      padding: '12px',
+                      padding: '14px',
                       borderRadius: '8px',
-                      backgroundColor: hoveredBox === det ? 'rgba(0,168,255,0.08)' : 'rgba(255,255,255,0.02)',
-                      border: `1px solid ${hoveredBox === det ? 'var(--accent-blue)' : 'var(--border-card)'}`,
-                      transition: 'var(--transition)',
-                      cursor: 'pointer'
+                      backgroundColor: 'rgba(255,255,255,0.02)',
+                      border: '1px solid var(--border-card)',
+                      display: 'flex',
+                      flexDirection: 'column',
+                      gap: '8px',
+                      fontSize: '12px'
                     }}
                   >
-                    <div className="flex-between" style={{ marginBottom: '6px' }}>
-                      <span style={{ fontWeight: '800', fontSize: '13px', color: getBoxColor(det.type) }}>
-                        {det.type} ({det.classCode})
-                      </span>
-                      <span className="badge badge-purple" style={{ fontSize: '10px' }}>
-                        Model Conf: {Math.round(det.confidence * 100)}%
-                      </span>
+                    <div className="flex-between">
+                      <strong style={{ fontSize: '13px', color: 'var(--text-primary)' }}>
+                        {incident.title}
+                      </strong>
+                      <div style={{ display: 'flex', gap: '6px' }}>
+                        <span className={`badge ${incident.severity === 'HIGH' || incident.severity === 'CRITICAL' ? 'badge-red' : 'badge-amber'}`} style={{ fontSize: '10px' }}>
+                          {incident.severity} SEVERITY
+                        </span>
+                        <span className={`badge ${incident.priority === 'IMMEDIATE' ? 'badge-red' : 'badge-purple'}`} style={{ fontSize: '10px' }}>
+                          {incident.priority} PRIORITY
+                        </span>
+                      </div>
                     </div>
 
-                    <div style={{ fontSize: '11px', color: 'var(--text-secondary)', display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '4px' }}>
-                      <div>Bounding Box: [{det.boundingBox.x}%, {det.boundingBox.y}%]</div>
-                      <div>Box Extent: {det.boundingBox.width}% × {det.boundingBox.height}%</div>
-                      <div>Derived Severity: <strong style={{ color: det.severity === 'HIGH' ? '#ef4444' : det.severity === 'MEDIUM' ? '#f59e0b' : '#10b981' }}>{det.severity || 'LOW'}</strong></div>
-                      <div>Source: {det.source}</div>
+                    <div style={{ display: 'flex', flexDirection: 'column', gap: '4px', color: 'var(--text-secondary)', fontSize: '11px' }}>
+                      <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
+                        <Building size={13} style={{ color: '#c084fc' }} />
+                        <span><strong>Department:</strong> <span style={{ color: '#c084fc', fontWeight: '600' }}>{incident.recommendedDepartment}</span></span>
+                      </div>
+
+                      <div style={{ display: 'flex', alignItems: 'center', gap: '6px', background: 'rgba(0,168,255,0.06)', padding: '6px 8px', borderRadius: '4px', borderLeft: '2px solid var(--accent-blue)' }}>
+                        <Wrench size={13} style={{ color: 'var(--accent-blue)', flexShrink: 0 }} />
+                        <span><strong>AI Recommendation:</strong> {incident.recommendedAction}</span>
+                      </div>
+
+                      <div style={{ fontStyle: 'italic', color: '#94a3b8', marginTop: '2px' }}>
+                        {incident.contextualInterpretation}
+                      </div>
                     </div>
+
+                    <button
+                      className="btn btn-primary"
+                      disabled={filedIssues[incident.id]}
+                      onClick={() => handleFileIssue(incident)}
+                      style={{ padding: '6px 12px', fontSize: '11px', alignSelf: 'flex-end', marginTop: '4px' }}
+                    >
+                      {filedIssues[incident.id] ? (
+                        <>
+                          <Check size={14} style={{ marginRight: '4px' }} />
+                          Dispatched ({filedIssues[incident.id]})
+                        </>
+                      ) : (
+                        <>
+                          <FilePlus2 size={14} style={{ marginRight: '4px' }} />
+                          Confirm & Dispatch Incident
+                        </>
+                      )}
+                    </button>
                   </div>
                 ))}
               </div>
             )}
           </div>
 
-          {/* Action Priority & Severity Breakdown (Phase 8C-6B) */}
-          <div className="glass-card" style={{ padding: '18px' }}>
-            <h3 style={{ fontSize: '14px', fontWeight: '700', marginBottom: '12px' }}>
-              Action Priority & Multi-Hazard Severity
+          {/* ======================================================== */}
+          {/* LAYER 2: CONTEXTUAL CROSS-MODEL ARBITRATION              */}
+          {/* ======================================================== */}
+          <div className="glass-card" style={{ padding: '18px', border: '1px solid rgba(192, 132, 252, 0.3)', backgroundColor: 'rgba(192, 132, 252, 0.02)' }}>
+            <h3 style={{ fontSize: '14px', fontWeight: '800', marginBottom: '12px', display: 'flex', alignItems: 'center', gap: '8px', color: '#c084fc' }}>
+              <Sliders size={18} /> LAYER 2: CONTEXTUAL ARBITRATION
             </h3>
 
-            <div style={{ marginBottom: '14px' }}>
-              <div className="flex-between" style={{ fontSize: '12px', marginBottom: '4px' }}>
-                <span style={{ color: 'var(--text-muted)' }}>Action Priority:</span>
-                <span className={`badge ${
-                  inferenceResult?.overallPriority === 'IMMEDIATE' ? 'badge-red' :
-                  inferenceResult?.overallPriority === 'HIGH' ? 'badge-amber' :
-                  inferenceResult?.overallPriority === 'MEDIUM' ? 'badge-purple' : 'badge-blue'
-                }`} style={{ fontSize: '11px', padding: '4px 8px' }}>
-                  {inferenceResult?.overallPriority || 'ROUTINE'}
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '8px', fontSize: '11px' }}>
+              <div className="flex-between">
+                <span style={{ color: 'var(--text-muted)' }}>Flood Topology:</span>
+                <span className={`badge ${floodInterp?.isSignificantFlood ? 'badge-blue' : floodInterp?.isPossibleWater ? 'badge-purple' : 'badge-green'}`} style={{ fontSize: '10px' }}>
+                  {floodInterp?.status || 'NO SIGNIFICANT WATER'}
                 </span>
               </div>
-              <p style={{ fontSize: '11px', color: 'var(--text-secondary)', lineHeight: '1.4' }}>
-                {inferenceResult?.priorityReason || 'Baseline monitoring'}
-              </p>
+
+              <div className="flex-between">
+                <span style={{ color: 'var(--text-muted)' }}>Multi-Modal Fusion:</span>
+                <strong style={{ color: fusionEv?.isWaterFilledPothole ? '#f43f5e' : 'var(--text-primary)' }}>
+                  {fusionEv?.isWaterFilledPothole ? 'WATER-FILLED POTHOLE ACTIVE' : 'STANDARD ARBITRATION'}
+                </strong>
+              </div>
+
+              <div className="flex-between">
+                <span style={{ color: 'var(--text-muted)' }}>Waste Arbitration:</span>
+                <span>{acceptedWaste.length} accepted / {suppressedWaste.length} suppressed</span>
+              </div>
+
+              {/* Suppressed Detections Detail */}
+              {suppressedWaste.length > 0 && (
+                <div style={{ marginTop: '8px', padding: '10px', backgroundColor: 'rgba(245, 158, 11, 0.08)', borderRadius: '6px', border: '1px solid rgba(245, 158, 11, 0.3)' }}>
+                  <strong style={{ color: '#f59e0b', display: 'block', marginBottom: '4px' }}>
+                    ⚠ Suppressed Cross-Category Conflicts ({suppressedWaste.length}):
+                  </strong>
+                  {suppressedWaste.map((s, idx) => (
+                    <div key={idx} style={{ fontSize: '10px', color: 'var(--text-secondary)', marginBottom: '4px' }}>
+                      • <strong>{s.type} ({s.classCode})</strong>: {s.arbitrationReason}
+                    </div>
+                  ))}
+                </div>
+              )}
             </div>
+          </div>
+
+          {/* ======================================================== */}
+          {/* LAYER 1: RAW MODEL OUTPUTS & AUDIT                       */}
+          {/* ======================================================== */}
+          <div className="glass-card" style={{ padding: '18px', border: '1px solid rgba(16, 185, 129, 0.3)', backgroundColor: 'rgba(16, 185, 129, 0.02)' }}>
+            <h3 style={{ fontSize: '14px', fontWeight: '800', marginBottom: '12px', display: 'flex', alignItems: 'center', gap: '8px', color: '#10b981' }}>
+              <Cpu size={18} /> LAYER 1: RAW MODEL DETECTIONS
+            </h3>
 
             <div style={{ display: 'flex', flexDirection: 'column', gap: '8px', fontSize: '11px' }}>
-              <div className="flex-between" style={{ padding: '8px', backgroundColor: 'rgba(255,255,255,0.02)', borderRadius: '6px' }}>
-                <span>Road Defect Severity:</span>
-                <strong style={{ color: inferenceResult?.severityAnalysis?.road?.severity === 'HIGH' ? '#ef4444' : inferenceResult?.severityAnalysis?.road?.severity === 'MEDIUM' ? '#f59e0b' : '#10b981' }}>
-                  {inferenceResult?.severityAnalysis?.road?.severity || 'CLEAR'}
-                </strong>
+              <div className="flex-between">
+                <span style={{ color: 'var(--text-muted)' }}>RDD2022 Road Model:</span>
+                <span>{rawRoad.length} detection(s) {rawRoad.length > 0 ? `(${rawRoad.map(d => d.classCode).join(', ')})` : ''}</span>
               </div>
 
-              <div className="flex-between" style={{ padding: '8px', backgroundColor: 'rgba(255,255,255,0.02)', borderRadius: '6px' }}>
-                <span>Waste Accumulation:</span>
-                <strong style={{ color: inferenceResult?.severityAnalysis?.waste?.severity === 'HIGH' ? '#ef4444' : inferenceResult?.severityAnalysis?.waste?.severity === 'MEDIUM' ? '#f59e0b' : '#10b981' }}>
-                  {inferenceResult?.severityAnalysis?.waste?.severity || 'UNAVAILABLE'}
-                </strong>
+              <div className="flex-between">
+                <span style={{ color: 'var(--text-muted)' }}>YOLOv8 Waste Model:</span>
+                <span>{rawWaste.length} raw detection(s) {rawWaste.length > 0 ? `(${rawWaste.map(d => d.classCode).join(', ')})` : ''}</span>
               </div>
 
-              <div className="flex-between" style={{ padding: '8px', backgroundColor: 'rgba(255,255,255,0.02)', borderRadius: '6px' }}>
-                <span>Flood / Water Severity:</span>
-                <strong style={{ color: inferenceResult?.severityAnalysis?.flood?.severity === 'CRITICAL' || inferenceResult?.severityAnalysis?.flood?.severity === 'HIGH' ? '#ef4444' : inferenceResult?.severityAnalysis?.flood?.severity === 'MEDIUM' ? '#f59e0b' : '#10b981' }}>
-                  {inferenceResult?.severityAnalysis?.flood?.severity || 'UNAVAILABLE'}
-                </strong>
+              <div className="flex-between">
+                <span style={{ color: 'var(--text-muted)' }}>FloodNet Segmentation:</span>
+                <span>{floodResult?.floodedAreaPercent ?? 0}% water ({floodResult?.floodPixelsCount ?? 0} px)</span>
+              </div>
+
+              <div className="flex-between">
+                <span style={{ color: 'var(--text-muted)' }}>Raw Candidates Screened:</span>
+                <span>{inferenceResult?.devDiagnostics?.rawCandidates ?? 0} proposals</span>
               </div>
             </div>
           </div>

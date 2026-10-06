@@ -1,0 +1,3449 @@
+{
+  "metrics": {
+    "GARBAGE": {
+      "total": 30,
+      "raw_waste_count": 24,
+      "raw_waste_pct": 80.0,
+      "accepted_waste_count": 22,
+      "accepted_waste_pct": 73.33,
+      "suppressed_count": 2,
+      "suppressed_pct": 6.67
+    },
+    "FLOOD": {
+      "total": 32,
+      "raw_waste_count": 22,
+      "raw_waste_pct": 68.75,
+      "accepted_waste_count": 5,
+      "accepted_waste_pct": 15.62,
+      "suppressed_count": 17,
+      "suppressed_pct": 53.12
+    },
+    "POTHOLE": {
+      "total": 32,
+      "raw_waste_count": 27,
+      "raw_waste_pct": 84.38,
+      "accepted_waste_count": 10,
+      "accepted_waste_pct": 31.25,
+      "suppressed_count": 17,
+      "suppressed_pct": 53.12
+    }
+  },
+  "records": [
+    {
+      "filename": "flood 1.jpg",
+      "category": "FLOOD",
+      "folder": "Flood",
+      "width": 250,
+      "height": 175,
+      "road_post_nms_count": 0,
+      "road_classes": [],
+      "road_confidences": [],
+      "has_road_damage": false,
+      "has_pothole": false,
+      "water_coverage_pct": 49.59,
+      "largest_comp_ratio_pct": 99.98,
+      "is_significant_flood": true,
+      "is_possible_water": true,
+      "flood_classification": "SIGNIFICANT WATERLOGGING",
+      "is_water_filled_pothole": false,
+      "raw_waste_count": 1,
+      "accepted_waste_count": 0,
+      "suppressed_waste_count": 1,
+      "raw_waste_classes": [
+        "W50"
+      ],
+      "accepted_waste_classes": [],
+      "suppressed_waste_classes": [
+        "W50"
+      ],
+      "arbitration_decisions": [
+        "SUPPRESS_CONTEXTUAL_CONFLICT"
+      ],
+      "arbitration_reasons": [
+        "Monolithic whole-scene box (80.7%x99.9%) suppressed due to conflicting primary hazard: Significant Flood (49.6% water, ratio=100.0%)."
+      ],
+      "primary_decision": "SUPPRESS_CONTEXTUAL_CONFLICT",
+      "primary_reason": "Monolithic whole-scene box (80.7%x99.9%) suppressed due to conflicting primary hazard: Significant Flood (49.6% water, ratio=100.0%).",
+      "final_incident_interpretation": "SIGNIFICANT WATERLOGGING (Stormwater / Drainage)"
+    },
+    {
+      "filename": "flood 10.webp",
+      "category": "FLOOD",
+      "folder": "Flood",
+      "width": 192,
+      "height": 234,
+      "road_post_nms_count": 0,
+      "road_classes": [],
+      "road_confidences": [],
+      "has_road_damage": false,
+      "has_pothole": false,
+      "water_coverage_pct": 66.42,
+      "largest_comp_ratio_pct": 100.0,
+      "is_significant_flood": true,
+      "is_possible_water": true,
+      "flood_classification": "SIGNIFICANT WATERLOGGING",
+      "is_water_filled_pothole": false,
+      "raw_waste_count": 1,
+      "accepted_waste_count": 0,
+      "suppressed_waste_count": 1,
+      "raw_waste_classes": [
+        "W50"
+      ],
+      "accepted_waste_classes": [],
+      "suppressed_waste_classes": [
+        "W50"
+      ],
+      "arbitration_decisions": [
+        "SUPPRESS_CONTEXTUAL_CONFLICT"
+      ],
+      "arbitration_reasons": [
+        "Monolithic whole-scene box (91.8%x79.9%) suppressed due to conflicting primary hazard: Significant Flood (66.4% water, ratio=100.0%)."
+      ],
+      "primary_decision": "SUPPRESS_CONTEXTUAL_CONFLICT",
+      "primary_reason": "Monolithic whole-scene box (91.8%x79.9%) suppressed due to conflicting primary hazard: Significant Flood (66.4% water, ratio=100.0%).",
+      "final_incident_interpretation": "SIGNIFICANT WATERLOGGING (Stormwater / Drainage)"
+    },
+    {
+      "filename": "flood 11.webp",
+      "category": "FLOOD",
+      "folder": "Flood",
+      "width": 392,
+      "height": 261,
+      "road_post_nms_count": 0,
+      "road_classes": [],
+      "road_confidences": [],
+      "has_road_damage": false,
+      "has_pothole": false,
+      "water_coverage_pct": 43.28,
+      "largest_comp_ratio_pct": 99.94,
+      "is_significant_flood": true,
+      "is_possible_water": true,
+      "flood_classification": "SIGNIFICANT WATERLOGGING",
+      "is_water_filled_pothole": false,
+      "raw_waste_count": 1,
+      "accepted_waste_count": 0,
+      "suppressed_waste_count": 1,
+      "raw_waste_classes": [
+        "W50"
+      ],
+      "accepted_waste_classes": [],
+      "suppressed_waste_classes": [
+        "W50"
+      ],
+      "arbitration_decisions": [
+        "SUPPRESS_CONTEXTUAL_CONFLICT"
+      ],
+      "arbitration_reasons": [
+        "Monolithic whole-scene box (79.5%x99.9%) suppressed due to conflicting primary hazard: Significant Flood (43.3% water, ratio=99.9%)."
+      ],
+      "primary_decision": "SUPPRESS_CONTEXTUAL_CONFLICT",
+      "primary_reason": "Monolithic whole-scene box (79.5%x99.9%) suppressed due to conflicting primary hazard: Significant Flood (43.3% water, ratio=99.9%).",
+      "final_incident_interpretation": "SIGNIFICANT WATERLOGGING (Stormwater / Drainage)"
+    },
+    {
+      "filename": "flood 12.webp",
+      "category": "FLOOD",
+      "folder": "Flood",
+      "width": 417,
+      "height": 234,
+      "road_post_nms_count": 0,
+      "road_classes": [],
+      "road_confidences": [],
+      "has_road_damage": false,
+      "has_pothole": false,
+      "water_coverage_pct": 59.25,
+      "largest_comp_ratio_pct": 99.62,
+      "is_significant_flood": true,
+      "is_possible_water": true,
+      "flood_classification": "SIGNIFICANT WATERLOGGING",
+      "is_water_filled_pothole": false,
+      "raw_waste_count": 0,
+      "accepted_waste_count": 0,
+      "suppressed_waste_count": 0,
+      "raw_waste_classes": [],
+      "accepted_waste_classes": [],
+      "suppressed_waste_classes": [],
+      "arbitration_decisions": [],
+      "arbitration_reasons": [],
+      "primary_decision": "NO_WASTE_DETECTION",
+      "primary_reason": "Model produced zero waste candidates",
+      "final_incident_interpretation": "SIGNIFICANT WATERLOGGING (Stormwater / Drainage)"
+    },
+    {
+      "filename": "flood 13.webp",
+      "category": "FLOOD",
+      "folder": "Flood",
+      "width": 344,
+      "height": 234,
+      "road_post_nms_count": 0,
+      "road_classes": [],
+      "road_confidences": [],
+      "has_road_damage": false,
+      "has_pothole": false,
+      "water_coverage_pct": 7.39,
+      "largest_comp_ratio_pct": 75.14,
+      "is_significant_flood": false,
+      "is_possible_water": true,
+      "flood_classification": "POSSIBLE WATERLOGGING",
+      "is_water_filled_pothole": false,
+      "raw_waste_count": 0,
+      "accepted_waste_count": 0,
+      "suppressed_waste_count": 0,
+      "raw_waste_classes": [],
+      "accepted_waste_classes": [],
+      "suppressed_waste_classes": [],
+      "arbitration_decisions": [],
+      "arbitration_reasons": [],
+      "primary_decision": "NO_WASTE_DETECTION",
+      "primary_reason": "Model produced zero waste candidates",
+      "final_incident_interpretation": "POSSIBLE WATERLOGGING (Stormwater Monitor)"
+    },
+    {
+      "filename": "flood 14.webp",
+      "category": "FLOOD",
+      "folder": "Flood",
+      "width": 347,
+      "height": 280,
+      "road_post_nms_count": 0,
+      "road_classes": [],
+      "road_confidences": [],
+      "has_road_damage": false,
+      "has_pothole": false,
+      "water_coverage_pct": 27.48,
+      "largest_comp_ratio_pct": 99.75,
+      "is_significant_flood": true,
+      "is_possible_water": true,
+      "flood_classification": "SIGNIFICANT WATERLOGGING",
+      "is_water_filled_pothole": false,
+      "raw_waste_count": 1,
+      "accepted_waste_count": 0,
+      "suppressed_waste_count": 1,
+      "raw_waste_classes": [
+        "W20"
+      ],
+      "accepted_waste_classes": [],
+      "suppressed_waste_classes": [
+        "W20"
+      ],
+      "arbitration_decisions": [
+        "SUPPRESS_CONTEXTUAL_CONFLICT"
+      ],
+      "arbitration_reasons": [
+        "Monolithic whole-scene box (79.5%x99.8%) suppressed due to conflicting primary hazard: Significant Flood (27.5% water, ratio=99.8%)."
+      ],
+      "primary_decision": "SUPPRESS_CONTEXTUAL_CONFLICT",
+      "primary_reason": "Monolithic whole-scene box (79.5%x99.8%) suppressed due to conflicting primary hazard: Significant Flood (27.5% water, ratio=99.8%).",
+      "final_incident_interpretation": "SIGNIFICANT WATERLOGGING (Stormwater / Drainage)"
+    },
+    {
+      "filename": "flood 15.jpg",
+      "category": "FLOOD",
+      "folder": "Flood",
+      "width": 289,
+      "height": 174,
+      "road_post_nms_count": 0,
+      "road_classes": [],
+      "road_confidences": [],
+      "has_road_damage": false,
+      "has_pothole": false,
+      "water_coverage_pct": 37.83,
+      "largest_comp_ratio_pct": 100.0,
+      "is_significant_flood": true,
+      "is_possible_water": true,
+      "flood_classification": "SIGNIFICANT WATERLOGGING",
+      "is_water_filled_pothole": false,
+      "raw_waste_count": 1,
+      "accepted_waste_count": 0,
+      "suppressed_waste_count": 1,
+      "raw_waste_classes": [
+        "W50"
+      ],
+      "accepted_waste_classes": [],
+      "suppressed_waste_classes": [
+        "W50"
+      ],
+      "arbitration_decisions": [
+        "SUPPRESS_CONTEXTUAL_CONFLICT"
+      ],
+      "arbitration_reasons": [
+        "Monolithic whole-scene box (79.4%x99.7%) suppressed due to conflicting primary hazard: Significant Flood (37.8% water, ratio=100.0%)."
+      ],
+      "primary_decision": "SUPPRESS_CONTEXTUAL_CONFLICT",
+      "primary_reason": "Monolithic whole-scene box (79.4%x99.7%) suppressed due to conflicting primary hazard: Significant Flood (37.8% water, ratio=100.0%).",
+      "final_incident_interpretation": "SIGNIFICANT WATERLOGGING (Stormwater / Drainage)"
+    },
+    {
+      "filename": "flood 16.jpg",
+      "category": "FLOOD",
+      "folder": "Flood",
+      "width": 415,
+      "height": 737,
+      "road_post_nms_count": 0,
+      "road_classes": [],
+      "road_confidences": [],
+      "has_road_damage": false,
+      "has_pothole": false,
+      "water_coverage_pct": 27.7,
+      "largest_comp_ratio_pct": 99.91,
+      "is_significant_flood": true,
+      "is_possible_water": true,
+      "flood_classification": "SIGNIFICANT WATERLOGGING",
+      "is_water_filled_pothole": false,
+      "raw_waste_count": 1,
+      "accepted_waste_count": 0,
+      "suppressed_waste_count": 1,
+      "raw_waste_classes": [
+        "W70"
+      ],
+      "accepted_waste_classes": [],
+      "suppressed_waste_classes": [
+        "W70"
+      ],
+      "arbitration_decisions": [
+        "SUPPRESS_CONTEXTUAL_CONFLICT"
+      ],
+      "arbitration_reasons": [
+        "Monolithic whole-scene box (100.0%x79.6%) suppressed due to conflicting primary hazard: Significant Flood (27.7% water, ratio=99.9%)."
+      ],
+      "primary_decision": "SUPPRESS_CONTEXTUAL_CONFLICT",
+      "primary_reason": "Monolithic whole-scene box (100.0%x79.6%) suppressed due to conflicting primary hazard: Significant Flood (27.7% water, ratio=99.9%).",
+      "final_incident_interpretation": "SIGNIFICANT WATERLOGGING (Stormwater / Drainage)"
+    },
+    {
+      "filename": "flood 17.jpg",
+      "category": "FLOOD",
+      "folder": "Flood",
+      "width": 618,
+      "height": 495,
+      "road_post_nms_count": 0,
+      "road_classes": [],
+      "road_confidences": [],
+      "has_road_damage": false,
+      "has_pothole": false,
+      "water_coverage_pct": 48.8,
+      "largest_comp_ratio_pct": 99.99,
+      "is_significant_flood": true,
+      "is_possible_water": true,
+      "flood_classification": "SIGNIFICANT WATERLOGGING",
+      "is_water_filled_pothole": false,
+      "raw_waste_count": 1,
+      "accepted_waste_count": 0,
+      "suppressed_waste_count": 1,
+      "raw_waste_classes": [
+        "W70"
+      ],
+      "accepted_waste_classes": [],
+      "suppressed_waste_classes": [
+        "W70"
+      ],
+      "arbitration_decisions": [
+        "SUPPRESS_CONTEXTUAL_CONFLICT"
+      ],
+      "arbitration_reasons": [
+        "Monolithic whole-scene box (79.2%x99.9%) suppressed due to conflicting primary hazard: Significant Flood (48.8% water, ratio=100.0%)."
+      ],
+      "primary_decision": "SUPPRESS_CONTEXTUAL_CONFLICT",
+      "primary_reason": "Monolithic whole-scene box (79.2%x99.9%) suppressed due to conflicting primary hazard: Significant Flood (48.8% water, ratio=100.0%).",
+      "final_incident_interpretation": "SIGNIFICANT WATERLOGGING (Stormwater / Drainage)"
+    },
+    {
+      "filename": "flood 18.jpg",
+      "category": "FLOOD",
+      "folder": "Flood",
+      "width": 387,
+      "height": 516,
+      "road_post_nms_count": 0,
+      "road_classes": [],
+      "road_confidences": [],
+      "has_road_damage": false,
+      "has_pothole": false,
+      "water_coverage_pct": 6.21,
+      "largest_comp_ratio_pct": 99.94,
+      "is_significant_flood": false,
+      "is_possible_water": true,
+      "flood_classification": "POSSIBLE WATERLOGGING",
+      "is_water_filled_pothole": false,
+      "raw_waste_count": 1,
+      "accepted_waste_count": 1,
+      "suppressed_waste_count": 0,
+      "raw_waste_classes": [
+        "W20"
+      ],
+      "accepted_waste_classes": [
+        "W20"
+      ],
+      "suppressed_waste_classes": [],
+      "arbitration_decisions": [
+        "RETAIN_MONOLITHIC_STANDALONE"
+      ],
+      "arbitration_reasons": [
+        "Monolithic box (100.0%x79.8%) retained: standalone scene with no conflicting road damage or flood."
+      ],
+      "primary_decision": "RETAIN_MONOLITHIC_STANDALONE",
+      "primary_reason": "Monolithic box (100.0%x79.8%) retained: standalone scene with no conflicting road damage or flood.",
+      "final_incident_interpretation": "POSSIBLE WATERLOGGING (Stormwater Monitor) | DETECTED WASTE (W20) (Sanitation)"
+    },
+    {
+      "filename": "flood 19.jpg",
+      "category": "FLOOD",
+      "folder": "Flood",
+      "width": 554,
+      "height": 554,
+      "road_post_nms_count": 0,
+      "road_classes": [],
+      "road_confidences": [],
+      "has_road_damage": false,
+      "has_pothole": false,
+      "water_coverage_pct": 10.46,
+      "largest_comp_ratio_pct": 53.22,
+      "is_significant_flood": false,
+      "is_possible_water": true,
+      "flood_classification": "POSSIBLE WATERLOGGING",
+      "is_water_filled_pothole": false,
+      "raw_waste_count": 0,
+      "accepted_waste_count": 0,
+      "suppressed_waste_count": 0,
+      "raw_waste_classes": [],
+      "accepted_waste_classes": [],
+      "suppressed_waste_classes": [],
+      "arbitration_decisions": [],
+      "arbitration_reasons": [],
+      "primary_decision": "NO_WASTE_DETECTION",
+      "primary_reason": "Model produced zero waste candidates",
+      "final_incident_interpretation": "POSSIBLE WATERLOGGING (Stormwater Monitor)"
+    },
+    {
+      "filename": "flood 2",
+      "category": "FLOOD",
+      "folder": "Flood",
+      "width": 365,
+      "height": 237,
+      "road_post_nms_count": 0,
+      "road_classes": [],
+      "road_confidences": [],
+      "has_road_damage": false,
+      "has_pothole": false,
+      "water_coverage_pct": 53.03,
+      "largest_comp_ratio_pct": 100.0,
+      "is_significant_flood": true,
+      "is_possible_water": true,
+      "flood_classification": "SIGNIFICANT WATERLOGGING",
+      "is_water_filled_pothole": false,
+      "raw_waste_count": 0,
+      "accepted_waste_count": 0,
+      "suppressed_waste_count": 0,
+      "raw_waste_classes": [],
+      "accepted_waste_classes": [],
+      "suppressed_waste_classes": [],
+      "arbitration_decisions": [],
+      "arbitration_reasons": [],
+      "primary_decision": "NO_WASTE_DETECTION",
+      "primary_reason": "Model produced zero waste candidates",
+      "final_incident_interpretation": "SIGNIFICANT WATERLOGGING (Stormwater / Drainage)"
+    },
+    {
+      "filename": "flood 20.webp",
+      "category": "FLOOD",
+      "folder": "Flood",
+      "width": 638,
+      "height": 480,
+      "road_post_nms_count": 0,
+      "road_classes": [],
+      "road_confidences": [],
+      "has_road_damage": false,
+      "has_pothole": false,
+      "water_coverage_pct": 56.1,
+      "largest_comp_ratio_pct": 99.99,
+      "is_significant_flood": true,
+      "is_possible_water": true,
+      "flood_classification": "SIGNIFICANT WATERLOGGING",
+      "is_water_filled_pothole": false,
+      "raw_waste_count": 2,
+      "accepted_waste_count": 0,
+      "suppressed_waste_count": 2,
+      "raw_waste_classes": [
+        "W20",
+        "W70"
+      ],
+      "accepted_waste_classes": [],
+      "suppressed_waste_classes": [
+        "W20",
+        "W70"
+      ],
+      "arbitration_decisions": [
+        "SUPPRESS_CONTEXTUAL_CONFLICT",
+        "SUPPRESS_CONTEXTUAL_CONFLICT"
+      ],
+      "arbitration_reasons": [
+        "Monolithic whole-scene box (79.0%x100.0%) suppressed due to conflicting primary hazard: Significant Flood (56.1% water, ratio=100.0%).",
+        "Monolithic whole-scene box (81.4%x98.5%) suppressed due to conflicting primary hazard: Significant Flood (56.1% water, ratio=100.0%)."
+      ],
+      "primary_decision": "SUPPRESS_CONTEXTUAL_CONFLICT",
+      "primary_reason": "Monolithic whole-scene box (79.0%x100.0%) suppressed due to conflicting primary hazard: Significant Flood (56.1% water, ratio=100.0%).",
+      "final_incident_interpretation": "SIGNIFICANT WATERLOGGING (Stormwater / Drainage)"
+    },
+    {
+      "filename": "flood 21.webp",
+      "category": "FLOOD",
+      "folder": "Flood",
+      "width": 515,
+      "height": 388,
+      "road_post_nms_count": 0,
+      "road_classes": [],
+      "road_confidences": [],
+      "has_road_damage": false,
+      "has_pothole": false,
+      "water_coverage_pct": 34.68,
+      "largest_comp_ratio_pct": 100.0,
+      "is_significant_flood": true,
+      "is_possible_water": true,
+      "flood_classification": "SIGNIFICANT WATERLOGGING",
+      "is_water_filled_pothole": false,
+      "raw_waste_count": 1,
+      "accepted_waste_count": 0,
+      "suppressed_waste_count": 1,
+      "raw_waste_classes": [
+        "W20"
+      ],
+      "accepted_waste_classes": [],
+      "suppressed_waste_classes": [
+        "W20"
+      ],
+      "arbitration_decisions": [
+        "SUPPRESS_CONTEXTUAL_CONFLICT"
+      ],
+      "arbitration_reasons": [
+        "Monolithic whole-scene box (80.8%x99.8%) suppressed due to conflicting primary hazard: Significant Flood (34.7% water, ratio=100.0%)."
+      ],
+      "primary_decision": "SUPPRESS_CONTEXTUAL_CONFLICT",
+      "primary_reason": "Monolithic whole-scene box (80.8%x99.8%) suppressed due to conflicting primary hazard: Significant Flood (34.7% water, ratio=100.0%).",
+      "final_incident_interpretation": "SIGNIFICANT WATERLOGGING (Stormwater / Drainage)"
+    },
+    {
+      "filename": "flood 22.webp",
+      "category": "FLOOD",
+      "folder": "Flood",
+      "width": 554,
+      "height": 554,
+      "road_post_nms_count": 0,
+      "road_classes": [],
+      "road_confidences": [],
+      "has_road_damage": false,
+      "has_pothole": false,
+      "water_coverage_pct": 61.06,
+      "largest_comp_ratio_pct": 99.88,
+      "is_significant_flood": true,
+      "is_possible_water": true,
+      "flood_classification": "SIGNIFICANT WATERLOGGING",
+      "is_water_filled_pothole": false,
+      "raw_waste_count": 1,
+      "accepted_waste_count": 0,
+      "suppressed_waste_count": 1,
+      "raw_waste_classes": [
+        "W20"
+      ],
+      "accepted_waste_classes": [],
+      "suppressed_waste_classes": [
+        "W20"
+      ],
+      "arbitration_decisions": [
+        "SUPPRESS_CONTEXTUAL_CONFLICT"
+      ],
+      "arbitration_reasons": [
+        "Monolithic whole-scene box (80.7%x81.2%) suppressed due to conflicting primary hazard: Significant Flood (61.1% water, ratio=99.9%)."
+      ],
+      "primary_decision": "SUPPRESS_CONTEXTUAL_CONFLICT",
+      "primary_reason": "Monolithic whole-scene box (80.7%x81.2%) suppressed due to conflicting primary hazard: Significant Flood (61.1% water, ratio=99.9%).",
+      "final_incident_interpretation": "SIGNIFICANT WATERLOGGING (Stormwater / Drainage)"
+    },
+    {
+      "filename": "flood 23.webp",
+      "category": "FLOOD",
+      "folder": "Flood",
+      "width": 528,
+      "height": 378,
+      "road_post_nms_count": 0,
+      "road_classes": [],
+      "road_confidences": [],
+      "has_road_damage": false,
+      "has_pothole": false,
+      "water_coverage_pct": 2.68,
+      "largest_comp_ratio_pct": 45.68,
+      "is_significant_flood": false,
+      "is_possible_water": false,
+      "flood_classification": "NO SIGNIFICANT WATER",
+      "is_water_filled_pothole": false,
+      "raw_waste_count": 1,
+      "accepted_waste_count": 1,
+      "suppressed_waste_count": 0,
+      "raw_waste_classes": [
+        "W50"
+      ],
+      "accepted_waste_classes": [
+        "W50"
+      ],
+      "suppressed_waste_classes": [],
+      "arbitration_decisions": [
+        "RETAIN_MONOLITHIC_STANDALONE"
+      ],
+      "arbitration_reasons": [
+        "Monolithic box (81.1%x99.9%) retained: standalone scene with no conflicting road damage or flood."
+      ],
+      "primary_decision": "RETAIN_MONOLITHIC_STANDALONE",
+      "primary_reason": "Monolithic box (81.1%x99.9%) retained: standalone scene with no conflicting road damage or flood.",
+      "final_incident_interpretation": "DETECTED WASTE (W50) (Sanitation)"
+    },
+    {
+      "filename": "flood 24.webp",
+      "category": "FLOOD",
+      "folder": "Flood",
+      "width": 638,
+      "height": 480,
+      "road_post_nms_count": 0,
+      "road_classes": [],
+      "road_confidences": [],
+      "has_road_damage": false,
+      "has_pothole": false,
+      "water_coverage_pct": 51.77,
+      "largest_comp_ratio_pct": 99.99,
+      "is_significant_flood": true,
+      "is_possible_water": true,
+      "flood_classification": "SIGNIFICANT WATERLOGGING",
+      "is_water_filled_pothole": false,
+      "raw_waste_count": 0,
+      "accepted_waste_count": 0,
+      "suppressed_waste_count": 0,
+      "raw_waste_classes": [],
+      "accepted_waste_classes": [],
+      "suppressed_waste_classes": [],
+      "arbitration_decisions": [],
+      "arbitration_reasons": [],
+      "primary_decision": "NO_WASTE_DETECTION",
+      "primary_reason": "Model produced zero waste candidates",
+      "final_incident_interpretation": "SIGNIFICANT WATERLOGGING (Stormwater / Drainage)"
+    },
+    {
+      "filename": "flood 25.webp",
+      "category": "FLOOD",
+      "folder": "Flood",
+      "width": 738,
+      "height": 414,
+      "road_post_nms_count": 0,
+      "road_classes": [],
+      "road_confidences": [],
+      "has_road_damage": false,
+      "has_pothole": false,
+      "water_coverage_pct": 54.82,
+      "largest_comp_ratio_pct": 100.0,
+      "is_significant_flood": true,
+      "is_possible_water": true,
+      "flood_classification": "SIGNIFICANT WATERLOGGING",
+      "is_water_filled_pothole": false,
+      "raw_waste_count": 1,
+      "accepted_waste_count": 0,
+      "suppressed_waste_count": 1,
+      "raw_waste_classes": [
+        "W00"
+      ],
+      "accepted_waste_classes": [],
+      "suppressed_waste_classes": [
+        "W00"
+      ],
+      "arbitration_decisions": [
+        "SUPPRESS_CONTEXTUAL_CONFLICT"
+      ],
+      "arbitration_reasons": [
+        "Monolithic whole-scene box (77.2%x99.8%) suppressed due to conflicting primary hazard: Significant Flood (54.8% water, ratio=100.0%)."
+      ],
+      "primary_decision": "SUPPRESS_CONTEXTUAL_CONFLICT",
+      "primary_reason": "Monolithic whole-scene box (77.2%x99.8%) suppressed due to conflicting primary hazard: Significant Flood (54.8% water, ratio=100.0%).",
+      "final_incident_interpretation": "SIGNIFICANT WATERLOGGING (Stormwater / Drainage)"
+    },
+    {
+      "filename": "flood 26.webp",
+      "category": "FLOOD",
+      "folder": "Flood",
+      "width": 738,
+      "height": 414,
+      "road_post_nms_count": 0,
+      "road_classes": [],
+      "road_confidences": [],
+      "has_road_damage": false,
+      "has_pothole": false,
+      "water_coverage_pct": 32.01,
+      "largest_comp_ratio_pct": 91.81,
+      "is_significant_flood": true,
+      "is_possible_water": true,
+      "flood_classification": "SIGNIFICANT WATERLOGGING",
+      "is_water_filled_pothole": false,
+      "raw_waste_count": 0,
+      "accepted_waste_count": 0,
+      "suppressed_waste_count": 0,
+      "raw_waste_classes": [],
+      "accepted_waste_classes": [],
+      "suppressed_waste_classes": [],
+      "arbitration_decisions": [],
+      "arbitration_reasons": [],
+      "primary_decision": "NO_WASTE_DETECTION",
+      "primary_reason": "Model produced zero waste candidates",
+      "final_incident_interpretation": "SIGNIFICANT WATERLOGGING (Stormwater / Drainage)"
+    },
+    {
+      "filename": "flood 27.webp",
+      "category": "FLOOD",
+      "folder": "Flood",
+      "width": 738,
+      "height": 414,
+      "road_post_nms_count": 0,
+      "road_classes": [],
+      "road_confidences": [],
+      "has_road_damage": false,
+      "has_pothole": false,
+      "water_coverage_pct": 2.46,
+      "largest_comp_ratio_pct": 43.94,
+      "is_significant_flood": false,
+      "is_possible_water": false,
+      "flood_classification": "NO SIGNIFICANT WATER",
+      "is_water_filled_pothole": false,
+      "raw_waste_count": 1,
+      "accepted_waste_count": 1,
+      "suppressed_waste_count": 0,
+      "raw_waste_classes": [
+        "W70"
+      ],
+      "accepted_waste_classes": [
+        "W70"
+      ],
+      "suppressed_waste_classes": [],
+      "arbitration_decisions": [
+        "RETAIN_MONOLITHIC_STANDALONE"
+      ],
+      "arbitration_reasons": [
+        "Monolithic box (79.7%x99.9%) retained: standalone scene with no conflicting road damage or flood."
+      ],
+      "primary_decision": "RETAIN_MONOLITHIC_STANDALONE",
+      "primary_reason": "Monolithic box (79.7%x99.9%) retained: standalone scene with no conflicting road damage or flood.",
+      "final_incident_interpretation": "DETECTED WASTE (W70) (Sanitation)"
+    },
+    {
+      "filename": "flood 28.webp",
+      "category": "FLOOD",
+      "folder": "Flood",
+      "width": 556,
+      "height": 359,
+      "road_post_nms_count": 0,
+      "road_classes": [],
+      "road_confidences": [],
+      "has_road_damage": false,
+      "has_pothole": false,
+      "water_coverage_pct": 47.21,
+      "largest_comp_ratio_pct": 87.58,
+      "is_significant_flood": true,
+      "is_possible_water": true,
+      "flood_classification": "SIGNIFICANT WATERLOGGING",
+      "is_water_filled_pothole": false,
+      "raw_waste_count": 1,
+      "accepted_waste_count": 0,
+      "suppressed_waste_count": 1,
+      "raw_waste_classes": [
+        "W60"
+      ],
+      "accepted_waste_classes": [],
+      "suppressed_waste_classes": [
+        "W60"
+      ],
+      "arbitration_decisions": [
+        "SUPPRESS_CONTEXTUAL_CONFLICT"
+      ],
+      "arbitration_reasons": [
+        "Monolithic whole-scene box (80.9%x99.9%) suppressed due to conflicting primary hazard: Significant Flood (47.2% water, ratio=87.6%)."
+      ],
+      "primary_decision": "SUPPRESS_CONTEXTUAL_CONFLICT",
+      "primary_reason": "Monolithic whole-scene box (80.9%x99.9%) suppressed due to conflicting primary hazard: Significant Flood (47.2% water, ratio=87.6%).",
+      "final_incident_interpretation": "SIGNIFICANT WATERLOGGING (Stormwater / Drainage)"
+    },
+    {
+      "filename": "flood 29.webp",
+      "category": "FLOOD",
+      "folder": "Flood",
+      "width": 638,
+      "height": 480,
+      "road_post_nms_count": 0,
+      "road_classes": [],
+      "road_confidences": [],
+      "has_road_damage": false,
+      "has_pothole": false,
+      "water_coverage_pct": 21.1,
+      "largest_comp_ratio_pct": 86.38,
+      "is_significant_flood": false,
+      "is_possible_water": true,
+      "flood_classification": "POSSIBLE WATERLOGGING",
+      "is_water_filled_pothole": false,
+      "raw_waste_count": 1,
+      "accepted_waste_count": 1,
+      "suppressed_waste_count": 0,
+      "raw_waste_classes": [
+        "W70"
+      ],
+      "accepted_waste_classes": [
+        "W70"
+      ],
+      "suppressed_waste_classes": [],
+      "arbitration_decisions": [
+        "RETAIN_MONOLITHIC_STANDALONE"
+      ],
+      "arbitration_reasons": [
+        "Monolithic box (80.7%x98.9%) retained: standalone scene with no conflicting road damage or flood."
+      ],
+      "primary_decision": "RETAIN_MONOLITHIC_STANDALONE",
+      "primary_reason": "Monolithic box (80.7%x98.9%) retained: standalone scene with no conflicting road damage or flood.",
+      "final_incident_interpretation": "POSSIBLE WATERLOGGING (Stormwater Monitor) | DETECTED WASTE (W70) (Sanitation)"
+    },
+    {
+      "filename": "flood 3.webp",
+      "category": "FLOOD",
+      "folder": "Flood",
+      "width": 408,
+      "height": 234,
+      "road_post_nms_count": 0,
+      "road_classes": [],
+      "road_confidences": [],
+      "has_road_damage": false,
+      "has_pothole": false,
+      "water_coverage_pct": 62.74,
+      "largest_comp_ratio_pct": 99.73,
+      "is_significant_flood": true,
+      "is_possible_water": true,
+      "flood_classification": "SIGNIFICANT WATERLOGGING",
+      "is_water_filled_pothole": false,
+      "raw_waste_count": 0,
+      "accepted_waste_count": 0,
+      "suppressed_waste_count": 0,
+      "raw_waste_classes": [],
+      "accepted_waste_classes": [],
+      "suppressed_waste_classes": [],
+      "arbitration_decisions": [],
+      "arbitration_reasons": [],
+      "primary_decision": "NO_WASTE_DETECTION",
+      "primary_reason": "Model produced zero waste candidates",
+      "final_incident_interpretation": "SIGNIFICANT WATERLOGGING (Stormwater / Drainage)"
+    },
+    {
+      "filename": "flood 30.webp",
+      "category": "FLOOD",
+      "folder": "Flood",
+      "width": 738,
+      "height": 414,
+      "road_post_nms_count": 0,
+      "road_classes": [],
+      "road_confidences": [],
+      "has_road_damage": false,
+      "has_pothole": false,
+      "water_coverage_pct": 45.79,
+      "largest_comp_ratio_pct": 99.1,
+      "is_significant_flood": true,
+      "is_possible_water": true,
+      "flood_classification": "SIGNIFICANT WATERLOGGING",
+      "is_water_filled_pothole": false,
+      "raw_waste_count": 1,
+      "accepted_waste_count": 0,
+      "suppressed_waste_count": 1,
+      "raw_waste_classes": [
+        "W20"
+      ],
+      "accepted_waste_classes": [],
+      "suppressed_waste_classes": [
+        "W20"
+      ],
+      "arbitration_decisions": [
+        "SUPPRESS_CONTEXTUAL_CONFLICT"
+      ],
+      "arbitration_reasons": [
+        "Monolithic whole-scene box (77.9%x99.7%) suppressed due to conflicting primary hazard: Significant Flood (45.8% water, ratio=99.1%)."
+      ],
+      "primary_decision": "SUPPRESS_CONTEXTUAL_CONFLICT",
+      "primary_reason": "Monolithic whole-scene box (77.9%x99.7%) suppressed due to conflicting primary hazard: Significant Flood (45.8% water, ratio=99.1%).",
+      "final_incident_interpretation": "SIGNIFICANT WATERLOGGING (Stormwater / Drainage)"
+    },
+    {
+      "filename": "flood 4.webp",
+      "category": "FLOOD",
+      "folder": "Flood",
+      "width": 403,
+      "height": 234,
+      "road_post_nms_count": 0,
+      "road_classes": [],
+      "road_confidences": [],
+      "has_road_damage": false,
+      "has_pothole": false,
+      "water_coverage_pct": 5.89,
+      "largest_comp_ratio_pct": 99.99,
+      "is_significant_flood": false,
+      "is_possible_water": true,
+      "flood_classification": "POSSIBLE WATERLOGGING",
+      "is_water_filled_pothole": false,
+      "raw_waste_count": 1,
+      "accepted_waste_count": 1,
+      "suppressed_waste_count": 0,
+      "raw_waste_classes": [
+        "W00"
+      ],
+      "accepted_waste_classes": [
+        "W00"
+      ],
+      "suppressed_waste_classes": [],
+      "arbitration_decisions": [
+        "RETAIN_MONOLITHIC_STANDALONE"
+      ],
+      "arbitration_reasons": [
+        "Monolithic box (80.3%x99.9%) retained: standalone scene with no conflicting road damage or flood."
+      ],
+      "primary_decision": "RETAIN_MONOLITHIC_STANDALONE",
+      "primary_reason": "Monolithic box (80.3%x99.9%) retained: standalone scene with no conflicting road damage or flood.",
+      "final_incident_interpretation": "POSSIBLE WATERLOGGING (Stormwater Monitor) | DETECTED WASTE (W00) (Sanitation)"
+    },
+    {
+      "filename": "flood 5.webp",
+      "category": "FLOOD",
+      "folder": "Flood",
+      "width": 308,
+      "height": 234,
+      "road_post_nms_count": 0,
+      "road_classes": [],
+      "road_confidences": [],
+      "has_road_damage": false,
+      "has_pothole": false,
+      "water_coverage_pct": 45.01,
+      "largest_comp_ratio_pct": 99.94,
+      "is_significant_flood": true,
+      "is_possible_water": true,
+      "flood_classification": "SIGNIFICANT WATERLOGGING",
+      "is_water_filled_pothole": false,
+      "raw_waste_count": 0,
+      "accepted_waste_count": 0,
+      "suppressed_waste_count": 0,
+      "raw_waste_classes": [],
+      "accepted_waste_classes": [],
+      "suppressed_waste_classes": [],
+      "arbitration_decisions": [],
+      "arbitration_reasons": [],
+      "primary_decision": "NO_WASTE_DETECTION",
+      "primary_reason": "Model produced zero waste candidates",
+      "final_incident_interpretation": "SIGNIFICANT WATERLOGGING (Stormwater / Drainage)"
+    },
+    {
+      "filename": "flood 6.webp",
+      "category": "FLOOD",
+      "folder": "Flood",
+      "width": 432,
+      "height": 243,
+      "road_post_nms_count": 0,
+      "road_classes": [],
+      "road_confidences": [],
+      "has_road_damage": false,
+      "has_pothole": false,
+      "water_coverage_pct": 51.17,
+      "largest_comp_ratio_pct": 99.97,
+      "is_significant_flood": true,
+      "is_possible_water": true,
+      "flood_classification": "SIGNIFICANT WATERLOGGING",
+      "is_water_filled_pothole": false,
+      "raw_waste_count": 1,
+      "accepted_waste_count": 0,
+      "suppressed_waste_count": 1,
+      "raw_waste_classes": [
+        "W20"
+      ],
+      "accepted_waste_classes": [],
+      "suppressed_waste_classes": [
+        "W20"
+      ],
+      "arbitration_decisions": [
+        "SUPPRESS_CONTEXTUAL_CONFLICT"
+      ],
+      "arbitration_reasons": [
+        "Monolithic whole-scene box (76.9%x100.0%) suppressed due to conflicting primary hazard: Significant Flood (51.2% water, ratio=100.0%)."
+      ],
+      "primary_decision": "SUPPRESS_CONTEXTUAL_CONFLICT",
+      "primary_reason": "Monolithic whole-scene box (76.9%x100.0%) suppressed due to conflicting primary hazard: Significant Flood (51.2% water, ratio=100.0%).",
+      "final_incident_interpretation": "SIGNIFICANT WATERLOGGING (Stormwater / Drainage)"
+    },
+    {
+      "filename": "flood 7.webp",
+      "category": "FLOOD",
+      "folder": "Flood",
+      "width": 351,
+      "height": 234,
+      "road_post_nms_count": 0,
+      "road_classes": [],
+      "road_confidences": [],
+      "has_road_damage": false,
+      "has_pothole": false,
+      "water_coverage_pct": 46.83,
+      "largest_comp_ratio_pct": 100.0,
+      "is_significant_flood": true,
+      "is_possible_water": true,
+      "flood_classification": "SIGNIFICANT WATERLOGGING",
+      "is_water_filled_pothole": false,
+      "raw_waste_count": 0,
+      "accepted_waste_count": 0,
+      "suppressed_waste_count": 0,
+      "raw_waste_classes": [],
+      "accepted_waste_classes": [],
+      "suppressed_waste_classes": [],
+      "arbitration_decisions": [],
+      "arbitration_reasons": [],
+      "primary_decision": "NO_WASTE_DETECTION",
+      "primary_reason": "Model produced zero waste candidates",
+      "final_incident_interpretation": "SIGNIFICANT WATERLOGGING (Stormwater / Drainage)"
+    },
+    {
+      "filename": "flood 8.webp",
+      "category": "FLOOD",
+      "folder": "Flood",
+      "width": 345,
+      "height": 245,
+      "road_post_nms_count": 0,
+      "road_classes": [],
+      "road_confidences": [],
+      "has_road_damage": false,
+      "has_pothole": false,
+      "water_coverage_pct": 60.73,
+      "largest_comp_ratio_pct": 100.0,
+      "is_significant_flood": true,
+      "is_possible_water": true,
+      "flood_classification": "SIGNIFICANT WATERLOGGING",
+      "is_water_filled_pothole": false,
+      "raw_waste_count": 1,
+      "accepted_waste_count": 0,
+      "suppressed_waste_count": 1,
+      "raw_waste_classes": [
+        "W70"
+      ],
+      "accepted_waste_classes": [],
+      "suppressed_waste_classes": [
+        "W70"
+      ],
+      "arbitration_decisions": [
+        "SUPPRESS_CONTEXTUAL_CONFLICT"
+      ],
+      "arbitration_reasons": [
+        "Monolithic whole-scene box (79.2%x99.8%) suppressed due to conflicting primary hazard: Significant Flood (60.7% water, ratio=100.0%)."
+      ],
+      "primary_decision": "SUPPRESS_CONTEXTUAL_CONFLICT",
+      "primary_reason": "Monolithic whole-scene box (79.2%x99.8%) suppressed due to conflicting primary hazard: Significant Flood (60.7% water, ratio=100.0%).",
+      "final_incident_interpretation": "SIGNIFICANT WATERLOGGING (Stormwater / Drainage)"
+    },
+    {
+      "filename": "flood 9.webp",
+      "category": "FLOOD",
+      "folder": "Flood",
+      "width": 427,
+      "height": 240,
+      "road_post_nms_count": 0,
+      "road_classes": [],
+      "road_confidences": [],
+      "has_road_damage": false,
+      "has_pothole": false,
+      "water_coverage_pct": 59.07,
+      "largest_comp_ratio_pct": 100.0,
+      "is_significant_flood": true,
+      "is_possible_water": true,
+      "flood_classification": "SIGNIFICANT WATERLOGGING",
+      "is_water_filled_pothole": false,
+      "raw_waste_count": 0,
+      "accepted_waste_count": 0,
+      "suppressed_waste_count": 0,
+      "raw_waste_classes": [],
+      "accepted_waste_classes": [],
+      "suppressed_waste_classes": [],
+      "arbitration_decisions": [],
+      "arbitration_reasons": [],
+      "primary_decision": "NO_WASTE_DETECTION",
+      "primary_reason": "Model produced zero waste candidates",
+      "final_incident_interpretation": "SIGNIFICANT WATERLOGGING (Stormwater / Drainage)"
+    },
+    {
+      "filename": "flood.jpg",
+      "category": "FLOOD",
+      "folder": "Flood",
+      "width": 193,
+      "height": 135,
+      "road_post_nms_count": 0,
+      "road_classes": [],
+      "road_confidences": [],
+      "has_road_damage": false,
+      "has_pothole": false,
+      "water_coverage_pct": 39.49,
+      "largest_comp_ratio_pct": 100.0,
+      "is_significant_flood": true,
+      "is_possible_water": true,
+      "flood_classification": "SIGNIFICANT WATERLOGGING",
+      "is_water_filled_pothole": false,
+      "raw_waste_count": 1,
+      "accepted_waste_count": 0,
+      "suppressed_waste_count": 1,
+      "raw_waste_classes": [
+        "W50"
+      ],
+      "accepted_waste_classes": [],
+      "suppressed_waste_classes": [
+        "W50"
+      ],
+      "arbitration_decisions": [
+        "SUPPRESS_CONTEXTUAL_CONFLICT"
+      ],
+      "arbitration_reasons": [
+        "Monolithic whole-scene box (80.7%x99.8%) suppressed due to conflicting primary hazard: Significant Flood (39.5% water, ratio=100.0%)."
+      ],
+      "primary_decision": "SUPPRESS_CONTEXTUAL_CONFLICT",
+      "primary_reason": "Monolithic whole-scene box (80.7%x99.8%) suppressed due to conflicting primary hazard: Significant Flood (39.5% water, ratio=100.0%).",
+      "final_incident_interpretation": "SIGNIFICANT WATERLOGGING (Stormwater / Drainage)"
+    },
+    {
+      "filename": "puddles.jpg",
+      "category": "FLOOD",
+      "folder": "Flood",
+      "width": 502,
+      "height": 398,
+      "road_post_nms_count": 0,
+      "road_classes": [],
+      "road_confidences": [],
+      "has_road_damage": false,
+      "has_pothole": false,
+      "water_coverage_pct": 40.85,
+      "largest_comp_ratio_pct": 99.99,
+      "is_significant_flood": true,
+      "is_possible_water": true,
+      "flood_classification": "SIGNIFICANT WATERLOGGING",
+      "is_water_filled_pothole": false,
+      "raw_waste_count": 1,
+      "accepted_waste_count": 0,
+      "suppressed_waste_count": 1,
+      "raw_waste_classes": [
+        "W70"
+      ],
+      "accepted_waste_classes": [],
+      "suppressed_waste_classes": [
+        "W70"
+      ],
+      "arbitration_decisions": [
+        "SUPPRESS_CONTEXTUAL_CONFLICT"
+      ],
+      "arbitration_reasons": [
+        "Monolithic whole-scene box (79.2%x99.9%) suppressed due to conflicting primary hazard: Significant Flood (40.9% water, ratio=100.0%)."
+      ],
+      "primary_decision": "SUPPRESS_CONTEXTUAL_CONFLICT",
+      "primary_reason": "Monolithic whole-scene box (79.2%x99.9%) suppressed due to conflicting primary hazard: Significant Flood (40.9% water, ratio=100.0%).",
+      "final_incident_interpretation": "SIGNIFICANT WATERLOGGING (Stormwater / Drainage)"
+    },
+    {
+      "filename": "garbage 1.webp",
+      "category": "GARBAGE",
+      "folder": "Garbage",
+      "width": 321,
+      "height": 236,
+      "road_post_nms_count": 0,
+      "road_classes": [],
+      "road_confidences": [],
+      "has_road_damage": false,
+      "has_pothole": false,
+      "water_coverage_pct": 0.0,
+      "largest_comp_ratio_pct": 0.0,
+      "is_significant_flood": false,
+      "is_possible_water": false,
+      "flood_classification": "NO SIGNIFICANT WATER",
+      "is_water_filled_pothole": false,
+      "raw_waste_count": 1,
+      "accepted_waste_count": 1,
+      "suppressed_waste_count": 0,
+      "raw_waste_classes": [
+        "W50"
+      ],
+      "accepted_waste_classes": [
+        "W50"
+      ],
+      "suppressed_waste_classes": [],
+      "arbitration_decisions": [
+        "RETAIN_MONOLITHIC_STANDALONE"
+      ],
+      "arbitration_reasons": [
+        "Monolithic box (79.9%x99.7%) retained: standalone scene with no conflicting road damage or flood."
+      ],
+      "primary_decision": "RETAIN_MONOLITHIC_STANDALONE",
+      "primary_reason": "Monolithic box (79.9%x99.7%) retained: standalone scene with no conflicting road damage or flood.",
+      "final_incident_interpretation": "DETECTED WASTE (W50) (Sanitation)"
+    },
+    {
+      "filename": "garbage 10.jpg",
+      "category": "GARBAGE",
+      "folder": "Garbage",
+      "width": 678,
+      "height": 452,
+      "road_post_nms_count": 0,
+      "road_classes": [],
+      "road_confidences": [],
+      "has_road_damage": false,
+      "has_pothole": false,
+      "water_coverage_pct": 0.15,
+      "largest_comp_ratio_pct": 61.15,
+      "is_significant_flood": false,
+      "is_possible_water": false,
+      "flood_classification": "NO SIGNIFICANT WATER",
+      "is_water_filled_pothole": false,
+      "raw_waste_count": 0,
+      "accepted_waste_count": 0,
+      "suppressed_waste_count": 0,
+      "raw_waste_classes": [],
+      "accepted_waste_classes": [],
+      "suppressed_waste_classes": [],
+      "arbitration_decisions": [],
+      "arbitration_reasons": [],
+      "primary_decision": "NO_WASTE_DETECTION",
+      "primary_reason": "Model produced zero waste candidates",
+      "final_incident_interpretation": "CLEAN / NO ACTIONABLE HAZARD"
+    },
+    {
+      "filename": "garbage 11.jpg",
+      "category": "GARBAGE",
+      "folder": "Garbage",
+      "width": 738,
+      "height": 414,
+      "road_post_nms_count": 0,
+      "road_classes": [],
+      "road_confidences": [],
+      "has_road_damage": false,
+      "has_pothole": false,
+      "water_coverage_pct": 2.86,
+      "largest_comp_ratio_pct": 99.9,
+      "is_significant_flood": false,
+      "is_possible_water": false,
+      "flood_classification": "NO SIGNIFICANT WATER",
+      "is_water_filled_pothole": false,
+      "raw_waste_count": 1,
+      "accepted_waste_count": 1,
+      "suppressed_waste_count": 0,
+      "raw_waste_classes": [
+        "W20"
+      ],
+      "accepted_waste_classes": [
+        "W20"
+      ],
+      "suppressed_waste_classes": [],
+      "arbitration_decisions": [
+        "RETAIN_MONOLITHIC_STANDALONE"
+      ],
+      "arbitration_reasons": [
+        "Monolithic box (81.1%x99.8%) retained: standalone scene with no conflicting road damage or flood."
+      ],
+      "primary_decision": "RETAIN_MONOLITHIC_STANDALONE",
+      "primary_reason": "Monolithic box (81.1%x99.8%) retained: standalone scene with no conflicting road damage or flood.",
+      "final_incident_interpretation": "DETECTED WASTE (W20) (Sanitation)"
+    },
+    {
+      "filename": "garbage 12.jpg",
+      "category": "GARBAGE",
+      "folder": "Garbage",
+      "width": 480,
+      "height": 638,
+      "road_post_nms_count": 0,
+      "road_classes": [],
+      "road_confidences": [],
+      "has_road_damage": false,
+      "has_pothole": false,
+      "water_coverage_pct": 0.01,
+      "largest_comp_ratio_pct": 100.0,
+      "is_significant_flood": false,
+      "is_possible_water": false,
+      "flood_classification": "NO SIGNIFICANT WATER",
+      "is_water_filled_pothole": false,
+      "raw_waste_count": 1,
+      "accepted_waste_count": 1,
+      "suppressed_waste_count": 0,
+      "raw_waste_classes": [
+        "W70"
+      ],
+      "accepted_waste_classes": [
+        "W70"
+      ],
+      "suppressed_waste_classes": [],
+      "arbitration_decisions": [
+        "RETAIN_MONOLITHIC_STANDALONE"
+      ],
+      "arbitration_reasons": [
+        "Monolithic box (100.0%x79.8%) retained: standalone scene with no conflicting road damage or flood."
+      ],
+      "primary_decision": "RETAIN_MONOLITHIC_STANDALONE",
+      "primary_reason": "Monolithic box (100.0%x79.8%) retained: standalone scene with no conflicting road damage or flood.",
+      "final_incident_interpretation": "DETECTED WASTE (W70) (Sanitation)"
+    },
+    {
+      "filename": "garbage 13.jpg",
+      "category": "GARBAGE",
+      "folder": "Garbage",
+      "width": 638,
+      "height": 480,
+      "road_post_nms_count": 0,
+      "road_classes": [],
+      "road_confidences": [],
+      "has_road_damage": false,
+      "has_pothole": false,
+      "water_coverage_pct": 32.99,
+      "largest_comp_ratio_pct": 99.99,
+      "is_significant_flood": true,
+      "is_possible_water": true,
+      "flood_classification": "SIGNIFICANT WATERLOGGING",
+      "is_water_filled_pothole": false,
+      "raw_waste_count": 1,
+      "accepted_waste_count": 0,
+      "suppressed_waste_count": 1,
+      "raw_waste_classes": [
+        "W20"
+      ],
+      "accepted_waste_classes": [],
+      "suppressed_waste_classes": [
+        "W20"
+      ],
+      "arbitration_decisions": [
+        "SUPPRESS_CONTEXTUAL_CONFLICT"
+      ],
+      "arbitration_reasons": [
+        "Monolithic whole-scene box (81.3%x100.0%) suppressed due to conflicting primary hazard: Significant Flood (33.0% water, ratio=100.0%)."
+      ],
+      "primary_decision": "SUPPRESS_CONTEXTUAL_CONFLICT",
+      "primary_reason": "Monolithic whole-scene box (81.3%x100.0%) suppressed due to conflicting primary hazard: Significant Flood (33.0% water, ratio=100.0%).",
+      "final_incident_interpretation": "SIGNIFICANT WATERLOGGING (Stormwater / Drainage)"
+    },
+    {
+      "filename": "garbage 14.jpg",
+      "category": "GARBAGE",
+      "folder": "Garbage",
+      "width": 480,
+      "height": 638,
+      "road_post_nms_count": 0,
+      "road_classes": [],
+      "road_confidences": [],
+      "has_road_damage": false,
+      "has_pothole": false,
+      "water_coverage_pct": 0.0,
+      "largest_comp_ratio_pct": 0.0,
+      "is_significant_flood": false,
+      "is_possible_water": false,
+      "flood_classification": "NO SIGNIFICANT WATER",
+      "is_water_filled_pothole": false,
+      "raw_waste_count": 2,
+      "accepted_waste_count": 2,
+      "suppressed_waste_count": 0,
+      "raw_waste_classes": [
+        "W20",
+        "W70"
+      ],
+      "accepted_waste_classes": [
+        "W20",
+        "W70"
+      ],
+      "suppressed_waste_classes": [],
+      "arbitration_decisions": [
+        "RETAIN_MONOLITHIC_STANDALONE",
+        "RETAIN_MONOLITHIC_STANDALONE"
+      ],
+      "arbitration_reasons": [
+        "Monolithic box (100.0%x81.4%) retained: standalone scene with no conflicting road damage or flood.",
+        "Monolithic box (100.0%x79.8%) retained: standalone scene with no conflicting road damage or flood."
+      ],
+      "primary_decision": "RETAIN_MONOLITHIC_STANDALONE",
+      "primary_reason": "Monolithic box (100.0%x81.4%) retained: standalone scene with no conflicting road damage or flood.",
+      "final_incident_interpretation": "DETECTED WASTE (W20, W70) (Sanitation)"
+    },
+    {
+      "filename": "garbage 15.jpg",
+      "category": "GARBAGE",
+      "folder": "Garbage",
+      "width": 515,
+      "height": 388,
+      "road_post_nms_count": 0,
+      "road_classes": [],
+      "road_confidences": [],
+      "has_road_damage": false,
+      "has_pothole": false,
+      "water_coverage_pct": 0.0,
+      "largest_comp_ratio_pct": 100.0,
+      "is_significant_flood": false,
+      "is_possible_water": false,
+      "flood_classification": "NO SIGNIFICANT WATER",
+      "is_water_filled_pothole": false,
+      "raw_waste_count": 1,
+      "accepted_waste_count": 1,
+      "suppressed_waste_count": 0,
+      "raw_waste_classes": [
+        "W70"
+      ],
+      "accepted_waste_classes": [
+        "W70"
+      ],
+      "suppressed_waste_classes": [],
+      "arbitration_decisions": [
+        "RETAIN_MONOLITHIC_STANDALONE"
+      ],
+      "arbitration_reasons": [
+        "Monolithic box (76.6%x99.8%) retained: standalone scene with no conflicting road damage or flood."
+      ],
+      "primary_decision": "RETAIN_MONOLITHIC_STANDALONE",
+      "primary_reason": "Monolithic box (76.6%x99.8%) retained: standalone scene with no conflicting road damage or flood.",
+      "final_incident_interpretation": "DETECTED WASTE (W70) (Sanitation)"
+    },
+    {
+      "filename": "garbage 16.jpg",
+      "category": "GARBAGE",
+      "folder": "Garbage",
+      "width": 678,
+      "height": 452,
+      "road_post_nms_count": 0,
+      "road_classes": [],
+      "road_confidences": [],
+      "has_road_damage": false,
+      "has_pothole": false,
+      "water_coverage_pct": 0.08,
+      "largest_comp_ratio_pct": 75.52,
+      "is_significant_flood": false,
+      "is_possible_water": false,
+      "flood_classification": "NO SIGNIFICANT WATER",
+      "is_water_filled_pothole": false,
+      "raw_waste_count": 1,
+      "accepted_waste_count": 1,
+      "suppressed_waste_count": 0,
+      "raw_waste_classes": [
+        "W70"
+      ],
+      "accepted_waste_classes": [
+        "W70"
+      ],
+      "suppressed_waste_classes": [],
+      "arbitration_decisions": [
+        "RETAIN_MONOLITHIC_STANDALONE"
+      ],
+      "arbitration_reasons": [
+        "Monolithic box (80.4%x100.0%) retained: standalone scene with no conflicting road damage or flood."
+      ],
+      "primary_decision": "RETAIN_MONOLITHIC_STANDALONE",
+      "primary_reason": "Monolithic box (80.4%x100.0%) retained: standalone scene with no conflicting road damage or flood.",
+      "final_incident_interpretation": "DETECTED WASTE (W70) (Sanitation)"
+    },
+    {
+      "filename": "garbage 17.jpg",
+      "category": "GARBAGE",
+      "folder": "Garbage",
+      "width": 678,
+      "height": 452,
+      "road_post_nms_count": 0,
+      "road_classes": [],
+      "road_confidences": [],
+      "has_road_damage": false,
+      "has_pothole": false,
+      "water_coverage_pct": 3.1,
+      "largest_comp_ratio_pct": 99.23,
+      "is_significant_flood": false,
+      "is_possible_water": false,
+      "flood_classification": "NO SIGNIFICANT WATER",
+      "is_water_filled_pothole": false,
+      "raw_waste_count": 1,
+      "accepted_waste_count": 1,
+      "suppressed_waste_count": 0,
+      "raw_waste_classes": [
+        "W70"
+      ],
+      "accepted_waste_classes": [
+        "W70"
+      ],
+      "suppressed_waste_classes": [],
+      "arbitration_decisions": [
+        "RETAIN_MONOLITHIC_STANDALONE"
+      ],
+      "arbitration_reasons": [
+        "Monolithic box (79.5%x100.0%) retained: standalone scene with no conflicting road damage or flood."
+      ],
+      "primary_decision": "RETAIN_MONOLITHIC_STANDALONE",
+      "primary_reason": "Monolithic box (79.5%x100.0%) retained: standalone scene with no conflicting road damage or flood.",
+      "final_incident_interpretation": "DETECTED WASTE (W70) (Sanitation)"
+    },
+    {
+      "filename": "garbage 18.jpg",
+      "category": "GARBAGE",
+      "folder": "Garbage",
+      "width": 678,
+      "height": 452,
+      "road_post_nms_count": 0,
+      "road_classes": [],
+      "road_confidences": [],
+      "has_road_damage": false,
+      "has_pothole": false,
+      "water_coverage_pct": 0.0,
+      "largest_comp_ratio_pct": 0.0,
+      "is_significant_flood": false,
+      "is_possible_water": false,
+      "flood_classification": "NO SIGNIFICANT WATER",
+      "is_water_filled_pothole": false,
+      "raw_waste_count": 1,
+      "accepted_waste_count": 1,
+      "suppressed_waste_count": 0,
+      "raw_waste_classes": [
+        "W70"
+      ],
+      "accepted_waste_classes": [
+        "W70"
+      ],
+      "suppressed_waste_classes": [],
+      "arbitration_decisions": [
+        "RETAIN_MONOLITHIC_STANDALONE"
+      ],
+      "arbitration_reasons": [
+        "Monolithic box (79.0%x99.9%) retained: standalone scene with no conflicting road damage or flood."
+      ],
+      "primary_decision": "RETAIN_MONOLITHIC_STANDALONE",
+      "primary_reason": "Monolithic box (79.0%x99.9%) retained: standalone scene with no conflicting road damage or flood.",
+      "final_incident_interpretation": "DETECTED WASTE (W70) (Sanitation)"
+    },
+    {
+      "filename": "garbage 19.jpg",
+      "category": "GARBAGE",
+      "folder": "Garbage",
+      "width": 527,
+      "height": 379,
+      "road_post_nms_count": 0,
+      "road_classes": [],
+      "road_confidences": [],
+      "has_road_damage": false,
+      "has_pothole": false,
+      "water_coverage_pct": 0.0,
+      "largest_comp_ratio_pct": 0.0,
+      "is_significant_flood": false,
+      "is_possible_water": false,
+      "flood_classification": "NO SIGNIFICANT WATER",
+      "is_water_filled_pothole": false,
+      "raw_waste_count": 1,
+      "accepted_waste_count": 1,
+      "suppressed_waste_count": 0,
+      "raw_waste_classes": [
+        "W70"
+      ],
+      "accepted_waste_classes": [
+        "W70"
+      ],
+      "suppressed_waste_classes": [],
+      "arbitration_decisions": [
+        "RETAIN_MONOLITHIC_STANDALONE"
+      ],
+      "arbitration_reasons": [
+        "Monolithic box (80.0%x99.6%) retained: standalone scene with no conflicting road damage or flood."
+      ],
+      "primary_decision": "RETAIN_MONOLITHIC_STANDALONE",
+      "primary_reason": "Monolithic box (80.0%x99.6%) retained: standalone scene with no conflicting road damage or flood.",
+      "final_incident_interpretation": "DETECTED WASTE (W70) (Sanitation)"
+    },
+    {
+      "filename": "garbage 2.webp",
+      "category": "GARBAGE",
+      "folder": "Garbage",
+      "width": 393,
+      "height": 234,
+      "road_post_nms_count": 0,
+      "road_classes": [],
+      "road_confidences": [],
+      "has_road_damage": false,
+      "has_pothole": false,
+      "water_coverage_pct": 0.0,
+      "largest_comp_ratio_pct": 0.0,
+      "is_significant_flood": false,
+      "is_possible_water": false,
+      "flood_classification": "NO SIGNIFICANT WATER",
+      "is_water_filled_pothole": false,
+      "raw_waste_count": 1,
+      "accepted_waste_count": 1,
+      "suppressed_waste_count": 0,
+      "raw_waste_classes": [
+        "W70"
+      ],
+      "accepted_waste_classes": [
+        "W70"
+      ],
+      "suppressed_waste_classes": [],
+      "arbitration_decisions": [
+        "RETAIN_MONOLITHIC_STANDALONE"
+      ],
+      "arbitration_reasons": [
+        "Monolithic box (77.9%x99.8%) retained: standalone scene with no conflicting road damage or flood."
+      ],
+      "primary_decision": "RETAIN_MONOLITHIC_STANDALONE",
+      "primary_reason": "Monolithic box (77.9%x99.8%) retained: standalone scene with no conflicting road damage or flood.",
+      "final_incident_interpretation": "DETECTED WASTE (W70) (Sanitation)"
+    },
+    {
+      "filename": "garbage 20.jpg",
+      "category": "GARBAGE",
+      "folder": "Garbage",
+      "width": 738,
+      "height": 360,
+      "road_post_nms_count": 0,
+      "road_classes": [],
+      "road_confidences": [],
+      "has_road_damage": false,
+      "has_pothole": false,
+      "water_coverage_pct": 0.0,
+      "largest_comp_ratio_pct": 0.0,
+      "is_significant_flood": false,
+      "is_possible_water": false,
+      "flood_classification": "NO SIGNIFICANT WATER",
+      "is_water_filled_pothole": false,
+      "raw_waste_count": 1,
+      "accepted_waste_count": 1,
+      "suppressed_waste_count": 0,
+      "raw_waste_classes": [
+        "W70"
+      ],
+      "accepted_waste_classes": [
+        "W70"
+      ],
+      "suppressed_waste_classes": [],
+      "arbitration_decisions": [
+        "RETAIN_MONOLITHIC_STANDALONE"
+      ],
+      "arbitration_reasons": [
+        "Monolithic box (79.4%x99.9%) retained: standalone scene with no conflicting road damage or flood."
+      ],
+      "primary_decision": "RETAIN_MONOLITHIC_STANDALONE",
+      "primary_reason": "Monolithic box (79.4%x99.9%) retained: standalone scene with no conflicting road damage or flood.",
+      "final_incident_interpretation": "DETECTED WASTE (W70) (Sanitation)"
+    },
+    {
+      "filename": "garbage 21.jpg",
+      "category": "GARBAGE",
+      "folder": "Garbage",
+      "width": 680,
+      "height": 451,
+      "road_post_nms_count": 0,
+      "road_classes": [],
+      "road_confidences": [],
+      "has_road_damage": false,
+      "has_pothole": false,
+      "water_coverage_pct": 0.77,
+      "largest_comp_ratio_pct": 94.66,
+      "is_significant_flood": false,
+      "is_possible_water": false,
+      "flood_classification": "NO SIGNIFICANT WATER",
+      "is_water_filled_pothole": false,
+      "raw_waste_count": 1,
+      "accepted_waste_count": 1,
+      "suppressed_waste_count": 0,
+      "raw_waste_classes": [
+        "W70"
+      ],
+      "accepted_waste_classes": [
+        "W70"
+      ],
+      "suppressed_waste_classes": [],
+      "arbitration_decisions": [
+        "RETAIN_MONOLITHIC_STANDALONE"
+      ],
+      "arbitration_reasons": [
+        "Monolithic box (78.6%x99.9%) retained: standalone scene with no conflicting road damage or flood."
+      ],
+      "primary_decision": "RETAIN_MONOLITHIC_STANDALONE",
+      "primary_reason": "Monolithic box (78.6%x99.9%) retained: standalone scene with no conflicting road damage or flood.",
+      "final_incident_interpretation": "DETECTED WASTE (W70) (Sanitation)"
+    },
+    {
+      "filename": "garbage 22.jpg",
+      "category": "GARBAGE",
+      "folder": "Garbage",
+      "width": 398,
+      "height": 225,
+      "road_post_nms_count": 0,
+      "road_classes": [],
+      "road_confidences": [],
+      "has_road_damage": false,
+      "has_pothole": false,
+      "water_coverage_pct": 5.02,
+      "largest_comp_ratio_pct": 83.33,
+      "is_significant_flood": false,
+      "is_possible_water": true,
+      "flood_classification": "POSSIBLE WATERLOGGING",
+      "is_water_filled_pothole": false,
+      "raw_waste_count": 1,
+      "accepted_waste_count": 1,
+      "suppressed_waste_count": 0,
+      "raw_waste_classes": [
+        "W70"
+      ],
+      "accepted_waste_classes": [
+        "W70"
+      ],
+      "suppressed_waste_classes": [],
+      "arbitration_decisions": [
+        "RETAIN_MONOLITHIC_STANDALONE"
+      ],
+      "arbitration_reasons": [
+        "Monolithic box (83.1%x100.0%) retained: standalone scene with no conflicting road damage or flood."
+      ],
+      "primary_decision": "RETAIN_MONOLITHIC_STANDALONE",
+      "primary_reason": "Monolithic box (83.1%x100.0%) retained: standalone scene with no conflicting road damage or flood.",
+      "final_incident_interpretation": "POSSIBLE WATERLOGGING (Stormwater Monitor) | DETECTED WASTE (W70) (Sanitation)"
+    },
+    {
+      "filename": "garbage 23.jpg",
+      "category": "GARBAGE",
+      "folder": "Garbage",
+      "width": 678,
+      "height": 452,
+      "road_post_nms_count": 0,
+      "road_classes": [],
+      "road_confidences": [],
+      "has_road_damage": false,
+      "has_pothole": false,
+      "water_coverage_pct": 4.51,
+      "largest_comp_ratio_pct": 57.27,
+      "is_significant_flood": false,
+      "is_possible_water": false,
+      "flood_classification": "NO SIGNIFICANT WATER",
+      "is_water_filled_pothole": false,
+      "raw_waste_count": 0,
+      "accepted_waste_count": 0,
+      "suppressed_waste_count": 0,
+      "raw_waste_classes": [],
+      "accepted_waste_classes": [],
+      "suppressed_waste_classes": [],
+      "arbitration_decisions": [],
+      "arbitration_reasons": [],
+      "primary_decision": "NO_WASTE_DETECTION",
+      "primary_reason": "Model produced zero waste candidates",
+      "final_incident_interpretation": "CLEAN / NO ACTIONABLE HAZARD"
+    },
+    {
+      "filename": "garbage 24.jpg",
+      "category": "GARBAGE",
+      "folder": "Garbage",
+      "width": 447,
+      "height": 447,
+      "road_post_nms_count": 0,
+      "road_classes": [],
+      "road_confidences": [],
+      "has_road_damage": false,
+      "has_pothole": false,
+      "water_coverage_pct": 91.2,
+      "largest_comp_ratio_pct": 99.9,
+      "is_significant_flood": true,
+      "is_possible_water": true,
+      "flood_classification": "SIGNIFICANT WATERLOGGING",
+      "is_water_filled_pothole": false,
+      "raw_waste_count": 1,
+      "accepted_waste_count": 0,
+      "suppressed_waste_count": 1,
+      "raw_waste_classes": [
+        "W70"
+      ],
+      "accepted_waste_classes": [],
+      "suppressed_waste_classes": [
+        "W70"
+      ],
+      "arbitration_decisions": [
+        "SUPPRESS_CONTEXTUAL_CONFLICT"
+      ],
+      "arbitration_reasons": [
+        "Monolithic whole-scene box (78.9%x77.0%) suppressed due to conflicting primary hazard: Significant Flood (91.2% water, ratio=99.9%)."
+      ],
+      "primary_decision": "SUPPRESS_CONTEXTUAL_CONFLICT",
+      "primary_reason": "Monolithic whole-scene box (78.9%x77.0%) suppressed due to conflicting primary hazard: Significant Flood (91.2% water, ratio=99.9%).",
+      "final_incident_interpretation": "SIGNIFICANT WATERLOGGING (Stormwater / Drainage)"
+    },
+    {
+      "filename": "garbage 25.jpg",
+      "category": "GARBAGE",
+      "folder": "Garbage",
+      "width": 678,
+      "height": 452,
+      "road_post_nms_count": 0,
+      "road_classes": [],
+      "road_confidences": [],
+      "has_road_damage": false,
+      "has_pothole": false,
+      "water_coverage_pct": 0.0,
+      "largest_comp_ratio_pct": 0.0,
+      "is_significant_flood": false,
+      "is_possible_water": false,
+      "flood_classification": "NO SIGNIFICANT WATER",
+      "is_water_filled_pothole": false,
+      "raw_waste_count": 1,
+      "accepted_waste_count": 1,
+      "suppressed_waste_count": 0,
+      "raw_waste_classes": [
+        "W70"
+      ],
+      "accepted_waste_classes": [
+        "W70"
+      ],
+      "suppressed_waste_classes": [],
+      "arbitration_decisions": [
+        "RETAIN_MONOLITHIC_STANDALONE"
+      ],
+      "arbitration_reasons": [
+        "Monolithic box (79.1%x100.0%) retained: standalone scene with no conflicting road damage or flood."
+      ],
+      "primary_decision": "RETAIN_MONOLITHIC_STANDALONE",
+      "primary_reason": "Monolithic box (79.1%x100.0%) retained: standalone scene with no conflicting road damage or flood.",
+      "final_incident_interpretation": "DETECTED WASTE (W70) (Sanitation)"
+    },
+    {
+      "filename": "garbage 26.jpg",
+      "category": "GARBAGE",
+      "folder": "Garbage",
+      "width": 515,
+      "height": 388,
+      "road_post_nms_count": 0,
+      "road_classes": [],
+      "road_confidences": [],
+      "has_road_damage": false,
+      "has_pothole": false,
+      "water_coverage_pct": 0.28,
+      "largest_comp_ratio_pct": 72.01,
+      "is_significant_flood": false,
+      "is_possible_water": false,
+      "flood_classification": "NO SIGNIFICANT WATER",
+      "is_water_filled_pothole": false,
+      "raw_waste_count": 1,
+      "accepted_waste_count": 1,
+      "suppressed_waste_count": 0,
+      "raw_waste_classes": [
+        "W70"
+      ],
+      "accepted_waste_classes": [
+        "W70"
+      ],
+      "suppressed_waste_classes": [],
+      "arbitration_decisions": [
+        "RETAIN_MONOLITHIC_STANDALONE"
+      ],
+      "arbitration_reasons": [
+        "Monolithic box (79.3%x99.8%) retained: standalone scene with no conflicting road damage or flood."
+      ],
+      "primary_decision": "RETAIN_MONOLITHIC_STANDALONE",
+      "primary_reason": "Monolithic box (79.3%x99.8%) retained: standalone scene with no conflicting road damage or flood.",
+      "final_incident_interpretation": "DETECTED WASTE (W70) (Sanitation)"
+    },
+    {
+      "filename": "garbage 27.jpg",
+      "category": "GARBAGE",
+      "folder": "Garbage",
+      "width": 678,
+      "height": 452,
+      "road_post_nms_count": 0,
+      "road_classes": [],
+      "road_confidences": [],
+      "has_road_damage": false,
+      "has_pothole": false,
+      "water_coverage_pct": 0.0,
+      "largest_comp_ratio_pct": 0.0,
+      "is_significant_flood": false,
+      "is_possible_water": false,
+      "flood_classification": "NO SIGNIFICANT WATER",
+      "is_water_filled_pothole": false,
+      "raw_waste_count": 1,
+      "accepted_waste_count": 1,
+      "suppressed_waste_count": 0,
+      "raw_waste_classes": [
+        "W70"
+      ],
+      "accepted_waste_classes": [
+        "W70"
+      ],
+      "suppressed_waste_classes": [],
+      "arbitration_decisions": [
+        "RETAIN_MONOLITHIC_STANDALONE"
+      ],
+      "arbitration_reasons": [
+        "Monolithic box (79.6%x100.0%) retained: standalone scene with no conflicting road damage or flood."
+      ],
+      "primary_decision": "RETAIN_MONOLITHIC_STANDALONE",
+      "primary_reason": "Monolithic box (79.6%x100.0%) retained: standalone scene with no conflicting road damage or flood.",
+      "final_incident_interpretation": "DETECTED WASTE (W70) (Sanitation)"
+    },
+    {
+      "filename": "garbage 28.jpg",
+      "category": "GARBAGE",
+      "folder": "Garbage",
+      "width": 678,
+      "height": 452,
+      "road_post_nms_count": 0,
+      "road_classes": [],
+      "road_confidences": [],
+      "has_road_damage": false,
+      "has_pothole": false,
+      "water_coverage_pct": 0.74,
+      "largest_comp_ratio_pct": 100.0,
+      "is_significant_flood": false,
+      "is_possible_water": false,
+      "flood_classification": "NO SIGNIFICANT WATER",
+      "is_water_filled_pothole": false,
+      "raw_waste_count": 0,
+      "accepted_waste_count": 0,
+      "suppressed_waste_count": 0,
+      "raw_waste_classes": [],
+      "accepted_waste_classes": [],
+      "suppressed_waste_classes": [],
+      "arbitration_decisions": [],
+      "arbitration_reasons": [],
+      "primary_decision": "NO_WASTE_DETECTION",
+      "primary_reason": "Model produced zero waste candidates",
+      "final_incident_interpretation": "CLEAN / NO ACTIONABLE HAZARD"
+    },
+    {
+      "filename": "garbage 29.jpg",
+      "category": "GARBAGE",
+      "folder": "Garbage",
+      "width": 638,
+      "height": 480,
+      "road_post_nms_count": 0,
+      "road_classes": [],
+      "road_confidences": [],
+      "has_road_damage": false,
+      "has_pothole": false,
+      "water_coverage_pct": 0.0,
+      "largest_comp_ratio_pct": 0.0,
+      "is_significant_flood": false,
+      "is_possible_water": false,
+      "flood_classification": "NO SIGNIFICANT WATER",
+      "is_water_filled_pothole": false,
+      "raw_waste_count": 1,
+      "accepted_waste_count": 1,
+      "suppressed_waste_count": 0,
+      "raw_waste_classes": [
+        "W20"
+      ],
+      "accepted_waste_classes": [
+        "W20"
+      ],
+      "suppressed_waste_classes": [],
+      "arbitration_decisions": [
+        "RETAIN_MONOLITHIC_STANDALONE"
+      ],
+      "arbitration_reasons": [
+        "Monolithic box (79.4%x100.0%) retained: standalone scene with no conflicting road damage or flood."
+      ],
+      "primary_decision": "RETAIN_MONOLITHIC_STANDALONE",
+      "primary_reason": "Monolithic box (79.4%x100.0%) retained: standalone scene with no conflicting road damage or flood.",
+      "final_incident_interpretation": "DETECTED WASTE (W20) (Sanitation)"
+    },
+    {
+      "filename": "garbage 3.webp",
+      "category": "GARBAGE",
+      "folder": "Garbage",
+      "width": 431,
+      "height": 234,
+      "road_post_nms_count": 0,
+      "road_classes": [],
+      "road_confidences": [],
+      "has_road_damage": false,
+      "has_pothole": false,
+      "water_coverage_pct": 2.58,
+      "largest_comp_ratio_pct": 99.98,
+      "is_significant_flood": false,
+      "is_possible_water": false,
+      "flood_classification": "NO SIGNIFICANT WATER",
+      "is_water_filled_pothole": false,
+      "raw_waste_count": 0,
+      "accepted_waste_count": 0,
+      "suppressed_waste_count": 0,
+      "raw_waste_classes": [],
+      "accepted_waste_classes": [],
+      "suppressed_waste_classes": [],
+      "arbitration_decisions": [],
+      "arbitration_reasons": [],
+      "primary_decision": "NO_WASTE_DETECTION",
+      "primary_reason": "Model produced zero waste candidates",
+      "final_incident_interpretation": "CLEAN / NO ACTIONABLE HAZARD"
+    },
+    {
+      "filename": "garbage 30.jpg",
+      "category": "GARBAGE",
+      "folder": "Garbage",
+      "width": 515,
+      "height": 388,
+      "road_post_nms_count": 0,
+      "road_classes": [],
+      "road_confidences": [],
+      "has_road_damage": false,
+      "has_pothole": false,
+      "water_coverage_pct": 1.33,
+      "largest_comp_ratio_pct": 83.04,
+      "is_significant_flood": false,
+      "is_possible_water": false,
+      "flood_classification": "NO SIGNIFICANT WATER",
+      "is_water_filled_pothole": false,
+      "raw_waste_count": 1,
+      "accepted_waste_count": 1,
+      "suppressed_waste_count": 0,
+      "raw_waste_classes": [
+        "W70"
+      ],
+      "accepted_waste_classes": [
+        "W70"
+      ],
+      "suppressed_waste_classes": [],
+      "arbitration_decisions": [
+        "RETAIN_MONOLITHIC_STANDALONE"
+      ],
+      "arbitration_reasons": [
+        "Monolithic box (79.4%x99.8%) retained: standalone scene with no conflicting road damage or flood."
+      ],
+      "primary_decision": "RETAIN_MONOLITHIC_STANDALONE",
+      "primary_reason": "Monolithic box (79.4%x99.8%) retained: standalone scene with no conflicting road damage or flood.",
+      "final_incident_interpretation": "DETECTED WASTE (W70) (Sanitation)"
+    },
+    {
+      "filename": "garbage 4.webp",
+      "category": "GARBAGE",
+      "folder": "Garbage",
+      "width": 357,
+      "height": 257,
+      "road_post_nms_count": 0,
+      "road_classes": [],
+      "road_confidences": [],
+      "has_road_damage": false,
+      "has_pothole": false,
+      "water_coverage_pct": 9.45,
+      "largest_comp_ratio_pct": 99.99,
+      "is_significant_flood": false,
+      "is_possible_water": true,
+      "flood_classification": "POSSIBLE WATERLOGGING",
+      "is_water_filled_pothole": false,
+      "raw_waste_count": 0,
+      "accepted_waste_count": 0,
+      "suppressed_waste_count": 0,
+      "raw_waste_classes": [],
+      "accepted_waste_classes": [],
+      "suppressed_waste_classes": [],
+      "arbitration_decisions": [],
+      "arbitration_reasons": [],
+      "primary_decision": "NO_WASTE_DETECTION",
+      "primary_reason": "Model produced zero waste candidates",
+      "final_incident_interpretation": "POSSIBLE WATERLOGGING (Stormwater Monitor)"
+    },
+    {
+      "filename": "garbage 5.webp",
+      "category": "GARBAGE",
+      "folder": "Garbage",
+      "width": 344,
+      "height": 234,
+      "road_post_nms_count": 0,
+      "road_classes": [],
+      "road_confidences": [],
+      "has_road_damage": false,
+      "has_pothole": false,
+      "water_coverage_pct": 1.95,
+      "largest_comp_ratio_pct": 73.27,
+      "is_significant_flood": false,
+      "is_possible_water": false,
+      "flood_classification": "NO SIGNIFICANT WATER",
+      "is_water_filled_pothole": false,
+      "raw_waste_count": 1,
+      "accepted_waste_count": 1,
+      "suppressed_waste_count": 0,
+      "raw_waste_classes": [
+        "W70"
+      ],
+      "accepted_waste_classes": [
+        "W70"
+      ],
+      "suppressed_waste_classes": [],
+      "arbitration_decisions": [
+        "RETAIN_MONOLITHIC_STANDALONE"
+      ],
+      "arbitration_reasons": [
+        "Monolithic box (78.0%x99.7%) retained: standalone scene with no conflicting road damage or flood."
+      ],
+      "primary_decision": "RETAIN_MONOLITHIC_STANDALONE",
+      "primary_reason": "Monolithic box (78.0%x99.7%) retained: standalone scene with no conflicting road damage or flood.",
+      "final_incident_interpretation": "DETECTED WASTE (W70) (Sanitation)"
+    },
+    {
+      "filename": "garbage 6.webp",
+      "category": "GARBAGE",
+      "folder": "Garbage",
+      "width": 354,
+      "height": 236,
+      "road_post_nms_count": 0,
+      "road_classes": [],
+      "road_confidences": [],
+      "has_road_damage": false,
+      "has_pothole": false,
+      "water_coverage_pct": 2.38,
+      "largest_comp_ratio_pct": 96.33,
+      "is_significant_flood": false,
+      "is_possible_water": false,
+      "flood_classification": "NO SIGNIFICANT WATER",
+      "is_water_filled_pothole": false,
+      "raw_waste_count": 1,
+      "accepted_waste_count": 1,
+      "suppressed_waste_count": 0,
+      "raw_waste_classes": [
+        "W20"
+      ],
+      "accepted_waste_classes": [
+        "W20"
+      ],
+      "suppressed_waste_classes": [],
+      "arbitration_decisions": [
+        "RETAIN_MONOLITHIC_STANDALONE"
+      ],
+      "arbitration_reasons": [
+        "Monolithic box (76.3%x99.9%) retained: standalone scene with no conflicting road damage or flood."
+      ],
+      "primary_decision": "RETAIN_MONOLITHIC_STANDALONE",
+      "primary_reason": "Monolithic box (76.3%x99.9%) retained: standalone scene with no conflicting road damage or flood.",
+      "final_incident_interpretation": "DETECTED WASTE (W20) (Sanitation)"
+    },
+    {
+      "filename": "garbage 7.webp",
+      "category": "GARBAGE",
+      "folder": "Garbage",
+      "width": 391,
+      "height": 260,
+      "road_post_nms_count": 0,
+      "road_classes": [],
+      "road_confidences": [],
+      "has_road_damage": false,
+      "has_pothole": false,
+      "water_coverage_pct": 0.0,
+      "largest_comp_ratio_pct": 100.0,
+      "is_significant_flood": false,
+      "is_possible_water": false,
+      "flood_classification": "NO SIGNIFICANT WATER",
+      "is_water_filled_pothole": false,
+      "raw_waste_count": 1,
+      "accepted_waste_count": 1,
+      "suppressed_waste_count": 0,
+      "raw_waste_classes": [
+        "W70"
+      ],
+      "accepted_waste_classes": [
+        "W70"
+      ],
+      "suppressed_waste_classes": [],
+      "arbitration_decisions": [
+        "RETAIN_MONOLITHIC_STANDALONE"
+      ],
+      "arbitration_reasons": [
+        "Monolithic box (79.3%x100.0%) retained: standalone scene with no conflicting road damage or flood."
+      ],
+      "primary_decision": "RETAIN_MONOLITHIC_STANDALONE",
+      "primary_reason": "Monolithic box (79.3%x100.0%) retained: standalone scene with no conflicting road damage or flood.",
+      "final_incident_interpretation": "DETECTED WASTE (W70) (Sanitation)"
+    },
+    {
+      "filename": "garbage 8.webp",
+      "category": "GARBAGE",
+      "folder": "Garbage",
+      "width": 358,
+      "height": 234,
+      "road_post_nms_count": 0,
+      "road_classes": [],
+      "road_confidences": [],
+      "has_road_damage": false,
+      "has_pothole": false,
+      "water_coverage_pct": 15.5,
+      "largest_comp_ratio_pct": 86.57,
+      "is_significant_flood": false,
+      "is_possible_water": true,
+      "flood_classification": "POSSIBLE WATERLOGGING",
+      "is_water_filled_pothole": false,
+      "raw_waste_count": 0,
+      "accepted_waste_count": 0,
+      "suppressed_waste_count": 0,
+      "raw_waste_classes": [],
+      "accepted_waste_classes": [],
+      "suppressed_waste_classes": [],
+      "arbitration_decisions": [],
+      "arbitration_reasons": [],
+      "primary_decision": "NO_WASTE_DETECTION",
+      "primary_reason": "Model produced zero waste candidates",
+      "final_incident_interpretation": "POSSIBLE WATERLOGGING (Stormwater Monitor)"
+    },
+    {
+      "filename": "garbage 9.webp",
+      "category": "GARBAGE",
+      "folder": "Garbage",
+      "width": 332,
+      "height": 244,
+      "road_post_nms_count": 0,
+      "road_classes": [],
+      "road_confidences": [],
+      "has_road_damage": false,
+      "has_pothole": false,
+      "water_coverage_pct": 0.0,
+      "largest_comp_ratio_pct": 0.0,
+      "is_significant_flood": false,
+      "is_possible_water": false,
+      "flood_classification": "NO SIGNIFICANT WATER",
+      "is_water_filled_pothole": false,
+      "raw_waste_count": 1,
+      "accepted_waste_count": 1,
+      "suppressed_waste_count": 0,
+      "raw_waste_classes": [
+        "W70"
+      ],
+      "accepted_waste_classes": [
+        "W70"
+      ],
+      "suppressed_waste_classes": [],
+      "arbitration_decisions": [
+        "RETAIN_MONOLITHIC_STANDALONE"
+      ],
+      "arbitration_reasons": [
+        "Monolithic box (78.6%x99.6%) retained: standalone scene with no conflicting road damage or flood."
+      ],
+      "primary_decision": "RETAIN_MONOLITHIC_STANDALONE",
+      "primary_reason": "Monolithic box (78.6%x99.6%) retained: standalone scene with no conflicting road damage or flood.",
+      "final_incident_interpretation": "DETECTED WASTE (W70) (Sanitation)"
+    },
+    {
+      "filename": "pathole 1.webp",
+      "category": "POTHOLE",
+      "folder": "Pathole",
+      "width": 340,
+      "height": 256,
+      "road_post_nms_count": 1,
+      "road_classes": [
+        "D40"
+      ],
+      "road_confidences": [
+        0.8157
+      ],
+      "has_road_damage": true,
+      "has_pothole": true,
+      "water_coverage_pct": 51.08,
+      "largest_comp_ratio_pct": 99.81,
+      "is_significant_flood": true,
+      "is_possible_water": true,
+      "flood_classification": "SIGNIFICANT WATERLOGGING",
+      "is_water_filled_pothole": true,
+      "raw_waste_count": 0,
+      "accepted_waste_count": 0,
+      "suppressed_waste_count": 0,
+      "raw_waste_classes": [],
+      "accepted_waste_classes": [],
+      "suppressed_waste_classes": [],
+      "arbitration_decisions": [],
+      "arbitration_reasons": [],
+      "primary_decision": "NO_WASTE_DETECTION",
+      "primary_reason": "Model produced zero waste candidates",
+      "final_incident_interpretation": "WATER-FILLED POTHOLE (Highways Department + Drainage Advisory)"
+    },
+    {
+      "filename": "pathole 10.webp",
+      "category": "POTHOLE",
+      "folder": "Pathole",
+      "width": 371,
+      "height": 234,
+      "road_post_nms_count": 1,
+      "road_classes": [
+        "D40"
+      ],
+      "road_confidences": [
+        0.5403
+      ],
+      "has_road_damage": true,
+      "has_pothole": true,
+      "water_coverage_pct": 29.02,
+      "largest_comp_ratio_pct": 79.83,
+      "is_significant_flood": true,
+      "is_possible_water": true,
+      "flood_classification": "SIGNIFICANT WATERLOGGING",
+      "is_water_filled_pothole": true,
+      "raw_waste_count": 0,
+      "accepted_waste_count": 0,
+      "suppressed_waste_count": 0,
+      "raw_waste_classes": [],
+      "accepted_waste_classes": [],
+      "suppressed_waste_classes": [],
+      "arbitration_decisions": [],
+      "arbitration_reasons": [],
+      "primary_decision": "NO_WASTE_DETECTION",
+      "primary_reason": "Model produced zero waste candidates",
+      "final_incident_interpretation": "WATER-FILLED POTHOLE (Highways Department + Drainage Advisory)"
+    },
+    {
+      "filename": "pathole 11.webp",
+      "category": "POTHOLE",
+      "folder": "Pathole",
+      "width": 391,
+      "height": 234,
+      "road_post_nms_count": 1,
+      "road_classes": [
+        "D20"
+      ],
+      "road_confidences": [
+        0.6416
+      ],
+      "has_road_damage": true,
+      "has_pothole": false,
+      "water_coverage_pct": 0.19,
+      "largest_comp_ratio_pct": 100.0,
+      "is_significant_flood": false,
+      "is_possible_water": false,
+      "flood_classification": "NO SIGNIFICANT WATER",
+      "is_water_filled_pothole": false,
+      "raw_waste_count": 1,
+      "accepted_waste_count": 0,
+      "suppressed_waste_count": 1,
+      "raw_waste_classes": [
+        "W50"
+      ],
+      "accepted_waste_classes": [],
+      "suppressed_waste_classes": [
+        "W50"
+      ],
+      "arbitration_decisions": [
+        "SUPPRESS_CONTEXTUAL_CONFLICT"
+      ],
+      "arbitration_reasons": [
+        "Monolithic whole-scene box (79.4%x99.9%) suppressed due to conflicting primary hazard: Road Damage (D20)."
+      ],
+      "primary_decision": "SUPPRESS_CONTEXTUAL_CONFLICT",
+      "primary_reason": "Monolithic whole-scene box (79.4%x99.9%) suppressed due to conflicting primary hazard: Road Damage (D20).",
+      "final_incident_interpretation": "ROAD DAMAGE (D20) (Highways)"
+    },
+    {
+      "filename": "pathole 12.webp",
+      "category": "POTHOLE",
+      "folder": "Pathole",
+      "width": 387,
+      "height": 516,
+      "road_post_nms_count": 6,
+      "road_classes": [
+        "D40",
+        "D40",
+        "D40",
+        "D40",
+        "D40",
+        "D40"
+      ],
+      "road_confidences": [
+        0.7788,
+        0.7237,
+        0.6466,
+        0.6357,
+        0.58,
+        0.5229
+      ],
+      "has_road_damage": true,
+      "has_pothole": true,
+      "water_coverage_pct": 0.45,
+      "largest_comp_ratio_pct": 84.52,
+      "is_significant_flood": false,
+      "is_possible_water": false,
+      "flood_classification": "NO SIGNIFICANT WATER",
+      "is_water_filled_pothole": false,
+      "raw_waste_count": 1,
+      "accepted_waste_count": 0,
+      "suppressed_waste_count": 1,
+      "raw_waste_classes": [
+        "W70"
+      ],
+      "accepted_waste_classes": [],
+      "suppressed_waste_classes": [
+        "W70"
+      ],
+      "arbitration_decisions": [
+        "SUPPRESS_CONTEXTUAL_CONFLICT"
+      ],
+      "arbitration_reasons": [
+        "Monolithic whole-scene box (100.0%x79.9%) suppressed due to conflicting primary hazard: Road Damage (D40, D40, D40, D40, D40, D40)."
+      ],
+      "primary_decision": "SUPPRESS_CONTEXTUAL_CONFLICT",
+      "primary_reason": "Monolithic whole-scene box (100.0%x79.9%) suppressed due to conflicting primary hazard: Road Damage (D40, D40, D40, D40, D40, D40).",
+      "final_incident_interpretation": "ROAD DAMAGE (D40, D40, D40, D40, D40, D40) (Highways)"
+    },
+    {
+      "filename": "pathole 13.webp",
+      "category": "POTHOLE",
+      "folder": "Pathole",
+      "width": 437,
+      "height": 702,
+      "road_post_nms_count": 2,
+      "road_classes": [
+        "D10",
+        "D40"
+      ],
+      "road_confidences": [
+        0.5277,
+        0.5194
+      ],
+      "has_road_damage": true,
+      "has_pothole": true,
+      "water_coverage_pct": 78.78,
+      "largest_comp_ratio_pct": 99.65,
+      "is_significant_flood": true,
+      "is_possible_water": true,
+      "flood_classification": "SIGNIFICANT WATERLOGGING",
+      "is_water_filled_pothole": true,
+      "raw_waste_count": 1,
+      "accepted_waste_count": 0,
+      "suppressed_waste_count": 1,
+      "raw_waste_classes": [
+        "W70"
+      ],
+      "accepted_waste_classes": [],
+      "suppressed_waste_classes": [
+        "W70"
+      ],
+      "arbitration_decisions": [
+        "SUPPRESS_CONTEXTUAL_CONFLICT"
+      ],
+      "arbitration_reasons": [
+        "Monolithic whole-scene box (99.8%x75.8%) suppressed due to conflicting primary hazard: Road Damage (D10, D40) & Significant Flood (78.8% water, ratio=99.7%)."
+      ],
+      "primary_decision": "SUPPRESS_CONTEXTUAL_CONFLICT",
+      "primary_reason": "Monolithic whole-scene box (99.8%x75.8%) suppressed due to conflicting primary hazard: Road Damage (D10, D40) & Significant Flood (78.8% water, ratio=99.7%).",
+      "final_incident_interpretation": "WATER-FILLED POTHOLE (Highways Department + Drainage Advisory)"
+    },
+    {
+      "filename": "pathole 14.webp",
+      "category": "POTHOLE",
+      "folder": "Pathole",
+      "width": 151,
+      "height": 200,
+      "road_post_nms_count": 1,
+      "road_classes": [
+        "D20"
+      ],
+      "road_confidences": [
+        0.7089
+      ],
+      "has_road_damage": true,
+      "has_pothole": true,
+      "water_coverage_pct": 7.51,
+      "largest_comp_ratio_pct": 93.36,
+      "is_significant_flood": false,
+      "is_possible_water": true,
+      "flood_classification": "POSSIBLE WATERLOGGING",
+      "is_water_filled_pothole": true,
+      "raw_waste_count": 1,
+      "accepted_waste_count": 0,
+      "suppressed_waste_count": 1,
+      "raw_waste_classes": [
+        "W50"
+      ],
+      "accepted_waste_classes": [],
+      "suppressed_waste_classes": [
+        "W50"
+      ],
+      "arbitration_decisions": [
+        "SUPPRESS_CONTEXTUAL_CONFLICT"
+      ],
+      "arbitration_reasons": [
+        "Monolithic whole-scene box (100.0%x79.8%) suppressed due to conflicting primary hazard: Road Damage (D20)."
+      ],
+      "primary_decision": "SUPPRESS_CONTEXTUAL_CONFLICT",
+      "primary_reason": "Monolithic whole-scene box (100.0%x79.8%) suppressed due to conflicting primary hazard: Road Damage (D20).",
+      "final_incident_interpretation": "WATER-FILLED POTHOLE (Highways Department + Drainage Advisory)"
+    },
+    {
+      "filename": "pathole 15.webp",
+      "category": "POTHOLE",
+      "folder": "Pathole",
+      "width": 738,
+      "height": 414,
+      "road_post_nms_count": 1,
+      "road_classes": [
+        "D20"
+      ],
+      "road_confidences": [
+        0.5038
+      ],
+      "has_road_damage": true,
+      "has_pothole": false,
+      "water_coverage_pct": 48.26,
+      "largest_comp_ratio_pct": 99.86,
+      "is_significant_flood": true,
+      "is_possible_water": true,
+      "flood_classification": "SIGNIFICANT WATERLOGGING",
+      "is_water_filled_pothole": false,
+      "raw_waste_count": 1,
+      "accepted_waste_count": 0,
+      "suppressed_waste_count": 1,
+      "raw_waste_classes": [
+        "W70"
+      ],
+      "accepted_waste_classes": [],
+      "suppressed_waste_classes": [
+        "W70"
+      ],
+      "arbitration_decisions": [
+        "SUPPRESS_CONTEXTUAL_CONFLICT"
+      ],
+      "arbitration_reasons": [
+        "Monolithic whole-scene box (78.1%x99.9%) suppressed due to conflicting primary hazard: Road Damage (D20) & Significant Flood (48.3% water, ratio=99.9%)."
+      ],
+      "primary_decision": "SUPPRESS_CONTEXTUAL_CONFLICT",
+      "primary_reason": "Monolithic whole-scene box (78.1%x99.9%) suppressed due to conflicting primary hazard: Road Damage (D20) & Significant Flood (48.3% water, ratio=99.9%).",
+      "final_incident_interpretation": "SIGNIFICANT WATERLOGGING (Stormwater / Drainage)"
+    },
+    {
+      "filename": "pathole 16.webp",
+      "category": "POTHOLE",
+      "folder": "Pathole",
+      "width": 452,
+      "height": 678,
+      "road_post_nms_count": 2,
+      "road_classes": [
+        "D20",
+        "D20"
+      ],
+      "road_confidences": [
+        0.619,
+        0.5198
+      ],
+      "has_road_damage": true,
+      "has_pothole": false,
+      "water_coverage_pct": 2.46,
+      "largest_comp_ratio_pct": 97.39,
+      "is_significant_flood": false,
+      "is_possible_water": false,
+      "flood_classification": "NO SIGNIFICANT WATER",
+      "is_water_filled_pothole": false,
+      "raw_waste_count": 1,
+      "accepted_waste_count": 0,
+      "suppressed_waste_count": 1,
+      "raw_waste_classes": [
+        "W70"
+      ],
+      "accepted_waste_classes": [],
+      "suppressed_waste_classes": [
+        "W70"
+      ],
+      "arbitration_decisions": [
+        "SUPPRESS_CONTEXTUAL_CONFLICT"
+      ],
+      "arbitration_reasons": [
+        "Monolithic whole-scene box (99.9%x84.5%) suppressed due to conflicting primary hazard: Road Damage (D20, D20)."
+      ],
+      "primary_decision": "SUPPRESS_CONTEXTUAL_CONFLICT",
+      "primary_reason": "Monolithic whole-scene box (99.9%x84.5%) suppressed due to conflicting primary hazard: Road Damage (D20, D20).",
+      "final_incident_interpretation": "ROAD DAMAGE (D20, D20) (Highways)"
+    },
+    {
+      "filename": "pathole 17.webp",
+      "category": "POTHOLE",
+      "folder": "Pathole",
+      "width": 200,
+      "height": 200,
+      "road_post_nms_count": 0,
+      "road_classes": [],
+      "road_confidences": [],
+      "has_road_damage": false,
+      "has_pothole": false,
+      "water_coverage_pct": 0.0,
+      "largest_comp_ratio_pct": 0.0,
+      "is_significant_flood": false,
+      "is_possible_water": false,
+      "flood_classification": "NO SIGNIFICANT WATER",
+      "is_water_filled_pothole": false,
+      "raw_waste_count": 1,
+      "accepted_waste_count": 1,
+      "suppressed_waste_count": 0,
+      "raw_waste_classes": [
+        "W50"
+      ],
+      "accepted_waste_classes": [
+        "W50"
+      ],
+      "suppressed_waste_classes": [],
+      "arbitration_decisions": [
+        "RETAIN_MONOLITHIC_STANDALONE"
+      ],
+      "arbitration_reasons": [
+        "Monolithic box (81.3%x79.9%) retained: standalone scene with no conflicting road damage or flood."
+      ],
+      "primary_decision": "RETAIN_MONOLITHIC_STANDALONE",
+      "primary_reason": "Monolithic box (81.3%x79.9%) retained: standalone scene with no conflicting road damage or flood.",
+      "final_incident_interpretation": "DETECTED WASTE (W50) (Sanitation)"
+    },
+    {
+      "filename": "pathole 18.webp",
+      "category": "POTHOLE",
+      "folder": "Pathole",
+      "width": 400,
+      "height": 533,
+      "road_post_nms_count": 1,
+      "road_classes": [
+        "D40"
+      ],
+      "road_confidences": [
+        0.7695
+      ],
+      "has_road_damage": true,
+      "has_pothole": true,
+      "water_coverage_pct": 0.0,
+      "largest_comp_ratio_pct": 0.0,
+      "is_significant_flood": false,
+      "is_possible_water": false,
+      "flood_classification": "NO SIGNIFICANT WATER",
+      "is_water_filled_pothole": false,
+      "raw_waste_count": 1,
+      "accepted_waste_count": 0,
+      "suppressed_waste_count": 1,
+      "raw_waste_classes": [
+        "W70"
+      ],
+      "accepted_waste_classes": [],
+      "suppressed_waste_classes": [
+        "W70"
+      ],
+      "arbitration_decisions": [
+        "SUPPRESS_CONTEXTUAL_CONFLICT"
+      ],
+      "arbitration_reasons": [
+        "Monolithic whole-scene box (100.0%x79.9%) suppressed due to conflicting primary hazard: Road Damage (D40)."
+      ],
+      "primary_decision": "SUPPRESS_CONTEXTUAL_CONFLICT",
+      "primary_reason": "Monolithic whole-scene box (100.0%x79.9%) suppressed due to conflicting primary hazard: Road Damage (D40).",
+      "final_incident_interpretation": "ROAD DAMAGE (D40) (Highways)"
+    },
+    {
+      "filename": "pathole 19.webp",
+      "category": "POTHOLE",
+      "folder": "Pathole",
+      "width": 389,
+      "height": 280,
+      "road_post_nms_count": 0,
+      "road_classes": [],
+      "road_confidences": [],
+      "has_road_damage": false,
+      "has_pothole": false,
+      "water_coverage_pct": 74.64,
+      "largest_comp_ratio_pct": 99.98,
+      "is_significant_flood": true,
+      "is_possible_water": true,
+      "flood_classification": "SIGNIFICANT WATERLOGGING",
+      "is_water_filled_pothole": false,
+      "raw_waste_count": 1,
+      "accepted_waste_count": 0,
+      "suppressed_waste_count": 1,
+      "raw_waste_classes": [
+        "W70"
+      ],
+      "accepted_waste_classes": [],
+      "suppressed_waste_classes": [
+        "W70"
+      ],
+      "arbitration_decisions": [
+        "SUPPRESS_CONTEXTUAL_CONFLICT"
+      ],
+      "arbitration_reasons": [
+        "Monolithic whole-scene box (79.5%x99.9%) suppressed due to conflicting primary hazard: Significant Flood (74.6% water, ratio=100.0%)."
+      ],
+      "primary_decision": "SUPPRESS_CONTEXTUAL_CONFLICT",
+      "primary_reason": "Monolithic whole-scene box (79.5%x99.9%) suppressed due to conflicting primary hazard: Significant Flood (74.6% water, ratio=100.0%).",
+      "final_incident_interpretation": "SIGNIFICANT WATERLOGGING (Stormwater / Drainage)"
+    },
+    {
+      "filename": "pathole 2.webp",
+      "category": "POTHOLE",
+      "folder": "Pathole",
+      "width": 297,
+      "height": 234,
+      "road_post_nms_count": 0,
+      "road_classes": [],
+      "road_confidences": [],
+      "has_road_damage": false,
+      "has_pothole": true,
+      "water_coverage_pct": 0.0,
+      "largest_comp_ratio_pct": 0.0,
+      "is_significant_flood": false,
+      "is_possible_water": false,
+      "flood_classification": "NO SIGNIFICANT WATER",
+      "is_water_filled_pothole": false,
+      "raw_waste_count": 1,
+      "accepted_waste_count": 1,
+      "suppressed_waste_count": 0,
+      "raw_waste_classes": [
+        "W70"
+      ],
+      "accepted_waste_classes": [
+        "W70"
+      ],
+      "suppressed_waste_classes": [],
+      "arbitration_decisions": [
+        "RETAIN_MONOLITHIC_STANDALONE"
+      ],
+      "arbitration_reasons": [
+        "Monolithic box (78.7%x100.0%) retained: standalone scene with no conflicting road damage or flood."
+      ],
+      "primary_decision": "RETAIN_MONOLITHIC_STANDALONE",
+      "primary_reason": "Monolithic box (78.7%x100.0%) retained: standalone scene with no conflicting road damage or flood.",
+      "final_incident_interpretation": "DETECTED WASTE (W70) (Sanitation)"
+    },
+    {
+      "filename": "pathole 20.webp",
+      "category": "POTHOLE",
+      "folder": "Pathole",
+      "width": 320,
+      "height": 173,
+      "road_post_nms_count": 0,
+      "road_classes": [],
+      "road_confidences": [],
+      "has_road_damage": false,
+      "has_pothole": false,
+      "water_coverage_pct": 71.03,
+      "largest_comp_ratio_pct": 99.95,
+      "is_significant_flood": true,
+      "is_possible_water": true,
+      "flood_classification": "SIGNIFICANT WATERLOGGING",
+      "is_water_filled_pothole": false,
+      "raw_waste_count": 1,
+      "accepted_waste_count": 1,
+      "suppressed_waste_count": 0,
+      "raw_waste_classes": [
+        "W50"
+      ],
+      "accepted_waste_classes": [
+        "W50"
+      ],
+      "suppressed_waste_classes": [],
+      "arbitration_decisions": [
+        "RETAIN_LOCALIZED"
+      ],
+      "arbitration_reasons": [
+        "Localized waste box (73.0%x99.8% < 75%x75%); retained without conflict."
+      ],
+      "primary_decision": "RETAIN_LOCALIZED",
+      "primary_reason": "Localized waste box (73.0%x99.8% < 75%x75%); retained without conflict.",
+      "final_incident_interpretation": "SIGNIFICANT WATERLOGGING (Stormwater / Drainage) | DETECTED WASTE (W50) (Sanitation)"
+    },
+    {
+      "filename": "pathole 21.webp",
+      "category": "POTHOLE",
+      "folder": "Pathole",
+      "width": 540,
+      "height": 360,
+      "road_post_nms_count": 1,
+      "road_classes": [
+        "D40"
+      ],
+      "road_confidences": [
+        0.5702
+      ],
+      "has_road_damage": true,
+      "has_pothole": true,
+      "water_coverage_pct": 3.24,
+      "largest_comp_ratio_pct": 99.95,
+      "is_significant_flood": false,
+      "is_possible_water": false,
+      "flood_classification": "NO SIGNIFICANT WATER",
+      "is_water_filled_pothole": false,
+      "raw_waste_count": 1,
+      "accepted_waste_count": 0,
+      "suppressed_waste_count": 1,
+      "raw_waste_classes": [
+        "W70"
+      ],
+      "accepted_waste_classes": [],
+      "suppressed_waste_classes": [
+        "W70"
+      ],
+      "arbitration_decisions": [
+        "SUPPRESS_CONTEXTUAL_CONFLICT"
+      ],
+      "arbitration_reasons": [
+        "Monolithic whole-scene box (79.5%x100.0%) suppressed due to conflicting primary hazard: Road Damage (D40)."
+      ],
+      "primary_decision": "SUPPRESS_CONTEXTUAL_CONFLICT",
+      "primary_reason": "Monolithic whole-scene box (79.5%x100.0%) suppressed due to conflicting primary hazard: Road Damage (D40).",
+      "final_incident_interpretation": "ROAD DAMAGE (D40) (Highways)"
+    },
+    {
+      "filename": "pathole 22.webp",
+      "category": "POTHOLE",
+      "folder": "Pathole",
+      "width": 525,
+      "height": 350,
+      "road_post_nms_count": 0,
+      "road_classes": [],
+      "road_confidences": [],
+      "has_road_damage": false,
+      "has_pothole": true,
+      "water_coverage_pct": 0.73,
+      "largest_comp_ratio_pct": 99.05,
+      "is_significant_flood": false,
+      "is_possible_water": false,
+      "flood_classification": "NO SIGNIFICANT WATER",
+      "is_water_filled_pothole": false,
+      "raw_waste_count": 1,
+      "accepted_waste_count": 1,
+      "suppressed_waste_count": 0,
+      "raw_waste_classes": [
+        "W70"
+      ],
+      "accepted_waste_classes": [
+        "W70"
+      ],
+      "suppressed_waste_classes": [],
+      "arbitration_decisions": [
+        "RETAIN_MONOLITHIC_STANDALONE"
+      ],
+      "arbitration_reasons": [
+        "Monolithic box (79.6%x99.8%) retained: standalone scene with no conflicting road damage or flood."
+      ],
+      "primary_decision": "RETAIN_MONOLITHIC_STANDALONE",
+      "primary_reason": "Monolithic box (79.6%x99.8%) retained: standalone scene with no conflicting road damage or flood.",
+      "final_incident_interpretation": "DETECTED WASTE (W70) (Sanitation)"
+    },
+    {
+      "filename": "pathole 23.webp",
+      "category": "POTHOLE",
+      "folder": "Pathole",
+      "width": 678,
+      "height": 452,
+      "road_post_nms_count": 0,
+      "road_classes": [],
+      "road_confidences": [],
+      "has_road_damage": false,
+      "has_pothole": false,
+      "water_coverage_pct": 1.43,
+      "largest_comp_ratio_pct": 58.18,
+      "is_significant_flood": false,
+      "is_possible_water": false,
+      "flood_classification": "NO SIGNIFICANT WATER",
+      "is_water_filled_pothole": false,
+      "raw_waste_count": 0,
+      "accepted_waste_count": 0,
+      "suppressed_waste_count": 0,
+      "raw_waste_classes": [],
+      "accepted_waste_classes": [],
+      "suppressed_waste_classes": [],
+      "arbitration_decisions": [],
+      "arbitration_reasons": [],
+      "primary_decision": "NO_WASTE_DETECTION",
+      "primary_reason": "Model produced zero waste candidates",
+      "final_incident_interpretation": "CLEAN / NO ACTIONABLE HAZARD"
+    },
+    {
+      "filename": "pathole 24.webp",
+      "category": "POTHOLE",
+      "folder": "Pathole",
+      "width": 736,
+      "height": 416,
+      "road_post_nms_count": 0,
+      "road_classes": [],
+      "road_confidences": [],
+      "has_road_damage": false,
+      "has_pothole": false,
+      "water_coverage_pct": 23.06,
+      "largest_comp_ratio_pct": 99.92,
+      "is_significant_flood": false,
+      "is_possible_water": true,
+      "flood_classification": "POSSIBLE WATERLOGGING",
+      "is_water_filled_pothole": false,
+      "raw_waste_count": 1,
+      "accepted_waste_count": 1,
+      "suppressed_waste_count": 0,
+      "raw_waste_classes": [
+        "W70"
+      ],
+      "accepted_waste_classes": [
+        "W70"
+      ],
+      "suppressed_waste_classes": [],
+      "arbitration_decisions": [
+        "RETAIN_MONOLITHIC_STANDALONE"
+      ],
+      "arbitration_reasons": [
+        "Monolithic box (79.7%x100.0%) retained: standalone scene with no conflicting road damage or flood."
+      ],
+      "primary_decision": "RETAIN_MONOLITHIC_STANDALONE",
+      "primary_reason": "Monolithic box (79.7%x100.0%) retained: standalone scene with no conflicting road damage or flood.",
+      "final_incident_interpretation": "POSSIBLE WATERLOGGING (Stormwater Monitor) | DETECTED WASTE (W70) (Sanitation)"
+    },
+    {
+      "filename": "pathole 25.webp",
+      "category": "POTHOLE",
+      "folder": "Pathole",
+      "width": 543,
+      "height": 360,
+      "road_post_nms_count": 1,
+      "road_classes": [
+        "D40"
+      ],
+      "road_confidences": [
+        0.5457
+      ],
+      "has_road_damage": true,
+      "has_pothole": true,
+      "water_coverage_pct": 45.19,
+      "largest_comp_ratio_pct": 94.68,
+      "is_significant_flood": true,
+      "is_possible_water": true,
+      "flood_classification": "SIGNIFICANT WATERLOGGING",
+      "is_water_filled_pothole": true,
+      "raw_waste_count": 1,
+      "accepted_waste_count": 0,
+      "suppressed_waste_count": 1,
+      "raw_waste_classes": [
+        "W70"
+      ],
+      "accepted_waste_classes": [],
+      "suppressed_waste_classes": [
+        "W70"
+      ],
+      "arbitration_decisions": [
+        "SUPPRESS_CONTEXTUAL_CONFLICT"
+      ],
+      "arbitration_reasons": [
+        "Monolithic whole-scene box (79.4%x99.8%) suppressed due to conflicting primary hazard: Road Damage (D40) & Significant Flood (45.2% water, ratio=94.7%)."
+      ],
+      "primary_decision": "SUPPRESS_CONTEXTUAL_CONFLICT",
+      "primary_reason": "Monolithic whole-scene box (79.4%x99.8%) suppressed due to conflicting primary hazard: Road Damage (D40) & Significant Flood (45.2% water, ratio=94.7%).",
+      "final_incident_interpretation": "WATER-FILLED POTHOLE (Highways Department + Drainage Advisory)"
+    },
+    {
+      "filename": "pathole 26.webp",
+      "category": "POTHOLE",
+      "folder": "Pathole",
+      "width": 480,
+      "height": 359,
+      "road_post_nms_count": 4,
+      "road_classes": [
+        "D40",
+        "D40",
+        "D40",
+        "D40"
+      ],
+      "road_confidences": [
+        0.7539,
+        0.7354,
+        0.7106,
+        0.7018
+      ],
+      "has_road_damage": true,
+      "has_pothole": true,
+      "water_coverage_pct": 15.75,
+      "largest_comp_ratio_pct": 88.24,
+      "is_significant_flood": false,
+      "is_possible_water": true,
+      "flood_classification": "POSSIBLE WATERLOGGING",
+      "is_water_filled_pothole": true,
+      "raw_waste_count": 1,
+      "accepted_waste_count": 0,
+      "suppressed_waste_count": 1,
+      "raw_waste_classes": [
+        "W70"
+      ],
+      "accepted_waste_classes": [],
+      "suppressed_waste_classes": [
+        "W70"
+      ],
+      "arbitration_decisions": [
+        "SUPPRESS_CONTEXTUAL_CONFLICT"
+      ],
+      "arbitration_reasons": [
+        "Monolithic whole-scene box (79.4%x99.9%) suppressed due to conflicting primary hazard: Road Damage (D40, D40, D40, D40)."
+      ],
+      "primary_decision": "SUPPRESS_CONTEXTUAL_CONFLICT",
+      "primary_reason": "Monolithic whole-scene box (79.4%x99.9%) suppressed due to conflicting primary hazard: Road Damage (D40, D40, D40, D40).",
+      "final_incident_interpretation": "WATER-FILLED POTHOLE (Highways Department + Drainage Advisory)"
+    },
+    {
+      "filename": "pathole 27.webp",
+      "category": "POTHOLE",
+      "folder": "Pathole",
+      "width": 389,
+      "height": 280,
+      "road_post_nms_count": 0,
+      "road_classes": [],
+      "road_confidences": [],
+      "has_road_damage": false,
+      "has_pothole": false,
+      "water_coverage_pct": 0.0,
+      "largest_comp_ratio_pct": 0.0,
+      "is_significant_flood": false,
+      "is_possible_water": false,
+      "flood_classification": "NO SIGNIFICANT WATER",
+      "is_water_filled_pothole": false,
+      "raw_waste_count": 1,
+      "accepted_waste_count": 1,
+      "suppressed_waste_count": 0,
+      "raw_waste_classes": [
+        "W70"
+      ],
+      "accepted_waste_classes": [
+        "W70"
+      ],
+      "suppressed_waste_classes": [],
+      "arbitration_decisions": [
+        "RETAIN_MONOLITHIC_STANDALONE"
+      ],
+      "arbitration_reasons": [
+        "Monolithic box (80.4%x99.9%) retained: standalone scene with no conflicting road damage or flood."
+      ],
+      "primary_decision": "RETAIN_MONOLITHIC_STANDALONE",
+      "primary_reason": "Monolithic box (80.4%x99.9%) retained: standalone scene with no conflicting road damage or flood.",
+      "final_incident_interpretation": "DETECTED WASTE (W70) (Sanitation)"
+    },
+    {
+      "filename": "pathole 28.webp",
+      "category": "POTHOLE",
+      "folder": "Pathole",
+      "width": 479,
+      "height": 360,
+      "road_post_nms_count": 0,
+      "road_classes": [],
+      "road_confidences": [],
+      "has_road_damage": false,
+      "has_pothole": false,
+      "water_coverage_pct": 0.9,
+      "largest_comp_ratio_pct": 99.61,
+      "is_significant_flood": false,
+      "is_possible_water": false,
+      "flood_classification": "NO SIGNIFICANT WATER",
+      "is_water_filled_pothole": false,
+      "raw_waste_count": 1,
+      "accepted_waste_count": 1,
+      "suppressed_waste_count": 0,
+      "raw_waste_classes": [
+        "W70"
+      ],
+      "accepted_waste_classes": [
+        "W70"
+      ],
+      "suppressed_waste_classes": [],
+      "arbitration_decisions": [
+        "RETAIN_MONOLITHIC_STANDALONE"
+      ],
+      "arbitration_reasons": [
+        "Monolithic box (81.3%x100.0%) retained: standalone scene with no conflicting road damage or flood."
+      ],
+      "primary_decision": "RETAIN_MONOLITHIC_STANDALONE",
+      "primary_reason": "Monolithic box (81.3%x100.0%) retained: standalone scene with no conflicting road damage or flood.",
+      "final_incident_interpretation": "DETECTED WASTE (W70) (Sanitation)"
+    },
+    {
+      "filename": "pathole 29.webp",
+      "category": "POTHOLE",
+      "folder": "Pathole",
+      "width": 540,
+      "height": 360,
+      "road_post_nms_count": 2,
+      "road_classes": [
+        "D40",
+        "D40"
+      ],
+      "road_confidences": [
+        0.8564,
+        0.7995
+      ],
+      "has_road_damage": true,
+      "has_pothole": true,
+      "water_coverage_pct": 0.0,
+      "largest_comp_ratio_pct": 0.0,
+      "is_significant_flood": false,
+      "is_possible_water": false,
+      "flood_classification": "NO SIGNIFICANT WATER",
+      "is_water_filled_pothole": false,
+      "raw_waste_count": 1,
+      "accepted_waste_count": 0,
+      "suppressed_waste_count": 1,
+      "raw_waste_classes": [
+        "W70"
+      ],
+      "accepted_waste_classes": [],
+      "suppressed_waste_classes": [
+        "W70"
+      ],
+      "arbitration_decisions": [
+        "SUPPRESS_CONTEXTUAL_CONFLICT"
+      ],
+      "arbitration_reasons": [
+        "Monolithic whole-scene box (79.6%x99.9%) suppressed due to conflicting primary hazard: Road Damage (D40, D40)."
+      ],
+      "primary_decision": "SUPPRESS_CONTEXTUAL_CONFLICT",
+      "primary_reason": "Monolithic whole-scene box (79.6%x99.9%) suppressed due to conflicting primary hazard: Road Damage (D40, D40).",
+      "final_incident_interpretation": "ROAD DAMAGE (D40, D40) (Highways)"
+    },
+    {
+      "filename": "pathole 3.webp",
+      "category": "POTHOLE",
+      "folder": "Pathole",
+      "width": 370,
+      "height": 247,
+      "road_post_nms_count": 0,
+      "road_classes": [],
+      "road_confidences": [],
+      "has_road_damage": false,
+      "has_pothole": false,
+      "water_coverage_pct": 0.0,
+      "largest_comp_ratio_pct": 0.0,
+      "is_significant_flood": false,
+      "is_possible_water": false,
+      "flood_classification": "NO SIGNIFICANT WATER",
+      "is_water_filled_pothole": false,
+      "raw_waste_count": 1,
+      "accepted_waste_count": 1,
+      "suppressed_waste_count": 0,
+      "raw_waste_classes": [
+        "W00"
+      ],
+      "accepted_waste_classes": [
+        "W00"
+      ],
+      "suppressed_waste_classes": [],
+      "arbitration_decisions": [
+        "RETAIN_MONOLITHIC_STANDALONE"
+      ],
+      "arbitration_reasons": [
+        "Monolithic box (79.4%x99.8%) retained: standalone scene with no conflicting road damage or flood."
+      ],
+      "primary_decision": "RETAIN_MONOLITHIC_STANDALONE",
+      "primary_reason": "Monolithic box (79.4%x99.8%) retained: standalone scene with no conflicting road damage or flood.",
+      "final_incident_interpretation": "DETECTED WASTE (W00) (Sanitation)"
+    },
+    {
+      "filename": "pathole 30.webp",
+      "category": "POTHOLE",
+      "folder": "Pathole",
+      "width": 678,
+      "height": 452,
+      "road_post_nms_count": 0,
+      "road_classes": [],
+      "road_confidences": [],
+      "has_road_damage": false,
+      "has_pothole": true,
+      "water_coverage_pct": 11.69,
+      "largest_comp_ratio_pct": 91.14,
+      "is_significant_flood": false,
+      "is_possible_water": true,
+      "flood_classification": "POSSIBLE WATERLOGGING",
+      "is_water_filled_pothole": true,
+      "raw_waste_count": 1,
+      "accepted_waste_count": 1,
+      "suppressed_waste_count": 0,
+      "raw_waste_classes": [
+        "W70"
+      ],
+      "accepted_waste_classes": [
+        "W70"
+      ],
+      "suppressed_waste_classes": [],
+      "arbitration_decisions": [
+        "RETAIN_MONOLITHIC_STANDALONE"
+      ],
+      "arbitration_reasons": [
+        "Monolithic box (79.5%x99.9%) retained: standalone scene with no conflicting road damage or flood."
+      ],
+      "primary_decision": "RETAIN_MONOLITHIC_STANDALONE",
+      "primary_reason": "Monolithic box (79.5%x99.9%) retained: standalone scene with no conflicting road damage or flood.",
+      "final_incident_interpretation": "WATER-FILLED POTHOLE (Highways Department + Drainage Advisory)"
+    },
+    {
+      "filename": "pathole 4.webp",
+      "category": "POTHOLE",
+      "folder": "Pathole",
+      "width": 361,
+      "height": 262,
+      "road_post_nms_count": 5,
+      "road_classes": [
+        "D40",
+        "D40",
+        "D40",
+        "D40",
+        "D40"
+      ],
+      "road_confidences": [
+        0.7448,
+        0.6948,
+        0.6899,
+        0.6369,
+        0.5665
+      ],
+      "has_road_damage": true,
+      "has_pothole": true,
+      "water_coverage_pct": 83.22,
+      "largest_comp_ratio_pct": 99.81,
+      "is_significant_flood": true,
+      "is_possible_water": true,
+      "flood_classification": "SIGNIFICANT WATERLOGGING",
+      "is_water_filled_pothole": true,
+      "raw_waste_count": 1,
+      "accepted_waste_count": 0,
+      "suppressed_waste_count": 1,
+      "raw_waste_classes": [
+        "W70"
+      ],
+      "accepted_waste_classes": [],
+      "suppressed_waste_classes": [
+        "W70"
+      ],
+      "arbitration_decisions": [
+        "SUPPRESS_CONTEXTUAL_CONFLICT"
+      ],
+      "arbitration_reasons": [
+        "Monolithic whole-scene box (79.5%x99.6%) suppressed due to conflicting primary hazard: Road Damage (D40, D40, D40, D40, D40) & Significant Flood (83.2% water, ratio=99.8%)."
+      ],
+      "primary_decision": "SUPPRESS_CONTEXTUAL_CONFLICT",
+      "primary_reason": "Monolithic whole-scene box (79.5%x99.6%) suppressed due to conflicting primary hazard: Road Damage (D40, D40, D40, D40, D40) & Significant Flood (83.2% water, ratio=99.8%).",
+      "final_incident_interpretation": "WATER-FILLED POTHOLE (Highways Department + Drainage Advisory)"
+    },
+    {
+      "filename": "pathole 5.webp",
+      "category": "POTHOLE",
+      "folder": "Pathole",
+      "width": 419,
+      "height": 235,
+      "road_post_nms_count": 1,
+      "road_classes": [
+        "D20"
+      ],
+      "road_confidences": [
+        0.5879
+      ],
+      "has_road_damage": true,
+      "has_pothole": false,
+      "water_coverage_pct": 18.43,
+      "largest_comp_ratio_pct": 99.98,
+      "is_significant_flood": false,
+      "is_possible_water": true,
+      "flood_classification": "POSSIBLE WATERLOGGING",
+      "is_water_filled_pothole": false,
+      "raw_waste_count": 1,
+      "accepted_waste_count": 0,
+      "suppressed_waste_count": 1,
+      "raw_waste_classes": [
+        "W70"
+      ],
+      "accepted_waste_classes": [],
+      "suppressed_waste_classes": [
+        "W70"
+      ],
+      "arbitration_decisions": [
+        "SUPPRESS_CONTEXTUAL_CONFLICT"
+      ],
+      "arbitration_reasons": [
+        "Monolithic whole-scene box (79.3%x99.8%) suppressed due to conflicting primary hazard: Road Damage (D20)."
+      ],
+      "primary_decision": "SUPPRESS_CONTEXTUAL_CONFLICT",
+      "primary_reason": "Monolithic whole-scene box (79.3%x99.8%) suppressed due to conflicting primary hazard: Road Damage (D20).",
+      "final_incident_interpretation": "ROAD DAMAGE (D20) (Highways)"
+    },
+    {
+      "filename": "pathole 6.webp",
+      "category": "POTHOLE",
+      "folder": "Pathole",
+      "width": 334,
+      "height": 250,
+      "road_post_nms_count": 0,
+      "road_classes": [],
+      "road_confidences": [],
+      "has_road_damage": false,
+      "has_pothole": true,
+      "water_coverage_pct": 0.18,
+      "largest_comp_ratio_pct": 32.37,
+      "is_significant_flood": false,
+      "is_possible_water": false,
+      "flood_classification": "NO SIGNIFICANT WATER",
+      "is_water_filled_pothole": false,
+      "raw_waste_count": 0,
+      "accepted_waste_count": 0,
+      "suppressed_waste_count": 0,
+      "raw_waste_classes": [],
+      "accepted_waste_classes": [],
+      "suppressed_waste_classes": [],
+      "arbitration_decisions": [],
+      "arbitration_reasons": [],
+      "primary_decision": "NO_WASTE_DETECTION",
+      "primary_reason": "Model produced zero waste candidates",
+      "final_incident_interpretation": "CLEAN / NO ACTIONABLE HAZARD"
+    },
+    {
+      "filename": "pathole 7.webp",
+      "category": "POTHOLE",
+      "folder": "Pathole",
+      "width": 232,
+      "height": 234,
+      "road_post_nms_count": 1,
+      "road_classes": [
+        "D40"
+      ],
+      "road_confidences": [
+        0.5395
+      ],
+      "has_road_damage": true,
+      "has_pothole": true,
+      "water_coverage_pct": 1.84,
+      "largest_comp_ratio_pct": 99.91,
+      "is_significant_flood": false,
+      "is_possible_water": false,
+      "flood_classification": "NO SIGNIFICANT WATER",
+      "is_water_filled_pothole": false,
+      "raw_waste_count": 1,
+      "accepted_waste_count": 0,
+      "suppressed_waste_count": 1,
+      "raw_waste_classes": [
+        "W50"
+      ],
+      "accepted_waste_classes": [],
+      "suppressed_waste_classes": [
+        "W50"
+      ],
+      "arbitration_decisions": [
+        "SUPPRESS_CONTEXTUAL_CONFLICT"
+      ],
+      "arbitration_reasons": [
+        "Monolithic whole-scene box (79.5%x79.9%) suppressed due to conflicting primary hazard: Road Damage (D40)."
+      ],
+      "primary_decision": "SUPPRESS_CONTEXTUAL_CONFLICT",
+      "primary_reason": "Monolithic whole-scene box (79.5%x79.9%) suppressed due to conflicting primary hazard: Road Damage (D40).",
+      "final_incident_interpretation": "ROAD DAMAGE (D40) (Highways)"
+    },
+    {
+      "filename": "pathole 8.webp",
+      "category": "POTHOLE",
+      "folder": "Pathole",
+      "width": 396,
+      "height": 234,
+      "road_post_nms_count": 1,
+      "road_classes": [
+        "D40"
+      ],
+      "road_confidences": [
+        0.6068
+      ],
+      "has_road_damage": true,
+      "has_pothole": true,
+      "water_coverage_pct": 32.34,
+      "largest_comp_ratio_pct": 99.05,
+      "is_significant_flood": true,
+      "is_possible_water": true,
+      "flood_classification": "SIGNIFICANT WATERLOGGING",
+      "is_water_filled_pothole": true,
+      "raw_waste_count": 1,
+      "accepted_waste_count": 0,
+      "suppressed_waste_count": 1,
+      "raw_waste_classes": [
+        "W70"
+      ],
+      "accepted_waste_classes": [],
+      "suppressed_waste_classes": [
+        "W70"
+      ],
+      "arbitration_decisions": [
+        "SUPPRESS_CONTEXTUAL_CONFLICT"
+      ],
+      "arbitration_reasons": [
+        "Monolithic whole-scene box (79.5%x100.0%) suppressed due to conflicting primary hazard: Road Damage (D40) & Significant Flood (32.3% water, ratio=99.0%)."
+      ],
+      "primary_decision": "SUPPRESS_CONTEXTUAL_CONFLICT",
+      "primary_reason": "Monolithic whole-scene box (79.5%x100.0%) suppressed due to conflicting primary hazard: Road Damage (D40) & Significant Flood (32.3% water, ratio=99.0%).",
+      "final_incident_interpretation": "WATER-FILLED POTHOLE (Highways Department + Drainage Advisory)"
+    },
+    {
+      "filename": "pathole 9.webp",
+      "category": "POTHOLE",
+      "folder": "Pathole",
+      "width": 319,
+      "height": 234,
+      "road_post_nms_count": 0,
+      "road_classes": [],
+      "road_confidences": [],
+      "has_road_damage": false,
+      "has_pothole": false,
+      "water_coverage_pct": 0.0,
+      "largest_comp_ratio_pct": 0.0,
+      "is_significant_flood": false,
+      "is_possible_water": false,
+      "flood_classification": "NO SIGNIFICANT WATER",
+      "is_water_filled_pothole": false,
+      "raw_waste_count": 1,
+      "accepted_waste_count": 1,
+      "suppressed_waste_count": 0,
+      "raw_waste_classes": [
+        "W50"
+      ],
+      "accepted_waste_classes": [
+        "W50"
+      ],
+      "suppressed_waste_classes": [],
+      "arbitration_decisions": [
+        "RETAIN_MONOLITHIC_STANDALONE"
+      ],
+      "arbitration_reasons": [
+        "Monolithic box (81.2%x99.5%) retained: standalone scene with no conflicting road damage or flood."
+      ],
+      "primary_decision": "RETAIN_MONOLITHIC_STANDALONE",
+      "primary_reason": "Monolithic box (81.2%x99.5%) retained: standalone scene with no conflicting road damage or flood.",
+      "final_incident_interpretation": "DETECTED WASTE (W50) (Sanitation)"
+    },
+    {
+      "filename": "road without pothole.webp",
+      "category": "POTHOLE",
+      "folder": "Pathole",
+      "width": 353,
+      "height": 226,
+      "road_post_nms_count": 0,
+      "road_classes": [],
+      "road_confidences": [],
+      "has_road_damage": false,
+      "has_pothole": false,
+      "water_coverage_pct": 0.0,
+      "largest_comp_ratio_pct": 0.0,
+      "is_significant_flood": false,
+      "is_possible_water": false,
+      "flood_classification": "NO SIGNIFICANT WATER",
+      "is_water_filled_pothole": false,
+      "raw_waste_count": 0,
+      "accepted_waste_count": 0,
+      "suppressed_waste_count": 0,
+      "raw_waste_classes": [],
+      "accepted_waste_classes": [],
+      "suppressed_waste_classes": [],
+      "arbitration_decisions": [],
+      "arbitration_reasons": [],
+      "primary_decision": "NO_WASTE_DETECTION",
+      "primary_reason": "Model produced zero waste candidates",
+      "final_incident_interpretation": "CLEAN / NO ACTIONABLE HAZARD"
+    },
+    {
+      "filename": "water filled patholes.jpg",
+      "category": "POTHOLE",
+      "folder": "Pathole",
+      "width": 346,
+      "height": 280,
+      "road_post_nms_count": 0,
+      "road_classes": [],
+      "road_confidences": [],
+      "has_road_damage": false,
+      "has_pothole": false,
+      "water_coverage_pct": 77.59,
+      "largest_comp_ratio_pct": 99.99,
+      "is_significant_flood": true,
+      "is_possible_water": true,
+      "flood_classification": "SIGNIFICANT WATERLOGGING",
+      "is_water_filled_pothole": false,
+      "raw_waste_count": 1,
+      "accepted_waste_count": 0,
+      "suppressed_waste_count": 1,
+      "raw_waste_classes": [
+        "W50"
+      ],
+      "accepted_waste_classes": [],
+      "suppressed_waste_classes": [
+        "W50"
+      ],
+      "arbitration_decisions": [
+        "SUPPRESS_CONTEXTUAL_CONFLICT"
+      ],
+      "arbitration_reasons": [
+        "Monolithic whole-scene box (81.3%x99.3%) suppressed due to conflicting primary hazard: Significant Flood (77.6% water, ratio=100.0%)."
+      ],
+      "primary_decision": "SUPPRESS_CONTEXTUAL_CONFLICT",
+      "primary_reason": "Monolithic whole-scene box (81.3%x99.3%) suppressed due to conflicting primary hazard: Significant Flood (77.6% water, ratio=100.0%).",
+      "final_incident_interpretation": "SIGNIFICANT WATERLOGGING (Stormwater / Drainage)"
+    }
+  ]
+}

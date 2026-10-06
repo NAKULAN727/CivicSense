@@ -1,0 +1,126 @@
+{
+  "waste_sweep": [
+    {
+      "threshold_pct": "30%",
+      "threshold_float": 0.3,
+      "garbage_detected_count": 30,
+      "garbage_detected_pct": 100.0,
+      "flood_cross_detections": 28,
+      "flood_cross_pct": 87.5,
+      "pothole_cross_detections": 32,
+      "pothole_cross_pct": 100.0,
+      "combined_non_garbage_count": 60,
+      "combined_non_garbage_pct": 93.8
+    },
+    {
+      "threshold_pct": "35%",
+      "threshold_float": 0.35,
+      "garbage_detected_count": 30,
+      "garbage_detected_pct": 100.0,
+      "flood_cross_detections": 26,
+      "flood_cross_pct": 81.2,
+      "pothole_cross_detections": 30,
+      "pothole_cross_pct": 93.8,
+      "combined_non_garbage_count": 56,
+      "combined_non_garbage_pct": 87.5
+    },
+    {
+      "threshold_pct": "40%",
+      "threshold_float": 0.4,
+      "garbage_detected_count": 30,
+      "garbage_detected_pct": 100.0,
+      "flood_cross_detections": 25,
+      "flood_cross_pct": 78.1,
+      "pothole_cross_detections": 30,
+      "pothole_cross_pct": 93.8,
+      "combined_non_garbage_count": 55,
+      "combined_non_garbage_pct": 85.9
+    },
+    {
+      "threshold_pct": "45%",
+      "threshold_float": 0.45,
+      "garbage_detected_count": 26,
+      "garbage_detected_pct": 86.7,
+      "flood_cross_detections": 23,
+      "flood_cross_pct": 71.9,
+      "pothole_cross_detections": 30,
+      "pothole_cross_pct": 93.8,
+      "combined_non_garbage_count": 53,
+      "combined_non_garbage_pct": 82.8
+    },
+    {
+      "threshold_pct": "50%",
+      "threshold_float": 0.5,
+      "garbage_detected_count": 24,
+      "garbage_detected_pct": 80.0,
+      "flood_cross_detections": 22,
+      "flood_cross_pct": 68.8,
+      "pothole_cross_detections": 27,
+      "pothole_cross_pct": 84.4,
+      "combined_non_garbage_count": 49,
+      "combined_non_garbage_pct": 76.6
+    },
+    {
+      "threshold_pct": "55%",
+      "threshold_float": 0.55,
+      "garbage_detected_count": 21,
+      "garbage_detected_pct": 70.0,
+      "flood_cross_detections": 17,
+      "flood_cross_pct": 53.1,
+      "pothole_cross_detections": 25,
+      "pothole_cross_pct": 78.1,
+      "combined_non_garbage_count": 42,
+      "combined_non_garbage_pct": 65.6
+    },
+    {
+      "threshold_pct": "60%",
+      "threshold_float": 0.6,
+      "garbage_detected_count": 17,
+      "garbage_detected_pct": 56.7,
+      "flood_cross_detections": 14,
+      "flood_cross_pct": 43.8,
+      "pothole_cross_detections": 23,
+      "pothole_cross_pct": 71.9,
+      "combined_non_garbage_count": 37,
+      "combined_non_garbage_pct": 57.8
+    },
+    {
+      "threshold_pct": "65%",
+      "threshold_float": 0.65,
+      "garbage_detected_count": 16,
+      "garbage_detected_pct": 53.3,
+      "flood_cross_detections": 11,
+      "flood_cross_pct": 34.4,
+      "pothole_cross_detections": 21,
+      "pothole_cross_pct": 65.6,
+      "combined_non_garbage_count": 32,
+      "combined_non_garbage_pct": 50.0
+    },
+    {
+      "threshold_pct": "70%",
+      "threshold_float": 0.7,
+      "garbage_detected_count": 14,
+      "garbage_detected_pct": 46.7,
+      "flood_cross_detections": 9,
+      "flood_cross_pct": 28.1,
+      "pothole_cross_detections": 20,
+      "pothole_cross_pct": 62.5,
+      "combined_non_garbage_count": 29,
+      "combined_non_garbage_pct": 45.3
+    }
+  ],
+  "detailed_waste_detections": [
+    {
+      "filename": "flood 1.jpg",
+      "category": "FLOOD",
+      "resolution": "250x175",
+      "num_detections": 1,
+      "classes": [
+        "W50"
+      ],
+      "confidences": [
+        0.668
+      ],
+      "boxes": [
+        {
+          "x": 

@@ -1,0 +1,95 @@
+filename,category,raw_waste_count,raw_classes,has_road_damage,is_significant_flood,is_water_filled_pothole,arbitration_decision,accepted_waste_count,suppressed_waste_count,arbitration_reason
+flood 1.jpg,FLOOD,1,W50,NO,YES,NO,SUPPRESS_CONTEXTUAL_CONFLICT,0,1,"Monolithic whole-scene box (80.7%x99.9%) suppressed due to conflicting primary hazard: Significant Flood (49.6% water, ratio=100.0%)."
+flood 10.webp,FLOOD,1,W50,NO,YES,NO,SUPPRESS_CONTEXTUAL_CONFLICT,0,1,"Monolithic whole-scene box (91.8%x79.9%) suppressed due to conflicting primary hazard: Significant Flood (66.4% water, ratio=100.0%)."
+flood 11.webp,FLOOD,1,W50,NO,YES,NO,SUPPRESS_CONTEXTUAL_CONFLICT,0,1,"Monolithic whole-scene box (79.5%x99.9%) suppressed due to conflicting primary hazard: Significant Flood (43.3% water, ratio=99.9%)."
+flood 12.webp,FLOOD,0,NONE,NO,YES,NO,NO_WASTE_DETECTION,0,0,Model produced zero waste candidates
+flood 13.webp,FLOOD,0,NONE,NO,NO,NO,NO_WASTE_DETECTION,0,0,Model produced zero waste candidates
+flood 14.webp,FLOOD,1,W20,NO,YES,NO,SUPPRESS_CONTEXTUAL_CONFLICT,0,1,"Monolithic whole-scene box (79.5%x99.8%) suppressed due to conflicting primary hazard: Significant Flood (27.5% water, ratio=99.8%)."
+flood 15.jpg,FLOOD,1,W50,NO,YES,NO,SUPPRESS_CONTEXTUAL_CONFLICT,0,1,"Monolithic whole-scene box (79.4%x99.7%) suppressed due to conflicting primary hazard: Significant Flood (37.8% water, ratio=100.0%)."
+flood 16.jpg,FLOOD,1,W70,NO,YES,NO,SUPPRESS_CONTEXTUAL_CONFLICT,0,1,"Monolithic whole-scene box (100.0%x79.6%) suppressed due to conflicting primary hazard: Significant Flood (27.7% water, ratio=99.9%)."
+flood 17.jpg,FLOOD,1,W70,NO,YES,NO,SUPPRESS_CONTEXTUAL_CONFLICT,0,1,"Monolithic whole-scene box (79.2%x99.9%) suppressed due to conflicting primary hazard: Significant Flood (48.8% water, ratio=100.0%)."
+flood 18.jpg,FLOOD,1,W20,NO,NO,NO,RETAIN_MONOLITHIC_STANDALONE,1,0,Monolithic box (100.0%x79.8%) retained: standalone scene with no conflicting road damage or flood.
+flood 19.jpg,FLOOD,0,NONE,NO,NO,NO,NO_WASTE_DETECTION,0,0,Model produced zero waste candidates
+flood 2,FLOOD,0,NONE,NO,YES,NO,NO_WASTE_DETECTION,0,0,Model produced zero waste candidates
+flood 20.webp,FLOOD,2,W20; W70,NO,YES,NO,SUPPRESS_CONTEXTUAL_CONFLICT,0,2,"Monolithic whole-scene box (79.0%x100.0%) suppressed due to conflicting primary hazard: Significant Flood (56.1% water, ratio=100.0%)."
+flood 21.webp,FLOOD,1,W20,NO,YES,NO,SUPPRESS_CONTEXTUAL_CONFLICT,0,1,"Monolithic whole-scene box (80.8%x99.8%) suppressed due to conflicting primary hazard: Significant Flood (34.7% water, ratio=100.0%)."
+flood 22.webp,FLOOD,1,W20,NO,YES,NO,SUPPRESS_CONTEXTUAL_CONFLICT,0,1,"Monolithic whole-scene box (80.7%x81.2%) suppressed due to conflicting primary hazard: Significant Flood (61.1% water, ratio=99.9%)."
+flood 23.webp,FLOOD,1,W50,NO,NO,NO,RETAIN_MONOLITHIC_STANDALONE,1,0,Monolithic box (81.1%x99.9%) retained: standalone scene with no conflicting road damage or flood.
+flood 24.webp,FLOOD,0,NONE,NO,YES,NO,NO_WASTE_DETECTION,0,0,Model produced zero waste candidates
+flood 25.webp,FLOOD,1,W00,NO,YES,NO,SUPPRESS_CONTEXTUAL_CONFLICT,0,1,"Monolithic whole-scene box (77.2%x99.8%) suppressed due to conflicting primary hazard: Significant Flood (54.8% water, ratio=100.0%)."
+flood 26.webp,FLOOD,0,NONE,NO,YES,NO,NO_WASTE_DETECTION,0,0,Model produced zero waste candidates
+flood 27.webp,FLOOD,1,W70,NO,NO,NO,RETAIN_MONOLITHIC_STANDALONE,1,0,Monolithic box (79.7%x99.9%) retained: standalone scene with no conflicting road damage or flood.
+flood 28.webp,FLOOD,1,W60,NO,YES,NO,SUPPRESS_CONTEXTUAL_CONFLICT,0,1,"Monolithic whole-scene box (80.9%x99.9%) suppressed due to conflicting primary hazard: Significant Flood (47.2% water, ratio=87.6%)."
+flood 29.webp,FLOOD,1,W70,NO,NO,NO,RETAIN_MONOLITHIC_STANDALONE,1,0,Monolithic box (80.7%x98.9%) retained: standalone scene with no conflicting road damage or flood.
+flood 3.webp,FLOOD,0,NONE,NO,YES,NO,NO_WASTE_DETECTION,0,0,Model produced zero waste candidates
+flood 30.webp,FLOOD,1,W20,NO,YES,NO,SUPPRESS_CONTEXTUAL_CONFLICT,0,1,"Monolithic whole-scene box (77.9%x99.7%) suppressed due to conflicting primary hazard: Significant Flood (45.8% water, ratio=99.1%)."
+flood 4.webp,FLOOD,1,W00,NO,NO,NO,RETAIN_MONOLITHIC_STANDALONE,1,0,Monolithic box (80.3%x99.9%) retained: standalone scene with no conflicting road damage or flood.
+flood 5.webp,FLOOD,0,NONE,NO,YES,NO,NO_WASTE_DETECTION,0,0,Model produced zero waste candidates
+flood 6.webp,FLOOD,1,W20,NO,YES,NO,SUPPRESS_CONTEXTUAL_CONFLICT,0,1,"Monolithic whole-scene box (76.9%x100.0%) suppressed due to conflicting primary hazard: Significant Flood (51.2% water, ratio=100.0%)."
+flood 7.webp,FLOOD,0,NONE,NO,YES,NO,NO_WASTE_DETECTION,0,0,Model produced zero waste candidates
+flood 8.webp,FLOOD,1,W70,NO,YES,NO,SUPPRESS_CONTEXTUAL_CONFLICT,0,1,"Monolithic whole-scene box (79.2%x99.8%) suppressed due to conflicting primary hazard: Significant Flood (60.7% water, ratio=100.0%)."
+flood 9.webp,FLOOD,0,NONE,NO,YES,NO,NO_WASTE_DETECTION,0,0,Model produced zero waste candidates
+flood.jpg,FLOOD,1,W50,NO,YES,NO,SUPPRESS_CONTEXTUAL_CONFLICT,0,1,"Monolithic whole-scene box (80.7%x99.8%) suppressed due to conflicting primary hazard: Significant Flood (39.5% water, ratio=100.0%)."
+puddles.jpg,FLOOD,1,W70,NO,YES,NO,SUPPRESS_CONTEXTUAL_CONFLICT,0,1,"Monolithic whole-scene box (79.2%x99.9%) suppressed due to conflicting primary hazard: Significant Flood (40.9% water, ratio=100.0%)."
+garbage 1.webp,GARBAGE,1,W50,NO,NO,NO,RETAIN_MONOLITHIC_STANDALONE,1,0,Monolithic box (79.9%x99.7%) retained: standalone scene with no conflicting road damage or flood.
+garbage 10.jpg,GARBAGE,0,NONE,NO,NO,NO,NO_WASTE_DETECTION,0,0,Model produced zero waste candidates
+garbage 11.jpg,GARBAGE,1,W20,NO,NO,NO,RETAIN_MONOLITHIC_STANDALONE,1,0,Monolithic box (81.1%x99.8%) retained: standalone scene with no conflicting road damage or flood.
+garbage 12.jpg,GARBAGE,1,W70,NO,NO,NO,RETAIN_MONOLITHIC_STANDALONE,1,0,Monolithic box (100.0%x79.8%) retained: standalone scene with no conflicting road damage or flood.
+garbage 13.jpg,GARBAGE,1,W20,NO,YES,NO,SUPPRESS_CONTEXTUAL_CONFLICT,0,1,"Monolithic whole-scene box (81.3%x100.0%) suppressed due to conflicting primary hazard: Significant Flood (33.0% water, ratio=100.0%)."
+garbage 14.jpg,GARBAGE,2,W20; W70,NO,NO,NO,RETAIN_MONOLITHIC_STANDALONE,2,0,Monolithic box (100.0%x81.4%) retained: standalone scene with no conflicting road damage or flood.
+garbage 15.jpg,GARBAGE,1,W70,NO,NO,NO,RETAIN_MONOLITHIC_STANDALONE,1,0,Monolithic box (76.6%x99.8%) retained: standalone scene with no conflicting road damage or flood.
+garbage 16.jpg,GARBAGE,1,W70,NO,NO,NO,RETAIN_MONOLITHIC_STANDALONE,1,0,Monolithic box (80.4%x100.0%) retained: standalone scene with no conflicting road damage or flood.
+garbage 17.jpg,GARBAGE,1,W70,NO,NO,NO,RETAIN_MONOLITHIC_STANDALONE,1,0,Monolithic box (79.5%x100.0%) retained: standalone scene with no conflicting road damage or flood.
+garbage 18.jpg,GARBAGE,1,W70,NO,NO,NO,RETAIN_MONOLITHIC_STANDALONE,1,0,Monolithic box (79.0%x99.9%) retained: standalone scene with no conflicting road damage or flood.
+garbage 19.jpg,GARBAGE,1,W70,NO,NO,NO,RETAIN_MONOLITHIC_STANDALONE,1,0,Monolithic box (80.0%x99.6%) retained: standalone scene with no conflicting road damage or flood.
+garbage 2.webp,GARBAGE,1,W70,NO,NO,NO,RETAIN_MONOLITHIC_STANDALONE,1,0,Monolithic box (77.9%x99.8%) retained: standalone scene with no conflicting road damage or flood.
+garbage 20.jpg,GARBAGE,1,W70,NO,NO,NO,RETAIN_MONOLITHIC_STANDALONE,1,0,Monolithic box (79.4%x99.9%) retained: standalone scene with no conflicting road damage or flood.
+garbage 21.jpg,GARBAGE,1,W70,NO,NO,NO,RETAIN_MONOLITHIC_STANDALONE,1,0,Monolithic box (78.6%x99.9%) retained: standalone scene with no conflicting road damage or flood.
+garbage 22.jpg,GARBAGE,1,W70,NO,NO,NO,RETAIN_MONOLITHIC_STANDALONE,1,0,Monolithic box (83.1%x100.0%) retained: standalone scene with no conflicting road damage or flood.
+garbage 23.jpg,GARBAGE,0,NONE,NO,NO,NO,NO_WASTE_DETECTION,0,0,Model produced zero waste candidates
+garbage 24.jpg,GARBAGE,1,W70,NO,YES,NO,SUPPRESS_CONTEXTUAL_CONFLICT,0,1,"Monolithic whole-scene box (78.9%x77.0%) suppressed due to conflicting primary hazard: Significant Flood (91.2% water, ratio=99.9%)."
+garbage 25.jpg,GARBAGE,1,W70,NO,NO,NO,RETAIN_MONOLITHIC_STANDALONE,1,0,Monolithic box (79.1%x100.0%) retained: standalone scene with no conflicting road damage or flood.
+garbage 26.jpg,GARBAGE,1,W70,NO,NO,NO,RETAIN_MONOLITHIC_STANDALONE,1,0,Monolithic box (79.3%x99.8%) retained: standalone scene with no conflicting road damage or flood.
+garbage 27.jpg,GARBAGE,1,W70,NO,NO,NO,RETAIN_MONOLITHIC_STANDALONE,1,0,Monolithic box (79.6%x100.0%) retained: standalone scene with no conflicting road damage or flood.
+garbage 28.jpg,GARBAGE,0,NONE,NO,NO,NO,NO_WASTE_DETECTION,0,0,Model produced zero waste candidates
+garbage 29.jpg,GARBAGE,1,W20,NO,NO,NO,RETAIN_MONOLITHIC_STANDALONE,1,0,Monolithic box (79.4%x100.0%) retained: standalone scene with no conflicting road damage or flood.
+garbage 3.webp,GARBAGE,0,NONE,NO,NO,NO,NO_WASTE_DETECTION,0,0,Model produced zero waste candidates
+garbage 30.jpg,GARBAGE,1,W70,NO,NO,NO,RETAIN_MONOLITHIC_STANDALONE,1,0,Monolithic box (79.4%x99.8%) retained: standalone scene with no conflicting road damage or flood.
+garbage 4.webp,GARBAGE,0,NONE,NO,NO,NO,NO_WASTE_DETECTION,0,0,Model produced zero waste candidates
+garbage 5.webp,GARBAGE,1,W70,NO,NO,NO,RETAIN_MONOLITHIC_STANDALONE,1,0,Monolithic box (78.0%x99.7%) retained: standalone scene with no conflicting road damage or flood.
+garbage 6.webp,GARBAGE,1,W20,NO,NO,NO,RETAIN_MONOLITHIC_STANDALONE,1,0,Monolithic box (76.3%x99.9%) retained: standalone scene with no conflicting road damage or flood.
+garbage 7.webp,GARBAGE,1,W70,NO,NO,NO,RETAIN_MONOLITHIC_STANDALONE,1,0,Monolithic box (79.3%x100.0%) retained: standalone scene with no conflicting road damage or flood.
+garbage 8.webp,GARBAGE,0,NONE,NO,NO,NO,NO_WASTE_DETECTION,0,0,Model produced zero waste candidates
+garbage 9.webp,GARBAGE,1,W70,NO,NO,NO,RETAIN_MONOLITHIC_STANDALONE,1,0,Monolithic box (78.6%x99.6%) retained: standalone scene with no conflicting road damage or flood.
+pathole 1.webp,POTHOLE,0,NONE,YES,YES,YES,NO_WASTE_DETECTION,0,0,Model produced zero waste candidates
+pathole 10.webp,POTHOLE,0,NONE,YES,YES,YES,NO_WASTE_DETECTION,0,0,Model produced zero waste candidates
+pathole 11.webp,POTHOLE,1,W50,YES,NO,NO,SUPPRESS_CONTEXTUAL_CONFLICT,0,1,Monolithic whole-scene box (79.4%x99.9%) suppressed due to conflicting primary hazard: Road Damage (D20).
+pathole 12.webp,POTHOLE,1,W70,YES,NO,NO,SUPPRESS_CONTEXTUAL_CONFLICT,0,1,"Monolithic whole-scene box (100.0%x79.9%) suppressed due to conflicting primary hazard: Road Damage (D40, D40, D40, D40, D40, D40)."
+pathole 13.webp,POTHOLE,1,W70,YES,YES,YES,SUPPRESS_CONTEXTUAL_CONFLICT,0,1,"Monolithic whole-scene box (99.8%x75.8%) suppressed due to conflicting primary hazard: Road Damage (D10, D40) & Significant Flood (78.8% water, ratio=99.7%)."
+pathole 14.webp,POTHOLE,1,W50,YES,NO,YES,SUPPRESS_CONTEXTUAL_CONFLICT,0,1,Monolithic whole-scene box (100.0%x79.8%) suppressed due to conflicting primary hazard: Road Damage (D20).
+pathole 15.webp,POTHOLE,1,W70,YES,YES,NO,SUPPRESS_CONTEXTUAL_CONFLICT,0,1,"Monolithic whole-scene box (78.1%x99.9%) suppressed due to conflicting primary hazard: Road Damage (D20) & Significant Flood (48.3% water, ratio=99.9%)."
+pathole 16.webp,POTHOLE,1,W70,YES,NO,NO,SUPPRESS_CONTEXTUAL_CONFLICT,0,1,"Monolithic whole-scene box (99.9%x84.5%) suppressed due to conflicting primary hazard: Road Damage (D20, D20)."
+pathole 17.webp,POTHOLE,1,W50,NO,NO,NO,RETAIN_MONOLITHIC_STANDALONE,1,0,Monolithic box (81.3%x79.9%) retained: standalone scene with no conflicting road damage or flood.
+pathole 18.webp,POTHOLE,1,W70,YES,NO,NO,SUPPRESS_CONTEXTUAL_CONFLICT,0,1,Monolithic whole-scene box (100.0%x79.9%) suppressed due to conflicting primary hazard: Road Damage (D40).
+pathole 19.webp,POTHOLE,1,W70,NO,YES,NO,SUPPRESS_CONTEXTUAL_CONFLICT,0,1,"Monolithic whole-scene box (79.5%x99.9%) suppressed due to conflicting primary hazard: Significant Flood (74.6% water, ratio=100.0%)."
+pathole 2.webp,POTHOLE,1,W70,NO,NO,NO,RETAIN_MONOLITHIC_STANDALONE,1,0,Monolithic box (78.7%x100.0%) retained: standalone scene with no conflicting road damage or flood.
+pathole 20.webp,POTHOLE,1,W50,NO,YES,NO,RETAIN_LOCALIZED,1,0,Localized waste box (73.0%x99.8% < 75%x75%); retained without conflict.
+pathole 21.webp,POTHOLE,1,W70,YES,NO,NO,SUPPRESS_CONTEXTUAL_CONFLICT,0,1,Monolithic whole-scene box (79.5%x100.0%) suppressed due to conflicting primary hazard: Road Damage (D40).
+pathole 22.webp,POTHOLE,1,W70,NO,NO,NO,RETAIN_MONOLITHIC_STANDALONE,1,0,Monolithic box (79.6%x99.8%) retained: standalone scene with no conflicting road damage or flood.
+pathole 23.webp,POTHOLE,0,NONE,NO,NO,NO,NO_WASTE_DETECTION,0,0,Model produced zero waste candidates
+pathole 24.webp,POTHOLE,1,W70,NO,NO,NO,RETAIN_MONOLITHIC_STANDALONE,1,0,Monolithic box (79.7%x100.0%) retained: standalone scene with no conflicting road damage or flood.
+pathole 25.webp,POTHOLE,1,W70,YES,YES,YES,SUPPRESS_CONTEXTUAL_CONFLICT,0,1,"Monolithic whole-scene box (79.4%x99.8%) suppressed due to conflicting primary hazard: Road Damage (D40) & Significant Flood (45.2% water, ratio=94.7%)."
+pathole 26.webp,POTHOLE,1,W70,YES,NO,YES,SUPPRESS_CONTEXTUAL_CONFLICT,0,1,"Monolithic whole-scene box (79.4%x99.9%) suppressed due to conflicting primary hazard: Road Damage (D40, D40, D40, D40)."
+pathole 27.webp,POTHOLE,1,W70,NO,NO,NO,RETAIN_MONOLITHIC_STANDALONE,1,0,Monolithic box (80.4%x99.9%) retained: standalone scene with no conflicting road damage or flood.
+pathole 28.webp,POTHOLE,1,W70,NO,NO,NO,RETAIN_MONOLITHIC_STANDALONE,1,0,Monolithic box (81.3%x100.0%) retained: standalone scene with no conflicting road damage or flood.
+pathole 29.webp,POTHOLE,1,W70,YES,NO,NO,SUPPRESS_CONTEXTUAL_CONFLICT,0,1,"Monolithic whole-scene box (79.6%x99.9%) suppressed due to conflicting primary hazard: Road Damage (D40, D40)."
+pathole 3.webp,POTHOLE,1,W00,NO,NO,NO,RETAIN_MONOLITHIC_STANDALONE,1,0,Monolithic box (79.4%x99.8%) retained: standalone scene with no conflicting road damage or flood.
+pathole 30.webp,POTHOLE,1,W70,NO,NO,YES,RETAIN_MONOLITHIC_STANDALONE,1,0,Monolithic box (79.5%x99.9%) retained: standalone scene with no conflicting road damage or flood.
+pathole 4.webp,POTHOLE,1,W70,YES,YES,YES,SUPPRESS_CONTEXTUAL_CONFLICT,0,1,"Monolithic whole-scene box (79.5%x99.6%) suppressed due to conflicting primary hazard: Road Damage (D40, D40, D40, D40, D40) & Significant Flood (83.2% water, ratio=99.8%)."
+pathole 5.webp,POTHOLE,1,W70,YES,NO,NO,SUPPRESS_CONTEXTUAL_CONFLICT,0,1,Monolithic whole-scene box (79.3%x99.8%) suppressed due to conflicting primary hazard: Road Damage (D20).
+pathole 6.webp,POTHOLE,0,NONE,NO,NO,NO,NO_WASTE_DETECTION,0,0,Model produced zero waste candidates
+pathole 7.webp,POTHOLE,1,W50,YES,NO,NO,SUPPRESS_CONTEXTUAL_CONFLICT,0,1,Monolithic whole-scene box (79.5%x79.9%) suppressed due to conflicting primary hazard: Road Damage (D40).
+pathole 8.webp,POTHOLE,1,W70,YES,YES,YES,SUPPRESS_CONTEXTUAL_CONFLICT,0,1,"Monolithic whole-scene box (79.5%x100.0%) suppressed due to conflicting primary hazard: Road Damage (D40) & Significant Flood (32.3% water, ratio=99.0%)."
+pathole 9.webp,POTHOLE,1,W50,NO,NO,NO,RETAIN_MONOLITHIC_STANDALONE,1,0,Monolithic box (81.2%x99.5%) retained: standalone scene with no conflicting road damage or flood.
+road without pothole.webp,POTHOLE,0,NONE,NO,NO,NO,NO_WASTE_DETECTION,0,0,Model produced zero waste candidates
+water filled patholes.jpg,POTHOLE,1,W50,NO,YES,NO,SUPPRESS_CONTEXTUAL_CONFLICT,0,1,"Monolithic whole-scene box (81.3%x99.3%) suppressed due to conflicting primary hazard: Significant Flood (77.6% water, ratio=100.0%)."

@@ -1,0 +1,1086 @@
+[
+  {
+    "filename": "flood 1.jpg",
+    "category": "FLOOD",
+    "source_folder": "Flood",
+    "orig_resolution": "250x175",
+    "orig_width": 250,
+    "orig_height": 175,
+    "water_coverage_pct": 49.59,
+    "water_pixels": 85819,
+    "num_connected_components": 4,
+    "largest_component_pixels": 85806,
+    "largest_component_area_pct": 49.58,
+    "largest_component_ratio_pct": 99.98,
+    "bbox_xyxy": [
+      0,
+      126,
+      415,
+      415
+    ],
+    "centroid_xy": [
+      229.3,
+      308.5
+    ],
+    "vertical_distribution": {
+      "sky_upper_pct": 0.0,
+      "mid_scene_pct": 39.4,
+      "road_ground_pct": 60.6
+    },
+    "spatial_topology": "LARGE_CONTINUOUS_ROAD_FLOOD"
+  },
+  {
+    "filename": "flood 10.webp",
+    "category": "FLOOD",
+    "source_folder": "Flood",
+    "orig_resolution": "192x234",
+    "orig_width": 192,
+    "orig_height": 234,
+    "water_coverage_pct": 66.42,
+    "water_pixels": 114940,
+    "num_connected_components": 3,
+    "largest_component_pixels": 114937,
+    "largest_component_area_pct": 66.42,
+    "largest_component_ratio_pct": 100.0,
+    "bbox_xyxy": [
+      0,
+      83,
+      415,
+      415
+    ],
+    "centroid_xy": [
+      217.7,
+      274.1
+    ],
+    "vertical_distribution": {
+      "sky_upper_pct": 3.5,
+      "mid_scene_pct": 51.3,
+      "road_ground_pct": 45.2
+    },
+    "spatial_topology": "LARGE_CONTINUOUS_ROAD_FLOOD"
+  },
+  {
+    "filename": "flood 11.webp",
+    "category": "FLOOD",
+    "source_folder": "Flood",
+    "orig_resolution": "392x261",
+    "orig_width": 392,
+    "orig_height": 261,
+    "water_coverage_pct": 43.28,
+    "water_pixels": 74900,
+    "num_connected_components": 6,
+    "largest_component_pixels": 74858,
+    "largest_component_area_pct": 43.26,
+    "largest_component_ratio_pct": 99.94,
+    "bbox_xyxy": [
+      0,
+      173,
+      415,
+      415
+    ],
+    "centroid_xy": [
+      212.6,
+      318.2
+    ],
+    "vertical_distribution": {
+      "sky_upper_pct": 0.0,
+      "mid_scene_pct": 33.5,
+      "road_ground_pct": 66.5
+    },
+    "spatial_topology": "LARGE_CONTINUOUS_ROAD_FLOOD"
+  },
+  {
+    "filename": "flood 12.webp",
+    "category": "FLOOD",
+    "source_folder": "Flood",
+    "orig_resolution": "417x234",
+    "orig_width": 417,
+    "orig_height": 234,
+    "water_coverage_pct": 59.25,
+    "water_pixels": 102543,
+    "num_connected_components": 4,
+    "largest_component_pixels": 102158,
+    "largest_component_area_pct": 59.03,
+    "largest_component_ratio_pct": 99.62,
+    "bbox_xyxy": [
+      0,
+      121,
+      415,
+      415
+    ],
+    "centroid_xy": [
+      207.7,
+      287.4
+    ],
+    "vertical_distribution": {
+      "sky_upper_pct": 0.2,
+      "mid_scene_pct": 49.1,
+      "road_ground_pct": 50.7
+    },
+    "spatial_topology": "LARGE_CONTINUOUS_ROAD_FLOOD"
+  },
+  {
+    "filename": "flood 13.webp",
+    "category": "FLOOD",
+    "source_folder": "Flood",
+    "orig_resolution": "344x234",
+    "orig_width": 344,
+    "orig_height": 234,
+    "water_coverage_pct": 7.39,
+    "water_pixels": 12781,
+    "num_connected_components": 7,
+    "largest_component_pixels": 9604,
+    "largest_component_area_pct": 5.55,
+    "largest_component_ratio_pct": 75.14,
+    "bbox_xyxy": [
+      217,
+      155,
+      415,
+      415
+    ],
+    "centroid_xy": [
+      299.1,
+      320.6
+    ],
+    "vertical_distribution": {
+      "sky_upper_pct": 0.0,
+      "mid_scene_pct": 24.9,
+      "road_ground_pct": 75.1
+    },
+    "spatial_topology": "DISPERSED_WET_PATCHES"
+  },
+  {
+    "filename": "flood 2",
+    "category": "FLOOD",
+    "source_folder": "Flood",
+    "orig_resolution": "365x237",
+    "orig_width": 365,
+    "orig_height": 237,
+    "water_coverage_pct": 53.03,
+    "water_pixels": 91773,
+    "num_connected_components": 5,
+    "largest_component_pixels": 91769,
+    "largest_component_area_pct": 53.03,
+    "largest_component_ratio_pct": 100.0,
+    "bbox_xyxy": [
+      0,
+      130,
+      415,
+      415
+    ],
+    "centroid_xy": [
+      211.6,
+      297.4
+    ],
+    "vertical_distribution": {
+      "sky_upper_pct": 0.0,
+      "mid_scene_pct": 46.0,
+      "road_ground_pct": 54.0
+    },
+    "spatial_topology": "LARGE_CONTINUOUS_ROAD_FLOOD"
+  },
+  {
+    "filename": "flood 3.webp",
+    "category": "FLOOD",
+    "source_folder": "Flood",
+    "orig_resolution": "408x234",
+    "orig_width": 408,
+    "orig_height": 234,
+    "water_coverage_pct": 62.74,
+    "water_pixels": 108571,
+    "num_connected_components": 6,
+    "largest_component_pixels": 108282,
+    "largest_component_area_pct": 62.57,
+    "largest_component_ratio_pct": 99.73,
+    "bbox_xyxy": [
+      0,
+      106,
+      415,
+      415
+    ],
+    "centroid_xy": [
+      203.7,
+      284.2
+    ],
+    "vertical_distribution": {
+      "sky_upper_pct": 0.5,
+      "mid_scene_pct": 51.6,
+      "road_ground_pct": 47.9
+    },
+    "spatial_topology": "LARGE_CONTINUOUS_ROAD_FLOOD"
+  },
+  {
+    "filename": "flood 4.webp",
+    "category": "FLOOD",
+    "source_folder": "Flood",
+    "orig_resolution": "403x234",
+    "orig_width": 403,
+    "orig_height": 234,
+    "water_coverage_pct": 5.89,
+    "water_pixels": 10197,
+    "num_connected_components": 2,
+    "largest_component_pixels": 10196,
+    "largest_component_area_pct": 5.89,
+    "largest_component_ratio_pct": 99.99,
+    "bbox_xyxy": [
+      0,
+      363,
+      415,
+      415
+    ],
+    "centroid_xy": [
+      236.6,
+      401.9
+    ],
+    "vertical_distribution": {
+      "sky_upper_pct": 0.0,
+      "mid_scene_pct": 0.0,
+      "road_ground_pct": 100.0
+    },
+    "spatial_topology": "LOCALIZED_PUDDLE_OR_POTHOLE_WATER"
+  },
+  {
+    "filename": "flood 5.webp",
+    "category": "FLOOD",
+    "source_folder": "Flood",
+    "orig_resolution": "308x234",
+    "orig_width": 308,
+    "orig_height": 234,
+    "water_coverage_pct": 45.01,
+    "water_pixels": 77890,
+    "num_connected_components": 6,
+    "largest_component_pixels": 77840,
+    "largest_component_area_pct": 44.98,
+    "largest_component_ratio_pct": 99.94,
+    "bbox_xyxy": [
+      0,
+      147,
+      415,
+      415
+    ],
+    "centroid_xy": [
+      201.4,
+      293.7
+    ],
+    "vertical_distribution": {
+      "sky_upper_pct": 0.0,
+      "mid_scene_pct": 49.0,
+      "road_ground_pct": 51.0
+    },
+    "spatial_topology": "LARGE_CONTINUOUS_ROAD_FLOOD"
+  },
+  {
+    "filename": "flood 6.webp",
+    "category": "FLOOD",
+    "source_folder": "Flood",
+    "orig_resolution": "432x243",
+    "orig_width": 432,
+    "orig_height": 243,
+    "water_coverage_pct": 51.17,
+    "water_pixels": 88545,
+    "num_connected_components": 6,
+    "largest_component_pixels": 88517,
+    "largest_component_area_pct": 51.15,
+    "largest_component_ratio_pct": 99.97,
+    "bbox_xyxy": [
+      11,
+      117,
+      415,
+      415
+    ],
+    "centroid_xy": [
+      231.5,
+      286.6
+    ],
+    "vertical_distribution": {
+      "sky_upper_pct": 0.2,
+      "mid_scene_pct": 51.2,
+      "road_ground_pct": 48.6
+    },
+    "spatial_topology": "LARGE_CONTINUOUS_ROAD_FLOOD"
+  },
+  {
+    "filename": "flood 7.webp",
+    "category": "FLOOD",
+    "source_folder": "Flood",
+    "orig_resolution": "351x234",
+    "orig_width": 351,
+    "orig_height": 234,
+    "water_coverage_pct": 46.83,
+    "water_pixels": 81050,
+    "num_connected_components": 2,
+    "largest_component_pixels": 81049,
+    "largest_component_area_pct": 46.83,
+    "largest_component_ratio_pct": 100.0,
+    "bbox_xyxy": [
+      0,
+      154,
+      415,
+      415
+    ],
+    "centroid_xy": [
+      217.1,
+      317.3
+    ],
+    "vertical_distribution": {
+      "sky_upper_pct": 0.0,
+      "mid_scene_pct": 35.8,
+      "road_ground_pct": 64.2
+    },
+    "spatial_topology": "LARGE_CONTINUOUS_ROAD_FLOOD"
+  },
+  {
+    "filename": "flood 8.webp",
+    "category": "FLOOD",
+    "source_folder": "Flood",
+    "orig_resolution": "345x245",
+    "orig_width": 345,
+    "orig_height": 245,
+    "water_coverage_pct": 60.73,
+    "water_pixels": 105091,
+    "num_connected_components": 3,
+    "largest_component_pixels": 105089,
+    "largest_component_area_pct": 60.73,
+    "largest_component_ratio_pct": 100.0,
+    "bbox_xyxy": [
+      0,
+      146,
+      415,
+      415
+    ],
+    "centroid_xy": [
+      210.8,
+      289.0
+    ],
+    "vertical_distribution": {
+      "sky_upper_pct": 0.0,
+      "mid_scene_pct": 50.5,
+      "road_ground_pct": 49.5
+    },
+    "spatial_topology": "LARGE_CONTINUOUS_ROAD_FLOOD"
+  },
+  {
+    "filename": "flood 9.webp",
+    "category": "FLOOD",
+    "source_folder": "Flood",
+    "orig_resolution": "427x240",
+    "orig_width": 427,
+    "orig_height": 240,
+    "water_coverage_pct": 59.07,
+    "water_pixels": 102225,
+    "num_connected_components": 2,
+    "largest_component_pixels": 102224,
+    "largest_component_area_pct": 59.07,
+    "largest_component_ratio_pct": 100.0,
+    "bbox_xyxy": [
+      0,
+      130,
+      415,
+      415
+    ],
+    "centroid_xy": [
+      197.9,
+      284.5
+    ],
+    "vertical_distribution": {
+      "sky_upper_pct": 0.0,
+      "mid_scene_pct": 49.6,
+      "road_ground_pct": 50.4
+    },
+    "spatial_topology": "LARGE_CONTINUOUS_ROAD_FLOOD"
+  },
+  {
+    "filename": "flood.jpg",
+    "category": "FLOOD",
+    "source_folder": "Flood",
+    "orig_resolution": "193x135",
+    "orig_width": 193,
+    "orig_height": 135,
+    "water_coverage_pct": 39.49,
+    "water_pixels": 68340,
+    "num_connected_components": 3,
+    "largest_component_pixels": 68338,
+    "largest_component_area_pct": 39.49,
+    "largest_component_ratio_pct": 100.0,
+    "bbox_xyxy": [
+      0,
+      108,
+      415,
+      415
+    ],
+    "centroid_xy": [
+      219.0,
+      332.5
+    ],
+    "vertical_distribution": {
+      "sky_upper_pct": 0.0,
+      "mid_scene_pct": 23.9,
+      "road_ground_pct": 76.1
+    },
+    "spatial_topology": "LARGE_CONTINUOUS_ROAD_FLOOD"
+  },
+  {
+    "filename": "pathole 1.webp",
+    "category": "POTHOLE",
+    "source_folder": "Pathole",
+    "orig_resolution": "340x256",
+    "orig_width": 340,
+    "orig_height": 256,
+    "water_coverage_pct": 51.08,
+    "water_pixels": 88390,
+    "num_connected_components": 22,
+    "largest_component_pixels": 88222,
+    "largest_component_area_pct": 50.98,
+    "largest_component_ratio_pct": 99.81,
+    "bbox_xyxy": [
+      0,
+      0,
+      415,
+      292
+    ],
+    "centroid_xy": [
+      222.1,
+      138.2
+    ],
+    "vertical_distribution": {
+      "sky_upper_pct": 45.8,
+      "mid_scene_pct": 54.2,
+      "road_ground_pct": 0.0
+    },
+    "spatial_topology": "LARGE_CONTINUOUS_ROAD_FLOOD"
+  },
+  {
+    "filename": "pathole 10.webp",
+    "category": "POTHOLE",
+    "source_folder": "Pathole",
+    "orig_resolution": "371x234",
+    "orig_width": 371,
+    "orig_height": 234,
+    "water_coverage_pct": 29.02,
+    "water_pixels": 50220,
+    "num_connected_components": 6,
+    "largest_component_pixels": 40089,
+    "largest_component_area_pct": 23.17,
+    "largest_component_ratio_pct": 79.83,
+    "bbox_xyxy": [
+      121,
+      74,
+      415,
+      415
+    ],
+    "centroid_xy": [
+      306.6,
+      239.0
+    ],
+    "vertical_distribution": {
+      "sky_upper_pct": 6.8,
+      "mid_scene_pct": 65.1,
+      "road_ground_pct": 28.1
+    },
+    "spatial_topology": "LARGE_CONTINUOUS_ROAD_FLOOD"
+  },
+  {
+    "filename": "pathole 11.webp",
+    "category": "POTHOLE",
+    "source_folder": "Pathole",
+    "orig_resolution": "391x234",
+    "orig_width": 391,
+    "orig_height": 234,
+    "water_coverage_pct": 0.19,
+    "water_pixels": 335,
+    "num_connected_components": 1,
+    "largest_component_pixels": 335,
+    "largest_component_area_pct": 0.19,
+    "largest_component_ratio_pct": 100.0,
+    "bbox_xyxy": [
+      179,
+      362,
+      210,
+      377
+    ],
+    "centroid_xy": [
+      196.3,
+      369.7
+    ],
+    "vertical_distribution": {
+      "sky_upper_pct": 0.0,
+      "mid_scene_pct": 0.0,
+      "road_ground_pct": 100.0
+    },
+    "spatial_topology": "TRACE_OR_SPECULAR_WATER"
+  },
+  {
+    "filename": "pathole 2.webp",
+    "category": "POTHOLE",
+    "source_folder": "Pathole",
+    "orig_resolution": "297x234",
+    "orig_width": 297,
+    "orig_height": 234,
+    "water_coverage_pct": 0.0,
+    "water_pixels": 0,
+    "num_connected_components": 0,
+    "largest_component_pixels": 0,
+    "largest_component_area_pct": 0.0,
+    "largest_component_ratio_pct": 0.0,
+    "bbox_xyxy": null,
+    "centroid_xy": null,
+    "vertical_distribution": {
+      "sky_upper_pct": 0.0,
+      "mid_scene_pct": 0.0,
+      "road_ground_pct": 0.0
+    },
+    "spatial_topology": "NO_WATER"
+  },
+  {
+    "filename": "pathole 3.webp",
+    "category": "POTHOLE",
+    "source_folder": "Pathole",
+    "orig_resolution": "370x247",
+    "orig_width": 370,
+    "orig_height": 247,
+    "water_coverage_pct": 0.0,
+    "water_pixels": 0,
+    "num_connected_components": 0,
+    "largest_component_pixels": 0,
+    "largest_component_area_pct": 0.0,
+    "largest_component_ratio_pct": 0.0,
+    "bbox_xyxy": null,
+    "centroid_xy": null,
+    "vertical_distribution": {
+      "sky_upper_pct": 0.0,
+      "mid_scene_pct": 0.0,
+      "road_ground_pct": 0.0
+    },
+    "spatial_topology": "NO_WATER"
+  },
+  {
+    "filename": "pathole 4.webp",
+    "category": "POTHOLE",
+    "source_folder": "Pathole",
+    "orig_resolution": "361x262",
+    "orig_width": 361,
+    "orig_height": 262,
+    "water_coverage_pct": 83.22,
+    "water_pixels": 144009,
+    "num_connected_components": 13,
+    "largest_component_pixels": 143741,
+    "largest_component_area_pct": 83.06,
+    "largest_component_ratio_pct": 99.81,
+    "bbox_xyxy": [
+      0,
+      0,
+      415,
+      397
+    ],
+    "centroid_xy": [
+      198.3,
+      196.6
+    ],
+    "vertical_distribution": {
+      "sky_upper_pct": 29.2,
+      "mid_scene_pct": 47.4,
+      "road_ground_pct": 23.4
+    },
+    "spatial_topology": "LARGE_CONTINUOUS_ROAD_FLOOD"
+  },
+  {
+    "filename": "pathole 5.webp",
+    "category": "POTHOLE",
+    "source_folder": "Pathole",
+    "orig_resolution": "419x235",
+    "orig_width": 419,
+    "orig_height": 235,
+    "water_coverage_pct": 18.43,
+    "water_pixels": 31893,
+    "num_connected_components": 6,
+    "largest_component_pixels": 31886,
+    "largest_component_area_pct": 18.43,
+    "largest_component_ratio_pct": 99.98,
+    "bbox_xyxy": [
+      75,
+      133,
+      328,
+      330
+    ],
+    "centroid_xy": [
+      202.0,
+      232.7
+    ],
+    "vertical_distribution": {
+      "sky_upper_pct": 0.0,
+      "mid_scene_pct": 86.7,
+      "road_ground_pct": 13.3
+    },
+    "spatial_topology": "DISPERSED_WET_PATCHES"
+  },
+  {
+    "filename": "pathole 6.webp",
+    "category": "POTHOLE",
+    "source_folder": "Pathole",
+    "orig_resolution": "334x250",
+    "orig_width": 334,
+    "orig_height": 250,
+    "water_coverage_pct": 0.18,
+    "water_pixels": 312,
+    "num_connected_components": 9,
+    "largest_component_pixels": 101,
+    "largest_component_area_pct": 0.06,
+    "largest_component_ratio_pct": 32.37,
+    "bbox_xyxy": [
+      291,
+      0,
+      415,
+      29
+    ],
+    "centroid_xy": [
+      371.0,
+      10.4
+    ],
+    "vertical_distribution": {
+      "sky_upper_pct": 100.0,
+      "mid_scene_pct": 0.0,
+      "road_ground_pct": 0.0
+    },
+    "spatial_topology": "TRACE_OR_SPECULAR_WATER"
+  },
+  {
+    "filename": "pathole 7.webp",
+    "category": "POTHOLE",
+    "source_folder": "Pathole",
+    "orig_resolution": "232x234",
+    "orig_width": 232,
+    "orig_height": 234,
+    "water_coverage_pct": 1.84,
+    "water_pixels": 3187,
+    "num_connected_components": 4,
+    "largest_component_pixels": 3184,
+    "largest_component_area_pct": 1.84,
+    "largest_component_ratio_pct": 99.91,
+    "bbox_xyxy": [
+      149,
+      217,
+      272,
+      276
+    ],
+    "centroid_xy": [
+      208.5,
+      249.1
+    ],
+    "vertical_distribution": {
+      "sky_upper_pct": 0.0,
+      "mid_scene_pct": 100.0,
+      "road_ground_pct": 0.0
+    },
+    "spatial_topology": "TRACE_OR_SPECULAR_WATER"
+  },
+  {
+    "filename": "pathole 8.webp",
+    "category": "POTHOLE",
+    "source_folder": "Pathole",
+    "orig_resolution": "396x234",
+    "orig_width": 396,
+    "orig_height": 234,
+    "water_coverage_pct": 32.34,
+    "water_pixels": 55960,
+    "num_connected_components": 14,
+    "largest_component_pixels": 55426,
+    "largest_component_area_pct": 32.03,
+    "largest_component_ratio_pct": 99.05,
+    "bbox_xyxy": [
+      115,
+      75,
+      415,
+      415
+    ],
+    "centroid_xy": [
+      303.0,
+      247.3
+    ],
+    "vertical_distribution": {
+      "sky_upper_pct": 4.5,
+      "mid_scene_pct": 63.7,
+      "road_ground_pct": 31.8
+    },
+    "spatial_topology": "LARGE_CONTINUOUS_ROAD_FLOOD"
+  },
+  {
+    "filename": "pathole 9.webp",
+    "category": "POTHOLE",
+    "source_folder": "Pathole",
+    "orig_resolution": "319x234",
+    "orig_width": 319,
+    "orig_height": 234,
+    "water_coverage_pct": 0.0,
+    "water_pixels": 0,
+    "num_connected_components": 0,
+    "largest_component_pixels": 0,
+    "largest_component_area_pct": 0.0,
+    "largest_component_ratio_pct": 0.0,
+    "bbox_xyxy": null,
+    "centroid_xy": null,
+    "vertical_distribution": {
+      "sky_upper_pct": 0.0,
+      "mid_scene_pct": 0.0,
+      "road_ground_pct": 0.0
+    },
+    "spatial_topology": "NO_WATER"
+  },
+  {
+    "filename": "road without pothole.webp",
+    "category": "POTHOLE",
+    "source_folder": "Pathole",
+    "orig_resolution": "353x226",
+    "orig_width": 353,
+    "orig_height": 226,
+    "water_coverage_pct": 0.0,
+    "water_pixels": 0,
+    "num_connected_components": 0,
+    "largest_component_pixels": 0,
+    "largest_component_area_pct": 0.0,
+    "largest_component_ratio_pct": 0.0,
+    "bbox_xyxy": null,
+    "centroid_xy": null,
+    "vertical_distribution": {
+      "sky_upper_pct": 0.0,
+      "mid_scene_pct": 0.0,
+      "road_ground_pct": 0.0
+    },
+    "spatial_topology": "NO_WATER"
+  },
+  {
+    "filename": "Unconfirmed 541292.crdownload",
+    "category": "GARBAGE",
+    "source_folder": "Garbage",
+    "orig_resolution": "630x353",
+    "orig_width": 630,
+    "orig_height": 353,
+    "water_coverage_pct": 0.0,
+    "water_pixels": 1,
+    "num_connected_components": 1,
+    "largest_component_pixels": 1,
+    "largest_component_area_pct": 0.0,
+    "largest_component_ratio_pct": 100.0,
+    "bbox_xyxy": [
+      415,
+      415,
+      415,
+      415
+    ],
+    "centroid_xy": [
+      415.0,
+      415.0
+    ],
+    "vertical_distribution": {
+      "sky_upper_pct": 0.0,
+      "mid_scene_pct": 0.0,
+      "road_ground_pct": 100.0
+    },
+    "spatial_topology": "TRACE_OR_SPECULAR_WATER"
+  },
+  {
+    "filename": "garbage 1.webp",
+    "category": "GARBAGE",
+    "source_folder": "Garbage",
+    "orig_resolution": "321x236",
+    "orig_width": 321,
+    "orig_height": 236,
+    "water_coverage_pct": 0.0,
+    "water_pixels": 0,
+    "num_connected_components": 0,
+    "largest_component_pixels": 0,
+    "largest_component_area_pct": 0.0,
+    "largest_component_ratio_pct": 0.0,
+    "bbox_xyxy": null,
+    "centroid_xy": null,
+    "vertical_distribution": {
+      "sky_upper_pct": 0.0,
+      "mid_scene_pct": 0.0,
+      "road_ground_pct": 0.0
+    },
+    "spatial_topology": "NO_WATER"
+  },
+  {
+    "filename": "garbage 10.webp (1).crdownload",
+    "category": "GARBAGE",
+    "source_folder": "Garbage",
+    "orig_resolution": "399x214",
+    "orig_width": 399,
+    "orig_height": 214,
+    "water_coverage_pct": 1.48,
+    "water_pixels": 2553,
+    "num_connected_components": 12,
+    "largest_component_pixels": 2082,
+    "largest_component_area_pct": 1.2,
+    "largest_component_ratio_pct": 81.55,
+    "bbox_xyxy": [
+      0,
+      19,
+      415,
+      336
+    ],
+    "centroid_xy": [
+      96.4,
+      50.4
+    ],
+    "vertical_distribution": {
+      "sky_upper_pct": 97.5,
+      "mid_scene_pct": 1.8,
+      "road_ground_pct": 0.7
+    },
+    "spatial_topology": "TRACE_OR_SPECULAR_WATER"
+  },
+  {
+    "filename": "garbage 10.webp.crdownload",
+    "category": "GARBAGE",
+    "source_folder": "Garbage",
+    "orig_resolution": "354x234",
+    "orig_width": 354,
+    "orig_height": 234,
+    "water_coverage_pct": 12.86,
+    "water_pixels": 22248,
+    "num_connected_components": 9,
+    "largest_component_pixels": 20993,
+    "largest_component_area_pct": 12.13,
+    "largest_component_ratio_pct": 94.36,
+    "bbox_xyxy": [
+      265,
+      123,
+      415,
+      415
+    ],
+    "centroid_xy": [
+      354.8,
+      287.5
+    ],
+    "vertical_distribution": {
+      "sky_upper_pct": 0.2,
+      "mid_scene_pct": 48.0,
+      "road_ground_pct": 51.7
+    },
+    "spatial_topology": "DISPERSED_WET_PATCHES"
+  },
+  {
+    "filename": "garbage 2.webp",
+    "category": "GARBAGE",
+    "source_folder": "Garbage",
+    "orig_resolution": "393x234",
+    "orig_width": 393,
+    "orig_height": 234,
+    "water_coverage_pct": 0.0,
+    "water_pixels": 0,
+    "num_connected_components": 0,
+    "largest_component_pixels": 0,
+    "largest_component_area_pct": 0.0,
+    "largest_component_ratio_pct": 0.0,
+    "bbox_xyxy": null,
+    "centroid_xy": null,
+    "vertical_distribution": {
+      "sky_upper_pct": 0.0,
+      "mid_scene_pct": 0.0,
+      "road_ground_pct": 0.0
+    },
+    "spatial_topology": "NO_WATER"
+  },
+  {
+    "filename": "garbage 3.webp",
+    "category": "GARBAGE",
+    "source_folder": "Garbage",
+    "orig_resolution": "431x234",
+    "orig_width": 431,
+    "orig_height": 234,
+    "water_coverage_pct": 2.58,
+    "water_pixels": 4462,
+    "num_connected_components": 2,
+    "largest_component_pixels": 4461,
+    "largest_component_area_pct": 2.58,
+    "largest_component_ratio_pct": 99.98,
+    "bbox_xyxy": [
+      0,
+      174,
+      161,
+      244
+    ],
+    "centroid_xy": [
+      61.8,
+      198.3
+    ],
+    "vertical_distribution": {
+      "sky_upper_pct": 0.0,
+      "mid_scene_pct": 100.0,
+      "road_ground_pct": 0.0
+    },
+    "spatial_topology": "TRACE_OR_SPECULAR_WATER"
+  },
+  {
+    "filename": "garbage 4.webp",
+    "category": "GARBAGE",
+    "source_folder": "Garbage",
+    "orig_resolution": "357x257",
+    "orig_width": 357,
+    "orig_height": 257,
+    "water_coverage_pct": 9.45,
+    "water_pixels": 16354,
+    "num_connected_components": 2,
+    "largest_component_pixels": 16353,
+    "largest_component_area_pct": 9.45,
+    "largest_component_ratio_pct": 99.99,
+    "bbox_xyxy": [
+      0,
+      203,
+      176,
+      376
+    ],
+    "centroid_xy": [
+      67.9,
+      321.3
+    ],
+    "vertical_distribution": {
+      "sky_upper_pct": 0.0,
+      "mid_scene_pct": 21.2,
+      "road_ground_pct": 78.8
+    },
+    "spatial_topology": "LOCALIZED_PUDDLE_OR_POTHOLE_WATER"
+  },
+  {
+    "filename": "garbage 5.webp",
+    "category": "GARBAGE",
+    "source_folder": "Garbage",
+    "orig_resolution": "344x234",
+    "orig_width": 344,
+    "orig_height": 234,
+    "water_coverage_pct": 1.95,
+    "water_pixels": 3367,
+    "num_connected_components": 17,
+    "largest_component_pixels": 2467,
+    "largest_component_area_pct": 1.43,
+    "largest_component_ratio_pct": 73.27,
+    "bbox_xyxy": [
+      0,
+      219,
+      415,
+      415
+    ],
+    "centroid_xy": [
+      225.5,
+      367.1
+    ],
+    "vertical_distribution": {
+      "sky_upper_pct": 0.0,
+      "mid_scene_pct": 22.9,
+      "road_ground_pct": 77.1
+    },
+    "spatial_topology": "TRACE_OR_SPECULAR_WATER"
+  },
+  {
+    "filename": "garbage 6.webp",
+    "category": "GARBAGE",
+    "source_folder": "Garbage",
+    "orig_resolution": "354x236",
+    "orig_width": 354,
+    "orig_height": 236,
+    "water_coverage_pct": 2.38,
+    "water_pixels": 4116,
+    "num_connected_components": 8,
+    "largest_component_pixels": 3965,
+    "largest_component_area_pct": 2.29,
+    "largest_component_ratio_pct": 96.33,
+    "bbox_xyxy": [
+      291,
+      163,
+      415,
+      232
+    ],
+    "centroid_xy": [
+      339.4,
+      194.1
+    ],
+    "vertical_distribution": {
+      "sky_upper_pct": 0.0,
+      "mid_scene_pct": 100.0,
+      "road_ground_pct": 0.0
+    },
+    "spatial_topology": "TRACE_OR_SPECULAR_WATER"
+  },
+  {
+    "filename": "garbage 7.webp",
+    "category": "GARBAGE",
+    "source_folder": "Garbage",
+    "orig_resolution": "391x260",
+    "orig_width": 391,
+    "orig_height": 260,
+    "water_coverage_pct": 0.0,
+    "water_pixels": 3,
+    "num_connected_components": 1,
+    "largest_component_pixels": 3,
+    "largest_component_area_pct": 0.0,
+    "largest_component_ratio_pct": 100.0,
+    "bbox_xyxy": [
+      49,
+      4,
+      51,
+      4
+    ],
+    "centroid_xy": [
+      50.0,
+      4.0
+    ],
+    "vertical_distribution": {
+      "sky_upper_pct": 100.0,
+      "mid_scene_pct": 0.0,
+      "road_ground_pct": 0.0
+    },
+    "spatial_topology": "TRACE_OR_SPECULAR_WATER"
+  },
+  {
+    "filename": "garbage 8.webp",
+    "category": "GARBAGE",
+    "source_folder": "Garbage",
+    "orig_resolution": "358x234",
+    "orig_width": 358,
+    "orig_height": 234,
+    "water_coverage_pct": 15.5,
+    "water_pixels": 26816,
+    "num_connected_components": 39,
+    "largest_component_pixels": 23214,
+    "largest_component_area_pct": 13.41,
+    "largest_component_ratio_pct": 86.57,
+    "bbox_xyxy": [
+      97,
+      121,
+      415,
+      375
+    ],
+    "centroid_xy": [
+      312.2,
+      235.4
+    ],
+    "vertical_distribution": {
+      "sky_upper_pct": 0.3,
+      "mid_scene_pct": 83.7,
+      "road_ground_pct": 15.9
+    },
+    "spatial_topology": "DISPERSED_WET_PATCHES"
+  },
+  {
+    "filename": "garbage 9.webp",
+    "category": "GARBAGE",
+    "source_folder": "Garbage",
+    "orig_resolution": "332x244",
+    "orig_width": 332,
+    "orig_height": 244,
+    "water_coverage_pct": 0.0,
+    "water_pixels": 0,
+    "num_connected_components": 0,
+    "largest_component_pixels": 0,
+    "largest_component_area_pct": 0.0,
+    "largest_component_ratio_pct": 0.0,
+    "bbox_xyxy": null,
+    "centroid_xy": null,
+    "vertical_distribution": {
+      "sky_upper_pct": 0.0,
+      "mid_scene_pct": 0.0,
+      "road_ground_pct": 0.0
+    },
+    "spatial_topology": "NO_WATER"
+  }
+]
