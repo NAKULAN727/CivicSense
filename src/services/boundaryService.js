@@ -34,8 +34,149 @@
 let registeredBoundaries = null;
 
 /**
+ * Deterministically validates supplied GeoJSON against municipal schema.
+ * Rejects invalid datasets with specific deterministic error labels:
+ * - INVALID GEOJSON
+ * - MISSING WARD ID
+ * - UNSUPPORTED GEOMETRY
+ * - INVALID COORDINATES
+ * 
+ * @param {Object|Array} geoJsonData GeoJSON FeatureCollection or Array of Features
+ * @returns {Object} Validation report { isValid, errors, wardCount, validatedWards }
+ */
+export function validateGeoJsonBoundaries(geoJsonData) {
+  const errors = [];
+  const validatedWards = [];
+
+  if (!geoJsonData || typeof geoJsonData !== 'object') {
+    return {
+      isValid: false,
+      errors: ["INVALID GEOJSON: Boundary data must be a valid GeoJSON object or FeatureCollection."],
+      wardCount: 0,
+      validatedWards: []
+    };
+  }
+
+  const isFeatureCollection = geoJsonData.type === 'FeatureCollection';
+  const isArray = Array.isArray(geoJsonData);
+  const features = isArray ? geoJsonData : (geoJsonData.features || null);
+
+  if (!isArray && !isFeatureCollection) {
+    errors.push("INVALID GEOJSON: Root object must have type 'FeatureCollection'.");
+  }
+
+  if (!Array.isArray(features) || features.length === 0) {
+    errors.push("INVALID GEOJSON: Feature collection is empty or contains no valid features.");
+    return {
+      isValid: false,
+      errors,
+      wardCount: 0,
+      validatedWards: []
+    };
+  }
+
+  features.forEach((feat, idx) => {
+    if (!feat || typeof feat !== 'object') {
+      errors.push(`INVALID GEOJSON: Feature at index ${idx} is not a valid object.`);
+      return;
+    }
+
+    const props = feat.properties || feat;
+    const geom = feat.geometry || props.geometry;
+
+    // 1. Required Ward Identifier (Section 14: MISSING WARD ID)
+    const wardId = props.ward_id || props.id;
+    if (!wardId) {
+      errors.push(`MISSING WARD ID: Feature at index ${idx} is missing required 'ward_id' identifier.`);
+      return;
+    }
+
+    // 2. Geometry Type Validation (Section 14: UNSUPPORTED GEOMETRY)
+    if (!geom || typeof geom !== 'object') {
+      errors.push(`UNSUPPORTED GEOMETRY: Feature ${wardId} is missing geometry object.`);
+      return;
+    }
+
+    if (geom.type !== 'Polygon' && geom.type !== 'MultiPolygon') {
+      errors.push(`UNSUPPORTED GEOMETRY: Feature ${wardId} has unsupported geometry type '${geom.type}'. Only Polygon and MultiPolygon are supported.`);
+      return;
+    }
+
+    // 3. Coordinate Integrity Validation (Section 14: INVALID COORDINATES)
+    if (!Array.isArray(geom.coordinates) || geom.coordinates.length === 0) {
+      errors.push(`INVALID COORDINATES: Feature ${wardId} contains empty coordinates.`);
+      return;
+    }
+
+    let coordsValid = true;
+    if (geom.type === 'Polygon') {
+      const outerRing = geom.coordinates[0];
+      if (!Array.isArray(outerRing) || outerRing.length < 4) {
+        coordsValid = false;
+      } else {
+        for (const pt of outerRing) {
+          if (!Array.isArray(pt) || pt.length < 2 || 
+              typeof pt[0] !== 'number' || typeof pt[1] !== 'number' ||
+              isNaN(pt[0]) || isNaN(pt[1]) ||
+              pt[0] < -180 || pt[0] > 180 || pt[1] < -90 || pt[1] > 90) {
+            coordsValid = false;
+            break;
+          }
+        }
+      }
+    } else if (geom.type === 'MultiPolygon') {
+      for (const poly of geom.coordinates) {
+        const outerRing = poly[0];
+        if (!Array.isArray(outerRing) || outerRing.length < 4) {
+          coordsValid = false;
+          break;
+        }
+        for (const pt of outerRing) {
+          if (!Array.isArray(pt) || pt.length < 2 || 
+              typeof pt[0] !== 'number' || typeof pt[1] !== 'number' ||
+              isNaN(pt[0]) || isNaN(pt[1]) ||
+              pt[0] < -180 || pt[0] > 180 || pt[1] < -90 || pt[1] > 90) {
+            coordsValid = false;
+            break;
+          }
+        }
+      }
+    }
+
+    if (!coordsValid) {
+      errors.push(`INVALID COORDINATES: Feature ${wardId} contains malformed or out-of-range coordinates.`);
+      return;
+    }
+
+    validatedWards.push({
+      ward_id: String(wardId),
+      ward_name: String(props.ward_name || props.name || wardId),
+      geometry: geom,
+      department: props.department || {
+        name: "Greater Chennai Corporation - Regional Division",
+        office: "Zonal Municipal Office",
+        zone: props.metadata?.zone || "Zone 13 / 14",
+        contact: "1913 (Municipal Grievance Helpline)"
+      },
+      metadata: props.metadata || {
+        district: "Chennai",
+        state: "Tamil Nadu",
+        dataSource: "Official Corporation Spatial Registry"
+      }
+    });
+  });
+
+  return {
+    isValid: errors.length === 0,
+    errors,
+    wardCount: validatedWards.length,
+    validatedWards
+  };
+}
+
+/**
  * Registers an authentic GeoJSON FeatureCollection of municipal boundaries.
- * Validates schema conformity before acceptance.
+ * Validates schema conformity before acceptance. Rejects invalid datasets.
  * 
  * @param {Array<Object>|Object} geoJsonData GeoJSON FeatureCollection or Array of Ward Features
  * @returns {number} Count of successfully registered wards
@@ -46,38 +187,23 @@ export function registerMunicipalBoundaries(geoJsonData) {
     return 0;
   }
 
-  const features = Array.isArray(geoJsonData)
-    ? geoJsonData
-    : (geoJsonData.features || []);
-
-  const validWards = [];
-
-  for (const feat of features) {
-    const props = feat.properties || feat;
-    const geom = feat.geometry || props.geometry;
-
-    if (props.ward_id && geom && (geom.type === 'Polygon' || geom.type === 'MultiPolygon')) {
-      validWards.push({
-        ward_id: String(props.ward_id),
-        ward_name: String(props.ward_name || props.ward_id),
-        geometry: geom,
-        department: props.department || {
-          name: "Greater Chennai Corporation - Regional Division",
-          office: "Zonal Municipal Office",
-          zone: props.metadata?.zone || "Zone 13 / 14",
-          contact: "1913 (Municipal Grievance Helpline)"
-        },
-        metadata: props.metadata || {
-          district: "Chennai",
-          state: "Tamil Nadu",
-          dataSource: "Official Corporation Spatial Registry"
-        }
-      });
-    }
+  const validation = validateGeoJsonBoundaries(geoJsonData);
+  if (!validation.isValid) {
+    console.warn("[BOUNDARY_REGISTRY_REJECTION] Invalid GeoJSON rejected:", validation.errors);
+    registeredBoundaries = null;
+    return 0;
   }
 
-  registeredBoundaries = validWards.length > 0 ? validWards : null;
-  return validWards.length;
+  registeredBoundaries = validation.validatedWards.length > 0 ? validation.validatedWards : null;
+  return validation.wardCount;
+}
+
+export function getRegisteredBoundariesCount() {
+  return registeredBoundaries ? registeredBoundaries.length : 0;
+}
+
+export function clearRegisteredBoundaries() {
+  registeredBoundaries = null;
 }
 
 /**

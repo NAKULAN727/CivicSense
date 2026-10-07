@@ -7,6 +7,7 @@ import ActionRecommendationPanel from './ActionRecommendationPanel';
 import EnvironmentalDataPanel from './EnvironmentalDataPanel';
 import DepartmentAlertPanel from './DepartmentAlertPanel';
 import CommunityPulse from './CommunityPulse';
+import MunicipalOperationsPanel from './MunicipalOperationsPanel';
 import { 
   Activity, 
   Clock, 
@@ -290,6 +291,9 @@ export default function DashboardView({
           </div>
         )}
       </div>
+
+      {/* MUNICIPAL OPERATIONS & TELEMETRY DISPATCH (Phase 10) */}
+      <MunicipalOperationsPanel />
 
       {/* SECTION 1: Interactive GIS Map & Command Center */}
       <div style={{ height: '620px' }}>

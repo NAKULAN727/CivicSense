@@ -40,6 +40,23 @@ import {
   applyOperatorReview,
   updateIncidentLifecycleStatus
 } from '../services/civicSeverityService';
+import { 
+  enqueueIncidentForDispatch, 
+  getOfflineQueue,
+  getIntegrationMode,
+  recordTelemetryEvent
+} from '../services/municipalIntegrationService';
+import { 
+  createWorkOrder, 
+  generateSandboxWorkOrderId,
+  getAllSandboxWorkOrders 
+} from '../services/municipalAdapters/sandboxMunicipalAdapter';
+import { 
+  getCurrentSession, 
+  hasPermission, 
+  AUTH_ROLES,
+  AUTH_TYPE 
+} from '../services/authService';
 
 export default function AIDetectionHub({ addCustomIssue, onVisualDetectionsChange }) {
   const samples = [
@@ -125,6 +142,13 @@ export default function AIDetectionHub({ addCustomIssue, onVisualDetectionsChang
   const [operatorNotes, setOperatorNotes] = useState({});
   const [activeNotesInputId, setActiveNotesInputId] = useState(null);
   const [activeAuditTrailIncident, setActiveAuditTrailIncident] = useState(null);
+
+  // Phase 10 Municipal Dispatch & Authentication State
+  const [session, setSession] = useState(getCurrentSession());
+  const [dispatchedWorkOrders, setDispatchedWorkOrders] = useState({});
+  const [syncStates, setSyncStates] = useState({});
+  const [dispatchErrors, setDispatchErrors] = useState({});
+  const integrationMode = getIntegrationMode();
 
   // Real inference state & active request sequence tracker
   const [inferenceResult, setInferenceResult] = useState(null);
@@ -347,11 +371,31 @@ export default function AIDetectionHub({ addCustomIssue, onVisualDetectionsChang
     const updated = applyOperatorReview(incident, {
       decision,
       reason: note,
-      operatorId: 'FIELD-OP-01'
+      operatorId: session.userId
     });
 
     setOperatorDecisions(prev => ({ ...prev, [incident.id]: updated.operatorDecision }));
     
+    // Telemetry: record review event
+    recordTelemetryEvent('OPERATOR_REVIEWED', {
+      incidentId: incident.id,
+      operatorId: session.userId,
+      notes: `Operator decision: ${decision}${note ? ` (Reason: "${note}")` : ''}`
+    });
+
+    if (decision === 'CONFIRMED') {
+      recordTelemetryEvent('INCIDENT_CONFIRMED', {
+        incidentId: incident.id,
+        operatorId: session.userId
+      });
+    } else if (decision === 'REJECTED') {
+      recordTelemetryEvent('INCIDENT_REJECTED', {
+        incidentId: incident.id,
+        operatorId: session.userId,
+        notes: note || "Rejected by operator"
+      });
+    }
+
     // Update local incident in inferenceResult
     if (inferenceResult?.civicIncidents) {
       const newIncidents = inferenceResult.civicIncidents.map(inc => 
@@ -383,38 +427,110 @@ export default function AIDetectionHub({ addCustomIssue, onVisualDetectionsChang
     setActiveWorkflowStep(9); // Step 9 completed
   };
 
-  const handleFileIssue = (incident) => {
+  // Phase 10 Municipal Sandbox Dispatch Handler
+  const handleFileIssue = async (incident) => {
     if (!incident) return;
-    const issueId = incident.id || `CS-INC-${Date.now().toString().slice(-6)}`;
+    const currentDecision = operatorDecisions[incident.id]?.decision || incident.operatorStatus || 'NEEDS REVIEW';
 
-    const newIssue = {
-      id: issueId,
-      type: incident.title,
-      title: `${incident.title} (${incident.severity} Severity)`,
-      description: incident.sourceEvidence,
-      location: {
-        lat: inferenceResult?.metadata?.latitude,
-        lng: inferenceResult?.metadata?.longitude,
-        address: incident.location?.formatted || 'LOCATION UNAVAILABLE',
-        ward: incident.wardName || incident.wardAssignmentStatus || 'Metropolitan Spatial District'
-      },
-      severity: incident.severity,
-      priority: incident.priority,
-      status: incidentStatuses[incident.id] || incident.incidentStatus || 'NEW',
-      reportedAt: incident.captureTimestamp || incident.timestamp || new Date().toISOString(),
-      detectedBy: 'CivicSense Multi-Model ONNX Vision Engine',
-      confidence: incident.confidence,
-      image: selectedSample.path,
-      recommendedDept: incident.recommendedDepartment,
-      recommendedAction: incident.recommendedAction,
-      boundingBoxes: incident.boundingBoxes || []
-    };
-
-    if (addCustomIssue) {
-      addCustomIssue(newIssue);
+    // 1. Dispatch Eligibility Check (Section 15)
+    if (currentDecision === 'REJECTED') {
+      setDispatchErrors(prev => ({ ...prev, [incident.id]: "Cannot dispatch: Incident was REJECTED during triage." }));
+      return;
     }
-    setFiledIssues(prev => ({ ...prev, [incident.id]: issueId }));
-    handleLifecycleUpdate(incident, 'ACKNOWLEDGED');
+    if (currentDecision === 'NEEDS REVIEW') {
+      setDispatchErrors(prev => ({ ...prev, [incident.id]: "Cannot dispatch: Incident requires explicit operator confirmation." }));
+      return;
+    }
+
+    const isHighRisk = incident.severity === 'HIGH' || incident.severity === 'CRITICAL' ||
+      incident.priority === 'IMMEDIATE' || incident.incidentType === 'WATER_FILLED_POTHOLE' ||
+      incident.incidentType === 'SIGNIFICANT_WATERLOGGING';
+
+    if (isHighRisk && session.role === AUTH_ROLES.FIELD_OPERATOR && currentDecision !== 'CONFIRMED') {
+      setDispatchErrors(prev => ({ ...prev, [incident.id]: "High-risk hazard requires Supervisor approval before dispatch." }));
+      return;
+    }
+
+    try {
+      // 2. Local Offline Queue Ingestion (Section 8)
+      enqueueIncidentForDispatch(incident, { notes: operatorNotes[incident.id] || "" });
+      setSyncStates(prev => ({ ...prev, [incident.id]: 'PENDING_SYNC' }));
+
+      // 3. Idempotent Dispatch to Municipal Sandbox Adapter (Section 10)
+      const wo = await createWorkOrder(incident, {
+        operatorId: session.userId,
+        approvedBySupervisor: session.role === 'SUPERVISOR' || session.role === 'ADMIN',
+        notes: operatorNotes[incident.id] || ""
+      });
+
+      setDispatchedWorkOrders(prev => ({ ...prev, [incident.id]: wo.workOrderId }));
+      setSyncStates(prev => ({ ...prev, [incident.id]: 'SYNCED' }));
+      setFiledIssues(prev => ({ ...prev, [incident.id]: wo.workOrderId }));
+      setDispatchErrors(prev => ({ ...prev, [incident.id]: null }));
+
+      // 4. Extended Audit Trail (Section 24)
+      const pTime = new Date().toISOString();
+      const updatedAudit = [
+        ...(incident.auditTrail || []),
+        {
+          stepNumber: (incident.auditTrail?.length || 7) + 1,
+          stepName: "DISPATCH_ELIGIBILITY",
+          timestamp: pTime,
+          summary: `Dispatch eligibility confirmed for ${incident.recommendedDepartment}`,
+          details: `Authorized by ${session.displayName} (${session.role}). Hazard verified.`
+        },
+        {
+          stepNumber: (incident.auditTrail?.length || 7) + 2,
+          stepName: "WORK_ORDER_CREATED",
+          timestamp: pTime,
+          summary: `Work Order Dispatched: ${wo.workOrderId}`,
+          details: `Dispatched to Municipal Sandbox Depot: ${incident.recommendedDepartment}.`
+        },
+        {
+          stepNumber: (incident.auditTrail?.length || 7) + 3,
+          stepName: "SYNC_STATUS",
+          timestamp: pTime,
+          summary: `Municipal Sync State: SYNCED`,
+          details: `Saved to Municipal Sandbox Registry (${wo.workOrderId}) without data corruption.`
+        }
+      ];
+
+      const enrichedIncident = {
+        ...incident,
+        auditTrail: updatedAudit,
+        workOrderId: wo.workOrderId
+      };
+
+      if (addCustomIssue) {
+        addCustomIssue({
+          id: wo.workOrderId,
+          type: incident.title,
+          title: `${incident.title} (${incident.severity} Severity)`,
+          description: incident.sourceEvidence,
+          location: {
+            lat: inferenceResult?.metadata?.latitude,
+            lng: inferenceResult?.metadata?.longitude,
+            address: incident.location?.formatted || 'LOCATION UNAVAILABLE',
+            ward: incident.wardName || incident.wardAssignmentStatus || 'Metropolitan Spatial District'
+          },
+          severity: incident.severity,
+          priority: incident.priority,
+          status: 'ACKNOWLEDGED',
+          reportedAt: incident.captureTimestamp || incident.timestamp || new Date().toISOString(),
+          detectedBy: 'CivicSense Multi-Model ONNX Vision Engine',
+          confidence: incident.confidence,
+          image: selectedSample.path,
+          recommendedDept: incident.recommendedDepartment,
+          recommendedAction: incident.recommendedAction,
+          boundingBoxes: incident.boundingBoxes || []
+        });
+      }
+
+      handleLifecycleUpdate(enrichedIncident, 'ACKNOWLEDGED');
+    } catch (err) {
+      setSyncStates(prev => ({ ...prev, [incident.id]: 'SYNC_FAILED' }));
+      setDispatchErrors(prev => ({ ...prev, [incident.id]: err.message }));
+    }
   };
 
   return (
@@ -998,14 +1114,59 @@ export default function AIDetectionHub({ addCustomIssue, onVisualDetectionsChang
                               </div>
                             )}
                           </div>
-                        </div>
-
-                        {/* Lifecycle Status Pill */}
+                                           {/* Lifecycle Status Pill */}
                         <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
                           <span><strong>Incident Lifecycle State:</strong></span>
                           <span className={`badge ${currentLifecycle === 'RESOLVED' ? 'badge-green' : currentLifecycle === 'IN PROGRESS' ? 'badge-purple' : 'badge-blue'}`} style={{ fontSize: '10px' }}>
                             {currentLifecycle}
                           </span>
+                        </div>
+
+                        {/* PHASE 10 SECTION 23: MUNICIPAL INTEGRATION & DISPATCH STATUS */}
+                        <div style={{ 
+                          padding: '10px 12px', 
+                          background: 'rgba(0, 168, 255, 0.04)', 
+                          border: '1px solid rgba(0, 168, 255, 0.25)', 
+                          borderRadius: '6px', 
+                          display: 'flex', 
+                          flexDirection: 'column', 
+                          gap: '5px', 
+                          fontSize: '11px' 
+                        }}>
+                          <div className="flex-between">
+                            <strong style={{ color: 'var(--accent-blue)' }}>MUNICIPAL INTEGRATION:</strong>
+                            <span className="badge badge-blue" style={{ fontSize: '9px', padding: '2px 6px' }}>{integrationMode}</span>
+                          </div>
+                          <div><strong>OPERATOR DECISION:</strong> <span style={{ fontWeight: '700', color: isConfirmed ? '#10b981' : isRejected ? '#f43f5e' : '#f59e0b' }}>{currentDecision}</span></div>
+                          <div>
+                            <strong>DISPATCH STATUS:</strong>{' '}
+                            <span style={{ 
+                              fontWeight: '700', 
+                              color: filedIssues[incident.id] ? '#10b981' : isConfirmed ? '#38bdf8' : isRejected ? '#f43f5e' : '#f59e0b' 
+                            }}>
+                              {filedIssues[incident.id] ? 'DISPATCHED' : isRejected ? 'NOT ELIGIBLE' : (incident.severity === 'HIGH' || incident.severity === 'CRITICAL' || incident.priority === 'IMMEDIATE') && session.role === 'FIELD_OPERATOR' && !isConfirmed ? 'PENDING APPROVAL' : isConfirmed ? 'READY' : 'PENDING APPROVAL'}
+                            </span>
+                          </div>
+                          <div>
+                            <strong>SYNC STATUS:</strong>{' '}
+                            <span style={{ 
+                              fontWeight: '700', 
+                              color: syncStates[incident.id] === 'SYNCED' ? '#10b981' : syncStates[incident.id] === 'SYNC_FAILED' ? '#f43f5e' : 'var(--text-secondary)' 
+                            }}>
+                              {syncStates[incident.id] || (filedIssues[incident.id] ? 'SYNCED' : 'LOCAL ONLY')}
+                            </span>
+                          </div>
+                          <div>
+                            <strong>WORK ORDER:</strong>{' '}
+                            <code style={{ color: filedIssues[incident.id] ? '#38bdf8' : 'var(--text-muted)' }}>
+                              {filedIssues[incident.id] || 'UNAVAILABLE'}
+                            </code>
+                          </div>
+                          {dispatchErrors[incident.id] && (
+                            <div style={{ color: '#f43f5e', fontSize: '10px', marginTop: '2px' }}>
+                              Notice: {dispatchErrors[incident.id]}
+                            </div>
+                          )}
                         </div>
                       </div>
 
@@ -1100,7 +1261,7 @@ export default function AIDetectionHub({ addCustomIssue, onVisualDetectionsChang
                                 onClick={() => handleLifecycleUpdate(incident, st)}
                                 style={{ 
                                   padding: '3px 6px', 
-                                  fontSize: '10px',
+                                  fontSize: '10px', 
                                   borderColor: currentLifecycle === st ? 'var(--accent-blue)' : 'var(--border-card)',
                                   color: currentLifecycle === st ? 'var(--accent-blue)' : 'var(--text-secondary)'
                                 }}
@@ -1124,7 +1285,7 @@ export default function AIDetectionHub({ addCustomIssue, onVisualDetectionsChang
 
                           <button
                             className="btn btn-primary"
-                            disabled={filedIssues[incident.id]}
+                            disabled={Boolean(filedIssues[incident.id]) || isRejected}
                             onClick={() => handleFileIssue(incident)}
                             style={{ padding: '5px 12px', fontSize: '11px' }}
                           >
@@ -1136,12 +1297,12 @@ export default function AIDetectionHub({ addCustomIssue, onVisualDetectionsChang
                             ) : (
                               <>
                                 <FilePlus2 size={13} style={{ marginRight: '4px' }} />
-                                Dispatch to Department
+                                Dispatch to Municipal Sandbox
                               </>
                             )}
                           </button>
                         </div>
-                      </div>
+                      </div>       </div>
                     </div>
                   );
                 })}
