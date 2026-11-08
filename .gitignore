@@ -12,6 +12,11 @@ dist
 dist-ssr
 *.local
 
+# Environment files
+.env
+.env.local
+.env.*.local
+
 # Editor directories and files
 .vscode/*
 !.vscode/extensions.json
@@ -52,3 +57,10 @@ scratch/**/*.tar*
 scratch/**/*.crdownload
 scratch/**/*.png
 scratch/vfloodnet_overlays/
+
+# Backups, Database Snapshots and Locks
+server/backups/
+server/data/*.bak
+server/data/*.corrupt.*
+server/data/*.lock
+server/data/*.tmp.*

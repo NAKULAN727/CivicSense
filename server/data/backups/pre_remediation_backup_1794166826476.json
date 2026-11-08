@@ -1,0 +1,26 @@
+{
+  "timestamp": "2026-11-08T19:40:25.983Z",
+  "database": "postgres",
+  "schema": "public",
+  "tables": {
+    "audit_logs": [],
+    "incidents": [],
+    "integration_settings": [],
+    "schema_migrations": [
+      {
+        "migration_name": "001_initial_enterprise_schema.sql",
+        "applied_at": "2026-11-08T19:09:37.504Z"
+      },
+      {
+        "migration_name": "002_enable_rls.sql",
+        "applied_at": "2026-11-08T19:09:37.823Z"
+      }
+    ],
+    "telemetry_records": [],
+    "tenants": [],
+    "users": [],
+    "ward_datasets": [],
+    "ward_features": [],
+    "work_orders": []
+  }
+}

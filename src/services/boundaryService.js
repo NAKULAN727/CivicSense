@@ -202,6 +202,21 @@ export function getRegisteredBoundariesCount() {
   return registeredBoundaries ? registeredBoundaries.length : 0;
 }
 
+export function getBoundariesStatus() {
+  if (!registeredBoundaries || registeredBoundaries.length === 0) {
+    return {
+      status: 'UNAVAILABLE',
+      message: 'No official boundary dataset active. Central depot routing active.',
+      wardCount: 0
+    };
+  }
+  return {
+    status: 'ACTIVE',
+    wardCount: registeredBoundaries.length,
+    version: 'v1.0-official'
+  };
+}
+
 export function clearRegisteredBoundaries() {
   registeredBoundaries = null;
 }

@@ -5,11 +5,15 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
+    "server": "node server/index.js",
+    "start": "node server/index.js",
     "build": "vite build",
     "lint": "oxlint",
     "preview": "vite preview"
   },
   "dependencies": {
+    "@supabase/ssr": "^0.12.7",
+    "@supabase/supabase-js": "^2.119.0",
     "canvas-confetti": "^1.9.4",
     "cors": "^2.8.6",
     "exifreader": "^4.45.0",
@@ -18,6 +22,7 @@
     "leaflet": "^1.9.4",
     "lucide-react": "^1.28.0",
     "onnxruntime-web": "^1.30.0",
+    "pg": "^8.21.0",
     "react": "^19.2.8",
     "react-dom": "^19.2.8",
     "recharts": "^3.10.1"

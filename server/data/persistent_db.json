@@ -1,0 +1,460 @@
+{
+  "tenants": [
+    {
+      "tenant_id": "TENANT-DEMO-A",
+      "tenant_name": "Sandbox Municipality Alpha",
+      "label": "SANDBOX TENANT",
+      "status": "ACTIVE",
+      "is_sandbox": true,
+      "configuration": {
+        "jurisdiction": "Alpha Municipal District",
+        "timezone": "Asia/Kolkata",
+        "dispatchAutoApproval": false,
+        "allowedDepartments": [
+          "Highways / Roads & Pavement Maintenance",
+          "Solid Waste Management",
+          "Stormwater / Drainage Department"
+        ]
+      },
+      "created_at": "2026-10-07T00:00:00.000Z",
+      "updated_at": "2026-10-07T00:00:00.000Z"
+    },
+    {
+      "tenant_id": "TENANT-DEMO-B",
+      "tenant_name": "Sandbox Municipality Beta",
+      "label": "SANDBOX TENANT",
+      "status": "ACTIVE",
+      "is_sandbox": true,
+      "configuration": {
+        "jurisdiction": "Beta Zonal Area",
+        "timezone": "Asia/Kolkata",
+        "dispatchAutoApproval": false,
+        "allowedDepartments": [
+          "Highways / Roads & Pavement Maintenance",
+          "Solid Waste Management",
+          "Stormwater / Drainage Department"
+        ]
+      },
+      "created_at": "2026-10-07T00:00:00.000Z",
+      "updated_at": "2026-10-07T00:00:00.000Z"
+    }
+  ],
+  "users": [
+    {
+      "user_id": "OP-DEMO-A-01",
+      "tenant_id": "TENANT-DEMO-A",
+      "email": "operator.alpha@civicsense.gov",
+      "display_name": "R. Kumar (Field Technician)",
+      "role": "OPERATOR",
+      "department": "Zone 1 Engineering & Works",
+      "is_sandbox_user": true,
+      "created_at": "2026-10-07T00:00:00.000Z",
+      "updated_at": "2026-10-07T00:00:00.000Z"
+    },
+    {
+      "user_id": "SUP-DEMO-A-01",
+      "tenant_id": "TENANT-DEMO-A",
+      "email": "supervisor.alpha@civicsense.gov",
+      "display_name": "S. Meenakshi (Zonal Dispatch Supervisor)",
+      "role": "SUPERVISOR",
+      "department": "Alpha Command Center",
+      "is_sandbox_user": true,
+      "created_at": "2026-10-07T00:00:00.000Z",
+      "updated_at": "2026-10-07T00:00:00.000Z"
+    },
+    {
+      "user_id": "ADM-DEMO-A-01",
+      "tenant_id": "TENANT-DEMO-A",
+      "email": "admin.alpha@civicsense.gov",
+      "display_name": "Dr. A. Ramanathan (Spatial & Systems Administrator)",
+      "role": "TENANT_ADMIN",
+      "department": "Alpha Municipal IT & Operations",
+      "is_sandbox_user": true,
+      "created_at": "2026-10-07T00:00:00.000Z",
+      "updated_at": "2026-10-07T00:00:00.000Z"
+    },
+    {
+      "user_id": "AUD-DEMO-A-01",
+      "tenant_id": "TENANT-DEMO-A",
+      "email": "auditor.alpha@civicsense.gov",
+      "display_name": "M. Shanthi (Municipal Compliance Auditor)",
+      "role": "AUDITOR",
+      "department": "Municipal Oversight & Transparency",
+      "is_sandbox_user": true,
+      "created_at": "2026-10-07T00:00:00.000Z",
+      "updated_at": "2026-10-07T00:00:00.000Z"
+    },
+    {
+      "user_id": "RO-DEMO-A-01",
+      "tenant_id": "TENANT-DEMO-A",
+      "email": "observer.alpha@civicsense.gov",
+      "display_name": "K. Priya (Civic Observer)",
+      "role": "READ_ONLY",
+      "department": "Public Information Desk",
+      "is_sandbox_user": true,
+      "created_at": "2026-10-07T00:00:00.000Z",
+      "updated_at": "2026-10-07T00:00:00.000Z"
+    },
+    {
+      "user_id": "SUPER-ADMIN-01",
+      "tenant_id": "TENANT-DEMO-A",
+      "email": "superadmin@civicsense.gov",
+      "display_name": "Central Platform Architect (Super Admin)",
+      "role": "SUPER_ADMIN",
+      "department": "State Smart City Mission Directorate",
+      "is_sandbox_user": true,
+      "created_at": "2026-10-07T00:00:00.000Z",
+      "updated_at": "2026-10-07T00:00:00.000Z"
+    },
+    {
+      "user_id": "OP-DEMO-B-01",
+      "tenant_id": "TENANT-DEMO-B",
+      "email": "operator.beta@civicsense.gov",
+      "display_name": "V. Anand (Field Technician)",
+      "role": "OPERATOR",
+      "department": "Zone 2 Maintenance Division",
+      "is_sandbox_user": true,
+      "created_at": "2026-10-07T00:00:00.000Z",
+      "updated_at": "2026-10-07T00:00:00.000Z"
+    },
+    {
+      "user_id": "SUP-DEMO-B-01",
+      "tenant_id": "TENANT-DEMO-B",
+      "email": "supervisor.beta@civicsense.gov",
+      "display_name": "P. Lakshmi (Zonal Dispatch Supervisor)",
+      "role": "SUPERVISOR",
+      "department": "Beta Command Center",
+      "is_sandbox_user": true,
+      "created_at": "2026-10-07T00:00:00.000Z",
+      "updated_at": "2026-10-07T00:00:00.000Z"
+    },
+    {
+      "user_id": "ADM-DEMO-B-01",
+      "tenant_id": "TENANT-DEMO-B",
+      "email": "admin.beta@civicsense.gov",
+      "display_name": "K. Suresh (Spatial & Systems Administrator)",
+      "role": "TENANT_ADMIN",
+      "department": "Beta Municipal IT & Operations",
+      "is_sandbox_user": true,
+      "created_at": "2026-10-07T00:00:00.000Z",
+      "updated_at": "2026-10-07T00:00:00.000Z"
+    }
+  ],
+  "incidents": [
+    {
+      "incident_id": "INC-TEST-RESTART-001",
+      "tenant_id": "TENANT-DEMO-A",
+      "title": "Persistent Waterlogging Test",
+      "incident_type": "FLOOD",
+      "severity": "HIGH",
+      "priority": "HIGH",
+      "status": "REPORTED",
+      "reported_by": "OP-DEMO-A-01",
+      "created_at": "2026-11-08T19:53:24.700Z"
+    },
+    {
+      "incident_id": "INC-CRUD-PARAM-001",
+      "tenant_id": "TENANT-DEMO-A",
+      "title": "Main Arterial Road Pothole",
+      "incident_type": "ROAD_DAMAGE",
+      "severity": "CRITICAL",
+      "priority": "CRITICAL",
+      "status": "ACKNOWLEDGED",
+      "reported_by": "OP-DEMO-A-01",
+      "attributes": {
+        "surfaceDefect": "D40",
+        "depthCm": 14.5
+      },
+      "updated_at": "2026-11-08T19:53:24.707Z"
+    },
+    {
+      "incident_id": "INC-TENANT-B-CONFIDENTIAL-001",
+      "tenant_id": "TENANT-DEMO-B",
+      "title": "Tenant B Municipal Infrastructure Report",
+      "incident_type": "WASTE",
+      "severity": "MEDIUM",
+      "status": "REPORTED",
+      "reported_by": "OP-DEMO-B-01"
+    },
+    {
+      "incident_id": "INC-SQL-INJ-001",
+      "tenant_id": "TENANT-DEMO-A",
+      "title": "Pothole'; DROP TABLE incidents; SELECT * FROM users WHERE '1'='1",
+      "incident_type": "ROAD_DAMAGE'; --",
+      "status": "REPORTED",
+      "reported_by": "OP-DEMO-A-01"
+    },
+    {
+      "incident_id": "INC-IDEMP-001",
+      "tenant_id": "TENANT-DEMO-A",
+      "title": "Idempotency Test Incident",
+      "incident_type": "ROAD_DAMAGE",
+      "recommended_department": "Highways / Roads & Pavement Maintenance",
+      "severity": "HIGH",
+      "priority": "P1",
+      "status": "DISPATCHED",
+      "operator_status": "CONFIRMED",
+      "reported_by": "OP-DEMO-A-01",
+      "updated_at": "2026-11-08T19:53:24.757Z"
+    }
+  ],
+  "work_orders": [
+    {
+      "work_order_id": "WO-PHASE12-TEST-001",
+      "incident_id": "INC-CRUD-PARAM-001",
+      "tenant_id": "TENANT-DEMO-A",
+      "department": "Highways / Roads & Pavement Maintenance",
+      "status": "ACKNOWLEDGED",
+      "assigned_crew": "Crew-Zone1-Alpha",
+      "approved_by": "SUP-DEMO-A-01",
+      "created_at": "2026-11-08T19:53:24.709Z"
+    },
+    {
+      "work_order_id": "SANDBOX-WO-INCIDEMP001",
+      "tenant_id": "TENANT-DEMO-A",
+      "incident_id": "INC-IDEMP-001",
+      "idempotency_key": "IDEMP-TENANT-DEMO-A-INCIDEMP001",
+      "title": "Idempotency Test Incident",
+      "department": "Highways / Roads & Pavement Maintenance",
+      "secondary_department": null,
+      "severity": "HIGH",
+      "priority": "P1",
+      "status": "DISPATCHED",
+      "dispatched_by": "SUP-DEMO-A-01",
+      "approved_by": "SUP-DEMO-A-01",
+      "external_reference_id": null,
+      "is_idempotent_duplicate": false,
+      "notes": "First dispatch submission",
+      "history": [
+        {
+          "status": "DISPATCHED",
+          "timestamp": "2026-11-08T19:53:24.757Z",
+          "actor": "SUP-DEMO-A-01",
+          "note": "Initial dispatch to municipal adapter"
+        }
+      ],
+      "dispatched_at": "2026-11-08T19:53:24.757Z",
+      "updated_at": "2026-11-08T19:53:24.757Z"
+    }
+  ],
+  "ward_datasets": [
+    {
+      "dataset_id": "BND-TENANT-DEMO-A-v1",
+      "tenant_id": "TENANT-DEMO-A",
+      "dataset_version": "v1.0",
+      "status": "ACTIVE",
+      "uploaded_by": "ADM-DEMO-A-01",
+      "feature_count": 1,
+      "raw_geojson": {
+        "type": "FeatureCollection",
+        "features": [
+          {
+            "type": "Feature",
+            "properties": {
+              "ward_id": "W-CLOSED-101",
+              "ward_name": "Ward 101 - Adyar West"
+            },
+            "geometry": {
+              "type": "Polygon",
+              "coordinates": [
+                [
+                  [
+                    80.2,
+                    13
+                  ],
+                  [
+                    80.25,
+                    13
+                  ],
+                  [
+                    80.25,
+                    13.05
+                  ],
+                  [
+                    80.2,
+                    13.05
+                  ],
+                  [
+                    80.2,
+                    13
+                  ]
+                ]
+              ]
+            }
+          }
+        ]
+      },
+      "dataset_hash": "54ead73e1136baaa5c0cd5097e0f8e9e3f9a7cf938fea440bfc68c2dced4dfd5",
+      "uploaded_at": "2026-11-08T19:53:24.772Z"
+    }
+  ],
+  "ward_features": [
+    {
+      "feature_id": "FEAT-BND-TENANT-DEMO-A-v1-W-CLOSED-101",
+      "dataset_id": "BND-TENANT-DEMO-A-v1",
+      "tenant_id": "TENANT-DEMO-A",
+      "ward_id": "W-CLOSED-101",
+      "ward_name": "Ward 101 - Adyar West",
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              80.2,
+              13
+            ],
+            [
+              80.25,
+              13
+            ],
+            [
+              80.25,
+              13.05
+            ],
+            [
+              80.2,
+              13.05
+            ],
+            [
+              80.2,
+              13
+            ]
+          ]
+        ]
+      },
+      "properties": {
+        "ward_id": "W-CLOSED-101",
+        "ward_name": "Ward 101 - Adyar West"
+      },
+      "created_at": "2026-11-08T19:53:24.772Z"
+    }
+  ],
+  "audit_logs": [
+    {
+      "event_id": "EVT-CHAIN-001",
+      "tenant_id": "TENANT-DEMO-A",
+      "timestamp": "2026-10-07T10:00:00.000Z",
+      "actor_id": "OP-DEMO-A-01",
+      "event_type": "INCIDENT_CREATED",
+      "details": {
+        "incidentId": "INC-CRUD-PARAM-001"
+      },
+      "previous_hash": "GENESIS_HASH_CHAIN_ROOT_0000000000000000000000000000000000000000",
+      "current_hash": "adcd9ceb37b91eca4f2b1cec519650211ef3465505959047777569d378121a5f",
+      "hmac_signature": "915e8264760b33d197b79a8c3c83d3fd0a89e5fbce58ad1852fc4e8fe2170fc0"
+    },
+    {
+      "event_id": "EVT-CHAIN-002",
+      "tenant_id": "TENANT-DEMO-A",
+      "timestamp": "2026-10-07T10:05:00.000Z",
+      "actor_id": "SUP-DEMO-A-01",
+      "event_type": "WORK_ORDER_DISPATCHED",
+      "details": {
+        "workOrderId": "WO-PHASE12-TEST-001"
+      },
+      "previous_hash": "adcd9ceb37b91eca4f2b1cec519650211ef3465505959047777569d378121a5f",
+      "current_hash": "490658466e7cf72b80739cfdf34a975655793864e8dd717eb1dbd99150fcfa59",
+      "hmac_signature": "2dfde2605191e2cab90d5a3f698a9b4d7cc0e1d554b47de0ae75492f595f90f2"
+    },
+    {
+      "event_id": "AUD-d3d14fea-81f1-48c7-b75a-048e0dbf28a2",
+      "tenant_id": "TENANT-DEMO-A",
+      "event_type": "TENANT_ACCESS_DENIED",
+      "actor_id": "OP-DEMO-A-01",
+      "resource": "/api/incidents/INC-TENANT-B-CONFIDENTIAL-001",
+      "result": "DENIED",
+      "request_id": "205efae0-f841-41ca-8aa7-4a269dd40953",
+      "timestamp": "2026-11-08T19:53:24.728Z",
+      "details": {
+        "attemptedIncidentId": "INC-TENANT-B-CONFIDENTIAL-001",
+        "userTenant": "TENANT-DEMO-A"
+      },
+      "previous_hash": "490658466e7cf72b80739cfdf34a975655793864e8dd717eb1dbd99150fcfa59",
+      "current_hash": "44444d4bffc4b0663b8c68252f6ac291b879384604124d626649acc131fbdeb2",
+      "hmac_signature": "7ef9a0238df7d7d0a6e74ae318842c74fb5f2b4efc0286a049c698bace7ea856"
+    },
+    {
+      "event_id": "AUD-0904c2d8-78af-4b30-8edc-d399d99aa673",
+      "tenant_id": "TENANT-DEMO-A",
+      "event_type": "INCIDENT_VIEWED",
+      "actor_id": "SUP-DEMO-A-01",
+      "resource": "/api/incidents/INC-IDEMP-001",
+      "result": "SUCCESS",
+      "request_id": "46a82516-e4fd-4d0c-b84a-c9e6fc1c4f93",
+      "timestamp": "2026-11-08T19:53:24.751Z",
+      "details": {
+        "incidentId": "INC-IDEMP-001"
+      },
+      "previous_hash": "44444d4bffc4b0663b8c68252f6ac291b879384604124d626649acc131fbdeb2",
+      "current_hash": "6053ca9b431ee42984e380a201c69ccf20181500f5f428c09a5abf30ccbf371e",
+      "hmac_signature": "cc608a49e9ce0c1fc61894725554f485e5300d2c58ec4d0c259d5c9b1da6fe55"
+    },
+    {
+      "event_id": "AUD-27c6f91d-d429-4db3-ab9d-5de5dfece8b9",
+      "tenant_id": "TENANT-DEMO-A",
+      "event_type": "WORK_ORDER_CREATED",
+      "actor_id": "SUP-DEMO-A-01",
+      "resource": "/api/work-orders/SANDBOX-WO-INCIDEMP001",
+      "result": "SUCCESS",
+      "request_id": "46a82516-e4fd-4d0c-b84a-c9e6fc1c4f93",
+      "timestamp": "2026-11-08T19:53:24.759Z",
+      "details": {
+        "workOrderId": "SANDBOX-WO-INCIDEMP001",
+        "incidentId": "INC-IDEMP-001",
+        "department": "Highways / Roads & Pavement Maintenance"
+      },
+      "previous_hash": "6053ca9b431ee42984e380a201c69ccf20181500f5f428c09a5abf30ccbf371e",
+      "current_hash": "e8ecedd0f7dda7cc2c8df834e921a333156e6a8e62144172b4d8001be5dcd2a7",
+      "hmac_signature": "61f38f56eb0ebb11289b1874d11deef241f984c0f6f3e2106f6008a90845ea57"
+    },
+    {
+      "event_id": "AUD-aade51b9-418b-47c2-a2b5-2498577c68a7",
+      "tenant_id": "TENANT-DEMO-A",
+      "event_type": "INCIDENT_VIEWED",
+      "actor_id": "SUP-DEMO-A-01",
+      "resource": "/api/incidents/INC-IDEMP-001",
+      "result": "SUCCESS",
+      "request_id": "efbea3fd-c43b-4b7c-b923-d28fefe2fc1f",
+      "timestamp": "2026-11-08T19:53:24.765Z",
+      "details": {
+        "incidentId": "INC-IDEMP-001"
+      },
+      "previous_hash": "e8ecedd0f7dda7cc2c8df834e921a333156e6a8e62144172b4d8001be5dcd2a7",
+      "current_hash": "38f00142b534f91d762c40ccd5590c3f26d79540846850703b199daced1eacc6",
+      "hmac_signature": "4ea410b77a2677ef095b6a6949ab8102a3dbc0054ca0b7b178cd4e554339e9ae"
+    },
+    {
+      "event_id": "AUD-90aa3f3f-49b8-462c-b00c-530133efcdf3",
+      "tenant_id": "TENANT-DEMO-A",
+      "event_type": "BOUNDARY_UPDATED",
+      "actor_id": "ADM-DEMO-A-01",
+      "resource": "/api/wards/datasets/BND-TENANT-DEMO-A-v1",
+      "result": "SUCCESS",
+      "request_id": "REQ-CLOSED-TEST",
+      "timestamp": "2026-11-08T19:53:24.772Z",
+      "details": {
+        "datasetId": "BND-TENANT-DEMO-A-v1",
+        "version": "v1.0",
+        "featureCount": 1,
+        "hash": "54ead73e1136baaa5c0cd5097e0f8e9e3f9a7cf938fea440bfc68c2dced4dfd5"
+      },
+      "previous_hash": "38f00142b534f91d762c40ccd5590c3f26d79540846850703b199daced1eacc6",
+      "current_hash": "b1e1a202ab0e0a1af7b1980e6290f83804042e90683a6a4c1dd8c351227fecb8",
+      "hmac_signature": "3002986d4467a9b7197ba91b76adc87d70ecd853950a0678e19a36fc1d653ff7"
+    }
+  ],
+  "telemetry_records": [
+    {
+      "telemetry_id": "TEL-041ca9a0-784c-415f-92d3-c0a2657d819d",
+      "tenant_id": "TENANT-DEMO-A",
+      "event_type": "WORK_ORDER_DISPATCH",
+      "duration_ms": 11,
+      "status": "SUCCESS",
+      "metadata": {
+        "workOrderId": "SANDBOX-WO-INCIDEMP001"
+      },
+      "timestamp": "2026-11-08T19:53:24.759Z"
+    }
+  ],
+  "integration_settings": []
+}

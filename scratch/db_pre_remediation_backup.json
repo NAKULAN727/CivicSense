@@ -1,0 +1,150 @@
+{
+  "timestamp": "2026-11-08T19:47:41.200Z",
+  "databaseVersion": "PostgreSQL 17.11 on x86_64-pc-linux-gnu, compiled by gcc (GCC) 15.2.0, 64-bit",
+  "tables": {
+    "audit_logs": {
+      "rowCount": 0
+    },
+    "incidents": {
+      "rowCount": 0
+    },
+    "integration_settings": {
+      "rowCount": 0
+    },
+    "schema_migrations": {
+      "rowCount": 2
+    },
+    "telemetry_records": {
+      "rowCount": 0
+    },
+    "tenants": {
+      "rowCount": 0
+    },
+    "users": {
+      "rowCount": 0
+    },
+    "ward_datasets": {
+      "rowCount": 0
+    },
+    "ward_features": {
+      "rowCount": 0
+    },
+    "work_orders": {
+      "rowCount": 0
+    }
+  },
+  "policies": [
+    {
+      "schemaname": "public",
+      "tablename": "audit_logs",
+      "policyname": "tenant_isolation_audit_logs",
+      "permissive": "PERMISSIVE",
+      "roles": "{public}",
+      "cmd": "ALL",
+      "qual": "(((tenant_id)::text = NULLIF(current_setting('app.current_tenant_id'::text, true), ''::text)) OR (current_setting('app.is_super_admin'::text, true) = 'true'::text))",
+      "with_check": "(((tenant_id)::text = NULLIF(current_setting('app.current_tenant_id'::text, true), ''::text)) OR (current_setting('app.is_super_admin'::text, true) = 'true'::text))"
+    },
+    {
+      "schemaname": "public",
+      "tablename": "incidents",
+      "policyname": "tenant_isolation_incidents",
+      "permissive": "PERMISSIVE",
+      "roles": "{public}",
+      "cmd": "ALL",
+      "qual": "(((tenant_id)::text = NULLIF(current_setting('app.current_tenant_id'::text, true), ''::text)) OR (current_setting('app.is_super_admin'::text, true) = 'true'::text))",
+      "with_check": "(((tenant_id)::text = NULLIF(current_setting('app.current_tenant_id'::text, true), ''::text)) OR (current_setting('app.is_super_admin'::text, true) = 'true'::text))"
+    },
+    {
+      "schemaname": "public",
+      "tablename": "integration_settings",
+      "policyname": "tenant_isolation_integration",
+      "permissive": "PERMISSIVE",
+      "roles": "{public}",
+      "cmd": "ALL",
+      "qual": "(((tenant_id)::text = NULLIF(current_setting('app.current_tenant_id'::text, true), ''::text)) OR (current_setting('app.is_super_admin'::text, true) = 'true'::text))",
+      "with_check": "(((tenant_id)::text = NULLIF(current_setting('app.current_tenant_id'::text, true), ''::text)) OR (current_setting('app.is_super_admin'::text, true) = 'true'::text))"
+    },
+    {
+      "schemaname": "public",
+      "tablename": "telemetry_records",
+      "policyname": "tenant_isolation_telemetry",
+      "permissive": "PERMISSIVE",
+      "roles": "{public}",
+      "cmd": "ALL",
+      "qual": "(((tenant_id)::text = NULLIF(current_setting('app.current_tenant_id'::text, true), ''::text)) OR (current_setting('app.is_super_admin'::text, true) = 'true'::text))",
+      "with_check": "(((tenant_id)::text = NULLIF(current_setting('app.current_tenant_id'::text, true), ''::text)) OR (current_setting('app.is_super_admin'::text, true) = 'true'::text))"
+    },
+    {
+      "schemaname": "public",
+      "tablename": "ward_datasets",
+      "policyname": "tenant_isolation_ward_datasets",
+      "permissive": "PERMISSIVE",
+      "roles": "{public}",
+      "cmd": "ALL",
+      "qual": "(((tenant_id)::text = NULLIF(current_setting('app.current_tenant_id'::text, true), ''::text)) OR (current_setting('app.is_super_admin'::text, true) = 'true'::text))",
+      "with_check": "(((tenant_id)::text = NULLIF(current_setting('app.current_tenant_id'::text, true), ''::text)) OR (current_setting('app.is_super_admin'::text, true) = 'true'::text))"
+    },
+    {
+      "schemaname": "public",
+      "tablename": "ward_features",
+      "policyname": "tenant_isolation_ward_features",
+      "permissive": "PERMISSIVE",
+      "roles": "{public}",
+      "cmd": "ALL",
+      "qual": "(((tenant_id)::text = NULLIF(current_setting('app.current_tenant_id'::text, true), ''::text)) OR (current_setting('app.is_super_admin'::text, true) = 'true'::text))",
+      "with_check": "(((tenant_id)::text = NULLIF(current_setting('app.current_tenant_id'::text, true), ''::text)) OR (current_setting('app.is_super_admin'::text, true) = 'true'::text))"
+    },
+    {
+      "schemaname": "public",
+      "tablename": "work_orders",
+      "policyname": "tenant_isolation_work_orders",
+      "permissive": "PERMISSIVE",
+      "roles": "{public}",
+      "cmd": "ALL",
+      "qual": "(((tenant_id)::text = NULLIF(current_setting('app.current_tenant_id'::text, true), ''::text)) OR (current_setting('app.is_super_admin'::text, true) = 'true'::text))",
+      "with_check": "(((tenant_id)::text = NULLIF(current_setting('app.current_tenant_id'::text, true), ''::text)) OR (current_setting('app.is_super_admin'::text, true) = 'true'::text))"
+    }
+  ],
+  "roles": [
+    {
+      "rolname": "anon",
+      "rolsuper": false,
+      "rolcreaterole": false,
+      "rolcreatedb": false,
+      "rolcanlogin": false,
+      "rolbypassrls": false
+    },
+    {
+      "rolname": "authenticated",
+      "rolsuper": false,
+      "rolcreaterole": false,
+      "rolcreatedb": false,
+      "rolcanlogin": false,
+      "rolbypassrls": false
+    },
+    {
+      "rolname": "civicsense_app_role",
+      "rolsuper": false,
+      "rolcreaterole": false,
+      "rolcreatedb": false,
+      "rolcanlogin": false,
+      "rolbypassrls": false
+    },
+    {
+      "rolname": "postgres",
+      "rolsuper": false,
+      "rolcreaterole": true,
+      "rolcreatedb": true,
+      "rolcanlogin": true,
+      "rolbypassrls": true
+    },
+    {
+      "rolname": "service_role",
+      "rolsuper": false,
+      "rolcreaterole": false,
+      "rolcreatedb": false,
+      "rolcanlogin": false,
+      "rolbypassrls": true
+    }
+  ]
+}

@@ -1353,7 +1353,7 @@
       ],
       "primary_decision": "RETAIN_MONOLITHIC_STANDALONE",
       "primary_reason": "Monolithic box (100.0%x81.4%) retained: standalone scene with no conflicting road damage or flood.",
-      "final_incident_interpretation": "DETECTED WASTE (W20, W70) (Sanitation)"
+      "final_incident_interpretation": "DETECTED WASTE (W70, W20) (Sanitation)"
     },
     {
       "filename": "garbage 15.jpg",
