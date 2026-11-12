@@ -57,6 +57,7 @@ import {
   AUTH_ROLES,
   AUTH_TYPE 
 } from '../services/authService';
+import { getActiveRoadModelConfig } from '../config/modelRegistry';
 
 export default function AIDetectionHub({ addCustomIssue, onVisualDetectionsChange }) {
   const samples = [
@@ -782,7 +783,7 @@ export default function AIDetectionHub({ addCustomIssue, onVisualDetectionsChang
             ⚙ TECHNICAL TENSOR & HARDWARE DIAGNOSTICS
           </strong>
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: '8px', color: 'var(--text-secondary)' }}>
-            <div><strong>Road Model:</strong> {inferenceResult?.devDiagnostics?.roadModelFile || '/models/rdd2022-road-damage.onnx'}</div>
+            <div><strong>Road Model:</strong> {inferenceResult?.devDiagnostics?.roadModelFile || getActiveRoadModelConfig().fileUrl} ({inferenceResult?.devDiagnostics?.roadModelId || getActiveRoadModelConfig().id})</div>
             <div><strong>Waste Model:</strong> {inferenceResult?.devDiagnostics?.wasteModelFile || '/models/waste-detection.onnx'}</div>
             <div><strong>Flood Model:</strong> {inferenceResult?.devDiagnostics?.floodModelFile || '/models/flood-water-segmentation.onnx'}</div>
             <div><strong>Natural Resolution:</strong> {inferenceResult?.devDiagnostics?.naturalResolution || 'Unknown'}</div>

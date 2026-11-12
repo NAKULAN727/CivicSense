@@ -430,7 +430,8 @@ export function performContextualArbitration({
   roadDetections = [],
   wasteDetections = [],
   floodResult = null,
-  metadata = { latitude: null, longitude: null, timestamp: null, isGpsVerified: false }
+  metadata = { latitude: null, longitude: null, timestamp: null, isGpsVerified: false },
+  processingTimestamp = null
 }) {
   const rawRoad = Array.isArray(roadDetections) ? roadDetections : [];
   const rawWaste = Array.isArray(wasteDetections) ? wasteDetections : [];

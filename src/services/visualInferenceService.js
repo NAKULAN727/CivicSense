@@ -5,6 +5,7 @@
 
 import * as ort from 'onnxruntime-web';
 import ExifReader from 'exifreader';
+import { getActiveRoadModelConfig } from '../config/modelRegistry';
 
 // Configure ONNX Runtime Web WASM CDN paths for Vite compatibility
 ort.env.wasm.wasmPaths = 'https://cdn.jsdelivr.net/npm/onnxruntime-web@1.30.0/dist/';
@@ -343,7 +344,7 @@ export async function runGenuineVisualInference({
   imageSourceType = 'USER-UPLOADED IMAGE',
   confidenceThreshold = 0.50,
   imageLoadTimeMs = null,
-  roadModelUrl = '/models/rdd2022-road-damage.onnx',
+  roadModelUrl = null,
   wasteModelUrl = '/models/waste-detection.onnx',
   floodModelUrl = '/models/flood-water-segmentation.onnx?v=phase8c6d'
 }) {
@@ -357,7 +358,11 @@ export async function runGenuineVisualInference({
     waste: []
   };
 
-  let activeRoadModelName = "RDD2022 YOLOv8s Road Damage Detector";
+  const activeRoadConfig = (typeof getActiveRoadModelConfig === 'function')
+    ? getActiveRoadModelConfig()
+    : { name: "RDD2022 YOLOv8s Road Damage Detector", fileUrl: '/models/rdd2022-road-damage.onnx', id: 'MODEL_A_RDD2022', version: 'v1.0-rdd2022' };
+
+  let activeRoadModelName = activeRoadConfig.name || "RDD2022 YOLOv8s Road Damage Detector";
   let isRoadModelVerified = false;
   let roadModelProvenance = "ROAD MODEL UNAVAILABLE";
   let roadOutputShapeStr = "None";
@@ -372,9 +377,9 @@ export async function runGenuineVisualInference({
   let wasteInferenceTimeMs = 0;
 
   // 1. EXECUTE ROAD DAMAGE MODEL INFERENCE (SERIALIZED SINGLE-FLIGHT)
+  const targetRoadUrl = roadModelUrl || activeRoadConfig.fileUrl || '/models/rdd2022-road-damage.onnx';
   await (roadInferenceMutex = roadInferenceMutex.then(async () => {
     try {
-      const targetRoadUrl = roadModelUrl || '/models/rdd2022-road-damage.onnx';
       if (!roadModelSession || cachedRoadUrl !== targetRoadUrl) {
         roadModelSession = await ort.InferenceSession.create(targetRoadUrl, { executionProviders: ['wasm'] });
         cachedRoadUrl = targetRoadUrl;
@@ -745,7 +750,9 @@ export async function runGenuineVisualInference({
 
   const devDiagnostics = {
     model: "RDD2022 Road Damage + YOLOv8 Waste + SegFormer Flood Model",
-    roadModelFile: roadModelUrl || '/models/rdd2022-road-damage.onnx',
+    roadModelFile: targetRoadUrl,
+    roadModelId: activeRoadConfig.id || 'MODEL_A_RDD2022',
+    roadModelVersion: activeRoadConfig.version || 'v1.0-rdd2022',
     roadModelLoaded: isRoadModelVerified ? "YES" : "NO",
     wasteModelFile: wasteModelUrl || '/models/waste-detection.onnx',
     wasteModelLoaded: isWasteModelVerified ? "YES" : "NO",
