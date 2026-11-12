@@ -5,11 +5,10 @@ import DashboardView from './components/DashboardView';
 import CivicHealthPanel from './components/CivicHealthPanel';
 import AIDetectionHub from './components/AIDetectionHub';
 import RealImageValidationTool from './components/RealImageValidationTool';
-import ExternalBenchmarkTool from './components/ExternalBenchmarkTool';
-import GISMapExplorer from './components/GISMapExplorer';
 import PredictorDashboard from './components/PredictorDashboard';
 import MaintenancePlanner from './components/MaintenancePlanner';
 import ReportGenerator from './components/ReportGenerator';
+import { subscribeToOrchestration, getAllActiveIncidents } from './services/incidentOrchestrationService';
 import { MOCK_NOTIFICATIONS, CHENNAI_HOTSPOTS, STUDY_AREAS } from './data/mockData';
 import './App.css';
 
@@ -21,11 +20,20 @@ export default function App() {
   const [selectedZone, setSelectedZone] = useState(null);
   const [currentStudyArea, setCurrentStudyArea] = useState(STUDY_AREAS.pallikaranai_velachery);
   const [visualDetections, setVisualDetections] = useState(null);
+  const [centralIncidents, setCentralIncidents] = useState(getAllActiveIncidents());
 
   // Initialize theme attribute on load
   useEffect(() => {
     document.documentElement.setAttribute('theme', theme);
   }, [theme]);
+
+  // Subscribe to central incident registry updates (Phase 17 Unified Pipeline)
+  useEffect(() => {
+    const unsubscribe = subscribeToOrchestration(({ incidents }) => {
+      setCentralIncidents(incidents);
+    });
+    return unsubscribe;
+  }, []);
 
   // Clear visual detections on study area change to prevent stale data bleed
   useEffect(() => {
@@ -65,6 +73,7 @@ export default function App() {
               currentStudyArea={currentStudyArea}
               setCurrentStudyArea={setCurrentStudyArea}
               visualDetections={visualDetections}
+              centralIncidents={centralIncidents}
             />
           )}
 
@@ -73,12 +82,14 @@ export default function App() {
               currentStudyArea={currentStudyArea}
               setCurrentStudyArea={setCurrentStudyArea}
               visualDetections={visualDetections}
+              centralIncidents={centralIncidents}
             />
           )}
           
           {activeTab === 'detection' && (
             <AIDetectionHub 
               onVisualDetectionsChange={setVisualDetections}
+              onNavigateTab={setActiveTab}
             />
           )}
 
@@ -86,33 +97,22 @@ export default function App() {
             <RealImageValidationTool />
           )}
 
-          {activeTab === 'benchmark' && (
-            <ExternalBenchmarkTool />
-          )}
-          
-          {activeTab === 'map' && (
-            <div style={{ height: 'calc(100vh - 120px)' }}>
-              <GISMapExplorer 
-                theme={theme}
-                currentStudyArea={currentStudyArea}
-                setCurrentStudyArea={setCurrentStudyArea}
-                selectedZone={selectedZone}
-                setSelectedZone={setSelectedZone}
-                visualDetections={visualDetections}
-              />
-            </div>
-          )}
-          
           {activeTab === 'predictor' && (
-            <PredictorDashboard />
+            <PredictorDashboard 
+              incidents={centralIncidents}
+            />
           )}
           
           {activeTab === 'planner' && (
-            <MaintenancePlanner />
+            <MaintenancePlanner 
+              issues={centralIncidents.length > 0 ? centralIncidents : CHENNAI_HOTSPOTS}
+            />
           )}
           
           {activeTab === 'reports' && (
-            <ReportGenerator />
+            <ReportGenerator 
+              issues={centralIncidents.length > 0 ? centralIncidents : CHENNAI_HOTSPOTS}
+            />
           )}
         </div>
       </main>

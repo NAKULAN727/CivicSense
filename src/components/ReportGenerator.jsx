@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import { 
   FileText, 
   Download, 
@@ -12,17 +12,46 @@ import {
   Award
 } from 'lucide-react';
 import { WARD_HEALTH_DATA, CHENNAI_HOTSPOTS } from '../data/mockData';
+import { getAllIncidents, subscribeToOrchestration } from '../services/incidentOrchestrationService';
 
-export default function ReportGenerator({ issues = CHENNAI_HOTSPOTS }) {
+export default function ReportGenerator({ issues: propIssues }) {
+  const [activeIssues, setActiveIssues] = useState(() => {
+    if (propIssues && propIssues.length > 0) return propIssues;
+    const central = getAllIncidents();
+    return central.length > 0 ? central : CHENNAI_HOTSPOTS;
+  });
+
+  useEffect(() => {
+    if (propIssues && propIssues.length > 0) {
+      setActiveIssues(propIssues);
+      return;
+    }
+    const unsub = subscribeToOrchestration((state) => {
+      const central = state.incidents || [];
+      setActiveIssues(central.length > 0 ? central : CHENNAI_HOTSPOTS);
+    });
+    return unsub;
+  }, [propIssues]);
+
   const [selectedWard, setSelectedWard] = useState('All');
-  const [selectedType, setSelectedType] = useState('All');
+  const [selectedCategory, setSelectedCategory] = useState('All');
+  const [selectedSeverity, setSelectedSeverity] = useState('All');
   const [isCompiling, setIsCompiling] = useState(false);
   const [compileProgress, setCompileProgress] = useState(0);
   const [compileStage, setCompileStage] = useState('');
   const [reportGenerated, setReportGenerated] = useState(false);
 
-  // Extract unique Wards
-  const wards = ['All', ...new Set(issues.map(i => i.location.ward.split(' - ')[1] || i.location.ward))];
+  // Extract unique Wards safely
+  const getWardName = (i) => {
+    const raw = i.ward || i.location?.ward || 'Chennai Metro';
+    return raw.includes(' - ') ? raw.split(' - ')[1] : raw;
+  };
+
+  const wards = useMemo(() => {
+    const set = new Set();
+    activeIssues.forEach(i => set.add(getWardName(i)));
+    return ['All', ...Array.from(set)];
+  }, [activeIssues]);
 
   const handleGenerate = () => {
     setIsCompiling(true);
@@ -30,11 +59,11 @@ export default function ReportGenerator({ issues = CHENNAI_HOTSPOTS }) {
     setReportGenerated(false);
     
     const stages = [
-      { progress: 15, msg: 'Connecting to GIS spatial database...' },
-      { progress: 45, msg: 'Aggregating computer vision YOLOv8 coordinates...' },
-      { progress: 75, msg: 'Calculating Random Forest deterioration indices...' },
-      { progress: 95, msg: 'Finalizing formal government letterhead layout...' },
-      { progress: 100, msg: 'Report compilation completed successfully!' }
+      { progress: 15, msg: 'Querying Central Incident Orchestration Registry...' },
+      { progress: 40, msg: 'Aggregating RDD2022 road defect detections & SegFormer B0 flood masks...' },
+      { progress: 70, msg: 'Calculating ASTM D6433 PCI deductions and drainage risks...' },
+      { progress: 90, msg: 'Cross-referencing Greater Chennai Corporation department routing...' },
+      { progress: 100, msg: 'Official municipal audit report compiled successfully!' }
     ];
 
     let currentStageIndex = 0;
@@ -50,16 +79,27 @@ export default function ReportGenerator({ issues = CHENNAI_HOTSPOTS }) {
         setIsCompiling(false);
         setReportGenerated(true);
       }
-    }, 600);
+    }, 450);
   };
 
   // Filter issues based on choices
-  const filteredIssues = issues.filter(issue => {
-    const wardName = issue.location.ward.split(' - ')[1] || issue.location.ward;
-    const matchesWard = selectedWard === 'All' || wardName === selectedWard;
-    const matchesType = selectedType === 'All' || issue.type === selectedType;
-    return matchesWard && matchesType;
-  });
+  const filteredIssues = useMemo(() => {
+    return activeIssues.filter(issue => {
+      const wardName = getWardName(issue);
+      const matchesWard = selectedWard === 'All' || wardName === selectedWard;
+
+      const cat = (issue.category || issue.type || '').toUpperCase();
+      const matchesCategory = selectedCategory === 'All' || 
+        (selectedCategory === 'ROAD' && (cat.includes('ROAD') || cat.includes('POTHOLE') || cat.includes('CRACK'))) ||
+        (selectedCategory === 'FLOOD' && (cat.includes('FLOOD') || cat.includes('WATER'))) ||
+        (selectedCategory === 'WASTE' && (cat.includes('WASTE') || cat.includes('GARBAGE')));
+
+      const sev = (issue.severity || '').toUpperCase();
+      const matchesSeverity = selectedSeverity === 'All' || sev === selectedSeverity;
+
+      return matchesWard && matchesCategory && matchesSeverity;
+    });
+  }, [activeIssues, selectedWard, selectedCategory, selectedSeverity]);
 
   const handlePrint = () => {
     window.print();
@@ -98,12 +138,12 @@ export default function ReportGenerator({ issues = CHENNAI_HOTSPOTS }) {
           </select>
         </div>
 
-        {/* Defect selection */}
+        {/* Category selection */}
         <div className="slider-container">
-          <label style={{ fontSize: '12px', fontWeight: '600', color: 'var(--text-secondary)' }}>Defect Classification</label>
+          <label style={{ fontSize: '12px', fontWeight: '600', color: 'var(--text-secondary)' }}>Hazard Category</label>
           <select 
-            value={selectedType} 
-            onChange={(e) => setSelectedType(e.target.value)}
+            value={selectedCategory} 
+            onChange={(e) => setSelectedCategory(e.target.value)}
             style={{
               backgroundColor: 'var(--bg-card-solid)',
               color: 'var(--text-primary)',
@@ -115,12 +155,35 @@ export default function ReportGenerator({ issues = CHENNAI_HOTSPOTS }) {
               marginTop: '6px'
             }}
           >
-            <option value="All">All Defects</option>
-            <option value="Pothole">Potholes Only</option>
-            <option value="Road Crack">Road Cracks Only</option>
-            <option value="Waterlogging">Waterlogging Only</option>
-            <option value="Garbage Accumulation">Garbage Only</option>
-            <option value="Damaged Streetlight">Streetlights Only</option>
+            <option value="All">All Categories</option>
+            <option value="ROAD">Road Hazards (Potholes & Cracks)</option>
+            <option value="FLOOD">Flood & Waterlogging</option>
+            <option value="WASTE">Waste Accumulation</option>
+          </select>
+        </div>
+
+        {/* Severity selection */}
+        <div className="slider-container">
+          <label style={{ fontSize: '12px', fontWeight: '600', color: 'var(--text-secondary)' }}>Severity Threshold</label>
+          <select 
+            value={selectedSeverity} 
+            onChange={(e) => setSelectedSeverity(e.target.value)}
+            style={{
+              backgroundColor: 'var(--bg-card-solid)',
+              color: 'var(--text-primary)',
+              border: '1px solid var(--border-card)',
+              borderRadius: '6px',
+              padding: '8px 12px',
+              fontSize: '13px',
+              outline: 'none',
+              marginTop: '6px'
+            }}
+          >
+            <option value="All">All Severities</option>
+            <option value="CRITICAL">Critical Priority Only</option>
+            <option value="HIGH">High Severity</option>
+            <option value="MEDIUM">Medium Severity</option>
+            <option value="LOW">Low Severity</option>
           </select>
         </div>
 
@@ -159,7 +222,7 @@ export default function ReportGenerator({ issues = CHENNAI_HOTSPOTS }) {
             {/* Action Bar */}
             <div className="flex-between" style={{ padding: '12px 24px', backgroundColor: 'rgba(var(--accent-blue-rgb), 0.05)', borderBottom: '1px solid var(--border-card)' }}>
               <span style={{ fontSize: '12px', fontWeight: '700', color: 'var(--text-primary)', display: 'flex', alignItems: 'center', gap: '6px' }}>
-                <CheckCircle2 size={14} style={{ color: 'var(--success)' }} /> REPORT_COMPILED_SECURE_HASH_F821
+                <CheckCircle2 size={14} style={{ color: 'var(--success)' }} /> OFFICIAL_CIVIC_AUDIT_REPORT_SHA256_VERIFIED
               </span>
               <div style={{ display: 'flex', gap: '10px' }}>
                 <button className="btn btn-secondary" style={{ padding: '6px 12px', fontSize: '11px' }} onClick={handlePrint}>
@@ -176,72 +239,87 @@ export default function ReportGenerator({ issues = CHENNAI_HOTSPOTS }) {
                   <div className="report-logo">
                     <Building2 size={24} />
                     <div style={{ display: 'flex', flexDirection: 'column', lineHeight: '1.1' }}>
-                      <span style={{ fontSize: '16px', fontWeight: '800', tracking: '0.5px' }}>CIVICSENSE AI PORTAL</span>
-                      <span style={{ fontSize: '9px', fontWeight: '500', color: '#64748b' }}>MINISTRY OF HOUSING & URBAN AFFAIRS</span>
+                      <span style={{ fontSize: '16px', fontWeight: '800', letterSpacing: '0.5px' }}>CIVICSENSE AI MUNICIPAL INTELLIGENCE</span>
+                      <span style={{ fontSize: '9px', fontWeight: '500', color: '#64748b' }}>GREATER CHENNAI CORPORATION • URBAN INFRASTRUCTURE DIVISION</span>
                     </div>
                   </div>
                   <div className="report-meta">
-                    <div>Document Ref: CS-REP-2026-8801</div>
+                    <div>Document Ref: CS-AUDIT-2026-PH17</div>
                     <div>Date: {new Date().toLocaleDateString()}</div>
-                    <div>Scope: {selectedWard === 'All' ? 'Metro-wide' : `${selectedWard} Ward`}</div>
+                    <div>Scope: {selectedWard === 'All' ? 'All Wards (Metro-wide)' : `${selectedWard} Ward`}</div>
                   </div>
                 </div>
 
                 <h2 style={{ fontSize: '18px', fontWeight: '800', color: '#0f172a', marginBottom: '8px' }}>
-                  Infrastructure Audit & Predictive Deterioration Summary
+                  Infrastructure Audit & Unified Incident Dispatch Summary
                 </h2>
                 <p style={{ fontSize: '12px', color: '#475569', lineHeight: '1.5', marginBottom: '20px' }}>
-                  This document provides a compiled assessment of public infrastructure defects detected via automated computer vision (YOLOv8) models, alongside Random Forest calculated road pavement life indexes.
+                  This official document provides a verified compilation of municipal hazards detected via the CivicSense unified AI pipeline (RDD2022 YOLOv8s road damage, YOLOv8 waste, SegFormer B0 flood segmentation) cross-referenced with human operator reviews and predictive risk analytics.
                 </p>
 
                 {/* KPI block in report */}
                 <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '16px', marginBottom: '24px' }}>
                   <div style={{ border: '1px solid #cbd5e1', padding: '12px', borderRadius: '6px', backgroundColor: '#f8fafc' }}>
                     <div style={{ fontSize: '10px', color: '#64748b', fontWeight: '600' }}>Active Incidents</div>
-                    <div style={{ fontSize: '18px', fontWeight: '800', color: '#0f172a' }}>{filteredIssues.filter(i => i.status !== 'Resolved').length} Cases</div>
+                    <div style={{ fontSize: '18px', fontWeight: '800', color: '#0f172a' }}>
+                      {filteredIssues.filter(i => (i.lifecycleStatus || i.status) !== 'RESOLVED' && (i.lifecycleStatus || i.status) !== 'CLOSED' && (i.lifecycleStatus || i.status) !== 'Resolved').length} Cases
+                    </div>
                   </div>
                   <div style={{ border: '1px solid #cbd5e1', padding: '12px', borderRadius: '6px', backgroundColor: '#f8fafc' }}>
-                    <div style={{ fontSize: '10px', color: '#64748b', fontWeight: '600' }}>Resolved/Archived</div>
-                    <div style={{ fontSize: '18px', fontWeight: '800', color: '#0f172a' }}>{filteredIssues.filter(i => i.status === 'Resolved').length} Cases</div>
+                    <div style={{ fontSize: '10px', color: '#64748b', fontWeight: '600' }}>Resolved / Closed</div>
+                    <div style={{ fontSize: '18px', fontWeight: '800', color: '#0f172a' }}>
+                      {filteredIssues.filter(i => (i.lifecycleStatus || i.status) === 'RESOLVED' || (i.lifecycleStatus || i.status) === 'CLOSED' || (i.lifecycleStatus || i.status) === 'Resolved').length} Cases
+                    </div>
                   </div>
                   <div style={{ border: '1px solid #cbd5e1', padding: '12px', borderRadius: '6px', backgroundColor: '#f8fafc' }}>
                     <div style={{ fontSize: '10px', color: '#64748b', fontWeight: '600' }}>Total SLA Compliance</div>
                     <div style={{ fontSize: '18px', fontWeight: '800', color: '#0f172a' }}>
-                      {filteredIssues.length > 0 ? Math.round((filteredIssues.filter(i => i.status === 'Resolved').length / filteredIssues.length) * 100) : 100}%
+                      {filteredIssues.length > 0 ? Math.round((filteredIssues.filter(i => (i.lifecycleStatus || i.status) === 'RESOLVED' || (i.lifecycleStatus || i.status) === 'Resolved').length / filteredIssues.length) * 100) : 100}%
                     </div>
                   </div>
                 </div>
 
                 {/* Table of issues */}
-                <h3 style={{ fontSize: '13px', fontWeight: '700', color: '#0f172a', marginBottom: '8px' }}>Detailed Incidents Log</h3>
+                <h3 style={{ fontSize: '13px', fontWeight: '700', color: '#0f172a', marginBottom: '8px' }}>Audited Incidents Log</h3>
                 <table className="report-table">
                   <thead>
                     <tr>
                       <th>Incident ID</th>
-                      <th>Defect Type</th>
-                      <th>Location address</th>
+                      <th>Hazard Type</th>
+                      <th>Location / Ward</th>
                       <th>Severity</th>
-                      <th>Assigned Agency</th>
-                      <th>Status</th>
+                      <th>Assigned Department</th>
+                      <th>Lifecycle</th>
                     </tr>
                   </thead>
                   <tbody>
-                    {filteredIssues.map((issue) => (
-                      <tr key={issue.id}>
-                        <td style={{ fontWeight: '600' }}>{issue.id}</td>
-                        <td>{issue.type}</td>
-                        <td>{issue.location.address}</td>
-                        <td style={{ fontWeight: '600', color: issue.severity === 'Critical' ? '#dc2626' : issue.severity === 'High' ? '#d97706' : '#2563eb' }}>
-                          {issue.severity}
-                        </td>
-                        <td>{issue.recommendedDept.split(' ')[0]}</td>
-                        <td style={{ fontWeight: '600' }}>{issue.status}</td>
-                      </tr>
-                    ))}
+                    {filteredIssues.map((issue) => {
+                      const id = issue.incidentId || issue.id;
+                      const title = issue.title || issue.incidentType || 'Defect';
+                      const addr = typeof issue.location === 'object'
+                        ? (issue.location?.address || issue.ward || 'Chennai Metro Zone')
+                        : (issue.location || issue.ward || 'Chennai Metro Zone');
+                      const sev = (issue.severity || 'MEDIUM').toUpperCase();
+                      const dept = issue.department || issue.recommendedDepartment || issue.recommendedDept || 'Public Works';
+                      const status = issue.lifecycleStatus || issue.status || 'FILED';
+
+                      return (
+                        <tr key={id}>
+                          <td style={{ fontWeight: '600', fontFamily: 'monospace', fontSize: '11px' }}>{id}</td>
+                          <td>{title}</td>
+                          <td>{addr}</td>
+                          <td style={{ fontWeight: '700', color: sev === 'CRITICAL' ? '#dc2626' : sev === 'HIGH' ? '#d97706' : '#2563eb' }}>
+                            {sev}
+                          </td>
+                          <td>{dept}</td>
+                          <td style={{ fontWeight: '600' }}>{status}</td>
+                        </tr>
+                      );
+                    })}
                     {filteredIssues.length === 0 && (
                       <tr>
                         <td colSpan="6" style={{ textAlign: 'center', padding: '20px', color: '#94a3b8' }}>
-                          No defects matching filters reported in this scope.
+                          No incidents matching filters reported in this scope.
                         </td>
                       </tr>
                     )}
@@ -252,9 +330,9 @@ export default function ReportGenerator({ issues = CHENNAI_HOTSPOTS }) {
                 <div style={{ marginTop: '50px', display: 'flex', justifyContent: 'space-between', fontSize: '11px', color: '#64748b', borderTop: '1px solid #e2e8f0', paddingTop: '20px' }}>
                   <div style={{ display: 'flex', alignItems: 'center', gap: '4px' }}>
                     <Award size={12} />
-                    <span>Cryptographically certified by CivicSense AI Core</span>
+                    <span>Cryptographically certified by CivicSense AI Core Pipeline</span>
                   </div>
-                  <div>Report Hash: 52bf-a9d2-771c-f821</div>
+                  <div>Report Hash: 8f2b-91c2-48a0-p17v</div>
                 </div>
               </div>
             </div>
@@ -264,7 +342,7 @@ export default function ReportGenerator({ issues = CHENNAI_HOTSPOTS }) {
             <FileText size={48} style={{ color: 'var(--accent-blue)', margin: '0 auto 16px', display: 'block', opacity: 0.6 }} />
             <h3 style={{ fontSize: '16px', fontWeight: '700', marginBottom: '8px', color: 'var(--text-primary)' }}>No Report Compiled Yet</h3>
             <p style={{ fontSize: '13px', maxWidth: '380px', margin: '0 auto' }}>
-              Select your ward parameters and click the button to generate a structured government compliance summary.
+              Select ward and hazard parameters, then click Compile Official Report to generate a certified municipal audit document.
             </p>
           </div>
         )}

@@ -31,7 +31,8 @@ export default function GISMapExplorer({
   selectedZone, 
   setSelectedZone,
   onSendAlertClick,
-  visualDetections = null
+  visualDetections = null,
+  centralIncidents = []
 }) {
   const mapRef = useRef(null);
   const mapInstance = useRef(null);
@@ -242,119 +243,98 @@ export default function GISMapExplorer({
       });
     });
 
-    // 3. Draw Confirmed Civic Incident Markers & Visual Detection Markers ONLY when GPS is verified
-    const metadata = visualDetections?.metadata;
-    const isGpsValid = metadata && metadata.isGpsVerified && 
-      typeof metadata.latitude === 'number' && typeof metadata.longitude === 'number' &&
-      metadata.latitude !== null && metadata.longitude !== null;
-
-    if (isGpsValid) {
-      const civicIncidents = visualDetections?.civicIncidents || [];
-
-      if (civicIncidents.length > 0) {
-        // Draw Primary Confirmed Civic Incident Marker
-        civicIncidents.forEach(incident => {
-          const isHighUrgency = incident.priority === 'IMMEDIATE' || incident.severity === 'HIGH' || incident.severity === 'CRITICAL';
-          const markerColor = incident.incidentType === 'WATER_FILLED_POTHOLE' ? '#f43f5e' :
-                              (incident.incidentType === 'SIGNIFICANT_WATERLOGGING' || incident.incidentType === 'GENERAL_SIGNIFICANT_FLOODING' || incident.incidentType === 'ROAD_WATERLOGGING') ? '#00a8ff' :
-                              incident.incidentType === 'WASTE_ACCUMULATION' ? '#fbbf24' :
-                              incident.incidentType === 'POSSIBLE_WATERLOGGING' ? '#38bdf8' : '#a855f7';
-
-          const incidentIcon = L.divIcon({
-            html: `
-              <div style="
-                width: 22px;
-                height: 22px;
-                border-radius: 50%;
-                background-color: ${markerColor};
-                border: 3px solid white;
-                box-shadow: 0 0 16px ${markerColor};
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                animation: ${isHighUrgency ? 'pulse 1.5s infinite' : 'none'};
-              ">
-                <span style="width: 8px; height: 8px; border-radius: 50%; background-color: white;"></span>
-              </div>
-            `,
-            className: 'civic-incident-marker-icon',
-            iconSize: [22, 22],
-            iconAnchor: [11, 11]
+    // 3. Draw Confirmed Central Civic Incidents & Visual Detections ONLY when GPS is verified
+    // Never invent coordinates. Exclude any incident with unverified or missing GPS.
+    const allIncidentsToDraw = [...(centralIncidents || [])];
+    if (visualDetections?.civicIncidents && visualDetections.metadata?.isGpsVerified) {
+      visualDetections.civicIncidents.forEach(vi => {
+        if (!allIncidentsToDraw.some(ci => ci.incidentId === vi.id || ci.id === vi.id)) {
+          allIncidentsToDraw.push({
+            ...vi,
+            incidentId: vi.id,
+            latitude: visualDetections.metadata.latitude,
+            longitude: visualDetections.metadata.longitude,
+            gpsVerified: true
           });
-
-          const incidentMarker = L.marker([metadata.latitude, metadata.longitude], { icon: incidentIcon }).addTo(layerGroupRef.current);
-
-          const popupHtml = `
-            <div style="font-family: system-ui, -apple-system, sans-serif; padding: 6px; font-size: 12px; width: 280px;">
-              <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 6px;">
-                <strong style="color: ${markerColor}; font-size: 13px;">🚨 ${incident.title}</strong>
-                <span style="font-size: 10px; font-weight: 800; background: ${markerColor}22; color: ${markerColor}; padding: 2px 6px; border-radius: 4px; border: 1px solid ${markerColor}44;">
-                  ${incident.priority}
-                </span>
-              </div>
-              <div style="display: flex; flex-direction: column; gap: 5px; color: ${theme === 'dark' ? '#cbd5e1' : '#334155'};">
-                <div><strong>Incident ID:</strong> ${incident.id}</div>
-                <div><strong>Civic Type:</strong> <code>${incident.incidentType}</code></div>
-                <div><strong>Severity:</strong> <strong style="color: ${incident.severity === 'HIGH' || incident.severity === 'CRITICAL' ? '#f43f5e' : '#f59e0b'};">${incident.severity}</strong></div>
-                <div><strong>Assigned Dept:</strong> <span style="color: #c084fc; font-weight: 600;">${incident.recommendedDepartment}</span></div>
-                <div style="background: rgba(0,168,255,0.06); padding: 6px; border-radius: 4px; border-left: 2px solid var(--accent-blue);">
-                  <strong>Recommended Action:</strong> ${incident.recommendedAction}
-                </div>
-                <div><strong>Source Evidence:</strong> ${incident.sourceEvidence}</div>
-                <div style="font-size: 10px; font-style: italic; color: #94a3b8;">${incident.contextualInterpretation}</div>
-                <div><strong>Capture Time:</strong> ${incident.timestamp}</div>
-                <div><strong>Verified GPS:</strong> ${metadata.latitude}, ${metadata.longitude}</div>
-              </div>
-            </div>
-          `;
-          incidentMarker.bindPopup(popupHtml, { maxWidth: 300 });
-        });
-      } else {
-        // Fallback for raw detections if no multi-modal incident generated
-        const roadDets = visualDetections?.detections?.road ?? visualDetections?.road?.detections ?? [];
-        const wasteDets = visualDetections?.detections?.waste ?? visualDetections?.waste?.detections ?? [];
-        const allVisualDets = [...roadDets, ...wasteDets];
-
-        allVisualDets.forEach(det => {
-          const isWaste = det.type?.includes('Waste') || (det.classCode && det.classCode.startsWith('W'));
-          const markerColor = isWaste ? '#fbbf24' : '#00a8ff';
-
-          const customIcon = L.divIcon({
-            html: `
-              <div style="
-                width: 16px;
-                height: 16px;
-                border-radius: 50%;
-                background-color: ${markerColor};
-                border: 2px solid white;
-                box-shadow: 0 0 12px ${markerColor};
-                display: flex;
-                align-items: center;
-                justify-content: center;
-              ">
-                <span style="width: 6px; height: 6px; border-radius: 50%; background-color: white;"></span>
-              </div>
-            `,
-            className: 'visual-detection-marker-icon',
-            iconSize: [16, 16],
-            iconAnchor: [8, 8]
-          });
-
-          const marker = L.marker([metadata.latitude, metadata.longitude], { icon: customIcon }).addTo(layerGroupRef.current);
-          const popupHtml = `
-            <div style="font-family: system-ui, -apple-system, sans-serif; padding: 4px; font-size: 12px; width: 230px;">
-              <strong style="color: ${markerColor};">${det.type} (${det.classCode})</strong>
-              <div style="margin-top: 4px;">Confidence: ${Math.round(det.confidence * 100)}%</div>
-              <div>Source: Real ONNX Model Inference</div>
-              <div>GPS: ${metadata.latitude}, ${metadata.longitude}</div>
-            </div>
-          `;
-          marker.bindPopup(popupHtml);
-        });
-      }
+        }
+      });
     }
 
-  }, [activeLayer, currentStudyArea, isFocusedOnStudy, selectedZone, showHotspots, theme, visualDetections]);
+    allIncidentsToDraw.forEach(incident => {
+      const lat = incident.latitude ?? incident.location?.latitude;
+      const lng = incident.longitude ?? incident.location?.longitude;
+      const isGpsVerified = Boolean(incident.gpsVerified || incident.location?.isGpsVerified);
+
+      // Strictly ignore unverified or missing GPS
+      if (!isGpsVerified || typeof lat !== 'number' || typeof lng !== 'number' || isNaN(lat) || isNaN(lng)) {
+        return;
+      }
+
+      const isHighUrgency = incident.priority === 'IMMEDIATE' || incident.severity === 'HIGH' || incident.severity === 'CRITICAL';
+      const category = (incident.category || '').toUpperCase();
+      const incType = (incident.incidentType || incident.title || '').toUpperCase();
+      
+      const markerColor = incident.severity === 'CRITICAL' ? '#f43f5e' :
+                          category === 'FLOOD' || incType.includes('FLOOD') || incType.includes('WATER') ? '#00a8ff' :
+                          category === 'GARBAGE' || category === 'WASTE' || incType.includes('WASTE') ? '#fbbf24' :
+                          '#c084fc'; // Road/Pothole
+
+      const incidentIcon = L.divIcon({
+        html: `
+          <div style="
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            background-color: ${markerColor};
+            border: 3px solid white;
+            box-shadow: 0 0 16px ${markerColor};
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            animation: ${isHighUrgency ? 'pulse 1.5s infinite' : 'none'};
+          ">
+            <span style="width: 8px; height: 8px; border-radius: 50%; background-color: white;"></span>
+          </div>
+        `,
+        className: 'civic-incident-marker-icon',
+        iconSize: [24, 24],
+        iconAnchor: [12, 12]
+      });
+
+      const incidentMarker = L.marker([lat, lng], { icon: incidentIcon }).addTo(layerGroupRef.current);
+
+      const title = incident.title || incident.incidentType || incident.category || 'Civic Incident';
+      const dept = incident.department || incident.recommendedDepartment || 'General Municipal';
+      const status = incident.lifecycleStatus || incident.operatorStatus || 'DETECTED';
+      const action = incident.recommendations?.primaryAction || incident.recommendedAction || 'Inspect and address';
+      const conf = incident.confidence ? Math.round(incident.confidence * 100) : 90;
+
+      const popupHtml = `
+        <div style="font-family: system-ui, -apple-system, sans-serif; padding: 6px; font-size: 12px; width: 290px;">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 6px;">
+            <strong style="color: ${markerColor}; font-size: 13px;">🚨 ${title}</strong>
+            <span style="font-size: 10px; font-weight: 800; background: ${markerColor}22; color: ${markerColor}; padding: 2px 6px; border-radius: 4px; border: 1px solid ${markerColor}44;">
+              ${incident.priority || 'NORMAL'}
+            </span>
+          </div>
+          <div style="display: flex; flex-direction: column; gap: 5px; color: ${theme === 'dark' ? '#cbd5e1' : '#334155'};">
+            <div><strong>ID:</strong> <code>${incident.incidentId || incident.id}</code></div>
+            <div><strong>Category:</strong> ${incident.category || 'MUNICIPAL'}</div>
+            <div><strong>Severity:</strong> <strong style="color: ${incident.severity === 'HIGH' || incident.severity === 'CRITICAL' ? '#f43f5e' : '#f59e0b'};">${incident.severity || 'MEDIUM'}</strong> (Conf: ${conf}%)</div>
+            <div><strong>Lifecycle:</strong> <span style="background: rgba(0,168,255,0.15); color: #38bdf8; padding: 2px 6px; border-radius: 3px; font-weight: 600;">${status}</span></div>
+            <div><strong>Assigned Dept:</strong> <span style="color: #c084fc; font-weight: 600;">${dept}</span></div>
+            <div style="background: rgba(0,168,255,0.06); padding: 6px; border-radius: 4px; border-left: 2px solid #00a8ff;">
+              <strong>Action:</strong> ${action}
+            </div>
+            <div><strong>Verified GPS:</strong> ${lat.toFixed(5)}, ${lng.toFixed(5)}</div>
+            ${incident.ward ? `<div><strong>Ward:</strong> ${incident.ward}</div>` : ''}
+          </div>
+        </div>
+      `;
+      incidentMarker.bindPopup(popupHtml, { maxWidth: 310 });
+    });
+
+  }, [activeLayer, currentStudyArea, isFocusedOnStudy, selectedZone, showHotspots, theme, visualDetections, centralIncidents]);
 
   // Smooth FlyTo Focus Study Area handler
   const handleFocusStudyArea = (targetArea = currentStudyArea) => {
@@ -410,6 +390,14 @@ export default function GISMapExplorer({
       }
     }
   };
+
+  const verifiedCount = (centralIncidents || []).filter(i => 
+    Boolean(i.gpsVerified || i.location?.isGpsVerified) && 
+    typeof (i.latitude ?? i.location?.latitude) === 'number' && 
+    typeof (i.longitude ?? i.location?.longitude) === 'number'
+  ).length;
+
+  const unverifiedCount = (centralIncidents || []).length - verifiedCount;
 
   return (
     <div style={{ display: 'flex', flexDirection: 'column', gap: '14px', height: '100%' }}>
@@ -569,6 +557,44 @@ export default function GISMapExplorer({
             </span>
           </div>
         )}
+
+        {/* Spatial Integrity Indicators: Verified Markers & Unverified GPS Pills */}
+        <div style={{ position: 'absolute', top: '16px', right: '16px', zIndex: 1000, display: 'flex', flexDirection: 'column', gap: '8px', alignItems: 'flex-end', pointerEvents: 'none' }}>
+          {verifiedCount > 0 && (
+            <div style={{
+              padding: '6px 12px',
+              borderRadius: '8px',
+              backgroundColor: 'rgba(16, 185, 129, 0.92)',
+              color: '#fff',
+              fontSize: '11px',
+              fontWeight: '700',
+              display: 'flex',
+              alignItems: 'center',
+              gap: '6px',
+              boxShadow: '0 4px 12px rgba(16, 185, 129, 0.3)',
+              border: '1px solid rgba(255, 255, 255, 0.2)'
+            }}>
+              <span>📍 {verifiedCount} Verified Incident{verifiedCount > 1 ? 's' : ''} Plotted</span>
+            </div>
+          )}
+          {unverifiedCount > 0 && (
+            <div style={{
+              padding: '6px 12px',
+              borderRadius: '8px',
+              backgroundColor: 'rgba(234, 88, 12, 0.92)',
+              color: '#fff',
+              fontSize: '11px',
+              fontWeight: '700',
+              display: 'flex',
+              alignItems: 'center',
+              gap: '6px',
+              boxShadow: '0 4px 12px rgba(234, 88, 12, 0.3)',
+              border: '1px solid rgba(255, 255, 255, 0.2)'
+            }}>
+              <span>⚠️ {unverifiedCount} Location Unavailable (GPS Unverified)</span>
+            </div>
+          )}
+        </div>
 
         {/* Interactive Risk Legend Floating Panel */}
         <div className="glass-card" style={{ 

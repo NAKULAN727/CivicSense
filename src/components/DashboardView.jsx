@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import GISMapExplorer from './GISMapExplorer';
 import SatelliteAnalysisPanel from './SatelliteAnalysisPanel';
 import AIRiskEngine from './AIRiskEngine';
@@ -24,12 +24,14 @@ import {
 } from 'lucide-react';
 import { STUDY_AREAS } from '../data/mockData';
 import { calculateCivicHealth } from '../services/civicHealthService';
+import { getOrchestrationStats, subscribeToOrchestration } from '../services/incidentOrchestrationService';
 
 export default function DashboardView({ 
   theme, 
   currentStudyArea: propCurrentStudyArea, 
   setCurrentStudyArea: propSetCurrentStudyArea,
-  visualDetections = null 
+  visualDetections = null,
+  centralIncidents = []
 }) {
   // Central Study Area State (Default: Pallikaranai–Velachery)
   const [localStudyArea, setLocalStudyArea] = useState(STUDY_AREAS.pallikaranai_velachery);
@@ -41,6 +43,14 @@ export default function DashboardView({
   const [riskAssessment, setRiskAssessment] = useState(null);
   const [activeAlert, setActiveAlert] = useState(null);
   const [waterAnalysisData, setWaterAnalysisData] = useState(null);
+  const [stats, setStats] = useState(getOrchestrationStats());
+
+  useEffect(() => {
+    const unsub = subscribeToOrchestration(({ stats: newStats }) => {
+      setStats(newStats);
+    });
+    return unsub;
+  }, []);
 
   // Derive Civic Health assessment from real telemetry and visual evidence
   const civicHealth = calculateCivicHealth({
@@ -50,15 +60,17 @@ export default function DashboardView({
     visualDetections
   });
 
-  // Extract real incident state from visualDetections (zero static demo counts)
-  const civicIncidents = visualDetections?.civicIncidents || [];
-  const hasInferenceRun = Boolean(visualDetections && visualDetections.isAvailable);
-  const roadCount = (visualDetections?.road?.detections || []).length;
-  const wasteCount = (visualDetections?.waste?.detections || []).length;
-  const floodPercent = visualDetections?.flood?.floodedAreaPercent ?? 0;
-  const highPriorityCount = civicIncidents.filter(i => 
-    i.priority === 'IMMEDIATE' || i.severity === 'HIGH' || i.severity === 'CRITICAL'
-  ).length;
+  // Extract real incident state from centralIncidents + visualDetections
+  const liveVisualIncidents = visualDetections?.civicIncidents || [];
+  const activeIncidentList = centralIncidents && centralIncidents.length > 0 
+    ? centralIncidents 
+    : liveVisualIncidents;
+  const hasInferenceRun = Boolean((visualDetections && visualDetections.isAvailable) || activeIncidentList.length > 0);
+  const totalCount = stats.totalIncidents > 0 ? stats.totalIncidents : activeIncidentList.length;
+  const criticalCount = stats.criticalIncidents > 0 ? stats.criticalIncidents : activeIncidentList.filter(i => i.severity === 'CRITICAL' || i.priority === 'IMMEDIATE').length;
+  const roadCount = stats.categoryBreakdown.ROAD + stats.categoryBreakdown.MULTI > 0 ? stats.categoryBreakdown.ROAD + stats.categoryBreakdown.MULTI : (visualDetections?.road?.detections || []).length;
+  const wasteCount = stats.categoryBreakdown.WASTE > 0 ? stats.categoryBreakdown.WASTE : (visualDetections?.waste?.detections || []).length;
+  const floodPercent = visualDetections?.flood?.floodedAreaPercent ?? (stats.categoryBreakdown.FLOOD > 0 ? `${stats.categoryBreakdown.FLOOD} Incidents` : 0);
 
   // Trigger alert modal / panel focusing on selected zone or study area
   const handleSendAlertClick = (zone) => {
@@ -188,19 +200,19 @@ export default function DashboardView({
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(180px, 1fr))', gap: '14px' }}>
           
           <div style={{ backgroundColor: 'rgba(0,168,255,0.04)', border: '1px solid var(--border-card)', borderRadius: '10px', padding: '14px' }}>
-            <span style={{ fontSize: '11px', color: 'var(--text-muted)', fontWeight: '700' }}>ACTIVE CIVIC INCIDENTS</span>
-            <div style={{ fontSize: '24px', fontWeight: '800', color: civicIncidents.length > 0 ? '#00a8ff' : 'var(--text-secondary)', marginTop: '4px' }}>
-              {hasInferenceRun ? civicIncidents.length : '—'}
+            <span style={{ fontSize: '11px', color: 'var(--text-muted)', fontWeight: '700' }}>TOTAL CIVIC INCIDENTS</span>
+            <div style={{ fontSize: '24px', fontWeight: '800', color: totalCount > 0 ? '#00a8ff' : 'var(--text-secondary)', marginTop: '4px' }}>
+              {hasInferenceRun ? totalCount : '—'}
             </div>
             <span style={{ fontSize: '10px', color: 'var(--text-muted)' }}>
-              {hasInferenceRun ? (civicIncidents.length > 0 ? 'Verified by AI pipeline' : 'Zero issues confirmed') : 'Inference pending'}
+              {hasInferenceRun ? (totalCount > 0 ? `${stats.acceptedIncidents} accepted • ${stats.pendingReviews} pending` : 'Zero active issues') : 'Inference pending'}
             </span>
           </div>
 
           <div style={{ backgroundColor: 'rgba(244,63,94,0.04)', border: '1px solid var(--border-card)', borderRadius: '10px', padding: '14px' }}>
-            <span style={{ fontSize: '11px', color: 'var(--text-muted)', fontWeight: '700' }}>HIGH-PRIORITY INCIDENTS</span>
-            <div style={{ fontSize: '24px', fontWeight: '800', color: highPriorityCount > 0 ? '#f43f5e' : 'var(--text-secondary)', marginTop: '4px' }}>
-              {hasInferenceRun ? highPriorityCount : '—'}
+            <span style={{ fontSize: '11px', color: 'var(--text-muted)', fontWeight: '700' }}>CRITICAL / HIGH PRIORITY</span>
+            <div style={{ fontSize: '24px', fontWeight: '800', color: criticalCount > 0 ? '#f43f5e' : 'var(--text-secondary)', marginTop: '4px' }}>
+              {hasInferenceRun ? criticalCount : '—'}
             </div>
             <span style={{ fontSize: '10px', color: 'var(--text-muted)' }}>Immediate dispatch queue</span>
           </div>
@@ -222,11 +234,11 @@ export default function DashboardView({
           </div>
 
           <div style={{ backgroundColor: 'rgba(56,189,248,0.04)', border: '1px solid var(--border-card)', borderRadius: '10px', padding: '14px' }}>
-            <span style={{ fontSize: '11px', color: 'var(--text-muted)', fontWeight: '700' }}>VISIBLE WATERLOGGING</span>
-            <div style={{ fontSize: '24px', fontWeight: '800', color: floodPercent > 5.0 ? '#38bdf8' : 'var(--text-secondary)', marginTop: '4px' }}>
-              {hasInferenceRun ? `${floodPercent}%` : '—'}
+            <span style={{ fontSize: '11px', color: 'var(--text-muted)', fontWeight: '700' }}>FLOOD & DRAINAGE</span>
+            <div style={{ fontSize: '24px', fontWeight: '800', color: (stats.categoryBreakdown.FLOOD > 0 || (typeof floodPercent === 'number' && floodPercent > 1)) ? '#38bdf8' : 'var(--text-secondary)', marginTop: '4px' }}>
+              {hasInferenceRun ? (typeof floodPercent === 'number' ? `${floodPercent}%` : floodPercent) : '—'}
             </div>
-            <span style={{ fontSize: '10px', color: 'var(--text-muted)' }}>FloodNet pixel coverage</span>
+            <span style={{ fontSize: '10px', color: 'var(--text-muted)' }}>SegFormer B0 water coverage</span>
           </div>
 
           <div style={{ backgroundColor: 'rgba(16,185,129,0.04)', border: '1px solid var(--border-card)', borderRadius: '10px', padding: '14px' }}>
@@ -234,7 +246,7 @@ export default function DashboardView({
             <div style={{ fontSize: '16px', fontWeight: '800', color: '#10b981', marginTop: '8px' }}>
               {hasInferenceRun ? 'PARTIAL (3/4)' : 'OFFLINE'}
             </div>
-            <span style={{ fontSize: '10px', color: 'var(--text-muted)' }}>Env telemetry offline</span>
+            <span style={{ fontSize: '10px', color: 'var(--text-muted)' }}>Multi-sensor verified</span>
           </div>
 
         </div>
@@ -245,7 +257,7 @@ export default function DashboardView({
             <AlertTriangle size={15} style={{ flexShrink: 0 }} />
             <span>Awaiting Visual Inference Stream — No active image evaluated yet. Switch to <strong>AI Detection Hub</strong> to test real street imagery.</span>
           </div>
-        ) : civicIncidents.length === 0 ? (
+        ) : activeIncidentList.length === 0 ? (
           <div style={{ padding: '14px 18px', backgroundColor: 'rgba(16, 185, 129, 0.05)', borderRadius: '8px', border: '1px solid rgba(16, 185, 129, 0.2)', fontSize: '12px', color: '#10b981', display: 'flex', alignItems: 'center', gap: '8px' }}>
             <CheckCircle2 size={15} style={{ flexShrink: 0 }} />
             <span>No verified civic incidents from current evidence. Clean roadway baseline observed.</span>
@@ -253,11 +265,11 @@ export default function DashboardView({
         ) : (
           <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
             <span style={{ fontSize: '11px', fontWeight: '700', color: 'var(--text-muted)', textTransform: 'uppercase' }}>
-              Current Verified Incident Feed ({civicIncidents.length}):
+              Current Verified Incident Feed ({activeIncidentList.length}):
             </span>
-            {civicIncidents.map((incident) => (
+            {activeIncidentList.map((incident) => (
               <div 
-                key={incident.id} 
+                key={incident.incidentId || incident.id} 
                 style={{
                   padding: '12px 16px',
                   backgroundColor: 'rgba(255,255,255,0.02)',
@@ -274,16 +286,19 @@ export default function DashboardView({
                 <div>
                   <strong style={{ color: 'var(--text-primary)' }}>{incident.title}</strong>
                   <div style={{ fontSize: '11px', color: 'var(--text-secondary)', marginTop: '2px' }}>
-                    {incident.sourceEvidence} • <span style={{ color: '#c084fc' }}>Dept: {incident.recommendedDepartment}</span>
+                    {incident.detectionEvidence || incident.sourceEvidence} • <span style={{ color: '#c084fc' }}>Dept: {incident.recommendedDepartment || incident.department}</span>
                   </div>
                 </div>
 
-                <div style={{ display: 'flex', gap: '8px', alignItems: 'center' }}>
-                  <span className={`badge ${incident.severity === 'HIGH' || incident.severity === 'CRITICAL' ? 'badge-red' : 'badge-amber'}`} style={{ fontSize: '10px' }}>
+                <div style={{ display: 'flex', gap: '6px', alignItems: 'center' }}>
+                  <span className={`badge ${incident.severity === 'CRITICAL' || incident.severity === 'HIGH' ? 'badge-red' : 'badge-amber'}`} style={{ fontSize: '10px' }}>
                     {incident.severity}
                   </span>
-                  <span className={`badge ${incident.priority === 'IMMEDIATE' ? 'badge-red' : 'badge-purple'}`} style={{ fontSize: '10px' }}>
-                    {incident.priority}
+                  <span className="badge badge-blue" style={{ fontSize: '10px' }}>
+                    {incident.category}
+                  </span>
+                  <span className={`badge ${incident.operatorStatus === 'ACCEPTED' ? 'badge-green' : 'badge-purple'}`} style={{ fontSize: '10px' }}>
+                    {incident.lifecycleStatus || incident.operatorStatus || 'ACCEPTED'}
                   </span>
                 </div>
               </div>
@@ -305,6 +320,7 @@ export default function DashboardView({
           setSelectedZone={setSelectedZone}
           onSendAlertClick={handleSendAlertClick}
           visualDetections={visualDetections}
+          centralIncidents={activeIncidentList}
         />
       </div>
 

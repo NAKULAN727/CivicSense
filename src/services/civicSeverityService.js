@@ -522,7 +522,12 @@ export function formatCanonicalIncident(inc) {
     floodClassification: inc.floodClassification
   });
 
-  const department = inc.recommendedDepartment || inc.department || "Municipal Administration";
+  const defaultCategoryDept = category === 'ROAD' ? 'Greater Chennai Corporation - Bus Route Roads & Pavements' :
+    category === 'WASTE' ? 'Greater Chennai Corporation - Solid Waste Management' :
+    category === 'FLOOD' ? 'Greater Chennai Corporation - Storm Water Drains & Rivers' :
+    'Greater Chennai Corporation - General Municipal Administration';
+
+  const department = inc.recommendedDepartment || inc.department || defaultCategoryDept;
   const ward = inc.wardName || inc.ward || "UNASSIGNED";
   const opStatus = inc.operatorStatus || "NEEDS REVIEW";
   const lifeStatus = inc.incidentStatus || inc.lifecycleStatus || "NEW";

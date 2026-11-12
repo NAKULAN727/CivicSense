@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import confetti from 'canvas-confetti';
 import { 
   Check, 
@@ -8,21 +8,81 @@ import {
   Briefcase, 
   TrendingUp, 
   Award,
-  AlertTriangle
+  AlertTriangle,
+  DollarSign,
+  ShieldCheck
 } from 'lucide-react';
 
 import { CHENNAI_HOTSPOTS } from '../data/mockData';
+import { 
+  getAllIncidents, 
+  subscribeToOrchestration, 
+  updateIncidentLifecycle 
+} from '../services/incidentOrchestrationService';
 
-export default function MaintenancePlanner({ issues = CHENNAI_HOTSPOTS, updateIssueStatus = () => {} }) {
+export default function MaintenancePlanner({ issues: propIssues, updateIssueStatus = () => {} }) {
+  const [activeIssues, setActiveIssues] = useState(() => {
+    if (propIssues && propIssues.length > 0) return propIssues;
+    const central = getAllIncidents();
+    return central.length > 0 ? central : CHENNAI_HOTSPOTS;
+  });
+
+  useEffect(() => {
+    if (propIssues && propIssues.length > 0) {
+      setActiveIssues(propIssues);
+      return;
+    }
+    const unsub = subscribeToOrchestration((state) => {
+      const central = state.incidents || [];
+      setActiveIssues(central.length > 0 ? central : CHENNAI_HOTSPOTS);
+    });
+    return unsub;
+  }, [propIssues]);
+
+  // Normalizer helper for status categorization
+  const isPending = (i) => {
+    const s = (i.lifecycleStatus || i.status || '').toUpperCase();
+    return s.includes('PENDING') || s === 'DETECTED' || s === 'AWAITING_REVIEW' || s === 'ACCEPTED' || s === 'FILED';
+  };
+
+  const isInProgress = (i) => {
+    const s = (i.lifecycleStatus || i.status || '').toUpperCase();
+    return s.includes('PROGRESS') || s === 'DEPARTMENT_ASSIGNED' || s === 'IN_PROGRESS';
+  };
+
+  const isResolved = (i) => {
+    const s = (i.lifecycleStatus || i.status || '').toUpperCase();
+    return s.includes('RESOLVED') || s === 'VERIFIED' || s === 'CLOSED';
+  };
+
   // Categorize issues by status
-  const pendingIssues = issues.filter(i => i.status === 'Pending Review');
-  const inProgressIssues = issues.filter(i => i.status === 'Assigned / In Progress');
-  const resolvedIssues = issues.filter(i => i.status === 'Resolved');
+  const pendingIssues = activeIssues.filter(isPending);
+  const inProgressIssues = activeIssues.filter(isInProgress);
+  const resolvedIssues = activeIssues.filter(isResolved);
 
   const handleStatusTransition = (id, newStatus) => {
+    // Determine canonical lifecycle status
+    const targetLifecycle = newStatus === 'Resolved' ? 'RESOLVED' : 'IN_PROGRESS';
+    
+    // Update central orchestration registry
+    updateIncidentLifecycle(id, targetLifecycle);
+
+    // Call legacy prop if provided
     updateIssueStatus(id, newStatus);
+
+    // Update local state fallback
+    setActiveIssues(prev => prev.map(item => {
+      if (item.id === id || item.incidentId === id) {
+        return {
+          ...item,
+          status: newStatus,
+          lifecycleStatus: targetLifecycle
+        };
+      }
+      return item;
+    }));
+
     if (newStatus === 'Resolved') {
-      // Fire confetti animation
       confetti({
         particleCount: 80,
         spread: 60,
@@ -33,21 +93,37 @@ export default function MaintenancePlanner({ issues = CHENNAI_HOTSPOTS, updateIs
   };
 
   const getPriorityColor = (severity) => {
-    switch (severity) {
-      case 'Critical': return '#ef4444';
-      case 'High': return '#f59e0b';
-      default: return '#00a8ff';
+    const sev = (severity || '').toUpperCase();
+    switch (sev) {
+      case 'CRITICAL': return '#ef4444';
+      case 'HIGH': return '#f59e0b';
+      case 'MEDIUM': return '#00a8ff';
+      default: return '#10b981';
     }
   };
 
   const renderCard = (issue) => {
-    const priorityColor = getPriorityColor(issue.severity);
+    const id = issue.incidentId || issue.id;
+    const priorityColor = getPriorityColor(issue.severity || issue.priority);
+    const title = issue.title || issue.incidentType || 'Civic Issue';
+    const desc = issue.description || issue.sourceEvidence || issue.recommendations?.primaryAction || 'Scheduled municipal task';
     
+    const address = typeof issue.location === 'object' 
+      ? (issue.location?.address || (issue.location?.latitude ? `${issue.location.latitude.toFixed(4)}, ${issue.location.longitude.toFixed(4)}` : issue.ward || 'Chennai Metro Zone'))
+      : (issue.location || issue.ward || 'Chennai Metro Zone');
+
+    const sla = issue.slaHours || issue.recommendations?.slaHours || (issue.severity === 'CRITICAL' ? 4 : issue.severity === 'HIGH' ? 12 : 24);
+    const dept = issue.department || issue.recommendedDepartment || issue.recommendedDept || 'Highways / Public Works';
+    const tier = issue.recommendations?.workOrderTier || 'Tier 1 Dispatch';
+    const cost = issue.recommendations?.estimatedCostInr ? `₹${issue.recommendations.estimatedCostInr.toLocaleString()}` : null;
+
+    const currentLifecycle = issue.lifecycleStatus || issue.status || 'FILED';
+
     return (
-      <div key={issue.id} className="kanban-card">
+      <div key={id} className="kanban-card">
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '8px' }}>
-          <span className="card-tag" style={{ backgroundColor: 'rgba(var(--accent-blue-rgb), 0.05)', color: 'var(--text-primary)', border: '1px solid var(--border-card)' }}>
-            {issue.id}
+          <span className="card-tag" style={{ backgroundColor: 'rgba(var(--accent-blue-rgb), 0.05)', color: 'var(--text-primary)', border: '1px solid var(--border-card)', fontSize: '10px' }}>
+            {id}
           </span>
           <span style={{ 
             display: 'flex', 
@@ -58,51 +134,57 @@ export default function MaintenancePlanner({ issues = CHENNAI_HOTSPOTS, updateIs
             color: priorityColor
           }}>
             <span className="priority-dot" style={{ backgroundColor: priorityColor }} />
-            {issue.severity}
+            {issue.severity || issue.priority || 'MEDIUM'}
           </span>
         </div>
         
-        <h4 className="card-title">{issue.title}</h4>
-        <p className="card-desc">{issue.description}</p>
+        <h4 className="card-title" style={{ fontSize: '13px', fontWeight: '700', marginBottom: '4px' }}>{title}</h4>
+        <p className="card-desc" style={{ fontSize: '11px', color: 'var(--text-secondary)', marginBottom: '8px', lineHeight: '1.4' }}>{desc}</p>
         
-        <div style={{ display: 'flex', flexDirection: 'column', gap: '6px', fontSize: '11px', color: 'var(--text-secondary)', marginBottom: '12px' }}>
-          <div style={{ display: 'flex', alignItems: 'center', gap: '4px' }}>
-            <MapPin size={12} style={{ color: 'var(--accent-blue)' }} />
-            <span>{issue.location.address}</span>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '5px', fontSize: '11px', color: 'var(--text-secondary)', marginBottom: '12px' }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
+            <MapPin size={12} style={{ color: 'var(--accent-blue)', flexShrink: 0 }} />
+            <span style={{ whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>{address}</span>
           </div>
-          <div style={{ display: 'flex', alignItems: 'center', gap: '4px' }}>
-            <Clock size={12} style={{ color: 'var(--warning)' }} />
-            <span>SLA: {issue.slaHours} hrs</span>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
+            <Clock size={12} style={{ color: 'var(--warning)', flexShrink: 0 }} />
+            <span>SLA: <strong>{sla} hrs</strong> • Tier: <strong>{tier}</strong></span>
           </div>
-          <div style={{ display: 'flex', alignItems: 'center', gap: '4px' }}>
-            <Briefcase size={12} style={{ color: 'var(--accent-purple)' }} />
-            <span>Route: {issue.recommendedDept.split(' ')[0]}</span>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
+            <Briefcase size={12} style={{ color: 'var(--accent-purple)', flexShrink: 0 }} />
+            <span style={{ whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>{dept}</span>
           </div>
+          {cost && (
+            <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
+              <DollarSign size={12} style={{ color: 'var(--success)', flexShrink: 0 }} />
+              <span>Est Budget: <strong>{cost}</strong></span>
+            </div>
+          )}
         </div>
 
         {/* Action Controls */}
         <div style={{ display: 'flex', gap: '8px', borderTop: '1px solid var(--border-card)', paddingTop: '10px' }}>
-          {issue.status === 'Pending Review' && (
+          {isPending(issue) && (
             <button 
               className="btn btn-primary" 
-              style={{ width: '100%', padding: '6px', fontSize: '11px' }}
-              onClick={() => handleStatusTransition(issue.id, 'Assigned / In Progress')}
+              style={{ width: '100%', padding: '6px', fontSize: '11px', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '4px' }}
+              onClick={() => handleStatusTransition(id, 'Assigned / In Progress')}
             >
-              Dispatch Crew <ArrowRight size={12} style={{ marginLeft: '4px' }} />
+              Dispatch Crew <ArrowRight size={12} />
             </button>
           )}
           
-          {issue.status === 'Assigned / In Progress' && (
+          {isInProgress(issue) && (
             <button 
               className="btn" 
-              style={{ width: '100%', padding: '6px', fontSize: '11px', backgroundColor: 'rgba(16, 185, 129, 0.1)', color: 'var(--success)', border: '1px solid rgba(16, 185, 129, 0.2)' }}
-              onClick={() => handleStatusTransition(issue.id, 'Resolved')}
+              style={{ width: '100%', padding: '6px', fontSize: '11px', backgroundColor: 'rgba(16, 185, 129, 0.12)', color: 'var(--success)', border: '1px solid rgba(16, 185, 129, 0.3)', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '4px' }}
+              onClick={() => handleStatusTransition(id, 'Resolved')}
             >
-              <Check size={12} style={{ marginRight: '4px' }} /> Resolve Defect
+              <Check size={12} /> Resolve Defect
             </button>
           )}
 
-          {issue.status === 'Resolved' && (
+          {isResolved(issue) && (
             <div style={{ 
               display: 'flex', 
               alignItems: 'center', 
@@ -114,7 +196,7 @@ export default function MaintenancePlanner({ issues = CHENNAI_HOTSPOTS, updateIs
               width: '100%',
               padding: '4px 0'
             }}>
-              <Award size={14} /> Compliance Verified
+              <Award size={14} /> Municipal SLA Verified
             </div>
           )}
         </div>
@@ -131,7 +213,7 @@ export default function MaintenancePlanner({ issues = CHENNAI_HOTSPOTS, updateIs
             <AlertTriangle size={18} />
           </div>
           <div>
-            <div style={{ fontSize: '12px', color: 'var(--text-secondary)' }}>Pending Verification</div>
+            <div style={{ fontSize: '12px', color: 'var(--text-secondary)' }}>Pending Dispatch</div>
             <div style={{ fontSize: '18px', fontWeight: '800' }}>{pendingIssues.length} Incidents</div>
           </div>
         </div>
@@ -162,14 +244,14 @@ export default function MaintenancePlanner({ issues = CHENNAI_HOTSPOTS, updateIs
         {/* Column 1: Pending */}
         <div className="kanban-column">
           <div className="kanban-column-header">
-            <span>Pending Review</span>
+            <span>Pending Dispatch / Assigned</span>
             <span className="column-count" style={{ color: 'var(--danger)' }}>{pendingIssues.length}</span>
           </div>
           <div className="kanban-list">
             {pendingIssues.map(renderCard)}
             {pendingIssues.length === 0 && (
               <div style={{ textAlign: 'center', padding: '40px 20px', color: 'var(--text-muted)', fontSize: '12px' }}>
-                No pending reviews.
+                No pending work orders.
               </div>
             )}
           </div>

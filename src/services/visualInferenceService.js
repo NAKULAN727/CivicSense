@@ -5,11 +5,11 @@
 
 import * as ort from 'onnxruntime-web';
 import ExifReader from 'exifreader';
-import { getActiveRoadModelConfig } from '../config/modelRegistry';
+import { getActiveRoadModelConfig } from '../config/modelRegistry.js';
 import { 
   resizeLogitsAndGenerateMask, 
   calculateFloodConnectedComponents 
-} from './floodInferenceService';
+} from './floodInferenceService.js';
 
 export { resizeLogitsAndGenerateMask, calculateFloodConnectedComponents };
 

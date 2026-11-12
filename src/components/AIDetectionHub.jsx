@@ -58,6 +58,14 @@ import {
   AUTH_TYPE 
 } from '../services/authService';
 import { getActiveRoadModelConfig } from '../config/modelRegistry';
+import { 
+  orchestrateImageAnalysis,
+  acceptIncidentCandidate,
+  ignoreIncidentCandidate,
+  rejectIncidentCandidate,
+  updateIncidentLifecycle,
+  getAllIncidents
+} from '../services/incidentOrchestrationService';
 
 export default function AIDetectionHub({ addCustomIssue, onVisualDetectionsChange }) {
   const samples = [
@@ -143,6 +151,7 @@ export default function AIDetectionHub({ addCustomIssue, onVisualDetectionsChang
   const [operatorNotes, setOperatorNotes] = useState({});
   const [activeNotesInputId, setActiveNotesInputId] = useState(null);
   const [activeAuditTrailIncident, setActiveAuditTrailIncident] = useState(null);
+  const [reasonModal, setReasonModal] = useState({ open: false, action: null, incident: null, reason: '' });
 
   // Phase 10 Municipal Dispatch & Authentication State
   const [session, setSession] = useState(getCurrentSession());
@@ -225,14 +234,13 @@ export default function AIDetectionHub({ addCustomIssue, onVisualDetectionsChang
 
         if (!isMounted || reqSeq !== activeRequestSeqRef.current) return;
 
-        // Run real multi-model inference (Road + Waste + Flood ONNX Models)
-        const rawResult = await runGenuineVisualInference({
+        // Run Central Incident Orchestration (Phase 17 Unified Pipeline)
+        const orchestration = await orchestrateImageAnalysis({
           imageElement,
           metadata,
           imageSourceType: selectedSample.sourceType,
           confidenceThreshold,
-          imageLoadTimeMs,
-          floodModelUrl: '/models/flood_segmentation.onnx'
+          imageLoadTimeMs
         });
 
         if (!isMounted || reqSeq !== activeRequestSeqRef.current) {
@@ -240,21 +248,24 @@ export default function AIDetectionHub({ addCustomIssue, onVisualDetectionsChang
           return;
         }
 
-        // Calculate contextual arbitration, severity, priority, and confirmed civic incidents
-        const severityAnalysis = calculateVisualDetectionsSeverity({
-          ...rawResult,
-          isAvailable: true
-        });
+        if (!orchestration.success) {
+          throw new Error(orchestration.error || "Orchestration pipeline execution failed.");
+        }
+
+        const rawResult = orchestration.inferenceResult;
+        const severityAnalysis = orchestration.severityAnalysis;
 
         const fullResult = {
           ...rawResult,
           ...severityAnalysis,
+          civicIncidents: orchestration.candidates,
+          pipelineTrace: orchestration.pipelineTrace,
           isAvailable: true
         };
 
-        console.log(`[UI_STATE_UPDATE] Inference completed for Request #${reqSeq} (Incidents: ${fullResult.civicIncidents?.length ?? 0})`);
+        console.log(`[UI_STATE_UPDATE] Orchestration completed for Request #${reqSeq} (Candidates: ${fullResult.civicIncidents?.length ?? 0})`);
         setInferenceResult(fullResult);
-        setActiveWorkflowStep(6); // Progress to Step 6: Review FINAL CIVIC INCIDENT
+        setActiveWorkflowStep(8); // Progress to Step 8: Candidate Generation & Review Gate
 
         // Notify parent components / central state
         if (onVisualDetectionsChange) {
@@ -428,6 +439,126 @@ export default function AIDetectionHub({ addCustomIssue, onVisualDetectionsChang
     setActiveNotesInputId(null);
   };
 
+  // Phase 17 Explicit Human Review Gate Handlers
+  const handleAcceptCandidate = async (incident) => {
+    const candidateId = incident.incidentId || incident.id;
+    try {
+      const res = await acceptIncidentCandidate(candidateId, {
+        operatorId: session.userId,
+        operatorName: session.displayName,
+        notes: operatorNotes[candidateId] || ""
+      });
+
+      if (res.success) {
+        setOperatorDecisions(prev => ({ 
+          ...prev, 
+          [candidateId]: { decision: 'ACCEPTED', timestamp: new Date().toISOString() } 
+        }));
+        setFiledIssues(prev => ({ ...prev, [candidateId]: res.incident?.workOrderId || 'ACCEPTED' }));
+
+        if (onVisualDetectionsChange && inferenceResult) {
+          const updated = (inferenceResult.civicIncidents || []).map(inc => 
+            (inc.id === candidateId || inc.incidentId === candidateId) ? res.incident : inc
+          );
+          const newRes = { ...inferenceResult, civicIncidents: updated };
+          setInferenceResult(newRes);
+          onVisualDetectionsChange(newRes);
+        }
+
+        if (addCustomIssue && res.incident) {
+          addCustomIssue({
+            id: res.incident.workOrderId || res.incident.incidentId,
+            type: res.incident.title || res.incident.incidentType,
+            title: `${res.incident.title || res.incident.incidentType} (${res.incident.severity} Severity)`,
+            description: res.incident.detectionEvidence || res.incident.sourceEvidence,
+            location: {
+              lat: res.incident.latitude,
+              lng: res.incident.longitude,
+              address: res.incident.location?.address || 'Verified Geographic Zone',
+              ward: res.incident.ward || 'Central Metropolitan Ward'
+            },
+            severity: res.incident.severity,
+            priority: res.incident.priority,
+            status: 'ACCEPTED',
+            reportedAt: res.incident.captureTimestamp || new Date().toISOString(),
+            confidence: res.incident.confidence,
+            recommendedDept: res.incident.department,
+            recommendedAction: res.incident.recommendations?.primaryAction
+          });
+        }
+        setActiveWorkflowStep(10);
+      }
+    } catch (e) {
+      console.error("[ACCEPT_CANDIDATE_ERROR]", e);
+      alert(`Could not accept candidate: ${e.message}`);
+    }
+  };
+
+  const handleOpenReasonDialog = (incident, action) => {
+    setReasonModal({
+      open: true,
+      action,
+      incident,
+      reason: ''
+    });
+  };
+
+  const handleConfirmReasonDialog = async () => {
+    if (!reasonModal.reason.trim()) {
+      alert("A mandatory reason is required to ignore or reject an incident candidate.");
+      return;
+    }
+
+    const candidateId = reasonModal.incident.incidentId || reasonModal.incident.id;
+    try {
+      if (reasonModal.action === 'IGNORE') {
+        const res = await ignoreIncidentCandidate(candidateId, reasonModal.reason.trim(), {
+          operatorId: session.userId,
+          operatorName: session.displayName
+        });
+        if (res.success) {
+          setOperatorDecisions(prev => ({
+            ...prev,
+            [candidateId]: { decision: 'IGNORED', reason: reasonModal.reason.trim(), timestamp: new Date().toISOString() }
+          }));
+        }
+      } else if (reasonModal.action === 'REJECT') {
+        const res = await rejectIncidentCandidate(candidateId, reasonModal.reason.trim(), {
+          operatorId: session.userId,
+          operatorName: session.displayName
+        });
+        if (res.success) {
+          setOperatorDecisions(prev => ({
+            ...prev,
+            [candidateId]: { decision: 'REJECTED', reason: reasonModal.reason.trim(), timestamp: new Date().toISOString() }
+          }));
+        }
+      }
+
+      if (onVisualDetectionsChange && inferenceResult) {
+        const updated = (inferenceResult.civicIncidents || []).map(inc => {
+          if (inc.id === candidateId || inc.incidentId === candidateId) {
+            return {
+              ...inc,
+              operatorStatus: reasonModal.action === 'IGNORE' ? 'IGNORED' : 'REJECTED',
+              operatorReason: reasonModal.reason.trim()
+            };
+          }
+          return inc;
+        });
+        const newRes = { ...inferenceResult, civicIncidents: updated };
+        setInferenceResult(newRes);
+        onVisualDetectionsChange(newRes);
+      }
+
+      setReasonModal({ open: false, action: null, incident: null, reason: '' });
+      setActiveWorkflowStep(9);
+    } catch (e) {
+      console.error("[REASON_SUBMISSION_ERROR]", e);
+      alert(`Failed to record action: ${e.message}`);
+    }
+  };
+
   // Lifecycle Status update (NEW -> ACKNOWLEDGED -> ACTION REQUIRED -> IN PROGRESS -> RESOLVED)
   const handleLifecycleUpdate = (incident, newStatus) => {
     const updated = updateIncidentLifecycleStatus(incident, newStatus, `Operator set state to ${newStatus}`);
@@ -580,28 +711,31 @@ export default function AIDetectionHub({ addCustomIssue, onVisualDetectionsChang
         </div>
       </div>
 
-      {/* 9-STEP FIELD OPERATOR WORKFLOW STEPPER */}
+      {/* 12-STAGE CENTRAL ORCHESTRATION PIPELINE STEPPER (Phase 17) */}
       <div className="glass-card" style={{ padding: '14px 20px', overflowX: 'auto' }}>
         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '8px' }}>
           <strong style={{ fontSize: '12px', color: 'var(--accent-blue)', display: 'flex', alignItems: 'center', gap: '6px' }}>
-            <UserCheck size={15} /> FIELD OPERATOR WORKFLOW PIPELINE (9 STEPS)
+            <UserCheck size={15} /> UNIFIED AI DETECTION TO CIVIC INTELLIGENCE PIPELINE (12 STAGES)
           </strong>
           <span style={{ fontSize: '11px', color: 'var(--text-secondary)' }}>
-            Active Phase: Step {activeWorkflowStep} of 9
+            Active Stage: {activeWorkflowStep} of 12
           </span>
         </div>
 
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(9, minmax(105px, 1fr))', gap: '6px', fontSize: '10px' }}>
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(12, minmax(85px, 1fr))', gap: '4px', fontSize: '10px' }}>
           {[
-            { num: 1, label: 'Capture/Upload' },
-            { num: 2, label: 'Review Metadata' },
-            { num: 3, label: 'Run AI Inference' },
-            { num: 4, label: 'Layer 1: Raw Output' },
-            { num: 5, label: 'Layer 2: Arbitration' },
-            { num: 6, label: 'Layer 3: Civic Incident' },
-            { num: 7, label: 'Routing & Actions' },
-            { num: 8, label: 'Operator Review' },
-            { num: 9, label: 'Lifecycle Update' }
+            { num: 1, label: 'Upload' },
+            { num: 2, label: 'Quality' },
+            { num: 3, label: 'Metadata' },
+            { num: 4, label: 'Hazard Class' },
+            { num: 5, label: 'Inference' },
+            { num: 6, label: 'Arbitration' },
+            { num: 7, label: 'Severity' },
+            { num: 8, label: 'Candidate' },
+            { num: 9, label: 'Human Review' },
+            { num: 10, label: 'Filing/Route' },
+            { num: 11, label: 'Predictive' },
+            { num: 12, label: 'Operations' }
           ].map(st => {
             const isDone = activeWorkflowStep > st.num;
             const isCurrent = activeWorkflowStep === st.num;
@@ -609,18 +743,18 @@ export default function AIDetectionHub({ addCustomIssue, onVisualDetectionsChang
               <div 
                 key={st.num}
                 style={{
-                  padding: '6px 8px',
+                  padding: '5px 4px',
                   borderRadius: '6px',
                   border: isCurrent ? '1.5px solid var(--accent-blue)' : '1px solid var(--border-card)',
                   backgroundColor: isCurrent ? 'rgba(0, 168, 255, 0.15)' : isDone ? 'rgba(16, 185, 129, 0.1)' : 'rgba(255, 255, 255, 0.02)',
                   color: isCurrent ? 'var(--accent-blue)' : isDone ? '#10b981' : 'var(--text-muted)',
                   display: 'flex',
                   flexDirection: 'column',
-                  gap: '2px',
+                  gap: '1px',
                   textAlign: 'center'
                 }}
               >
-                <div style={{ fontWeight: '800' }}>STEP {st.num}</div>
+                <div style={{ fontWeight: '800' }}>ST {st.num}</div>
                 <div style={{ whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>{st.label}</div>
               </div>
             );
@@ -1234,51 +1368,97 @@ export default function AIDetectionHub({ addCustomIssue, onVisualDetectionsChang
                         </div>
                       </div>
 
-                      {/* Operator Action Buttons: Confirm, Reject, Needs Review (Section 8) */}
-                      <div style={{ borderTop: '1px solid var(--border-card)', paddingTop: '8px', display: 'flex', flexDirection: 'column', gap: '8px' }}>
+                      {/* PREDICTIVE ANALYTICS PROVENANCE CARD */}
+                      {incident.predictionStatus && (
+                        <div style={{
+                          padding: '8px 10px',
+                          backgroundColor: 'rgba(0, 168, 255, 0.04)',
+                          border: '1px solid rgba(0, 168, 255, 0.2)',
+                          borderRadius: '6px',
+                          fontSize: '11px',
+                          display: 'flex',
+                          flexDirection: 'column',
+                          gap: '3px'
+                        }}>
+                          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                            <strong style={{ color: 'var(--accent-blue)' }}>Predictive Analytics Assessment</strong>
+                            <span className="badge badge-purple" style={{ fontSize: '9px' }}>PROVENANCE: {incident.predictionStatus.provenance || 'RULE-BASED ESTIMATE'}</span>
+                          </div>
+                          <div style={{ color: 'var(--text-secondary)' }}>
+                            {incident.predictionStatus.details || 'Predictive analysis computed.'}
+                          </div>
+                        </div>
+                      )}
+
+                      {/* PHASE 17: EXPLICIT HUMAN REVIEW GATE (ACCEPT / IGNORE / REJECT) */}
+                      <div style={{ borderTop: '1px solid var(--border-card)', paddingTop: '10px', display: 'flex', flexDirection: 'column', gap: '8px' }}>
                         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: '6px' }}>
-                          <span style={{ fontSize: '11px', fontWeight: '700', color: 'var(--text-muted)' }}>
-                            Operator Triage:
+                          <span style={{ fontSize: '11px', fontWeight: '800', color: 'var(--text-primary)' }}>
+                            Human Review Gate:
                           </span>
 
-                          <div style={{ display: 'flex', gap: '6px' }}>
+                          <div style={{ display: 'flex', gap: '6px', flexWrap: 'wrap' }}>
                             <button
-                              className="btn btn-secondary"
-                              onClick={() => handleOperatorReview(incident, 'CONFIRMED')}
+                              className="btn"
+                              onClick={() => handleAcceptCandidate(incident)}
+                              disabled={isConfirmed || isRejected || currentDecision === 'IGNORED'}
                               style={{ 
-                                padding: '4px 8px', 
-                                fontSize: '11px', 
-                                borderColor: isConfirmed ? '#10b981' : 'var(--border-card)',
-                                color: isConfirmed ? '#10b981' : 'var(--text-secondary)'
+                                padding: '5px 10px', 
+                                fontSize: '11px',
+                                fontWeight: '700',
+                                backgroundColor: isConfirmed ? '#10b981' : 'rgba(16, 185, 129, 0.15)',
+                                borderColor: '#10b981',
+                                color: isConfirmed ? '#ffffff' : '#10b981',
+                                display: 'flex',
+                                alignItems: 'center',
+                                gap: '4px'
                               }}
+                              title="Confirm candidate and promote to active municipal incident"
                             >
-                              <CheckCircle2 size={13} style={{ marginRight: '4px' }} />
-                              Confirm
+                              <CheckCircle2 size={13} />
+                              {isConfirmed ? 'Accepted (Active)' : 'ACCEPT'}
                             </button>
 
                             <button
-                              className="btn btn-secondary"
-                              onClick={() => {
-                                setActiveNotesInputId(incident.id);
-                              }}
+                              className="btn"
+                              onClick={() => handleOpenReasonDialog(incident, 'IGNORE')}
+                              disabled={isConfirmed || isRejected || currentDecision === 'IGNORED'}
                               style={{ 
-                                padding: '4px 8px', 
-                                fontSize: '11px', 
-                                borderColor: isRejected ? '#f43f5e' : 'var(--border-card)',
-                                color: isRejected ? '#f43f5e' : 'var(--text-secondary)'
+                                padding: '5px 10px', 
+                                fontSize: '11px',
+                                fontWeight: '700',
+                                backgroundColor: currentDecision === 'IGNORED' ? '#f59e0b' : 'rgba(245, 158, 11, 0.15)',
+                                borderColor: '#f59e0b',
+                                color: currentDecision === 'IGNORED' ? '#ffffff' : '#f59e0b',
+                                display: 'flex',
+                                alignItems: 'center',
+                                gap: '4px'
                               }}
+                              title="Determine candidate is non-actionable (requires mandatory reason)"
                             >
-                              <XCircle size={13} style={{ marginRight: '4px' }} />
-                              Reject
+                              <EyeOff size={13} />
+                              {currentDecision === 'IGNORED' ? 'Ignored' : 'IGNORE'}
                             </button>
 
                             <button
-                              className="btn btn-secondary"
-                              onClick={() => handleOperatorReview(incident, 'NEEDS REVIEW')}
-                              style={{ padding: '4px 8px', fontSize: '11px' }}
+                              className="btn"
+                              onClick={() => handleOpenReasonDialog(incident, 'REJECT')}
+                              disabled={isConfirmed || isRejected || currentDecision === 'IGNORED'}
+                              style={{ 
+                                padding: '5px 10px', 
+                                fontSize: '11px',
+                                fontWeight: '700',
+                                backgroundColor: isRejected ? '#ef4444' : 'rgba(239, 68, 68, 0.15)',
+                                borderColor: '#ef4444',
+                                color: isRejected ? '#ffffff' : '#ef4444',
+                                display: 'flex',
+                                alignItems: 'center',
+                                gap: '4px'
+                              }}
+                              title="Confirm candidate is false positive (requires mandatory reason)"
                             >
-                              <HelpCircle size={13} style={{ marginRight: '4px' }} />
-                              Needs Review
+                              <XCircle size={13} />
+                              {isRejected ? 'Rejected' : 'REJECT'}
                             </button>
                           </div>
                         </div>
@@ -1539,6 +1719,110 @@ export default function AIDetectionHub({ addCustomIssue, onVisualDetectionsChang
                   </div>
                 </div>
               ))}
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* REASON MODAL FOR IGNORE / REJECT ACTIONS (Phase 17 Human Review Gate) */}
+      {reasonModal.open && (
+        <div style={{
+          position: 'fixed',
+          top: 0,
+          left: 0,
+          right: 0,
+          bottom: 0,
+          backgroundColor: 'rgba(0,0,0,0.75)',
+          backdropFilter: 'blur(4px)',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          zIndex: 99999,
+          padding: '20px'
+        }}>
+          <div className="glass-card" style={{ maxWidth: '480px', width: '100%', padding: '24px', backgroundColor: 'var(--bg-card-solid)', border: '1px solid var(--border-card)', borderRadius: '12px', boxShadow: '0 8px 32px rgba(0,0,0,0.6)' }}>
+            <h3 style={{ fontSize: '15px', fontWeight: '800', marginBottom: '8px', color: reasonModal.action === 'REJECT' ? '#f43f5e' : '#f59e0b', display: 'flex', alignItems: 'center', gap: '8px' }}>
+              {reasonModal.action === 'REJECT' ? <XCircle size={18} /> : <EyeOff size={18} />}
+              {reasonModal.action === 'REJECT' ? 'Reject Incident Candidate (False Positive)' : 'Ignore Incident Candidate (Non-Actionable)'}
+            </h3>
+            <p style={{ fontSize: '12px', color: 'var(--text-secondary)', marginBottom: '14px', lineHeight: '1.4' }}>
+              A mandatory operator reason is required for audit logs and future model fine-tuning. This record will not create an active municipal incident.
+            </p>
+
+            {/* Quick-select chips */}
+            <div style={{ display: 'flex', flexWrap: 'wrap', gap: '6px', marginBottom: '14px' }}>
+              {[
+                'Wet surface reflection mistaken for floodwater',
+                'Minor surface paint / shadow, not structural defect',
+                'Authorized utility container, not scattered waste',
+                'Duplicate report of existing municipal incident',
+                'Low image resolution makes verification impossible',
+                'Outside municipal jurisdiction'
+              ].map((preset) => (
+                <button
+                  key={preset}
+                  type="button"
+                  onClick={() => setReasonModal(prev => ({ ...prev, reason: preset }))}
+                  style={{
+                    padding: '4px 8px',
+                    borderRadius: '4px',
+                    border: '1px solid var(--border-card)',
+                    backgroundColor: reasonModal.reason === preset ? 'rgba(0,168,255,0.2)' : 'rgba(255,255,255,0.03)',
+                    color: reasonModal.reason === preset ? 'var(--accent-blue)' : 'var(--text-secondary)',
+                    fontSize: '10px',
+                    cursor: 'pointer'
+                  }}
+                >
+                  {preset}
+                </button>
+              ))}
+            </div>
+
+            <textarea
+              placeholder="Type operator reason for audit trail..."
+              value={reasonModal.reason}
+              onChange={(e) => setReasonModal(prev => ({ ...prev, reason: e.target.value }))}
+              rows={3}
+              style={{
+                width: '100%',
+                backgroundColor: 'rgba(0,0,0,0.25)',
+                border: '1px solid var(--border-card)',
+                borderRadius: '6px',
+                color: 'var(--text-primary)',
+                padding: '10px',
+                fontSize: '12px',
+                outline: 'none',
+                marginBottom: '16px',
+                boxSizing: 'border-box'
+              }}
+            />
+
+            <div style={{ display: 'flex', justifyContent: 'flex-end', gap: '10px' }}>
+              <button
+                className="btn btn-secondary"
+                onClick={() => setReasonModal({ open: false, action: null, incident: null, reason: '' })}
+                style={{ padding: '6px 14px', fontSize: '11px' }}
+              >
+                Cancel
+              </button>
+              <button
+                className="btn"
+                onClick={handleConfirmReasonDialog}
+                disabled={!reasonModal.reason.trim()}
+                style={{
+                  padding: '6px 16px',
+                  fontSize: '11px',
+                  fontWeight: '700',
+                  backgroundColor: reasonModal.action === 'REJECT' ? '#f43f5e' : '#f59e0b',
+                  color: '#fff',
+                  border: 'none',
+                  borderRadius: '6px',
+                  cursor: reasonModal.reason.trim() ? 'pointer' : 'not-allowed',
+                  opacity: reasonModal.reason.trim() ? 1 : 0.5
+                }}
+              >
+                Confirm {reasonModal.action === 'REJECT' ? 'Rejection' : 'Ignore'}
+              </button>
             </div>
           </div>
         </div>

@@ -1,4 +1,4 @@
-import React, { useState, useMemo } from 'react';
+import React, { useState, useMemo, useEffect } from 'react';
 import { 
   LineChart, 
   Line, 
@@ -18,11 +18,62 @@ import {
   TrendingDown,
   Wrench,
   TrendingUp,
-  DollarSign
+  DollarSign,
+  Droplets,
+  Trash2,
+  AlertTriangle,
+  Clock,
+  Layers,
+  FileText
 } from 'lucide-react';
 import { predictDeteriorationCurve } from '../data/mockData';
+import { getAllIncidents, subscribeToOrchestration } from '../services/incidentOrchestrationService';
+import { 
+  predictRoadDeteriorationRisk, 
+  predictFloodDrainageRisk, 
+  predictWasteAccumulationRisk 
+} from '../services/predictiveRiskService';
 
-export default function PredictorDashboard() {
+export default function PredictorDashboard({ centralIncidents: propIncidents }) {
+  // Central incidents subscription
+  const [incidents, setIncidents] = useState(() => propIncidents || getAllIncidents());
+
+  useEffect(() => {
+    if (propIncidents && propIncidents.length > 0) {
+      setIncidents(propIncidents);
+      return;
+    }
+    const unsub = subscribeToOrchestration((state) => {
+      setIncidents(state.incidents || []);
+    });
+    return unsub;
+  }, [propIncidents]);
+
+  // Category-specific incident grouping
+  const roadIncidents = useMemo(() => 
+    incidents.filter(i => {
+      const cat = (i.category || '').toUpperCase();
+      return cat === 'ROAD' || cat === 'MULTI' || (i.incidentType || '').includes('POTHOLE');
+    }),
+    [incidents]
+  );
+
+  const floodIncidents = useMemo(() => 
+    incidents.filter(i => {
+      const cat = (i.category || '').toUpperCase();
+      return cat === 'FLOOD' || (i.incidentType || '').includes('FLOOD') || (i.incidentType || '').includes('WATER');
+    }),
+    [incidents]
+  );
+
+  const wasteIncidents = useMemo(() => 
+    incidents.filter(i => {
+      const cat = (i.category || '').toUpperCase();
+      return cat === 'GARBAGE' || cat === 'WASTE' || (i.incidentType || '').includes('WASTE');
+    }),
+    [incidents]
+  );
+
   // Simulator input parameters
   const [trafficVolume, setTrafficVolume] = useState(6); // 1-10 scale
   const [annualRainfall, setAnnualRainfall] = useState(1500); // 500-3000 mm
@@ -94,13 +145,165 @@ export default function PredictorDashboard() {
 
   return (
     <div style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
-      {/* Overview Intro */}
+      
+      {/* SECTION 1: LIVE CIVIC INCIDENT PREDICTIVE INTELLIGENCE */}
+      <div className="glass-card" style={{ padding: '20px 24px' }}>
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '12px', marginBottom: '16px' }}>
+          <div>
+            <h3 style={{ fontSize: '16px', fontWeight: '800', display: 'flex', alignItems: 'center', gap: '8px' }}>
+              <Activity size={20} style={{ color: 'var(--accent-blue)' }} /> Category-Specific Live Civic Predictive Intelligence
+            </h3>
+            <p style={{ fontSize: '12px', color: 'var(--text-secondary)', marginTop: '4px' }}>
+              Predictive asset deterioration and municipal impact models dynamically evaluating filed central incidents.
+            </p>
+          </div>
+          <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap' }}>
+            <span className="badge badge-blue" style={{ fontSize: '11px', padding: '6px 10px' }}>
+              PROVENANCE: RULE-BASED ESTIMATE
+            </span>
+            <span className="badge badge-green" style={{ fontSize: '11px', padding: '6px 10px' }}>
+              DATA: LIVE CANONICAL INCIDENTS ({incidents.length})
+            </span>
+          </div>
+        </div>
+
+        {/* Category Isolation Rule Banner */}
+        <div style={{ 
+          padding: '10px 14px', 
+          backgroundColor: 'rgba(0, 168, 255, 0.05)', 
+          borderLeft: '3px solid var(--accent-blue)', 
+          borderRadius: '6px', 
+          fontSize: '11px', 
+          color: 'var(--text-secondary)',
+          lineHeight: '1.4',
+          marginBottom: '20px'
+        }}>
+          <strong style={{ color: 'var(--accent-blue)' }}>Strict Category Isolation Engine:</strong> Pavement Condition Index (PCI) structural deductions are restricted strictly to Road defects. Flood waterlogging is modeled through stormwater surcharge equations, and Waste accumulation via sanitational dispersion vectors.
+        </div>
+
+        {/* 3 Dedicated Category Panels */}
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: '16px' }}>
+          
+          {/* 1. Road Deterioration Model */}
+          <div style={{ backgroundColor: 'var(--bg-card-solid)', border: '1px solid var(--border-card)', borderRadius: '12px', padding: '16px' }}>
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '12px' }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                <Wrench size={16} style={{ color: '#c084fc' }} />
+                <strong style={{ fontSize: '13px' }}>Pavement Condition Index (PCI)</strong>
+              </div>
+              <span className="badge badge-purple" style={{ fontSize: '10px' }}>{roadIncidents.length} Road Defect{roadIncidents.length !== 1 ? 's' : ''}</span>
+            </div>
+
+            {roadIncidents.length === 0 ? (
+              <div style={{ padding: '24px 12px', textAlign: 'center', color: 'var(--text-muted)', fontSize: '12px' }}>
+                No active road defects filed in central incident registry.
+              </div>
+            ) : (
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
+                {roadIncidents.map(inc => {
+                  const pred = predictRoadDeteriorationRisk(inc);
+                  return (
+                    <div key={inc.incidentId || inc.id} style={{ padding: '10px', backgroundColor: 'rgba(192, 132, 252, 0.05)', borderRadius: '8px', border: '1px solid rgba(192, 132, 252, 0.2)', fontSize: '11px' }}>
+                      <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '4px' }}>
+                        <span style={{ fontWeight: '700', color: 'var(--text-primary)' }}>{inc.title || inc.incidentType}</span>
+                        <span style={{ fontWeight: '800', color: pred.riskLevel === 'CRITICAL' ? 'var(--danger)' : 'var(--warning)' }}>{pred.riskLevel}</span>
+                      </div>
+                      <div style={{ color: 'var(--text-secondary)', marginBottom: '4px' }}>
+                        Structural deduction: <strong>-{pred.pciDeteriorationRisk} PCI</strong> • Failure: <strong>{pred.monthsToStructuralFailure} mo</strong>
+                      </div>
+                      <div style={{ fontSize: '10px', color: 'var(--text-muted)' }}>{pred.details}</div>
+                    </div>
+                  );
+                })}
+              </div>
+            )}
+          </div>
+
+          {/* 2. Flood & Drainage Risk Model */}
+          <div style={{ backgroundColor: 'var(--bg-card-solid)', border: '1px solid var(--border-card)', borderRadius: '12px', padding: '16px' }}>
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '12px' }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                <Droplets size={16} style={{ color: '#00a8ff' }} />
+                <strong style={{ fontSize: '13px' }}>Stormwater Surcharge & Recession</strong>
+              </div>
+              <span className="badge badge-blue" style={{ fontSize: '10px' }}>{floodIncidents.length} Flood Inundation{floodIncidents.length !== 1 ? 's' : ''}</span>
+            </div>
+
+            {floodIncidents.length === 0 ? (
+              <div style={{ padding: '24px 12px', textAlign: 'center', color: 'var(--text-muted)', fontSize: '12px' }}>
+                No active flood incidents filed in central incident registry.
+              </div>
+            ) : (
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
+                {floodIncidents.map(inc => {
+                  const pred = predictFloodDrainageRisk(inc);
+                  return (
+                    <div key={inc.incidentId || inc.id} style={{ padding: '10px', backgroundColor: 'rgba(0, 168, 255, 0.05)', borderRadius: '8px', border: '1px solid rgba(0, 168, 255, 0.2)', fontSize: '11px' }}>
+                      <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '4px' }}>
+                        <span style={{ fontWeight: '700', color: 'var(--text-primary)' }}>{inc.title || inc.incidentType}</span>
+                        <span style={{ fontWeight: '800', color: pred.riskLevel === 'CRITICAL' ? 'var(--danger)' : '#00a8ff' }}>{pred.riskLevel}</span>
+                      </div>
+                      <div style={{ color: 'var(--text-secondary)', marginBottom: '4px' }}>
+                        Surcharge prob: <strong>{pred.drainageSurchargeProbability}</strong> • Est. recession: <strong>{pred.estimatedRecessionHours}h</strong>
+                      </div>
+                      <div style={{ fontSize: '10px', color: 'var(--text-muted)' }}>{pred.details}</div>
+                    </div>
+                  );
+                })}
+              </div>
+            )}
+          </div>
+
+          {/* 3. Waste Accumulation Model */}
+          <div style={{ backgroundColor: 'var(--bg-card-solid)', border: '1px solid var(--border-card)', borderRadius: '12px', padding: '16px' }}>
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '12px' }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                <Trash2 size={16} style={{ color: '#fbbf24' }} />
+                <strong style={{ fontSize: '13px' }}>Waste Accumulation & Vector Risk</strong>
+              </div>
+              <span className="badge badge-amber" style={{ fontSize: '10px' }}>{wasteIncidents.length} Waste Site{wasteIncidents.length !== 1 ? 's' : ''}</span>
+            </div>
+
+            {wasteIncidents.length === 0 ? (
+              <div style={{ padding: '24px 12px', textAlign: 'center', color: 'var(--text-muted)', fontSize: '12px' }}>
+                No active waste incidents filed in central incident registry.
+              </div>
+            ) : (
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
+                {wasteIncidents.map(inc => {
+                  const pred = predictWasteAccumulationRisk(inc);
+                  return (
+                    <div key={inc.incidentId || inc.id} style={{ padding: '10px', backgroundColor: 'rgba(251, 191, 36, 0.05)', borderRadius: '8px', border: '1px solid rgba(251, 191, 36, 0.2)', fontSize: '11px' }}>
+                      <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '4px' }}>
+                        <span style={{ fontWeight: '700', color: 'var(--text-primary)' }}>{inc.title || inc.incidentType}</span>
+                        <span style={{ fontWeight: '800', color: pred.riskLevel === 'HIGH' ? 'var(--danger)' : '#fbbf24' }}>{pred.riskLevel}</span>
+                      </div>
+                      <div style={{ color: 'var(--text-secondary)', marginBottom: '4px' }}>
+                        Trend: <strong>{pred.wasteAccumulationTrend}</strong> • Vector pest hazard: <strong>{pred.vectorPestRisk}</strong>
+                      </div>
+                      <div style={{ fontSize: '10px', color: 'var(--text-muted)' }}>{pred.details}</div>
+                    </div>
+                  );
+                })}
+              </div>
+            )}
+          </div>
+
+        </div>
+      </div>
+
+      {/* SECTION 2: INTERACTIVE SIMULATOR (PROVENANCE: SIMULATION) */}
       <div className="glass-card" style={{ padding: '16px 24px' }}>
-        <h3 style={{ fontSize: '15px', fontWeight: '700', marginBottom: '4px', display: 'flex', alignItems: 'center', gap: '8px' }}>
-          <Activity size={18} style={{ color: 'var(--accent-blue)' }} /> Random Forest Regression Deterioration Model
-        </h3>
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '8px', marginBottom: '6px' }}>
+          <h3 style={{ fontSize: '15px', fontWeight: '700', display: 'flex', alignItems: 'center', gap: '8px' }}>
+            <Activity size={18} style={{ color: 'var(--accent-blue)' }} /> Interactive Deterioration Curve Simulator
+          </h3>
+          <span className="badge badge-purple" style={{ fontSize: '10px', padding: '4px 8px' }}>
+            PROVENANCE: SIMULATION
+          </span>
+        </div>
         <p style={{ fontSize: '12px', color: 'var(--text-secondary)', lineHeight: '1.4' }}>
-          This simulator models surface degradation (Pavement Condition Index - PCI) based on a Random Forest regressor trained on 15,000 km of road inspection history. Adjust parameters below to run real-time predictive cycles.
+          This simulator models surface degradation (Pavement Condition Index - PCI) based on a calibrated regression curve. Adjust environmental and design parameters below to run real-time interactive simulation cycles.
         </p>
       </div>
 
@@ -194,7 +397,7 @@ export default function PredictorDashboard() {
         <div className="glass-card" style={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between', minHeight: '360px' }}>
           <div>
             <h4 style={{ fontSize: '14px', fontWeight: '700', display: 'flex', alignItems: 'center', gap: '6px', marginBottom: '12px' }}>
-              <Activity size={16} style={{ color: 'var(--accent-purple)' }} /> Predictive Analysis
+              <Activity size={16} style={{ color: 'var(--accent-purple)' }} /> Simulation Diagnostics
             </h4>
             
             <div style={{ display: 'flex', flexDirection: 'column', gap: '12px', fontSize: '13px' }}>
