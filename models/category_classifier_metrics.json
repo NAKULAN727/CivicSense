@@ -1,0 +1,62 @@
+{
+  "cv_accuracy": 0.9785,
+  "ece_before_pct": 27.46,
+  "ece_after_pct": 1.69,
+  "optimal_temperature": 0.2562,
+  "confusion_matrix": [
+    [
+      30,
+      0,
+      2
+    ],
+    [
+      0,
+      30,
+      0
+    ],
+    [
+      0,
+      0,
+      31
+    ]
+  ],
+  "class_names": [
+    "FLOOD",
+    "GARBAGE",
+    "POTHOLE"
+  ],
+  "sample_count": 93,
+  "classification_report": {
+    "FLOOD": {
+      "precision": 1.0,
+      "recall": 0.9375,
+      "f1-score": 0.967741935483871,
+      "support": 32.0
+    },
+    "GARBAGE": {
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1-score": 1.0,
+      "support": 30.0
+    },
+    "POTHOLE": {
+      "precision": 0.9393939393939394,
+      "recall": 1.0,
+      "f1-score": 0.96875,
+      "support": 31.0
+    },
+    "accuracy": 0.978494623655914,
+    "macro avg": {
+      "precision": 0.9797979797979798,
+      "recall": 0.9791666666666666,
+      "f1-score": 0.9788306451612904,
+      "support": 93.0
+    },
+    "weighted avg": {
+      "precision": 0.9797979797979799,
+      "recall": 0.978494623655914,
+      "f1-score": 0.9784837842525147,
+      "support": 93.0
+    }
+  }
+}

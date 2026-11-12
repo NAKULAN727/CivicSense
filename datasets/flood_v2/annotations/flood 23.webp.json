@@ -1,0 +1,86 @@
+{
+  "filename": "flood 23.webp",
+  "mask_filename": "flood 23.png",
+  "split": "train",
+  "width": 528,
+  "height": 378,
+  "total_pixels": 199584,
+  "primary_category": "Shallow waterlogging",
+  "annotation_status": "VERIFIED_COMPLETE",
+  "annotator": {
+    "id": "CIVICSENSE-HUMAN-OPERATOR-01",
+    "tool": "CivicSense AI Ground-Truth Annotator v2.4",
+    "timestamp": "2026-11-12T21:30:00Z"
+  },
+  "notes": "Roadside drainage accumulation with floating leaves. Main road dry.",
+  "polygons_count": 2,
+  "polygons": [
+    {
+      "id": "poly_fl23_wet",
+      "class_id": 4,
+      "class_name": "WET_SURFACE",
+      "points": [
+        {
+          "x": 264.0,
+          "y": 245.7
+        },
+        {
+          "x": 528.0,
+          "y": 226.8
+        },
+        {
+          "x": 528.0,
+          "y": 378.0
+        },
+        {
+          "x": 237.6,
+          "y": 378.0
+        }
+      ],
+      "description": "Roadside gutter drainage water"
+    },
+    {
+      "id": "poly_fl23_debris",
+      "class_id": 3,
+      "class_name": "FLOATING_DEBRIS",
+      "points": [
+        {
+          "x": 369.6,
+          "y": 283.5
+        },
+        {
+          "x": 448.8,
+          "y": 279.7
+        },
+        {
+          "x": 433.0,
+          "y": 321.3
+        },
+        {
+          "x": 359.0,
+          "y": 310.0
+        }
+      ],
+      "description": "Floating organic leaf and paper litter in gutter"
+    }
+  ],
+  "pixel_distribution": {
+    "BACKGROUND": 160314,
+    "FLOATING_DEBRIS": 2725,
+    "WET_SURFACE": 36545
+  },
+  "pixel_percentage": {
+    "BACKGROUND": 80.32,
+    "FLOATING_DEBRIS": 1.37,
+    "WET_SURFACE": 18.31
+  },
+  "mask_validation": {
+    "status": "PASS",
+    "dimension_match": true,
+    "permitted_classes_only": true,
+    "non_empty_foreground": true,
+    "foreground_pixel_count": 39270,
+    "valid_polygon_geometry": true,
+    "reopening_verified": true
+  }
+}

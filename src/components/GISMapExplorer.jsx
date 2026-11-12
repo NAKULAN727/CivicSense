@@ -256,7 +256,7 @@ export default function GISMapExplorer({
         civicIncidents.forEach(incident => {
           const isHighUrgency = incident.priority === 'IMMEDIATE' || incident.severity === 'HIGH' || incident.severity === 'CRITICAL';
           const markerColor = incident.incidentType === 'WATER_FILLED_POTHOLE' ? '#f43f5e' :
-                              incident.incidentType === 'SIGNIFICANT_WATERLOGGING' ? '#00a8ff' :
+                              (incident.incidentType === 'SIGNIFICANT_WATERLOGGING' || incident.incidentType === 'GENERAL_SIGNIFICANT_FLOODING' || incident.incidentType === 'ROAD_WATERLOGGING') ? '#00a8ff' :
                               incident.incidentType === 'WASTE_ACCUMULATION' ? '#fbbf24' :
                               incident.incidentType === 'POSSIBLE_WATERLOGGING' ? '#38bdf8' : '#a855f7';
 

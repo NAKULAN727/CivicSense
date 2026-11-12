@@ -1,0 +1,95 @@
+Index,Folder,Filename,Width,Height,Format,IsLowResolution,Category,SpecificType,SceneType,NeedsOperatorVerification,Notes
+1,Flood,flood 1.jpg,250,175,JPEG,YES,FLOOD,F01_ROAD_WATERLOGGING,Ground-level street flooding,NO,Submerged roadway corridor
+2,Flood,flood 10.webp,192,234,WEBP,YES,FLOOD,F01_ROAD_WATERLOGGING,Ground-level street flooding,NO,Submerged roadway corridor
+3,Flood,flood 11.webp,392,261,WEBP,NO,FLOOD,F02_RESIDENTIAL_INUNDATION,Residential-area flooding,YES,Requires municipal cadastral zoning verification
+4,Flood,flood 12.webp,417,234,WEBP,NO,FLOOD,F01_ROAD_WATERLOGGING,Ground-level street flooding,NO,Submerged roadway corridor
+5,Flood,flood 13.webp,344,234,WEBP,NO,FLOOD,F01_ROAD_WATERLOGGING,Shallow waterlogging,NO,Shallow waterlogging / damp road surface
+6,Flood,flood 14.webp,347,280,WEBP,NO,FLOOD,F01_ROAD_WATERLOGGING,Ground-level street flooding,NO,Submerged roadway corridor
+7,Flood,flood 15.jpg,289,174,JPEG,YES,FLOOD,F01_ROAD_WATERLOGGING,Ground-level street flooding,NO,Submerged roadway corridor
+8,Flood,flood 16.jpg,415,737,JPEG,NO,FLOOD,F02_RESIDENTIAL_INUNDATION,Residential-area flooding,YES,Requires municipal cadastral zoning verification
+9,Flood,flood 17.jpg,618,495,JPEG,NO,FLOOD,F05_LARGE_AREA_INUNDATION,Aerial flooding,NO,Large-area landscape water sheet
+10,Flood,flood 18.jpg,387,516,JPEG,NO,FLOOD,F01_ROAD_WATERLOGGING,Shallow waterlogging,NO,Shallow waterlogging / damp road surface
+11,Flood,flood 19.jpg,554,554,JPEG,NO,FLOOD,F01_ROAD_WATERLOGGING,Shallow waterlogging,NO,Shallow waterlogging / damp road surface
+12,Flood,flood 2,365,237,WEBP,NO,FLOOD,F01_ROAD_WATERLOGGING,Ground-level street flooding,NO,Submerged roadway corridor
+13,Flood,flood 20.webp,638,480,JPEG,NO,FLOOD,F05_LARGE_AREA_INUNDATION,Aerial flooding,NO,Large-area landscape water sheet
+14,Flood,flood 21.webp,515,388,JPEG,NO,FLOOD,F04_RIVER_OVERFLOW,River flooding,YES,Requires hydrographic river GIS vector verification
+15,Flood,flood 22.webp,554,554,JPEG,NO,FLOOD,F02_RESIDENTIAL_INUNDATION,Residential-area flooding,YES,Requires municipal cadastral zoning verification
+16,Flood,flood 23.webp,528,378,JPEG,NO,FLOOD,F00_NO_SIGNIFICANT_WATER,Shallow waterlogging,NO,Shallow waterlogging / damp road surface
+17,Flood,flood 24.webp,638,480,JPEG,NO,FLOOD,F01_ROAD_WATERLOGGING,Ground-level street flooding,NO,Submerged roadway corridor
+18,Flood,flood 25.webp,738,414,JPEG,NO,FLOOD,F04_RIVER_OVERFLOW,River flooding,YES,Requires hydrographic river GIS vector verification
+19,Flood,flood 26.webp,738,414,JPEG,NO,FLOOD,F05_LARGE_AREA_INUNDATION,Aerial flooding,NO,Large-area landscape water sheet
+20,Flood,flood 27.webp,738,414,JPEG,NO,FLOOD,F00_NO_SIGNIFICANT_WATER,Wet roads and reflections,NO,Shallow waterlogging / damp road surface
+21,Flood,flood 28.webp,556,359,JPEG,NO,FLOOD,F01_ROAD_WATERLOGGING,Ground-level street flooding,NO,Submerged roadway corridor
+22,Flood,flood 29.webp,638,480,JPEG,NO,FLOOD,F01_ROAD_WATERLOGGING,Ground-level street flooding,NO,Submerged roadway corridor
+23,Flood,flood 3.webp,408,234,WEBP,NO,FLOOD,F01_ROAD_WATERLOGGING,Ground-level street flooding,NO,Submerged roadway corridor
+24,Flood,flood 30.webp,738,414,JPEG,NO,FLOOD,F05_LARGE_AREA_INUNDATION,Aerial flooding,NO,Large-area landscape water sheet
+25,Flood,flood 4.webp,403,234,WEBP,NO,FLOOD,F05_LARGE_AREA_INUNDATION,Aerial flooding,NO,Large-area landscape water sheet
+26,Flood,flood 5.webp,308,234,WEBP,NO,FLOOD,F01_ROAD_WATERLOGGING,Ground-level street flooding,NO,Submerged roadway corridor
+27,Flood,flood 6.webp,432,243,WEBP,NO,FLOOD,F01_ROAD_WATERLOGGING,Ground-level street flooding,NO,Submerged roadway corridor
+28,Flood,flood 7.webp,351,234,WEBP,NO,FLOOD,F04_RIVER_OVERFLOW,River flooding,YES,Requires hydrographic river GIS vector verification
+29,Flood,flood 8.webp,345,245,WEBP,NO,FLOOD,F01_ROAD_WATERLOGGING,Ground-level street flooding,NO,Submerged roadway corridor
+30,Flood,flood 9.webp,427,240,WEBP,NO,FLOOD,F05_LARGE_AREA_INUNDATION,Aerial flooding,NO,Large-area landscape water sheet
+31,Flood,flood.jpg,193,135,JPEG,YES,FLOOD,F01_ROAD_WATERLOGGING,Ground-level street flooding,NO,Submerged roadway corridor
+32,Flood,puddles.jpg,502,398,JPEG,NO,FLOOD,F01_ROAD_WATERLOGGING,Wet roads and reflections,NO,Shallow waterlogging / damp road surface
+33,Garbage,garbage 1.webp,321,236,WEBP,NO,GARBAGE,W50_DUMP_PILE,DUMP_PILE,NO,"Dominant class: W50, scene: DUMP_PILE"
+34,Garbage,garbage 10.jpg,678,452,JPEG,NO,GARBAGE,W70_SCATTERED_LITTER,SCATTERED_LITTER,NO,"Dominant class: W70, scene: SCATTERED_LITTER"
+35,Garbage,garbage 11.jpg,738,414,JPEG,NO,GARBAGE,W20_DUMP_PILE,DUMP_PILE,NO,"Dominant class: W20, scene: DUMP_PILE"
+36,Garbage,garbage 12.jpg,480,638,JPEG,NO,GARBAGE,W70_SCATTERED_LITTER,SCATTERED_LITTER,NO,"Dominant class: W70, scene: SCATTERED_LITTER"
+37,Garbage,garbage 13.jpg,638,480,JPEG,NO,GARBAGE,W20_FLOATING_LITTER,FLOATING_LITTER,NO,"Dominant class: W20, scene: FLOATING_LITTER"
+38,Garbage,garbage 14.jpg,480,638,JPEG,NO,GARBAGE,W20_SCATTERED_LITTER,SCATTERED_LITTER,NO,"Dominant class: W20, scene: SCATTERED_LITTER"
+39,Garbage,garbage 15.jpg,515,388,JPEG,NO,GARBAGE,W70_SCATTERED_LITTER,SCATTERED_LITTER,NO,"Dominant class: W70, scene: SCATTERED_LITTER"
+40,Garbage,garbage 16.jpg,678,452,JPEG,NO,GARBAGE,W70_DUMP_PILE,DUMP_PILE,NO,"Dominant class: W70, scene: DUMP_PILE"
+41,Garbage,garbage 17.jpg,678,452,JPEG,NO,GARBAGE,W70_DUMP_PILE,DUMP_PILE,NO,"Dominant class: W70, scene: DUMP_PILE"
+42,Garbage,garbage 18.jpg,678,452,JPEG,NO,GARBAGE,W70_DUMP_PILE,DUMP_PILE,NO,"Dominant class: W70, scene: DUMP_PILE"
+43,Garbage,garbage 19.jpg,527,379,JPEG,NO,GARBAGE,W70_DUMP_PILE,DUMP_PILE,NO,"Dominant class: W70, scene: DUMP_PILE"
+44,Garbage,garbage 2.webp,393,234,WEBP,NO,GARBAGE,W70_DUMP_PILE,DUMP_PILE,NO,"Dominant class: W70, scene: DUMP_PILE"
+45,Garbage,garbage 20.jpg,738,360,JPEG,NO,GARBAGE,W70_SCATTERED_LITTER,SCATTERED_LITTER,NO,"Dominant class: W70, scene: SCATTERED_LITTER"
+46,Garbage,garbage 21.jpg,680,451,JPEG,NO,GARBAGE,W70_DUMP_PILE,DUMP_PILE,NO,"Dominant class: W70, scene: DUMP_PILE"
+47,Garbage,garbage 22.jpg,398,225,JPEG,NO,GARBAGE,W70_SCATTERED_LITTER,SCATTERED_LITTER,NO,"Dominant class: W70, scene: SCATTERED_LITTER"
+48,Garbage,garbage 23.jpg,678,452,JPEG,NO,GARBAGE,W70_SCATTERED_LITTER,SCATTERED_LITTER,NO,"Dominant class: W70, scene: SCATTERED_LITTER"
+49,Garbage,garbage 24.jpg,447,447,JPEG,NO,GARBAGE,W70_FLOATING_LITTER,FLOATING_LITTER,NO,"Dominant class: W70, scene: FLOATING_LITTER"
+50,Garbage,garbage 25.jpg,678,452,JPEG,NO,GARBAGE,W70_DUMP_PILE,DUMP_PILE,NO,"Dominant class: W70, scene: DUMP_PILE"
+51,Garbage,garbage 26.jpg,515,388,JPEG,NO,GARBAGE,W70_SCATTERED_LITTER,SCATTERED_LITTER,NO,"Dominant class: W70, scene: SCATTERED_LITTER"
+52,Garbage,garbage 27.jpg,678,452,JPEG,NO,GARBAGE,W70_SCATTERED_LITTER,SCATTERED_LITTER,NO,"Dominant class: W70, scene: SCATTERED_LITTER"
+53,Garbage,garbage 28.jpg,678,452,JPEG,NO,GARBAGE,W70_DUMP_PILE,DUMP_PILE,NO,"Dominant class: W70, scene: DUMP_PILE"
+54,Garbage,garbage 29.jpg,638,480,JPEG,NO,GARBAGE,W20_SCATTERED_LITTER,SCATTERED_LITTER,NO,"Dominant class: W20, scene: SCATTERED_LITTER"
+55,Garbage,garbage 3.webp,431,234,WEBP,NO,GARBAGE,W70_SCATTERED_LITTER,SCATTERED_LITTER,NO,"Dominant class: W70, scene: SCATTERED_LITTER"
+56,Garbage,garbage 30.jpg,515,388,JPEG,NO,GARBAGE,W70_DUMP_PILE,DUMP_PILE,NO,"Dominant class: W70, scene: DUMP_PILE"
+57,Garbage,garbage 4.webp,357,257,WEBP,NO,GARBAGE,W70_SCATTERED_LITTER,SCATTERED_LITTER,NO,"Dominant class: W70, scene: SCATTERED_LITTER"
+58,Garbage,garbage 5.webp,344,234,WEBP,NO,GARBAGE,W70_DUMP_PILE,DUMP_PILE,NO,"Dominant class: W70, scene: DUMP_PILE"
+59,Garbage,garbage 6.webp,354,236,WEBP,NO,GARBAGE,W20_SCATTERED_LITTER,SCATTERED_LITTER,NO,"Dominant class: W20, scene: SCATTERED_LITTER"
+60,Garbage,garbage 7.webp,391,260,WEBP,NO,GARBAGE,W70_DUMP_PILE,DUMP_PILE,NO,"Dominant class: W70, scene: DUMP_PILE"
+61,Garbage,garbage 8.webp,358,234,WEBP,NO,GARBAGE,W70_FLOATING_LITTER,FLOATING_LITTER,NO,"Dominant class: W70, scene: FLOATING_LITTER"
+62,Garbage,garbage 9.webp,332,244,WEBP,NO,GARBAGE,W70_SCATTERED_LITTER,SCATTERED_LITTER,NO,"Dominant class: W70, scene: SCATTERED_LITTER"
+63,Pathole,pathole 1.webp,340,256,WEBP,NO,PATHOLE,WATER_FILLED_POTHOLE,POTHOLE_WITH_WATER,NO,Standing water pooled inside asphalt depression
+64,Pathole,pathole 10.webp,371,234,WEBP,NO,PATHOLE,WATER_FILLED_POTHOLE,POTHOLE_WITH_WATER,NO,Standing water pooled inside asphalt depression
+65,Pathole,pathole 11.webp,391,234,WEBP,NO,PATHOLE,D20_ALLIGATOR_CRACK,STRUCTURAL_FATIGUE,NO,Interconnected fatigue cracking
+66,Pathole,pathole 12.webp,387,516,JPEG,NO,PATHOLE,D40_POTHOLE,ASPHALT_CAVITY,NO,Asphalt cavity / crater
+67,Pathole,pathole 13.webp,437,702,JPEG,NO,PATHOLE,WATER_FILLED_POTHOLE,POTHOLE_WITH_WATER,NO,Standing water pooled inside asphalt depression
+68,Pathole,pathole 14.webp,151,200,JPEG,YES,PATHOLE,WATER_FILLED_POTHOLE,POTHOLE_WITH_WATER,NO,Standing water pooled inside asphalt depression
+69,Pathole,pathole 15.webp,738,414,JPEG,NO,PATHOLE,D40_POTHOLE,ASPHALT_CAVITY,NO,Asphalt cavity / crater
+70,Pathole,pathole 16.webp,452,678,JPEG,NO,PATHOLE,D40_POTHOLE,ASPHALT_CAVITY,NO,Asphalt cavity / crater
+71,Pathole,pathole 17.webp,200,200,JPEG,YES,PATHOLE,D40_POTHOLE,ASPHALT_CAVITY,NO,Asphalt cavity / crater
+72,Pathole,pathole 18.webp,400,533,JPEG,NO,PATHOLE,D40_POTHOLE,ASPHALT_CAVITY,NO,Asphalt cavity / crater
+73,Pathole,pathole 19.webp,389,280,JPEG,NO,PATHOLE,D40_POTHOLE,ASPHALT_CAVITY,NO,Asphalt cavity / crater
+74,Pathole,pathole 2.webp,297,234,WEBP,YES,PATHOLE,D40_POTHOLE,ASPHALT_CAVITY,NO,Asphalt cavity / crater
+75,Pathole,pathole 20.webp,320,173,JPEG,YES,PATHOLE,D40_POTHOLE,ASPHALT_CAVITY,NO,Asphalt cavity / crater
+76,Pathole,pathole 21.webp,540,360,JPEG,NO,PATHOLE,D40_POTHOLE,ASPHALT_CAVITY,NO,Asphalt cavity / crater
+77,Pathole,pathole 22.webp,525,350,JPEG,NO,PATHOLE,D40_POTHOLE,ASPHALT_CAVITY,NO,Asphalt cavity / crater
+78,Pathole,pathole 23.webp,678,452,JPEG,NO,PATHOLE,D40_POTHOLE,ASPHALT_CAVITY,NO,Asphalt cavity / crater
+79,Pathole,pathole 24.webp,736,416,JPEG,NO,PATHOLE,D40_POTHOLE,ASPHALT_CAVITY,NO,Asphalt cavity / crater
+80,Pathole,pathole 25.webp,543,360,JPEG,NO,PATHOLE,WATER_FILLED_POTHOLE,POTHOLE_WITH_WATER,NO,Standing water pooled inside asphalt depression
+81,Pathole,pathole 26.webp,480,359,JPEG,NO,PATHOLE,WATER_FILLED_POTHOLE,POTHOLE_WITH_WATER,NO,Standing water pooled inside asphalt depression
+82,Pathole,pathole 27.webp,389,280,JPEG,NO,PATHOLE,D40_POTHOLE,ASPHALT_CAVITY,NO,Asphalt cavity / crater
+83,Pathole,pathole 28.webp,479,360,JPEG,NO,PATHOLE,D40_POTHOLE,ASPHALT_CAVITY,NO,Asphalt cavity / crater
+84,Pathole,pathole 29.webp,540,360,JPEG,NO,PATHOLE,D40_POTHOLE,ASPHALT_CAVITY,NO,Asphalt cavity / crater
+85,Pathole,pathole 3.webp,370,247,WEBP,NO,PATHOLE,D40_POTHOLE,ASPHALT_CAVITY,NO,Asphalt cavity / crater
+86,Pathole,pathole 30.webp,678,452,JPEG,NO,PATHOLE,D40_POTHOLE,ASPHALT_CAVITY,NO,Asphalt cavity / crater
+87,Pathole,pathole 4.webp,361,262,WEBP,NO,PATHOLE,WATER_FILLED_POTHOLE,POTHOLE_WITH_WATER,NO,Standing water pooled inside asphalt depression
+88,Pathole,pathole 5.webp,419,235,WEBP,NO,PATHOLE,D20_ALLIGATOR_CRACK,STRUCTURAL_FATIGUE,NO,Interconnected fatigue cracking
+89,Pathole,pathole 6.webp,334,250,WEBP,NO,PATHOLE,D40_POTHOLE,ASPHALT_CAVITY,NO,Asphalt cavity / crater
+90,Pathole,pathole 7.webp,232,234,WEBP,YES,PATHOLE,D40_POTHOLE,ASPHALT_CAVITY,NO,Asphalt cavity / crater
+91,Pathole,pathole 8.webp,396,234,WEBP,NO,PATHOLE,WATER_FILLED_POTHOLE,POTHOLE_WITH_WATER,NO,Standing water pooled inside asphalt depression
+92,Pathole,pathole 9.webp,319,234,WEBP,NO,PATHOLE,D40_POTHOLE,ASPHALT_CAVITY,NO,Asphalt cavity / crater
+93,Pathole,road without pothole.webp,353,226,WEBP,NO,OTHER,CLEAN_ROAD,NEGATIVE,NO,Clean undamaged asphalt road; negative class for pothole
+94,Pathole,water filled patholes.jpg,346,280,JPEG,NO,PATHOLE,WATER_FILLED_POTHOLE,POTHOLE_WITH_WATER,NO,Standing water pooled inside asphalt depression

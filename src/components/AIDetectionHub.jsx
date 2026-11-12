@@ -153,6 +153,7 @@ export default function AIDetectionHub({ addCustomIssue, onVisualDetectionsChang
 
   // Real inference state & active request sequence tracker
   const [inferenceResult, setInferenceResult] = useState(null);
+  const [pipelineError, setPipelineError] = useState(null);
   const activeRequestSeqRef = useRef(0);
 
   const imgRef = useRef(null);
@@ -162,6 +163,7 @@ export default function AIDetectionHub({ addCustomIssue, onVisualDetectionsChang
 
   // Helper for sample switching with immediate state reset to prevent stale data bleed
   const handleSelectSample = (sample) => {
+    setPipelineError(null);
     setInferenceResult(null);
     if (onVisualDetectionsChange) {
       onVisualDetectionsChange(null);
@@ -183,6 +185,7 @@ export default function AIDetectionHub({ addCustomIssue, onVisualDetectionsChang
 
     const runInferencePipeline = async () => {
       setIsInferring(true);
+      setPipelineError(null);
       setActiveWorkflowStep(3); // Step 3: Run AI analysis
       
       try {
@@ -194,8 +197,12 @@ export default function AIDetectionHub({ addCustomIssue, onVisualDetectionsChang
 
         const loadStartTime = performance.now();
         await new Promise((resolve, reject) => {
-          imageElement.onload = resolve;
-          imageElement.onerror = reject;
+          if (imageElement.complete && imageElement.naturalWidth > 0) {
+            resolve();
+            return;
+          }
+          imageElement.onload = () => resolve();
+          imageElement.onerror = () => reject(new Error(`Failed to load image from source: ${selectedSample.name || selectedSample.path}`));
         });
         const loadEndTime = performance.now();
         const imageLoadTimeMs = Number((loadEndTime - loadStartTime).toFixed(1));
@@ -225,7 +232,7 @@ export default function AIDetectionHub({ addCustomIssue, onVisualDetectionsChang
           imageSourceType: selectedSample.sourceType,
           confidenceThreshold,
           imageLoadTimeMs,
-          floodModelUrl: '/models/flood-water-segmentation.onnx?v=phase8c6d'
+          floodModelUrl: '/models/flood_segmentation.onnx'
         });
 
         if (!isMounted || reqSeq !== activeRequestSeqRef.current) {
@@ -256,6 +263,7 @@ export default function AIDetectionHub({ addCustomIssue, onVisualDetectionsChang
       } catch (err) {
         console.warn(`[INFERENCE_PIPELINE_ERROR] Request #${reqSeq} error:`, err);
         if (isMounted && reqSeq === activeRequestSeqRef.current) {
+          setPipelineError(err?.message || String(err));
           setInferenceResult(null);
           if (onVisualDetectionsChange) {
             onVisualDetectionsChange(null);
@@ -314,6 +322,7 @@ export default function AIDetectionHub({ addCustomIssue, onVisualDetectionsChang
   const handleCustomUpload = async (e) => {
     const file = e.target.files?.[0];
     if (file) {
+      setPipelineError(null);
       setInferenceResult(null);
       if (onVisualDetectionsChange) onVisualDetectionsChange(null);
 
@@ -330,7 +339,15 @@ export default function AIDetectionHub({ addCustomIssue, onVisualDetectionsChang
         setSelectedSample(customSample);
         setActiveWorkflowStep(2); // Step 2: Metadata Review
       };
+      reader.onerror = (err) => {
+        console.error("FileReader failed to load image:", err);
+        setPipelineError("Failed to read image file from disk.");
+      };
       reader.readAsDataURL(file);
+    }
+    // Reset file input value so selecting the same file again triggers onChange
+    if (e?.target) {
+      e.target.value = '';
     }
   };
 
@@ -445,7 +462,8 @@ export default function AIDetectionHub({ addCustomIssue, onVisualDetectionsChang
 
     const isHighRisk = incident.severity === 'HIGH' || incident.severity === 'CRITICAL' ||
       incident.priority === 'IMMEDIATE' || incident.incidentType === 'WATER_FILLED_POTHOLE' ||
-      incident.incidentType === 'SIGNIFICANT_WATERLOGGING';
+      incident.incidentType === 'SIGNIFICANT_WATERLOGGING' || incident.incidentType === 'GENERAL_SIGNIFICANT_FLOODING' ||
+      incident.incidentType === 'ROAD_WATERLOGGING';
 
     if (isHighRisk && session.role === AUTH_ROLES.FIELD_OPERATOR && currentDecision !== 'CONFIRMED') {
       setDispatchErrors(prev => ({ ...prev, [incident.id]: "High-risk hazard requires Supervisor approval before dispatch." }));
@@ -720,31 +738,63 @@ export default function AIDetectionHub({ addCustomIssue, onVisualDetectionsChang
             />
           </div>
 
+          {/* Pipeline Error Banner */}
+          {pipelineError && (
+            <div style={{ padding: '10px 14px', background: 'rgba(239, 68, 68, 0.15)', border: '1px solid #ef4444', borderRadius: '6px', color: '#fca5a5', fontSize: '12px', display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '12px' }}>
+              <AlertTriangle size={16} color="#ef4444" />
+              <span><strong>Inference Pipeline Error:</strong> {pipelineError}</span>
+            </div>
+          )}
+
           {/* Latency Breakdown Grid */}
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(130px, 1fr))', gap: '6px', fontSize: '11px', marginBottom: '12px', padding: '8px', background: 'rgba(255,255,255,0.02)', borderRadius: '6px' }}>
             <div>
               <span style={{ color: 'var(--text-muted)' }}>Image Load:</span><br/>
-              <strong>{typeof timing?.imageLoadTimeMs === 'number' ? `${timing.imageLoadTimeMs}ms` : 'LATENCY NOT MEASURED'}</strong>
+              <strong>
+                {typeof timing?.imageLoadTimeMs === 'number' 
+                  ? `${timing.imageLoadTimeMs}ms` 
+                  : (pipelineError ? 'FAILED' : (isInferring ? 'LOADING...' : 'NOT MEASURED'))}
+              </strong>
             </div>
             <div>
               <span style={{ color: 'var(--text-muted)' }}>Road Model:</span><br/>
-              <strong>{typeof timing?.roadInferenceTimeMs === 'number' ? `${timing.roadInferenceTimeMs}ms` : 'LATENCY NOT MEASURED'}</strong>
+              <strong style={{ color: timing?.roadModelError ? '#ef4444' : undefined }}>
+                {typeof timing?.roadInferenceTimeMs === 'number' 
+                  ? `${timing.roadInferenceTimeMs}ms` 
+                  : (timing?.roadModelError ? `ERROR: ${timing.roadModelError}` : (pipelineError ? 'FAILED' : (isInferring ? 'INFERRING...' : 'NOT MEASURED')))}
+              </strong>
             </div>
             <div>
               <span style={{ color: 'var(--text-muted)' }}>Waste Model:</span><br/>
-              <strong>{typeof timing?.wasteInferenceTimeMs === 'number' ? `${timing.wasteInferenceTimeMs}ms` : 'LATENCY NOT MEASURED'}</strong>
+              <strong style={{ color: timing?.wasteModelError ? '#ef4444' : undefined }}>
+                {typeof timing?.wasteInferenceTimeMs === 'number' 
+                  ? `${timing.wasteInferenceTimeMs}ms` 
+                  : (timing?.wasteModelError ? `ERROR: ${timing.wasteModelError}` : (pipelineError ? 'FAILED' : (isInferring ? 'INFERRING...' : 'NOT MEASURED')))}
+              </strong>
             </div>
             <div>
               <span style={{ color: 'var(--text-muted)' }}>Flood Model:</span><br/>
-              <strong>{typeof timing?.floodInferenceTimeMs === 'number' ? `${timing.floodInferenceTimeMs}ms` : 'LATENCY NOT MEASURED'}</strong>
+              <strong style={{ color: timing?.floodModelError ? '#ef4444' : undefined }}>
+                {typeof timing?.floodInferenceTimeMs === 'number' 
+                  ? `${timing.floodInferenceTimeMs}ms` 
+                  : (timing?.floodModelError ? `ERROR: ${timing.floodModelError}` : (pipelineError ? 'FAILED' : (isInferring ? 'INFERRING...' : 'NOT MEASURED')))}
+              </strong>
             </div>
             <div>
               <span style={{ color: 'var(--text-muted)' }}>Arbitration:</span><br/>
-              <strong>{typeof timing?.arbitrationTimeMs === 'number' ? `${timing.arbitrationTimeMs}ms` : 'LATENCY NOT MEASURED'}</strong>
+              <strong>
+                {typeof timing?.arbitrationTimeMs === 'number' 
+                  ? `${timing.arbitrationTimeMs}ms` 
+                  : (pipelineError ? 'FAILED' : (isInferring ? 'COMPUTING...' : 'NOT MEASURED'))}
+              </strong>
             </div>
             <div>
               <span style={{ color: 'var(--accent-blue)' }}>Total Processing:</span><br/>
-              <strong style={{ color: 'var(--accent-blue)' }}>{typeof timing?.totalProcessingTimeMs === 'number' ? `${timing.totalProcessingTimeMs}ms` : 'LATENCY NOT MEASURED'}</strong>
+              <strong style={{ color: 'var(--accent-blue)' }}>
+                {typeof timing?.totalProcessingTimeMs === 'number' 
+                  ? `${timing.totalProcessingTimeMs}ms` 
+                  : (pipelineError ? 'FAILED' : (isInferring ? 'MEASURING...' : 'NOT MEASURED'))}
+              </strong>
             </div>
           </div>
 
@@ -785,7 +835,7 @@ export default function AIDetectionHub({ addCustomIssue, onVisualDetectionsChang
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: '8px', color: 'var(--text-secondary)' }}>
             <div><strong>Road Model:</strong> {inferenceResult?.devDiagnostics?.roadModelFile || getActiveRoadModelConfig().fileUrl} ({inferenceResult?.devDiagnostics?.roadModelId || getActiveRoadModelConfig().id})</div>
             <div><strong>Waste Model:</strong> {inferenceResult?.devDiagnostics?.wasteModelFile || '/models/waste-detection.onnx'}</div>
-            <div><strong>Flood Model:</strong> {inferenceResult?.devDiagnostics?.floodModelFile || '/models/flood-water-segmentation.onnx'}</div>
+            <div><strong>Flood Model:</strong> {inferenceResult?.devDiagnostics?.floodModelFile || '/models/flood_segmentation.onnx'}</div>
             <div><strong>Natural Resolution:</strong> {inferenceResult?.devDiagnostics?.naturalResolution || 'Unknown'}</div>
             <div><strong>Input Shape:</strong> [1, 3, 640, 640] (Flood: [1, 3, 512, 512])</div>
             <div><strong>Raw Candidates:</strong> Road: {inferenceResult?.devDiagnostics?.rawRoadCandidates ?? 0}, Waste: {inferenceResult?.devDiagnostics?.rawWasteCandidates ?? 0}</div>
@@ -1055,6 +1105,11 @@ export default function AIDetectionHub({ addCustomIssue, onVisualDetectionsChang
                         </div>
 
                         <div style={{ display: 'flex', gap: '6px', flexWrap: 'wrap' }}>
+                          {incident.isUncertain && (
+                            <span className="badge badge-amber" style={{ fontSize: '10px' }}>
+                              REVIEW CANDIDATE
+                            </span>
+                          )}
                           <span className={`badge ${incident.severity === 'HIGH' || incident.severity === 'CRITICAL' ? 'badge-red' : 'badge-amber'}`} style={{ fontSize: '10px' }}>
                             {incident.severity} SEVERITY
                           </span>
@@ -1063,6 +1118,14 @@ export default function AIDetectionHub({ addCustomIssue, onVisualDetectionsChang
                           </span>
                         </div>
                       </div>
+
+                      {/* Low-Resolution Incident Warning Notice */}
+                      {incident.lowResolutionWarning && (
+                        <div style={{ padding: '6px 10px', backgroundColor: 'rgba(245, 158, 11, 0.1)', border: '1px solid rgba(245, 158, 11, 0.4)', borderRadius: '6px', color: '#f59e0b', fontSize: '11px', display: 'flex', alignItems: 'center', gap: '6px' }}>
+                          <AlertTriangle size={14} style={{ flexShrink: 0 }} />
+                          <span><strong>LOW IMAGE RESOLUTION:</strong> Visual classification uncertain on low-resolution imagery. Operator review required.</span>
+                        </div>
+                      )}
 
                       {/* 10-Field Incident Specification Table (Section 13) */}
                       <div style={{ display: 'flex', flexDirection: 'column', gap: '5px', color: 'var(--text-secondary)', fontSize: '11px' }}>
@@ -1336,8 +1399,26 @@ export default function AIDetectionHub({ addCustomIssue, onVisualDetectionsChang
 
               <div className="flex-between">
                 <span style={{ color: 'var(--text-muted)' }}>Waste Arbitration:</span>
-                <span>{acceptedWaste.length} accepted / {suppressedWaste.length} suppressed</span>
+                <span>
+                  {acceptedWaste.length} accepted
+                  {inferenceResult?.candidateWaste?.length > 0 ? ` / ${inferenceResult.candidateWaste.length} candidate(s)` : ''}
+                  {' '}/ {suppressedWaste.length} suppressed
+                </span>
               </div>
+
+              {/* Candidate Detections Detail (Uncertain / Low Resolution) */}
+              {inferenceResult?.candidateWaste?.length > 0 && (
+                <div style={{ marginTop: '8px', padding: '10px', backgroundColor: 'rgba(245, 158, 11, 0.08)', borderRadius: '6px', border: '1px solid rgba(245, 158, 11, 0.3)' }}>
+                  <strong style={{ color: '#f59e0b', display: 'block', marginBottom: '4px' }}>
+                    ⚠ Uncertain Review Candidates ({inferenceResult.candidateWaste.length}):
+                  </strong>
+                  {inferenceResult.candidateWaste.map((c, idx) => (
+                    <div key={idx} style={{ fontSize: '10px', color: 'var(--text-secondary)', marginBottom: '4px' }}>
+                      • <strong>{c.type} ({c.classCode})</strong>: {c.arbitrationReason}
+                    </div>
+                  ))}
+                </div>
+              )}
 
               {/* Suppressed Detections Detail */}
               {suppressedWaste.length > 0 && (

@@ -1,0 +1,98 @@
+{
+  "filename": "flood 1.jpg",
+  "mask_filename": "flood 1.png",
+  "split": "train",
+  "width": 250,
+  "height": 175,
+  "total_pixels": 43750,
+  "primary_category": "Ground-level street flooding",
+  "annotation_status": "VERIFIED_COMPLETE",
+  "annotator": {
+    "id": "CIVICSENSE-HUMAN-OPERATOR-01",
+    "tool": "CivicSense AI Ground-Truth Annotator v2.4",
+    "timestamp": "2026-11-12T21:30:00Z"
+  },
+  "notes": "Turbid brown floodwater covering road corridor. Pedestrian bodies and vehicle upper chassis excluded as BACKGROUND (0). Splash wake around tires marked as IGNORE (255).",
+  "polygons_count": 2,
+  "polygons": [
+    {
+      "id": "poly_fl1_flood",
+      "class_id": 1,
+      "class_name": "FLOODWATER",
+      "points": [
+        {
+          "x": 0.0,
+          "y": 78.8
+        },
+        {
+          "x": 75.0,
+          "y": 78.8
+        },
+        {
+          "x": 95.0,
+          "y": 91.0
+        },
+        {
+          "x": 162.5,
+          "y": 87.5
+        },
+        {
+          "x": 250.0,
+          "y": 73.5
+        },
+        {
+          "x": 250.0,
+          "y": 175.0
+        },
+        {
+          "x": 0.0,
+          "y": 175.0
+        }
+      ],
+      "description": "Submerged street surface with turbid standing water"
+    },
+    {
+      "id": "poly_fl1_wake",
+      "class_id": 255,
+      "class_name": "IGNORE",
+      "points": [
+        {
+          "x": 87.5,
+          "y": 101.5
+        },
+        {
+          "x": 137.5,
+          "y": 101.5
+        },
+        {
+          "x": 130.0,
+          "y": 126.0
+        },
+        {
+          "x": 95.0,
+          "y": 122.5
+        }
+      ],
+      "description": "Turbulent splash wake and tyre spray where water-vehicle boundary is ambiguous"
+    }
+  ],
+  "pixel_distribution": {
+    "BACKGROUND": 20618,
+    "FLOODWATER": 22105,
+    "IGNORE": 1027
+  },
+  "pixel_percentage": {
+    "BACKGROUND": 47.13,
+    "FLOODWATER": 50.53,
+    "IGNORE": 2.35
+  },
+  "mask_validation": {
+    "status": "PASS",
+    "dimension_match": true,
+    "permitted_classes_only": true,
+    "non_empty_foreground": true,
+    "foreground_pixel_count": 23132,
+    "valid_polygon_geometry": true,
+    "reopening_verified": true
+  }
+}

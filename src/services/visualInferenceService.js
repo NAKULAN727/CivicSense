@@ -6,6 +6,12 @@
 import * as ort from 'onnxruntime-web';
 import ExifReader from 'exifreader';
 import { getActiveRoadModelConfig } from '../config/modelRegistry';
+import { 
+  resizeLogitsAndGenerateMask, 
+  calculateFloodConnectedComponents 
+} from './floodInferenceService';
+
+export { resizeLogitsAndGenerateMask, calculateFloodConnectedComponents };
 
 // Configure ONNX Runtime Web WASM CDN paths for Vite compatibility
 ort.env.wasm.wasmPaths = 'https://cdn.jsdelivr.net/npm/onnxruntime-web@1.30.0/dist/';
@@ -35,19 +41,13 @@ export const WASTE_CLASSES = {
 };
 
 /**
- * Flood / Water Class code mappings per CVPR FloodNet SegFormer dataset specification.
+ * Flood / Water Class code mappings per CivicSense AI SegFormer B0 Binary Model Specification.
+ * 0 = BACKGROUND (Dry surface, infrastructure, non-water)
+ * 1 = FLOODWATER (Flood water, inundation, standing road water)
  */
 export const FLOOD_CLASSES = {
-  0: { code: 'F00', name: 'background', label: 'Background', isWater: false },
-  1: { code: 'F10', name: 'building flooded', label: 'Flooded Building', isWater: true },
-  2: { code: 'F20', name: 'building non-flooded', label: 'Non-Flooded Building', isWater: false },
-  3: { code: 'F30', name: 'road flooded', label: 'Flooded Road', isWater: true },
-  4: { code: 'F40', name: 'road non-flooded', label: 'Non-Flooded Road', isWater: false },
-  5: { code: 'F50', name: 'water', label: 'Water Body / Flood Water', isWater: true },
-  6: { code: 'F60', name: 'tree', label: 'Tree / Vegetation', isWater: false },
-  7: { code: 'F70', name: 'vehicle', label: 'Vehicle', isWater: false },
-  8: { code: 'F80', name: 'pool', label: 'Pool', isWater: false },
-  9: { code: 'F90', name: 'grass', label: 'Grass', isWater: false }
+  0: { code: 'BACKGROUND', name: 'BACKGROUND', label: 'Background / Dry Surface', isWater: false },
+  1: { code: 'FLOODWATER', name: 'FLOODWATER', label: 'Floodwater', isWater: true }
 };
 
 /**
@@ -227,8 +227,10 @@ export function preprocessImageForFlood(img, targetWidth = 512, targetHeight = 5
   const canvas = document.createElement('canvas');
   canvas.width = targetWidth;
   canvas.height = targetHeight;
-  const ctx = canvas.getContext('2d');
+  const ctx = canvas.getContext('2d', { willReadFrequently: true });
 
+  ctx.imageSmoothingEnabled = true;
+  ctx.imageSmoothingQuality = 'high';
   ctx.drawImage(img, 0, 0, targetWidth, targetHeight);
 
   const imageData = ctx.getImageData(0, 0, targetWidth, targetHeight);
@@ -346,7 +348,7 @@ export async function runGenuineVisualInference({
   imageLoadTimeMs = null,
   roadModelUrl = null,
   wasteModelUrl = '/models/waste-detection.onnx',
-  floodModelUrl = '/models/flood-water-segmentation.onnx?v=phase8c6d'
+  floodModelUrl = '/models/flood_segmentation.onnx'
 }) {
   const totalStartTime = performance.now();
 
@@ -376,8 +378,16 @@ export async function runGenuineVisualInference({
   let rawWasteCountTotal = 0;
   let wasteInferenceTimeMs = 0;
 
-  // 1. EXECUTE ROAD DAMAGE MODEL INFERENCE (SERIALIZED SINGLE-FLIGHT)
+  // Target ONNX model URLs for multi-model inference (outer scope)
   const targetRoadUrl = roadModelUrl || activeRoadConfig.fileUrl || '/models/rdd2022-road-damage.onnx';
+  const targetWasteUrl = wasteModelUrl || '/models/waste-detection.onnx';
+  const targetFloodUrl = floodModelUrl || '/models/flood_segmentation.onnx';
+
+  let roadModelError = null;
+  let wasteModelError = null;
+  let floodModelError = null;
+
+  // 1. EXECUTE ROAD DAMAGE MODEL INFERENCE (SERIALIZED SINGLE-FLIGHT)
   await (roadInferenceMutex = roadInferenceMutex.then(async () => {
     try {
       if (!roadModelSession || cachedRoadUrl !== targetRoadUrl) {
@@ -469,16 +479,19 @@ export async function runGenuineVisualInference({
       }
     } catch (err) {
       console.error("ONNX Runtime execution error for Road Damage model:", err);
+      roadModelError = err?.message || String(err);
       isRoadModelVerified = false;
       roadModelProvenance = "MODEL LOAD FAILED";
       activeRoadModelName = "MODEL LOAD FAILED";
     }
-  }).catch(err => console.error("Road inference mutex error:", err)));
+  }).catch(err => {
+    console.error("Road inference mutex error:", err);
+    roadModelError = err?.message || String(err);
+  }));
 
   // 2. EXECUTE WASTE DETECTION MODEL INFERENCE (SERIALIZED SINGLE-FLIGHT)
   await (wasteInferenceMutex = wasteInferenceMutex.then(async () => {
     try {
-      const targetWasteUrl = wasteModelUrl || '/models/waste-detection.onnx';
       if (!wasteModelSession || cachedWasteUrl !== targetWasteUrl) {
         wasteModelSession = await ort.InferenceSession.create(targetWasteUrl, { executionProviders: ['wasm'] });
         cachedWasteUrl = targetWasteUrl;
@@ -569,23 +582,30 @@ export async function runGenuineVisualInference({
       }
     } catch (err) {
       console.warn("ONNX Runtime execution notice for Waste model:", err);
+      wasteModelError = err?.message || String(err);
       isWasteModelVerified = false;
       wasteModelProvenance = "WASTE MODEL UNAVAILABLE";
       activeWasteModelName = "WASTE MODEL UNAVAILABLE";
     }
-  }).catch(err => console.error("Waste inference mutex error:", err)));
+  }).catch(err => {
+    console.error("Waste inference mutex error:", err);
+    wasteModelError = err?.message || String(err);
+  }));
 
   // 3. EXECUTE FLOOD WATER SEGMENTATION MODEL INFERENCE (SINGLE-FLIGHT MUTEX)
   let isFloodModelVerified = false;
   let floodModelProvenance = "FLOOD MODEL UNAVAILABLE";
-  let activeFloodModelName = "SegFormer FloodNet Water Segmenter";
+  let activeFloodModelName = "SegFormer B0 Flood Water Segmentation";
   let floodOutputShapeStr = "None";
   let floodedAreaRatio = 0;
   let floodedAreaPercent = 0;
   let floodPixelsCount = 0;
-  const totalMaskPixels = 128 * 128; // 16,384
+  let totalMaskPixels = originalWidth * originalHeight;
   let maskClassArray = null;
-  const classPixelCounts = {};
+  let classPixelCounts = { 0: totalMaskPixels, 1: 0 };
+  let floodComps = { totalWaterPixels: 0, largestComponentPixels: 0, numComponents: 0, largestCompRatioPct: 0 };
+  let largestCompRatioPct = 0;
+  let spatialTopology = 'DISPERSED_WATER';
   let floodSessionInitTimeMs = 0;
   let floodInferenceTimeMs = 0;
   let floodPostprocessTimeMs = 0;
@@ -596,9 +616,6 @@ export async function runGenuineVisualInference({
 
   await (floodInferenceMutex = floodInferenceMutex.then(async () => {
     try {
-      const targetFloodUrl = (floodModelUrl || '/models/flood-water-segmentation.onnx') + 
-        (floodModelUrl?.includes('?') ? '' : '?v=phase8c6d');
-
       console.log(`[FLOOD_INFERENCE_RUN] Sequence: #${currentReqSeq}, RequestID: ${reqId}, TargetURL: ${targetFloodUrl}`);
       
       const sessionStart = performance.now();
@@ -611,10 +628,11 @@ export async function runGenuineVisualInference({
 
       if (floodModelSession) {
         isFloodModelVerified = true;
-        floodModelProvenance = "VERIFIED_ONNX";
+        floodModelProvenance = "VERIFIED_ONNX_SEGFORMER_B0";
 
+        // Preprocessing matching Hugging Face SegformerImageProcessor
         const floodPre = preprocessImageForFlood(imageElement, 512, 512);
-        const inputName = floodModelSession.inputNames[0] || 'images';
+        const inputName = floodModelSession.inputNames[0] || 'pixel_values';
         const feeds = {};
         feeds[inputName] = floodPre.tensor;
 
@@ -624,72 +642,96 @@ export async function runGenuineVisualInference({
         floodInferenceTimeMs = Number((floodEnd - floodStart).toFixed(1));
 
         const postStart = performance.now();
-        const outputName = floodModelSession.outputNames[0] || 'output0';
+        const outputName = floodModelSession.outputNames[0] || 'logits';
         const outputTensor = results[outputName];
 
-        const rawData = outputTensor.data; // Float32Array of shape [1, 10, 128, 128]
-        const dims = outputTensor.dims;
+        const rawData = outputTensor.data; // Float32Array of logits
+        const dims = outputTensor.dims; // e.g. [1, 2, 128, 128] or [1, 10, 128, 128]
         floodOutputShapeStr = JSON.stringify(dims);
 
-        const numClasses = dims[1]; // 10
-        const maskH = dims[2]; // 128
-        const maskW = dims[3]; // 128
-        const spatialSize = maskH * maskW;
+        const numClasses = dims[1]; // 2 (Binary SegFormer) or 10 (Legacy)
+        const maskH = dims[2] || 128;
+        const maskW = dims[3] || 128;
 
-        // Calculate raw output statistics (Min, Max, Mean)
-        let minLogit = Infinity;
-        let maxLogitVal = -Infinity;
-        let sumLogits = 0;
-        for (let k = 0; k < rawData.length; k++) {
-          const val = rawData[k];
-          if (val < minLogit) minLogit = val;
-          if (val > maxLogitVal) maxLogitVal = val;
-          sumLogits += val;
-        }
-        const meanLogit = sumLogits / rawData.length;
+        if (numClasses === 2) {
+          // SegFormer B0 Binary: Resize output logits to original image dimensions before generating mask
+          const resized = resizeLogitsAndGenerateMask(
+            rawData,
+            maskW,
+            maskH,
+            originalWidth,
+            originalHeight
+          );
 
-        maskClassArray = new Uint8Array(spatialSize);
+          maskClassArray = resized.mask;
+          floodPixelsCount = resized.floodCount;
+          totalMaskPixels = resized.totalPixels;
+          floodedAreaRatio = resized.floodedAreaRatio;
+          floodedAreaPercent = resized.floodedAreaPercent;
+          classPixelCounts = resized.classPixelCounts;
 
-        for (let i = 0; i < spatialSize; i++) {
-          let maxLogit = -Infinity;
-          let bestClass = 0;
-          for (let c = 0; c < numClasses; c++) {
-            const logit = rawData[c * spatialSize + i];
-            if (logit > maxLogit) {
-              maxLogit = logit;
-              bestClass = c;
+          // Topological analysis on 128x128 feature grid for fast connected component ratio
+          const spatialIn = maskW * maskH;
+          const l0 = rawData.subarray(0, spatialIn);
+          const l1 = rawData.subarray(spatialIn, 2 * spatialIn);
+          const mask128 = new Uint8Array(spatialIn);
+          for (let i = 0; i < spatialIn; i++) {
+            if (l1[i] > l0[i]) mask128[i] = 1;
+          }
+          floodComps = calculateFloodConnectedComponents(mask128, maskW, maskH);
+          largestCompRatioPct = floodComps.largestCompRatioPct;
+          spatialTopology = largestCompRatioPct >= 60.0 ? 'CONTINUOUS_WATER_BODY' : 'DISPERSED_WATER';
+        } else {
+          // Legacy 10-Class FloodNet compatibility fallback
+          const spatialSize = maskH * maskW;
+          maskClassArray = new Uint8Array(spatialSize);
+          totalMaskPixels = spatialSize;
+          floodPixelsCount = 0;
+
+          for (let i = 0; i < spatialSize; i++) {
+            let maxLogit = -Infinity;
+            let bestClass = 0;
+            for (let c = 0; c < numClasses; c++) {
+              const logit = rawData[c * spatialSize + i];
+              if (logit > maxLogit) {
+                maxLogit = logit;
+                bestClass = c;
+              }
+            }
+            maskClassArray[i] = bestClass;
+            classPixelCounts[bestClass] = (classPixelCounts[bestClass] || 0) + 1;
+
+            if (bestClass === 1 || bestClass === 3 || bestClass === 5) {
+              floodPixelsCount++;
             }
           }
-          maskClassArray[i] = bestClass;
-          classPixelCounts[bestClass] = (classPixelCounts[bestClass] || 0) + 1;
 
-          // Target flood water classes: 1 ('building flooded'), 3 ('road flooded'), 5 ('water')
-          if (bestClass === 1 || bestClass === 3 || bestClass === 5) {
-            floodPixelsCount++;
-          }
+          floodedAreaRatio = Number((floodPixelsCount / totalMaskPixels).toFixed(6));
+          floodedAreaPercent = Number((floodedAreaRatio * 100).toFixed(2));
+          floodComps = calculateFloodConnectedComponents(maskClassArray, maskW, maskH);
+          largestCompRatioPct = floodComps.largestCompRatioPct;
+          spatialTopology = largestCompRatioPct >= 60.0 ? 'CONTINUOUS_WATER_BODY' : 'DISPERSED_WATER';
         }
 
-        floodedAreaRatio = Number((floodPixelsCount / totalMaskPixels).toFixed(6));
-        floodedAreaPercent = Number((floodedAreaRatio * 100).toFixed(2));
         const postEnd = performance.now();
         floodPostprocessTimeMs = Number((postEnd - postStart).toFixed(1));
 
-        console.log(`[FLOOD_INFERENCE_COMPLETE] Sequence: #${currentReqSeq}, RequestID: ${reqId}, Output: ${floodOutputShapeStr}, SessionInit: ${floodSessionInitTimeMs}ms, RunDuration: ${floodInferenceTimeMs}ms, PostProcess: ${floodPostprocessTimeMs}ms, MinLogit: ${minLogit.toFixed(4)}, MaxLogit: ${maxLogitVal.toFixed(4)}, MeanLogit: ${meanLogit.toFixed(4)}, WaterClass5: ${classPixelCounts[5] || 0}px, TotalFloodPixels: ${floodPixelsCount}/${spatialSize} (${floodedAreaPercent}%)`);
-        
-        console.log(`=== FLOOD MODEL ARGMAX COUNTS (CLASSES 0-9) - Sequence #${currentReqSeq} ===`);
-        for (let c = 0; c < 10; c++) {
-          const count = classPixelCounts[c] || 0;
-          const desc = FLOOD_CLASSES[c]?.name || `class ${c}`;
-          console.log(`  class ${c} (${desc}): ${count} pixels`);
-        }
+        console.log(`[FLOOD_INFERENCE_COMPLETE] Sequence: #${currentReqSeq}, RequestID: ${reqId}, Output: ${floodOutputShapeStr}, SessionInit: ${floodSessionInitTimeMs}ms, RunDuration: ${floodInferenceTimeMs}ms, PostProcess: ${floodPostprocessTimeMs}ms, FloodPixels: ${floodPixelsCount}/${totalMaskPixels} (${floodedAreaPercent}%), Topology: ${spatialTopology} (${largestCompRatioPct}%)`);
+        console.log(`=== FLOOD MODEL CLASS DISTRIBUTION - Sequence #${currentReqSeq} ===`);
+        console.log(`  class 0 (BACKGROUND): ${classPixelCounts[0] || 0} pixels`);
+        console.log(`  class 1 (FLOODWATER): ${classPixelCounts[1] || 0} pixels`);
       }
     } catch (err) {
       console.warn(`[FLOOD_INFERENCE_ERROR] Sequence: #${currentReqSeq}, RequestID: ${reqId}, Error:`, err);
+      floodModelError = err?.message || String(err);
       isFloodModelVerified = false;
       floodModelProvenance = "FLOOD MODEL UNAVAILABLE";
       activeFloodModelName = "FLOOD MODEL UNAVAILABLE";
     }
-  }).catch(err => console.error("Flood inference mutex error:", err)));
+  }).catch(err => {
+    console.error("Flood inference mutex error:", err);
+    floodModelError = err?.message || String(err);
+  }));
 
   // Apply Non-Maximum Suppression (NMS) for detection models
   const nmsRoad = applyNMS(rawDetections.road, 0.45);
@@ -722,23 +764,29 @@ export async function runGenuineVisualInference({
 
   const floodResult = {
     type: "flood",
-    model: "flood-water-segmentation.onnx",
+    model: "flood_segmentation.onnx",
+    modelPath: targetFloodUrl,
     modelStatus: isFloodModelVerified ? "VERIFIED_ONNX" : "MODEL_UNAVAILABLE",
-    inferenceStatus: isFloodModelVerified ? "SUCCESS" : "FAILED",
+    inferenceStatus: isFloodModelVerified ? "SUCCESS" : (floodModelError ? "FAILED" : "UNAVAILABLE"),
+    error: floodModelError,
     detected: isFloodModelVerified && floodedAreaPercent > 1.0,
     floodedAreaRatio: isFloodModelVerified ? floodedAreaRatio : 0,
     floodedAreaPercent: isFloodModelVerified ? floodedAreaPercent : 0,
-    maskWidth: 128,
-    maskHeight: 128,
+    maskWidth: originalWidth,
+    maskHeight: originalHeight,
     sessionInitTimeMs: floodSessionInitTimeMs,
     inferenceTimeMs: floodInferenceTimeMs,
     postprocessTimeMs: floodPostprocessTimeMs,
     confidence: null, // Confidence is null per spec (no fabricated confidence for segmentation logits)
-    source: "RGB_FLOOD_MODEL",
+    source: "RGB_FLOOD_SEGFORMER_B0",
     maskClassArray,
     classPixelCounts,
     floodPixelsCount,
     totalMaskPixels,
+    connectedComponents: floodComps,
+    largest_comp_ratio_pct: largestCompRatioPct,
+    spatialTopology,
+    classes: FLOOD_CLASSES,
     isFloodModelVerified,
     floodModelProvenance,
     requestSequence: currentReqSeq,
@@ -749,16 +797,17 @@ export async function runGenuineVisualInference({
   const inferenceTimeMs = Number((totalEndTime - totalStartTime).toFixed(1));
 
   const devDiagnostics = {
-    model: "RDD2022 Road Damage + YOLOv8 Waste + SegFormer Flood Model",
+    model: "RDD2022 Road Damage + YOLOv8 Waste + SegFormer B0 Flood Model",
     roadModelFile: targetRoadUrl,
     roadModelId: activeRoadConfig.id || 'MODEL_A_RDD2022',
     roadModelVersion: activeRoadConfig.version || 'v1.0-rdd2022',
     roadModelLoaded: isRoadModelVerified ? "YES" : "NO",
-    wasteModelFile: wasteModelUrl || '/models/waste-detection.onnx',
+    wasteModelFile: targetWasteUrl,
     wasteModelLoaded: isWasteModelVerified ? "YES" : "NO",
-    floodModelFile: floodModelUrl || '/models/flood-water-segmentation.onnx?v=phase8c6d',
+    floodModelFile: targetFloodUrl,
+    floodModelId: 'SEGFORMER_B0_BINARY',
     floodModelLoaded: isFloodModelVerified ? "YES" : "NO",
-    inputShape: "images [1, 3, 640, 640] (Flood: [1, 3, 512, 512])",
+    inputShape: "images [1, 3, 640, 640] (Flood pixel_values: [1, 3, 512, 512])",
     roadOutputShape: roadOutputShapeStr,
     wasteOutputShape: wasteOutputShapeStr,
     floodOutputShape: floodOutputShapeStr,
@@ -778,7 +827,7 @@ export async function runGenuineVisualInference({
     postNmsDetections: finalRoad.length + finalWaste.length,
     postNmsRoadDetections: finalRoad.length,
     postNmsWasteDetections: finalWaste.length,
-    maskDimensions: "128 × 128",
+    maskDimensions: `${originalWidth} × ${originalHeight} (Logits: 128 × 128)`,
     floodPixels: floodPixelsCount,
     totalPixels: totalMaskPixels,
     floodedAreaRatio,
@@ -830,6 +879,9 @@ export async function runGenuineVisualInference({
       roadInferenceTimeMs,
       wasteInferenceTimeMs,
       floodInferenceTimeMs,
+      roadModelError,
+      wasteModelError,
+      floodModelError,
       arbitrationTimeMs: null, // Populated post-arbitration
       totalProcessingTimeMs: inferenceTimeMs
     },

@@ -1,0 +1,86 @@
+{
+  "filename": "flood 21.webp",
+  "mask_filename": "flood 21.png",
+  "split": "train",
+  "width": 515,
+  "height": 388,
+  "total_pixels": 199820,
+  "primary_category": "River flooding",
+  "annotation_status": "VERIFIED_COMPLETE",
+  "annotator": {
+    "id": "CIVICSENSE-HUMAN-OPERATOR-01",
+    "tool": "CivicSense AI Ground-Truth Annotator v2.4",
+    "timestamp": "2026-11-12T21:30:00Z"
+  },
+  "notes": "River overtopping banks. Permanent river channel labeled as NATURAL_WATER (2), overbank water as FLOODWATER (1).",
+  "polygons_count": 2,
+  "polygons": [
+    {
+      "id": "poly_fl21_natural",
+      "class_id": 2,
+      "class_name": "NATURAL_WATER",
+      "points": [
+        {
+          "x": 0.0,
+          "y": 77.6
+        },
+        {
+          "x": 309.0,
+          "y": 69.8
+        },
+        {
+          "x": 283.2,
+          "y": 194.0
+        },
+        {
+          "x": 0.0,
+          "y": 186.2
+        }
+      ],
+      "description": "Permanent river channel waterway"
+    },
+    {
+      "id": "poly_fl21_flood",
+      "class_id": 1,
+      "class_name": "FLOODWATER",
+      "points": [
+        {
+          "x": 0.0,
+          "y": 194.0
+        },
+        {
+          "x": 515.0,
+          "y": 174.6
+        },
+        {
+          "x": 515.0,
+          "y": 388.0
+        },
+        {
+          "x": 0.0,
+          "y": 388.0
+        }
+      ],
+      "description": "Overbank fluvial floodwater inundating adjacent terrain"
+    }
+  ],
+  "pixel_distribution": {
+    "BACKGROUND": 61178,
+    "FLOODWATER": 104800,
+    "NATURAL_WATER": 33842
+  },
+  "pixel_percentage": {
+    "BACKGROUND": 30.62,
+    "FLOODWATER": 52.45,
+    "NATURAL_WATER": 16.94
+  },
+  "mask_validation": {
+    "status": "PASS",
+    "dimension_match": true,
+    "permitted_classes_only": true,
+    "non_empty_foreground": true,
+    "foreground_pixel_count": 138642,
+    "valid_polygon_geometry": true,
+    "reopening_verified": true
+  }
+}

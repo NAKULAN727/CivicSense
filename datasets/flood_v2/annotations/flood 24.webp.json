@@ -1,0 +1,60 @@
+{
+  "filename": "flood 24.webp",
+  "mask_filename": "flood 24.png",
+  "split": "train",
+  "width": 638,
+  "height": 480,
+  "total_pixels": 306240,
+  "primary_category": "Ground-level street flooding",
+  "annotation_status": "VERIFIED_COMPLETE",
+  "annotator": {
+    "id": "CIVICSENSE-HUMAN-OPERATOR-01",
+    "tool": "CivicSense AI Ground-Truth Annotator v2.4",
+    "timestamp": "2026-11-12T21:30:00Z"
+  },
+  "notes": "Standing water pool across travel lanes on roadway.",
+  "polygons_count": 1,
+  "polygons": [
+    {
+      "id": "poly_fl24_flood",
+      "class_id": 1,
+      "class_name": "FLOODWATER",
+      "points": [
+        {
+          "x": 31.9,
+          "y": 230.4
+        },
+        {
+          "x": 606.1,
+          "y": 220.8
+        },
+        {
+          "x": 638.0,
+          "y": 456.0
+        },
+        {
+          "x": 0.0,
+          "y": 456.0
+        }
+      ],
+      "description": "Roadway waterlogging pool"
+    }
+  ],
+  "pixel_distribution": {
+    "BACKGROUND": 165587,
+    "FLOODWATER": 140653
+  },
+  "pixel_percentage": {
+    "BACKGROUND": 54.07,
+    "FLOODWATER": 45.93
+  },
+  "mask_validation": {
+    "status": "PASS",
+    "dimension_match": true,
+    "permitted_classes_only": true,
+    "non_empty_foreground": true,
+    "foreground_pixel_count": 140653,
+    "valid_polygon_geometry": true,
+    "reopening_verified": true
+  }
+}

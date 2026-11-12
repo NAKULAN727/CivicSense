@@ -311,7 +311,17 @@ class StorageEngine {
         } catch {}
       }
 
-      fs.renameSync(tmpFile, this.dbFile);
+      // Safe atomic replacement compatible with POSIX and Windows (Windows fails with EPERM on existing target)
+      try {
+        fs.renameSync(tmpFile, this.dbFile);
+      } catch (renameErr) {
+        if (renameErr.code === 'EPERM' || renameErr.code === 'EEXIST' || renameErr.code === 'EBUSY') {
+          fs.copyFileSync(tmpFile, this.dbFile);
+          try { fs.unlinkSync(tmpFile); } catch {}
+        } else {
+          throw renameErr;
+        }
+      }
     } catch (e) {
       console.error('[STORAGE_ENGINE_CRITICAL] Failed to persist database to disk:', e.message);
     } finally {

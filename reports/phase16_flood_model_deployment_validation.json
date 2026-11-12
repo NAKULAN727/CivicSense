@@ -1,0 +1,50 @@
+{
+  "status": "PASS",
+  "timestamp": "2026-11-12T20:42:56Z",
+  "new_model": {
+    "file": "public/models/flood_segmentation.onnx",
+    "size_bytes": 15010389,
+    "input": [
+      [
+        "pixel_values",
+        [
+          1,
+          3,
+          512,
+          512
+        ],
+        "tensor(float)"
+      ]
+    ],
+    "output": [
+      [
+        "logits",
+        [
+          1,
+          2,
+          128,
+          128
+        ],
+        "tensor(float)"
+      ]
+    ],
+    "classes": {
+      "0": "BACKGROUND",
+      "1": "FLOODWATER"
+    }
+  },
+  "backup_model": {
+    "file": "public/models/flood-water-segmentation.onnx",
+    "size_bytes": 69679880,
+    "status": "PRESERVED_ON_DISK_AS_BACKUP"
+  },
+  "metrics": {
+    "flood_images_tested": 31,
+    "mean_flood_pct": 41.56,
+    "flood_detected_count": 31,
+    "road_images_tested": 32,
+    "road_mean_water_pct": 51.6,
+    "garbage_images_tested": 30,
+    "garbage_mean_water_pct": 10.76
+  }
+}

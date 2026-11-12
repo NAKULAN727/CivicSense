@@ -1,0 +1,60 @@
+{
+  "filename": "flood 13.webp",
+  "mask_filename": "flood 13.png",
+  "split": "train",
+  "width": 344,
+  "height": 234,
+  "total_pixels": 80496,
+  "primary_category": "Shallow waterlogging",
+  "annotation_status": "VERIFIED_COMPLETE",
+  "annotator": {
+    "id": "CIVICSENSE-HUMAN-OPERATOR-01",
+    "tool": "CivicSense AI Ground-Truth Annotator v2.4",
+    "timestamp": "2026-11-12T21:30:00Z"
+  },
+  "notes": "Non-navigational roadside drainage water. Main roadway is passable asphalt. Roadside runoff marked as WET_SURFACE (4).",
+  "polygons_count": 1,
+  "polygons": [
+    {
+      "id": "poly_fl13_wet",
+      "class_id": 4,
+      "class_name": "WET_SURFACE",
+      "points": [
+        {
+          "x": 223.6,
+          "y": 163.8
+        },
+        {
+          "x": 344.0,
+          "y": 152.1
+        },
+        {
+          "x": 344.0,
+          "y": 234.0
+        },
+        {
+          "x": 189.2,
+          "y": 234.0
+        }
+      ],
+      "description": "Shallow roadside gutter runoff and damp asphalt boundary"
+    }
+  ],
+  "pixel_distribution": {
+    "BACKGROUND": 70110,
+    "WET_SURFACE": 10386
+  },
+  "pixel_percentage": {
+    "BACKGROUND": 87.1,
+    "WET_SURFACE": 12.9
+  },
+  "mask_validation": {
+    "status": "PASS",
+    "dimension_match": true,
+    "permitted_classes_only": true,
+    "non_empty_foreground": true,
+    "foreground_pixel_count": 10386,
+    "valid_polygon_geometry": true,
+    "reopening_verified": true
+  }
+}

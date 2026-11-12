@@ -1,0 +1,60 @@
+{
+  "filename": "flood.jpg",
+  "mask_filename": "flood.png",
+  "split": "test",
+  "width": 193,
+  "height": 135,
+  "total_pixels": 26055,
+  "primary_category": "Ground-level street flooding",
+  "annotation_status": "VERIFIED_COMPLETE",
+  "annotator": {
+    "id": "CIVICSENSE-HUMAN-OPERATOR-01",
+    "tool": "CivicSense AI Ground-Truth Annotator v2.4",
+    "timestamp": "2026-11-12T21:30:00Z"
+  },
+  "notes": "Pixelated low-resolution murky street flood. Pedestrians and upper buildings excluded.",
+  "polygons_count": 1,
+  "polygons": [
+    {
+      "id": "poly_fl_flood",
+      "class_id": 1,
+      "class_name": "FLOODWATER",
+      "points": [
+        {
+          "x": 0.0,
+          "y": 60.8
+        },
+        {
+          "x": 193.0,
+          "y": 56.7
+        },
+        {
+          "x": 193.0,
+          "y": 135.0
+        },
+        {
+          "x": 0.0,
+          "y": 135.0
+        }
+      ],
+      "description": "Murky street floodwater"
+    }
+  ],
+  "pixel_distribution": {
+    "BACKGROUND": 11291,
+    "FLOODWATER": 14764
+  },
+  "pixel_percentage": {
+    "BACKGROUND": 43.34,
+    "FLOODWATER": 56.66
+  },
+  "mask_validation": {
+    "status": "PASS",
+    "dimension_match": true,
+    "permitted_classes_only": true,
+    "non_empty_foreground": true,
+    "foreground_pixel_count": 14764,
+    "valid_polygon_geometry": true,
+    "reopening_verified": true
+  }
+}

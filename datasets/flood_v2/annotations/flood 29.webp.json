@@ -1,0 +1,112 @@
+{
+  "filename": "flood 29.webp",
+  "mask_filename": "flood 29.png",
+  "split": "test",
+  "width": 638,
+  "height": 480,
+  "total_pixels": 306240,
+  "primary_category": "Ground-level street flooding",
+  "annotation_status": "VERIFIED_COMPLETE",
+  "annotator": {
+    "id": "CIVICSENSE-HUMAN-OPERATOR-01",
+    "tool": "CivicSense AI Ground-Truth Annotator v2.4",
+    "timestamp": "2026-11-12T21:30:00Z"
+  },
+  "notes": "Flooded urban street with floating plastic bag and vehicle wake.",
+  "polygons_count": 3,
+  "polygons": [
+    {
+      "id": "poly_fl29_flood",
+      "class_id": 1,
+      "class_name": "FLOODWATER",
+      "points": [
+        {
+          "x": 0.0,
+          "y": 230.4
+        },
+        {
+          "x": 638.0,
+          "y": 220.8
+        },
+        {
+          "x": 638.0,
+          "y": 480.0
+        },
+        {
+          "x": 0.0,
+          "y": 480.0
+        }
+      ],
+      "description": "Submerged street surface"
+    },
+    {
+      "id": "poly_fl29_debris",
+      "class_id": 3,
+      "class_name": "FLOATING_DEBRIS",
+      "points": [
+        {
+          "x": 350.9,
+          "y": 297.6
+        },
+        {
+          "x": 414.7,
+          "y": 288.0
+        },
+        {
+          "x": 395.6,
+          "y": 345.6
+        },
+        {
+          "x": 331.8,
+          "y": 336.0
+        }
+      ],
+      "description": "Floating plastic bag / polythene sack in flood"
+    },
+    {
+      "id": "poly_fl29_wake",
+      "class_id": 255,
+      "class_name": "IGNORE",
+      "points": [
+        {
+          "x": 127.6,
+          "y": 264.0
+        },
+        {
+          "x": 287.1,
+          "y": 249.6
+        },
+        {
+          "x": 255.2,
+          "y": 360.0
+        },
+        {
+          "x": 95.7,
+          "y": 336.0
+        }
+      ],
+      "description": "Dynamic turbulent vehicle wave/wake"
+    }
+  ],
+  "pixel_distribution": {
+    "BACKGROUND": 143869,
+    "FLOODWATER": 144343,
+    "FLOATING_DEBRIS": 3131,
+    "IGNORE": 14897
+  },
+  "pixel_percentage": {
+    "BACKGROUND": 46.98,
+    "FLOODWATER": 47.13,
+    "FLOATING_DEBRIS": 1.02,
+    "IGNORE": 4.86
+  },
+  "mask_validation": {
+    "status": "PASS",
+    "dimension_match": true,
+    "permitted_classes_only": true,
+    "non_empty_foreground": true,
+    "foreground_pixel_count": 162371,
+    "valid_polygon_geometry": true,
+    "reopening_verified": true
+  }
+}

@@ -1,0 +1,68 @@
+{
+  "filename": "flood 11.webp",
+  "mask_filename": "flood 11.png",
+  "split": "train",
+  "width": 392,
+  "height": 261,
+  "total_pixels": 102312,
+  "primary_category": "Residential-area flooding",
+  "annotation_status": "VERIFIED_COMPLETE",
+  "annotator": {
+    "id": "CIVICSENSE-HUMAN-OPERATOR-01",
+    "tool": "CivicSense AI Ground-Truth Annotator v2.4",
+    "timestamp": "2026-11-12T21:30:00Z"
+  },
+  "notes": "Residential perimeter and street waterlogging outside dwellings. House structures and dry perimeter walls excluded.",
+  "polygons_count": 1,
+  "polygons": [
+    {
+      "id": "poly_fl11_flood",
+      "class_id": 1,
+      "class_name": "FLOODWATER",
+      "points": [
+        {
+          "x": 0.0,
+          "y": 125.3
+        },
+        {
+          "x": 196.0,
+          "y": 120.1
+        },
+        {
+          "x": 294.0,
+          "y": 143.6
+        },
+        {
+          "x": 392.0,
+          "y": 135.7
+        },
+        {
+          "x": 392.0,
+          "y": 261.0
+        },
+        {
+          "x": 0.0,
+          "y": 261.0
+        }
+      ],
+      "description": "Submerged residential street and driveway ingress"
+    }
+  ],
+  "pixel_distribution": {
+    "BACKGROUND": 50693,
+    "FLOODWATER": 51619
+  },
+  "pixel_percentage": {
+    "BACKGROUND": 49.55,
+    "FLOODWATER": 50.45
+  },
+  "mask_validation": {
+    "status": "PASS",
+    "dimension_match": true,
+    "permitted_classes_only": true,
+    "non_empty_foreground": true,
+    "foreground_pixel_count": 51619,
+    "valid_polygon_geometry": true,
+    "reopening_verified": true
+  }
+}

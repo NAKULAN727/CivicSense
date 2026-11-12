@@ -1,0 +1,112 @@
+{
+  "filename": "flood 25.webp",
+  "mask_filename": "flood 25.png",
+  "split": "train",
+  "width": 738,
+  "height": 414,
+  "total_pixels": 305532,
+  "primary_category": "River flooding",
+  "annotation_status": "VERIFIED_COMPLETE",
+  "annotator": {
+    "id": "CIVICSENSE-HUMAN-OPERATOR-01",
+    "tool": "CivicSense AI Ground-Truth Annotator v2.4",
+    "timestamp": "2026-11-12T21:30:00Z"
+  },
+  "notes": "Extensive fluvial flooding with river channel and floating packaging litter.",
+  "polygons_count": 3,
+  "polygons": [
+    {
+      "id": "poly_fl25_natural",
+      "class_id": 2,
+      "class_name": "NATURAL_WATER",
+      "points": [
+        {
+          "x": 0.0,
+          "y": 41.4
+        },
+        {
+          "x": 369.0,
+          "y": 33.1
+        },
+        {
+          "x": 332.1,
+          "y": 144.9
+        },
+        {
+          "x": 0.0,
+          "y": 132.5
+        }
+      ],
+      "description": "River channel mainstem"
+    },
+    {
+      "id": "poly_fl25_flood",
+      "class_id": 1,
+      "class_name": "FLOODWATER",
+      "points": [
+        {
+          "x": 0.0,
+          "y": 144.9
+        },
+        {
+          "x": 738.0,
+          "y": 103.5
+        },
+        {
+          "x": 738.0,
+          "y": 414.0
+        },
+        {
+          "x": 0.0,
+          "y": 414.0
+        }
+      ],
+      "description": "Overbank inundated floodplain"
+    },
+    {
+      "id": "poly_fl25_debris",
+      "class_id": 3,
+      "class_name": "FLOATING_DEBRIS",
+      "points": [
+        {
+          "x": 442.8,
+          "y": 248.4
+        },
+        {
+          "x": 501.8,
+          "y": 240.1
+        },
+        {
+          "x": 487.1,
+          "y": 281.5
+        },
+        {
+          "x": 428.0,
+          "y": 273.2
+        }
+      ],
+      "description": "Floating discarded cardboard and packaging litter"
+    }
+  ],
+  "pixel_distribution": {
+    "BACKGROUND": 57891,
+    "FLOODWATER": 212031,
+    "NATURAL_WATER": 33621,
+    "FLOATING_DEBRIS": 1989
+  },
+  "pixel_percentage": {
+    "BACKGROUND": 18.95,
+    "FLOODWATER": 69.4,
+    "NATURAL_WATER": 11.0,
+    "FLOATING_DEBRIS": 0.65
+  },
+  "mask_validation": {
+    "status": "PASS",
+    "dimension_match": true,
+    "permitted_classes_only": true,
+    "non_empty_foreground": true,
+    "foreground_pixel_count": 247641,
+    "valid_polygon_geometry": true,
+    "reopening_verified": true
+  }
+}

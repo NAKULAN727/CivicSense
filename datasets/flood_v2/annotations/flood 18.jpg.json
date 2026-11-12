@@ -1,0 +1,86 @@
+{
+  "filename": "flood 18.jpg",
+  "mask_filename": "flood 18.png",
+  "split": "test",
+  "width": 387,
+  "height": 516,
+  "total_pixels": 199692,
+  "primary_category": "Shallow waterlogging",
+  "annotation_status": "VERIFIED_COMPLETE",
+  "annotator": {
+    "id": "CIVICSENSE-HUMAN-OPERATOR-01",
+    "tool": "CivicSense AI Ground-Truth Annotator v2.4",
+    "timestamp": "2026-11-12T21:30:00Z"
+  },
+  "notes": "Shallow water pooling on road with intense light reflection. Reflection labeled as IGNORE (255) to prevent false glass classification.",
+  "polygons_count": 2,
+  "polygons": [
+    {
+      "id": "poly_fl18_wet",
+      "class_id": 4,
+      "class_name": "WET_SURFACE",
+      "points": [
+        {
+          "x": 38.7,
+          "y": 232.2
+        },
+        {
+          "x": 348.3,
+          "y": 216.7
+        },
+        {
+          "x": 367.6,
+          "y": 490.2
+        },
+        {
+          "x": 19.4,
+          "y": 490.2
+        }
+      ],
+      "description": "Wet pavement surface and shallow puddle basin"
+    },
+    {
+      "id": "poly_fl18_glare",
+      "class_id": 255,
+      "class_name": "IGNORE",
+      "points": [
+        {
+          "x": 116.1,
+          "y": 258.0
+        },
+        {
+          "x": 270.9,
+          "y": 247.7
+        },
+        {
+          "x": 251.6,
+          "y": 350.9
+        },
+        {
+          "x": 108.4,
+          "y": 335.4
+        }
+      ],
+      "description": "Intense specular glare on wet road"
+    }
+  ],
+  "pixel_distribution": {
+    "BACKGROUND": 111731,
+    "WET_SURFACE": 74464,
+    "IGNORE": 13497
+  },
+  "pixel_percentage": {
+    "BACKGROUND": 55.95,
+    "WET_SURFACE": 37.29,
+    "IGNORE": 6.76
+  },
+  "mask_validation": {
+    "status": "PASS",
+    "dimension_match": true,
+    "permitted_classes_only": true,
+    "non_empty_foreground": true,
+    "foreground_pixel_count": 87961,
+    "valid_polygon_geometry": true,
+    "reopening_verified": true
+  }
+}

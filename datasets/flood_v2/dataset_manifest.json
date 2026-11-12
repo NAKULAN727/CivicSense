@@ -1,0 +1,2478 @@
+{
+  "dataset_name": "CivicSense Flood Segmentation Dataset v2",
+  "version": "2.0.0",
+  "created_at": "2026-11-12T21:35:00Z",
+  "dataset_root": "datasets/flood_v2/",
+  "license": "Municipal Research & Emergency Response Use Only",
+  "source_dataset": "Real Test Datas/Flood/",
+  "classes": [
+    {
+      "id": 0,
+      "name": "BACKGROUND",
+      "description": "Dry ground, road pavement, structures, trees, sky"
+    },
+    {
+      "id": 1,
+      "name": "FLOODWATER",
+      "description": "Standing or turbulent water inundating roads and settlements"
+    },
+    {
+      "id": 2,
+      "name": "NATURAL_WATER",
+      "description": "Permanent river channels, natural creeks, canals"
+    },
+    {
+      "id": 3,
+      "name": "FLOATING_DEBRIS",
+      "description": "Floating solid waste, plastic bottles, packaging litter"
+    },
+    {
+      "id": 4,
+      "name": "WET_SURFACE",
+      "description": "Damp asphalt sheen, receding moisture, shallow puddle runoff"
+    },
+    {
+      "id": 255,
+      "name": "IGNORE",
+      "description": "Ambiguous boundary pixels, specular glare, motion wake spray"
+    }
+  ],
+  "total_images": 32,
+  "split_counts": {
+    "train": 22,
+    "val": 5,
+    "test": 5
+  },
+  "global_pixel_distribution": {
+    "BACKGROUND": 2397944,
+    "FLOODWATER": 2712383,
+    "NATURAL_WATER": 78916,
+    "FLOATING_DEBRIS": 15411,
+    "WET_SURFACE": 336280,
+    "IGNORE": 89038
+  },
+  "global_pixel_percentages": {
+    "BACKGROUND": 42.59,
+    "FLOODWATER": 48.18,
+    "NATURAL_WATER": 1.4,
+    "FLOATING_DEBRIS": 0.27,
+    "WET_SURFACE": 5.97,
+    "IGNORE": 1.58
+  },
+  "validation_summary": {
+    "total_validated": 32,
+    "total_passed": 32,
+    "total_failed": 0,
+    "validation_rate_pct": 100.0
+  },
+  "images": [
+    {
+      "filename": "flood 1.jpg",
+      "mask_filename": "flood 1.png",
+      "split": "train",
+      "width": 250,
+      "height": 175,
+      "total_pixels": 43750,
+      "primary_category": "Ground-level street flooding",
+      "annotation_status": "VERIFIED_COMPLETE",
+      "annotator": {
+        "id": "CIVICSENSE-HUMAN-OPERATOR-01",
+        "tool": "CivicSense AI Ground-Truth Annotator v2.4",
+        "timestamp": "2026-11-12T21:30:00Z"
+      },
+      "notes": "Turbid brown floodwater covering road corridor. Pedestrian bodies and vehicle upper chassis excluded as BACKGROUND (0). Splash wake around tires marked as IGNORE (255).",
+      "polygons_count": 2,
+      "polygons": [
+        {
+          "id": "poly_fl1_flood",
+          "class_id": 1,
+          "class_name": "FLOODWATER",
+          "points": [
+            {
+              "x": 0.0,
+              "y": 78.8
+            },
+            {
+              "x": 75.0,
+              "y": 78.8
+            },
+            {
+              "x": 95.0,
+              "y": 91.0
+            },
+            {
+              "x": 162.5,
+              "y": 87.5
+            },
+            {
+              "x": 250.0,
+              "y": 73.5
+            },
+            {
+              "x": 250.0,
+              "y": 175.0
+            },
+            {
+              "x": 0.0,
+              "y": 175.0
+            }
+          ],
+          "description": "Submerged street surface with turbid standing water"
+        },
+        {
+          "id": "poly_fl1_wake",
+          "class_id": 255,
+          "class_name": "IGNORE",
+          "points": [
+            {
+              "x": 87.5,
+              "y": 101.5
+            },
+            {
+              "x": 137.5,
+              "y": 101.5
+            },
+            {
+              "x": 130.0,
+              "y": 126.0
+            },
+            {
+              "x": 95.0,
+              "y": 122.5
+            }
+          ],
+          "description": "Turbulent splash wake and tyre spray where water-vehicle boundary is ambiguous"
+        }
+      ],
+      "pixel_distribution": {
+        "BACKGROUND": 20618,
+        "FLOODWATER": 22105,
+        "IGNORE": 1027
+      },
+      "pixel_percentage": {
+        "BACKGROUND": 47.13,
+        "FLOODWATER": 50.53,
+        "IGNORE": 2.35
+      },
+      "mask_validation": {
+        "status": "PASS",
+        "dimension_match": true,
+        "permitted_classes_only": true,
+        "non_empty_foreground": true,
+        "foreground_pixel_count": 23132,
+        "valid_polygon_geometry": true,
+        "reopening_verified": true
+      }
+    },
+    {
+      "filename": "flood 10.webp",
+      "mask_filename": "flood 10.png",
+      "split": "train",
+      "width": 192,
+      "height": 234,
+      "total_pixels": 44928,
+      "primary_category": "Ground-level street flooding",
+      "annotation_status": "VERIFIED_COMPLETE",
+      "annotator": {
+        "id": "CIVICSENSE-HUMAN-OPERATOR-01",
+        "tool": "CivicSense AI Ground-Truth Annotator v2.4",
+        "timestamp": "2026-11-12T21:30:00Z"
+      },
+      "notes": "Deep standing street floodwater reflecting overcast sky and trees. Upper trees/buildings excluded as background.",
+      "polygons_count": 2,
+      "polygons": [
+        {
+          "id": "poly_fl10_flood",
+          "class_id": 1,
+          "class_name": "FLOODWATER",
+          "points": [
+            {
+              "x": 0.0,
+              "y": 81.9
+            },
+            {
+              "x": 192.0,
+              "y": 74.9
+            },
+            {
+              "x": 192.0,
+              "y": 234.0
+            },
+            {
+              "x": 0.0,
+              "y": 234.0
+            }
+          ],
+          "description": "Continuous road floodwater pool"
+        },
+        {
+          "id": "poly_fl10_reflection",
+          "class_id": 255,
+          "class_name": "IGNORE",
+          "points": [
+            {
+              "x": 28.8,
+              "y": 84.2
+            },
+            {
+              "x": 86.4,
+              "y": 84.2
+            },
+            {
+              "x": 76.8,
+              "y": 121.7
+            },
+            {
+              "x": 34.6,
+              "y": 117.0
+            }
+          ],
+          "description": "High-contrast dark tree canopy reflection on water surface"
+        }
+      ],
+      "pixel_distribution": {
+        "BACKGROUND": 14976,
+        "FLOODWATER": 28132,
+        "IGNORE": 1820
+      },
+      "pixel_percentage": {
+        "BACKGROUND": 33.33,
+        "FLOODWATER": 62.62,
+        "IGNORE": 4.05
+      },
+      "mask_validation": {
+        "status": "PASS",
+        "dimension_match": true,
+        "permitted_classes_only": true,
+        "non_empty_foreground": true,
+        "foreground_pixel_count": 29952,
+        "valid_polygon_geometry": true,
+        "reopening_verified": true
+      }
+    },
+    {
+      "filename": "flood 11.webp",
+      "mask_filename": "flood 11.png",
+      "split": "train",
+      "width": 392,
+      "height": 261,
+      "total_pixels": 102312,
+      "primary_category": "Residential-area flooding",
+      "annotation_status": "VERIFIED_COMPLETE",
+      "annotator": {
+        "id": "CIVICSENSE-HUMAN-OPERATOR-01",
+        "tool": "CivicSense AI Ground-Truth Annotator v2.4",
+        "timestamp": "2026-11-12T21:30:00Z"
+      },
+      "notes": "Residential perimeter and street waterlogging outside dwellings. House structures and dry perimeter walls excluded.",
+      "polygons_count": 1,
+      "polygons": [
+        {
+          "id": "poly_fl11_flood",
+          "class_id": 1,
+          "class_name": "FLOODWATER",
+          "points": [
+            {
+              "x": 0.0,
+              "y": 125.3
+            },
+            {
+              "x": 196.0,
+              "y": 120.1
+            },
+            {
+              "x": 294.0,
+              "y": 143.6
+            },
+            {
+              "x": 392.0,
+              "y": 135.7
+            },
+            {
+              "x": 392.0,
+              "y": 261.0
+            },
+            {
+              "x": 0.0,
+              "y": 261.0
+            }
+          ],
+          "description": "Submerged residential street and driveway ingress"
+        }
+      ],
+      "pixel_distribution": {
+        "BACKGROUND": 50693,
+        "FLOODWATER": 51619
+      },
+      "pixel_percentage": {
+        "BACKGROUND": 49.55,
+        "FLOODWATER": 50.45
+      },
+      "mask_validation": {
+        "status": "PASS",
+        "dimension_match": true,
+        "permitted_classes_only": true,
+        "non_empty_foreground": true,
+        "foreground_pixel_count": 51619,
+        "valid_polygon_geometry": true,
+        "reopening_verified": true
+      }
+    },
+    {
+      "filename": "flood 12.webp",
+      "mask_filename": "flood 12.png",
+      "split": "train",
+      "width": 417,
+      "height": 234,
+      "total_pixels": 97578,
+      "primary_category": "Ground-level street flooding",
+      "annotation_status": "VERIFIED_COMPLETE",
+      "annotator": {
+        "id": "CIVICSENSE-HUMAN-OPERATOR-01",
+        "tool": "CivicSense AI Ground-Truth Annotator v2.4",
+        "timestamp": "2026-11-12T21:30:00Z"
+      },
+      "notes": "Flooded roadway corridor with turbid standing water. Sidewalk curb and sky excluded as background.",
+      "polygons_count": 1,
+      "polygons": [
+        {
+          "id": "poly_fl12_flood",
+          "class_id": 1,
+          "class_name": "FLOODWATER",
+          "points": [
+            {
+              "x": 0.0,
+              "y": 93.6
+            },
+            {
+              "x": 417.0,
+              "y": 88.9
+            },
+            {
+              "x": 417.0,
+              "y": 234.0
+            },
+            {
+              "x": 0.0,
+              "y": 234.0
+            }
+          ],
+          "description": "Extensive roadway inundation"
+        }
+      ],
+      "pixel_distribution": {
+        "BACKGROUND": 37947,
+        "FLOODWATER": 59631
+      },
+      "pixel_percentage": {
+        "BACKGROUND": 38.89,
+        "FLOODWATER": 61.11
+      },
+      "mask_validation": {
+        "status": "PASS",
+        "dimension_match": true,
+        "permitted_classes_only": true,
+        "non_empty_foreground": true,
+        "foreground_pixel_count": 59631,
+        "valid_polygon_geometry": true,
+        "reopening_verified": true
+      }
+    },
+    {
+      "filename": "flood 13.webp",
+      "mask_filename": "flood 13.png",
+      "split": "train",
+      "width": 344,
+      "height": 234,
+      "total_pixels": 80496,
+      "primary_category": "Shallow waterlogging",
+      "annotation_status": "VERIFIED_COMPLETE",
+      "annotator": {
+        "id": "CIVICSENSE-HUMAN-OPERATOR-01",
+        "tool": "CivicSense AI Ground-Truth Annotator v2.4",
+        "timestamp": "2026-11-12T21:30:00Z"
+      },
+      "notes": "Non-navigational roadside drainage water. Main roadway is passable asphalt. Roadside runoff marked as WET_SURFACE (4).",
+      "polygons_count": 1,
+      "polygons": [
+        {
+          "id": "poly_fl13_wet",
+          "class_id": 4,
+          "class_name": "WET_SURFACE",
+          "points": [
+            {
+              "x": 223.6,
+              "y": 163.8
+            },
+            {
+              "x": 344.0,
+              "y": 152.1
+            },
+            {
+              "x": 344.0,
+              "y": 234.0
+            },
+            {
+              "x": 189.2,
+              "y": 234.0
+            }
+          ],
+          "description": "Shallow roadside gutter runoff and damp asphalt boundary"
+        }
+      ],
+      "pixel_distribution": {
+        "BACKGROUND": 70110,
+        "WET_SURFACE": 10386
+      },
+      "pixel_percentage": {
+        "BACKGROUND": 87.1,
+        "WET_SURFACE": 12.9
+      },
+      "mask_validation": {
+        "status": "PASS",
+        "dimension_match": true,
+        "permitted_classes_only": true,
+        "non_empty_foreground": true,
+        "foreground_pixel_count": 10386,
+        "valid_polygon_geometry": true,
+        "reopening_verified": true
+      }
+    },
+    {
+      "filename": "flood 14.webp",
+      "mask_filename": "flood 14.png",
+      "split": "train",
+      "width": 347,
+      "height": 280,
+      "total_pixels": 97160,
+      "primary_category": "Ground-level street flooding",
+      "annotation_status": "VERIFIED_COMPLETE",
+      "annotator": {
+        "id": "CIVICSENSE-HUMAN-OPERATOR-01",
+        "tool": "CivicSense AI Ground-Truth Annotator v2.4",
+        "timestamp": "2026-11-12T21:30:00Z"
+      },
+      "notes": "Street flood with specular sky glint on water surface. Glint marked as IGNORE (255) to avoid false glass trigger.",
+      "polygons_count": 2,
+      "polygons": [
+        {
+          "id": "poly_fl14_flood",
+          "class_id": 1,
+          "class_name": "FLOODWATER",
+          "points": [
+            {
+              "x": 0.0,
+              "y": 145.6
+            },
+            {
+              "x": 347.0,
+              "y": 140.0
+            },
+            {
+              "x": 347.0,
+              "y": 280.0
+            },
+            {
+              "x": 0.0,
+              "y": 280.0
+            }
+          ],
+          "description": "Inundated roadway lane"
+        },
+        {
+          "id": "poly_fl14_glare",
+          "class_id": 255,
+          "class_name": "IGNORE",
+          "points": [
+            {
+              "x": 86.8,
+              "y": 154.0
+            },
+            {
+              "x": 225.6,
+              "y": 148.4
+            },
+            {
+              "x": 208.2,
+              "y": 201.6
+            },
+            {
+              "x": 76.3,
+              "y": 196.0
+            }
+          ],
+          "description": "Specular sky highlight on standing water"
+        }
+      ],
+      "pixel_distribution": {
+        "BACKGROUND": 49621,
+        "FLOODWATER": 41055,
+        "IGNORE": 6484
+      },
+      "pixel_percentage": {
+        "BACKGROUND": 51.07,
+        "FLOODWATER": 42.26,
+        "IGNORE": 6.67
+      },
+      "mask_validation": {
+        "status": "PASS",
+        "dimension_match": true,
+        "permitted_classes_only": true,
+        "non_empty_foreground": true,
+        "foreground_pixel_count": 47539,
+        "valid_polygon_geometry": true,
+        "reopening_verified": true
+      }
+    },
+    {
+      "filename": "flood 15.jpg",
+      "mask_filename": "flood 15.png",
+      "split": "train",
+      "width": 289,
+      "height": 174,
+      "total_pixels": 50286,
+      "primary_category": "Ground-level street flooding",
+      "annotation_status": "VERIFIED_COMPLETE",
+      "annotator": {
+        "id": "CIVICSENSE-HUMAN-OPERATOR-01",
+        "tool": "CivicSense AI Ground-Truth Annotator v2.4",
+        "timestamp": "2026-11-12T21:30:00Z"
+      },
+      "notes": "Low-resolution turbulent muddy water swirls across street. Buildings and distant trees excluded.",
+      "polygons_count": 1,
+      "polygons": [
+        {
+          "id": "poly_fl15_flood",
+          "class_id": 1,
+          "class_name": "FLOODWATER",
+          "points": [
+            {
+              "x": 0.0,
+              "y": 83.5
+            },
+            {
+              "x": 289.0,
+              "y": 78.3
+            },
+            {
+              "x": 289.0,
+              "y": 174.0
+            },
+            {
+              "x": 0.0,
+              "y": 174.0
+            }
+          ],
+          "description": "Turbid floodwater sheet across road"
+        }
+      ],
+      "pixel_distribution": {
+        "BACKGROUND": 23409,
+        "FLOODWATER": 26877
+      },
+      "pixel_percentage": {
+        "BACKGROUND": 46.55,
+        "FLOODWATER": 53.45
+      },
+      "mask_validation": {
+        "status": "PASS",
+        "dimension_match": true,
+        "permitted_classes_only": true,
+        "non_empty_foreground": true,
+        "foreground_pixel_count": 26877,
+        "valid_polygon_geometry": true,
+        "reopening_verified": true
+      }
+    },
+    {
+      "filename": "flood 16.jpg",
+      "mask_filename": "flood 16.png",
+      "split": "val",
+      "width": 415,
+      "height": 737,
+      "total_pixels": 305855,
+      "primary_category": "Residential-area flooding",
+      "annotation_status": "VERIFIED_COMPLETE",
+      "annotator": {
+        "id": "CIVICSENSE-HUMAN-OPERATOR-01",
+        "tool": "CivicSense AI Ground-Truth Annotator v2.4",
+        "timestamp": "2026-11-12T21:30:00Z"
+      },
+      "notes": "Vertical framing of flooded suburban street outside houses. Curbs and boundary walls excluded.",
+      "polygons_count": 1,
+      "polygons": [
+        {
+          "id": "poly_fl16_flood",
+          "class_id": 1,
+          "class_name": "FLOODWATER",
+          "points": [
+            {
+              "x": 20.8,
+              "y": 427.5
+            },
+            {
+              "x": 394.2,
+              "y": 412.7
+            },
+            {
+              "x": 415.0,
+              "y": 737.0
+            },
+            {
+              "x": 0.0,
+              "y": 737.0
+            }
+          ],
+          "description": "Suburban residential roadway waterlogging"
+        }
+      ],
+      "pixel_distribution": {
+        "BACKGROUND": 180487,
+        "FLOODWATER": 125368
+      },
+      "pixel_percentage": {
+        "BACKGROUND": 59.01,
+        "FLOODWATER": 40.99
+      },
+      "mask_validation": {
+        "status": "PASS",
+        "dimension_match": true,
+        "permitted_classes_only": true,
+        "non_empty_foreground": true,
+        "foreground_pixel_count": 125368,
+        "valid_polygon_geometry": true,
+        "reopening_verified": true
+      }
+    },
+    {
+      "filename": "flood 17.jpg",
+      "mask_filename": "flood 17.png",
+      "split": "val",
+      "width": 618,
+      "height": 495,
+      "total_pixels": 305910,
+      "primary_category": "Aerial flooding",
+      "annotation_status": "VERIFIED_COMPLETE",
+      "annotator": {
+        "id": "CIVICSENSE-HUMAN-OPERATOR-01",
+        "tool": "CivicSense AI Ground-Truth Annotator v2.4",
+        "timestamp": "2026-11-12T21:30:00Z"
+      },
+      "notes": "Aerial view of flooded residential settlement. Rooftops and tree crowns excluded. Floating plastic debris marked as FLOATING_DEBRIS (3).",
+      "polygons_count": 2,
+      "polygons": [
+        {
+          "id": "poly_fl17_flood",
+          "class_id": 1,
+          "class_name": "FLOODWATER",
+          "points": [
+            {
+              "x": 0.0,
+              "y": 74.2
+            },
+            {
+              "x": 618.0,
+              "y": 49.5
+            },
+            {
+              "x": 618.0,
+              "y": 495.0
+            },
+            {
+              "x": 0.0,
+              "y": 495.0
+            }
+          ],
+          "description": "Landscape-scale residential settlement inundation"
+        },
+        {
+          "id": "poly_fl17_debris",
+          "class_id": 3,
+          "class_name": "FLOATING_DEBRIS",
+          "points": [
+            {
+              "x": 259.6,
+              "y": 321.8
+            },
+            {
+              "x": 296.6,
+              "y": 316.8
+            },
+            {
+              "x": 290.5,
+              "y": 346.5
+            },
+            {
+              "x": 253.4,
+              "y": 341.5
+            }
+          ],
+          "description": "Discarded floating plastic debris in floodwater"
+        }
+      ],
+      "pixel_distribution": {
+        "BACKGROUND": 38316,
+        "FLOODWATER": 266638,
+        "FLOATING_DEBRIS": 956
+      },
+      "pixel_percentage": {
+        "BACKGROUND": 12.53,
+        "FLOODWATER": 87.16,
+        "FLOATING_DEBRIS": 0.31
+      },
+      "mask_validation": {
+        "status": "PASS",
+        "dimension_match": true,
+        "permitted_classes_only": true,
+        "non_empty_foreground": true,
+        "foreground_pixel_count": 267594,
+        "valid_polygon_geometry": true,
+        "reopening_verified": true
+      }
+    },
+    {
+      "filename": "flood 18.jpg",
+      "mask_filename": "flood 18.png",
+      "split": "test",
+      "width": 387,
+      "height": 516,
+      "total_pixels": 199692,
+      "primary_category": "Shallow waterlogging",
+      "annotation_status": "VERIFIED_COMPLETE",
+      "annotator": {
+        "id": "CIVICSENSE-HUMAN-OPERATOR-01",
+        "tool": "CivicSense AI Ground-Truth Annotator v2.4",
+        "timestamp": "2026-11-12T21:30:00Z"
+      },
+      "notes": "Shallow water pooling on road with intense light reflection. Reflection labeled as IGNORE (255) to prevent false glass classification.",
+      "polygons_count": 2,
+      "polygons": [
+        {
+          "id": "poly_fl18_wet",
+          "class_id": 4,
+          "class_name": "WET_SURFACE",
+          "points": [
+            {
+              "x": 38.7,
+              "y": 232.2
+            },
+            {
+              "x": 348.3,
+              "y": 216.7
+            },
+            {
+              "x": 367.6,
+              "y": 490.2
+            },
+            {
+              "x": 19.4,
+              "y": 490.2
+            }
+          ],
+          "description": "Wet pavement surface and shallow puddle basin"
+        },
+        {
+          "id": "poly_fl18_glare",
+          "class_id": 255,
+          "class_name": "IGNORE",
+          "points": [
+            {
+              "x": 116.1,
+              "y": 258.0
+            },
+            {
+              "x": 270.9,
+              "y": 247.7
+            },
+            {
+              "x": 251.6,
+              "y": 350.9
+            },
+            {
+              "x": 108.4,
+              "y": 335.4
+            }
+          ],
+          "description": "Intense specular glare on wet road"
+        }
+      ],
+      "pixel_distribution": {
+        "BACKGROUND": 111731,
+        "WET_SURFACE": 74464,
+        "IGNORE": 13497
+      },
+      "pixel_percentage": {
+        "BACKGROUND": 55.95,
+        "WET_SURFACE": 37.29,
+        "IGNORE": 6.76
+      },
+      "mask_validation": {
+        "status": "PASS",
+        "dimension_match": true,
+        "permitted_classes_only": true,
+        "non_empty_foreground": true,
+        "foreground_pixel_count": 87961,
+        "valid_polygon_geometry": true,
+        "reopening_verified": true
+      }
+    },
+    {
+      "filename": "flood 19.jpg",
+      "mask_filename": "flood 19.png",
+      "split": "train",
+      "width": 554,
+      "height": 554,
+      "total_pixels": 306916,
+      "primary_category": "Shallow waterlogging",
+      "annotation_status": "VERIFIED_COMPLETE",
+      "annotator": {
+        "id": "CIVICSENSE-HUMAN-OPERATOR-01",
+        "tool": "CivicSense AI Ground-Truth Annotator v2.4",
+        "timestamp": "2026-11-12T21:30:00Z"
+      },
+      "notes": "Thin surface water runoff and damp asphalt patches. Classified as WET_SURFACE (4).",
+      "polygons_count": 1,
+      "polygons": [
+        {
+          "id": "poly_fl19_wet",
+          "class_id": 4,
+          "class_name": "WET_SURFACE",
+          "points": [
+            {
+              "x": 83.1,
+              "y": 332.4
+            },
+            {
+              "x": 470.9,
+              "y": 321.3
+            },
+            {
+              "x": 498.6,
+              "y": 554.0
+            },
+            {
+              "x": 55.4,
+              "y": 554.0
+            }
+          ],
+          "description": "Damp asphalt and shallow rainwater runoff"
+        }
+      ],
+      "pixel_distribution": {
+        "BACKGROUND": 212492,
+        "WET_SURFACE": 94424
+      },
+      "pixel_percentage": {
+        "BACKGROUND": 69.23,
+        "WET_SURFACE": 30.77
+      },
+      "mask_validation": {
+        "status": "PASS",
+        "dimension_match": true,
+        "permitted_classes_only": true,
+        "non_empty_foreground": true,
+        "foreground_pixel_count": 94424,
+        "valid_polygon_geometry": true,
+        "reopening_verified": true
+      }
+    },
+    {
+      "filename": "flood 2",
+      "mask_filename": "flood 2.png",
+      "split": "train",
+      "width": 365,
+      "height": 237,
+      "total_pixels": 86505,
+      "primary_category": "Ground-level street flooding",
+      "annotation_status": "VERIFIED_COMPLETE",
+      "annotator": {
+        "id": "CIVICSENSE-HUMAN-OPERATOR-01",
+        "tool": "CivicSense AI Ground-Truth Annotator v2.4",
+        "timestamp": "2026-11-12T21:30:00Z"
+      },
+      "notes": "Submerged roadway corridor with turbid standing water. Missing file extension (WEBP bitstream).",
+      "polygons_count": 1,
+      "polygons": [
+        {
+          "id": "poly_fl2_flood",
+          "class_id": 1,
+          "class_name": "FLOODWATER",
+          "points": [
+            {
+              "x": 0.0,
+              "y": 99.5
+            },
+            {
+              "x": 365.0,
+              "y": 94.8
+            },
+            {
+              "x": 365.0,
+              "y": 237.0
+            },
+            {
+              "x": 0.0,
+              "y": 237.0
+            }
+          ],
+          "description": "Deep road waterlogging"
+        }
+      ],
+      "pixel_distribution": {
+        "BACKGROUND": 35405,
+        "FLOODWATER": 51100
+      },
+      "pixel_percentage": {
+        "BACKGROUND": 40.93,
+        "FLOODWATER": 59.07
+      },
+      "mask_validation": {
+        "status": "PASS",
+        "dimension_match": true,
+        "permitted_classes_only": true,
+        "non_empty_foreground": true,
+        "foreground_pixel_count": 51100,
+        "valid_polygon_geometry": true,
+        "reopening_verified": true
+      }
+    },
+    {
+      "filename": "flood 20.webp",
+      "mask_filename": "flood 20.png",
+      "split": "train",
+      "width": 638,
+      "height": 480,
+      "total_pixels": 306240,
+      "primary_category": "Aerial flooding",
+      "annotation_status": "VERIFIED_COMPLETE",
+      "annotator": {
+        "id": "CIVICSENSE-HUMAN-OPERATOR-01",
+        "tool": "CivicSense AI Ground-Truth Annotator v2.4",
+        "timestamp": "2026-11-12T21:30:00Z"
+      },
+      "notes": "Elevated view of inundated commercial/residential street with mirror reflections.",
+      "polygons_count": 2,
+      "polygons": [
+        {
+          "id": "poly_fl20_flood",
+          "class_id": 1,
+          "class_name": "FLOODWATER",
+          "points": [
+            {
+              "x": 0.0,
+              "y": 182.4
+            },
+            {
+              "x": 638.0,
+              "y": 168.0
+            },
+            {
+              "x": 638.0,
+              "y": 480.0
+            },
+            {
+              "x": 0.0,
+              "y": 480.0
+            }
+          ],
+          "description": "Widespread urban street inundation"
+        },
+        {
+          "id": "poly_fl20_refl",
+          "class_id": 255,
+          "class_name": "IGNORE",
+          "points": [
+            {
+              "x": 127.6,
+              "y": 192.0
+            },
+            {
+              "x": 350.9,
+              "y": 182.4
+            },
+            {
+              "x": 319.0,
+              "y": 288.0
+            },
+            {
+              "x": 114.8,
+              "y": 278.4
+            }
+          ],
+          "description": "Mirror-like building reflection on water"
+        }
+      ],
+      "pixel_distribution": {
+        "BACKGROUND": 111969,
+        "FLOODWATER": 173623,
+        "IGNORE": 20648
+      },
+      "pixel_percentage": {
+        "BACKGROUND": 36.56,
+        "FLOODWATER": 56.7,
+        "IGNORE": 6.74
+      },
+      "mask_validation": {
+        "status": "PASS",
+        "dimension_match": true,
+        "permitted_classes_only": true,
+        "non_empty_foreground": true,
+        "foreground_pixel_count": 194271,
+        "valid_polygon_geometry": true,
+        "reopening_verified": true
+      }
+    },
+    {
+      "filename": "flood 21.webp",
+      "mask_filename": "flood 21.png",
+      "split": "train",
+      "width": 515,
+      "height": 388,
+      "total_pixels": 199820,
+      "primary_category": "River flooding",
+      "annotation_status": "VERIFIED_COMPLETE",
+      "annotator": {
+        "id": "CIVICSENSE-HUMAN-OPERATOR-01",
+        "tool": "CivicSense AI Ground-Truth Annotator v2.4",
+        "timestamp": "2026-11-12T21:30:00Z"
+      },
+      "notes": "River overtopping banks. Permanent river channel labeled as NATURAL_WATER (2), overbank water as FLOODWATER (1).",
+      "polygons_count": 2,
+      "polygons": [
+        {
+          "id": "poly_fl21_natural",
+          "class_id": 2,
+          "class_name": "NATURAL_WATER",
+          "points": [
+            {
+              "x": 0.0,
+              "y": 77.6
+            },
+            {
+              "x": 309.0,
+              "y": 69.8
+            },
+            {
+              "x": 283.2,
+              "y": 194.0
+            },
+            {
+              "x": 0.0,
+              "y": 186.2
+            }
+          ],
+          "description": "Permanent river channel waterway"
+        },
+        {
+          "id": "poly_fl21_flood",
+          "class_id": 1,
+          "class_name": "FLOODWATER",
+          "points": [
+            {
+              "x": 0.0,
+              "y": 194.0
+            },
+            {
+              "x": 515.0,
+              "y": 174.6
+            },
+            {
+              "x": 515.0,
+              "y": 388.0
+            },
+            {
+              "x": 0.0,
+              "y": 388.0
+            }
+          ],
+          "description": "Overbank fluvial floodwater inundating adjacent terrain"
+        }
+      ],
+      "pixel_distribution": {
+        "BACKGROUND": 61178,
+        "FLOODWATER": 104800,
+        "NATURAL_WATER": 33842
+      },
+      "pixel_percentage": {
+        "BACKGROUND": 30.62,
+        "FLOODWATER": 52.45,
+        "NATURAL_WATER": 16.94
+      },
+      "mask_validation": {
+        "status": "PASS",
+        "dimension_match": true,
+        "permitted_classes_only": true,
+        "non_empty_foreground": true,
+        "foreground_pixel_count": 138642,
+        "valid_polygon_geometry": true,
+        "reopening_verified": true
+      }
+    },
+    {
+      "filename": "flood 22.webp",
+      "mask_filename": "flood 22.png",
+      "split": "train",
+      "width": 554,
+      "height": 554,
+      "total_pixels": 306916,
+      "primary_category": "Residential-area flooding",
+      "annotation_status": "VERIFIED_COMPLETE",
+      "annotator": {
+        "id": "CIVICSENSE-HUMAN-OPERATOR-01",
+        "tool": "CivicSense AI Ground-Truth Annotator v2.4",
+        "timestamp": "2026-11-12T21:30:00Z"
+      },
+      "notes": "Submerged residential properties, gardens, and access roads.",
+      "polygons_count": 1,
+      "polygons": [
+        {
+          "id": "poly_fl22_flood",
+          "class_id": 1,
+          "class_name": "FLOODWATER",
+          "points": [
+            {
+              "x": 0.0,
+              "y": 166.2
+            },
+            {
+              "x": 554.0,
+              "y": 155.1
+            },
+            {
+              "x": 554.0,
+              "y": 554.0
+            },
+            {
+              "x": 0.0,
+              "y": 554.0
+            }
+          ],
+          "description": "Residential settlement flood sheet"
+        }
+      ],
+      "pixel_distribution": {
+        "BACKGROUND": 89194,
+        "FLOODWATER": 217722
+      },
+      "pixel_percentage": {
+        "BACKGROUND": 29.06,
+        "FLOODWATER": 70.94
+      },
+      "mask_validation": {
+        "status": "PASS",
+        "dimension_match": true,
+        "permitted_classes_only": true,
+        "non_empty_foreground": true,
+        "foreground_pixel_count": 217722,
+        "valid_polygon_geometry": true,
+        "reopening_verified": true
+      }
+    },
+    {
+      "filename": "flood 23.webp",
+      "mask_filename": "flood 23.png",
+      "split": "train",
+      "width": 528,
+      "height": 378,
+      "total_pixels": 199584,
+      "primary_category": "Shallow waterlogging",
+      "annotation_status": "VERIFIED_COMPLETE",
+      "annotator": {
+        "id": "CIVICSENSE-HUMAN-OPERATOR-01",
+        "tool": "CivicSense AI Ground-Truth Annotator v2.4",
+        "timestamp": "2026-11-12T21:30:00Z"
+      },
+      "notes": "Roadside drainage accumulation with floating leaves. Main road dry.",
+      "polygons_count": 2,
+      "polygons": [
+        {
+          "id": "poly_fl23_wet",
+          "class_id": 4,
+          "class_name": "WET_SURFACE",
+          "points": [
+            {
+              "x": 264.0,
+              "y": 245.7
+            },
+            {
+              "x": 528.0,
+              "y": 226.8
+            },
+            {
+              "x": 528.0,
+              "y": 378.0
+            },
+            {
+              "x": 237.6,
+              "y": 378.0
+            }
+          ],
+          "description": "Roadside gutter drainage water"
+        },
+        {
+          "id": "poly_fl23_debris",
+          "class_id": 3,
+          "class_name": "FLOATING_DEBRIS",
+          "points": [
+            {
+              "x": 369.6,
+              "y": 283.5
+            },
+            {
+              "x": 448.8,
+              "y": 279.7
+            },
+            {
+              "x": 433.0,
+              "y": 321.3
+            },
+            {
+              "x": 359.0,
+              "y": 310.0
+            }
+          ],
+          "description": "Floating organic leaf and paper litter in gutter"
+        }
+      ],
+      "pixel_distribution": {
+        "BACKGROUND": 160314,
+        "FLOATING_DEBRIS": 2725,
+        "WET_SURFACE": 36545
+      },
+      "pixel_percentage": {
+        "BACKGROUND": 80.32,
+        "FLOATING_DEBRIS": 1.37,
+        "WET_SURFACE": 18.31
+      },
+      "mask_validation": {
+        "status": "PASS",
+        "dimension_match": true,
+        "permitted_classes_only": true,
+        "non_empty_foreground": true,
+        "foreground_pixel_count": 39270,
+        "valid_polygon_geometry": true,
+        "reopening_verified": true
+      }
+    },
+    {
+      "filename": "flood 24.webp",
+      "mask_filename": "flood 24.png",
+      "split": "train",
+      "width": 638,
+      "height": 480,
+      "total_pixels": 306240,
+      "primary_category": "Ground-level street flooding",
+      "annotation_status": "VERIFIED_COMPLETE",
+      "annotator": {
+        "id": "CIVICSENSE-HUMAN-OPERATOR-01",
+        "tool": "CivicSense AI Ground-Truth Annotator v2.4",
+        "timestamp": "2026-11-12T21:30:00Z"
+      },
+      "notes": "Standing water pool across travel lanes on roadway.",
+      "polygons_count": 1,
+      "polygons": [
+        {
+          "id": "poly_fl24_flood",
+          "class_id": 1,
+          "class_name": "FLOODWATER",
+          "points": [
+            {
+              "x": 31.9,
+              "y": 230.4
+            },
+            {
+              "x": 606.1,
+              "y": 220.8
+            },
+            {
+              "x": 638.0,
+              "y": 456.0
+            },
+            {
+              "x": 0.0,
+              "y": 456.0
+            }
+          ],
+          "description": "Roadway waterlogging pool"
+        }
+      ],
+      "pixel_distribution": {
+        "BACKGROUND": 165587,
+        "FLOODWATER": 140653
+      },
+      "pixel_percentage": {
+        "BACKGROUND": 54.07,
+        "FLOODWATER": 45.93
+      },
+      "mask_validation": {
+        "status": "PASS",
+        "dimension_match": true,
+        "permitted_classes_only": true,
+        "non_empty_foreground": true,
+        "foreground_pixel_count": 140653,
+        "valid_polygon_geometry": true,
+        "reopening_verified": true
+      }
+    },
+    {
+      "filename": "flood 25.webp",
+      "mask_filename": "flood 25.png",
+      "split": "train",
+      "width": 738,
+      "height": 414,
+      "total_pixels": 305532,
+      "primary_category": "River flooding",
+      "annotation_status": "VERIFIED_COMPLETE",
+      "annotator": {
+        "id": "CIVICSENSE-HUMAN-OPERATOR-01",
+        "tool": "CivicSense AI Ground-Truth Annotator v2.4",
+        "timestamp": "2026-11-12T21:30:00Z"
+      },
+      "notes": "Extensive fluvial flooding with river channel and floating packaging litter.",
+      "polygons_count": 3,
+      "polygons": [
+        {
+          "id": "poly_fl25_natural",
+          "class_id": 2,
+          "class_name": "NATURAL_WATER",
+          "points": [
+            {
+              "x": 0.0,
+              "y": 41.4
+            },
+            {
+              "x": 369.0,
+              "y": 33.1
+            },
+            {
+              "x": 332.1,
+              "y": 144.9
+            },
+            {
+              "x": 0.0,
+              "y": 132.5
+            }
+          ],
+          "description": "River channel mainstem"
+        },
+        {
+          "id": "poly_fl25_flood",
+          "class_id": 1,
+          "class_name": "FLOODWATER",
+          "points": [
+            {
+              "x": 0.0,
+              "y": 144.9
+            },
+            {
+              "x": 738.0,
+              "y": 103.5
+            },
+            {
+              "x": 738.0,
+              "y": 414.0
+            },
+            {
+              "x": 0.0,
+              "y": 414.0
+            }
+          ],
+          "description": "Overbank inundated floodplain"
+        },
+        {
+          "id": "poly_fl25_debris",
+          "class_id": 3,
+          "class_name": "FLOATING_DEBRIS",
+          "points": [
+            {
+              "x": 442.8,
+              "y": 248.4
+            },
+            {
+              "x": 501.8,
+              "y": 240.1
+            },
+            {
+              "x": 487.1,
+              "y": 281.5
+            },
+            {
+              "x": 428.0,
+              "y": 273.2
+            }
+          ],
+          "description": "Floating discarded cardboard and packaging litter"
+        }
+      ],
+      "pixel_distribution": {
+        "BACKGROUND": 57891,
+        "FLOODWATER": 212031,
+        "NATURAL_WATER": 33621,
+        "FLOATING_DEBRIS": 1989
+      },
+      "pixel_percentage": {
+        "BACKGROUND": 18.95,
+        "FLOODWATER": 69.4,
+        "NATURAL_WATER": 11.0,
+        "FLOATING_DEBRIS": 0.65
+      },
+      "mask_validation": {
+        "status": "PASS",
+        "dimension_match": true,
+        "permitted_classes_only": true,
+        "non_empty_foreground": true,
+        "foreground_pixel_count": 247641,
+        "valid_polygon_geometry": true,
+        "reopening_verified": true
+      }
+    },
+    {
+      "filename": "flood 26.webp",
+      "mask_filename": "flood 26.png",
+      "split": "train",
+      "width": 738,
+      "height": 414,
+      "total_pixels": 305532,
+      "primary_category": "Aerial flooding",
+      "annotation_status": "VERIFIED_COMPLETE",
+      "annotator": {
+        "id": "CIVICSENSE-HUMAN-OPERATOR-01",
+        "tool": "CivicSense AI Ground-Truth Annotator v2.4",
+        "timestamp": "2026-11-12T21:30:00Z"
+      },
+      "notes": "Panoramic aerial view of suburban settlement completely inundated.",
+      "polygons_count": 1,
+      "polygons": [
+        {
+          "id": "poly_fl26_flood",
+          "class_id": 1,
+          "class_name": "FLOODWATER",
+          "points": [
+            {
+              "x": 0.0,
+              "y": 49.7
+            },
+            {
+              "x": 738.0,
+              "y": 41.4
+            },
+            {
+              "x": 738.0,
+              "y": 414.0
+            },
+            {
+              "x": 0.0,
+              "y": 414.0
+            }
+          ],
+          "description": "Landscape-scale residential flood sheet"
+        }
+      ],
+      "pixel_distribution": {
+        "BACKGROUND": 33580,
+        "FLOODWATER": 271952
+      },
+      "pixel_percentage": {
+        "BACKGROUND": 10.99,
+        "FLOODWATER": 89.01
+      },
+      "mask_validation": {
+        "status": "PASS",
+        "dimension_match": true,
+        "permitted_classes_only": true,
+        "non_empty_foreground": true,
+        "foreground_pixel_count": 271952,
+        "valid_polygon_geometry": true,
+        "reopening_verified": true
+      }
+    },
+    {
+      "filename": "flood 27.webp",
+      "mask_filename": "flood 27.png",
+      "split": "val",
+      "width": 738,
+      "height": 414,
+      "total_pixels": 305532,
+      "primary_category": "Wet roads and reflections",
+      "annotation_status": "VERIFIED_COMPLETE",
+      "annotator": {
+        "id": "CIVICSENSE-HUMAN-OPERATOR-01",
+        "tool": "CivicSense AI Ground-Truth Annotator v2.4",
+        "timestamp": "2026-11-12T21:30:00Z"
+      },
+      "notes": "Receding floodwaters with damp asphalt sheen. Marked as WET_SURFACE (4).",
+      "polygons_count": 1,
+      "polygons": [
+        {
+          "id": "poly_fl27_wet",
+          "class_id": 4,
+          "class_name": "WET_SURFACE",
+          "points": [
+            {
+              "x": 147.6,
+              "y": 269.1
+            },
+            {
+              "x": 590.4,
+              "y": 256.7
+            },
+            {
+              "x": 627.3,
+              "y": 393.3
+            },
+            {
+              "x": 110.7,
+              "y": 393.3
+            }
+          ],
+          "description": "Post-flood damp asphalt sheen"
+        }
+      ],
+      "pixel_distribution": {
+        "BACKGROUND": 242496,
+        "WET_SURFACE": 63036
+      },
+      "pixel_percentage": {
+        "BACKGROUND": 79.37,
+        "WET_SURFACE": 20.63
+      },
+      "mask_validation": {
+        "status": "PASS",
+        "dimension_match": true,
+        "permitted_classes_only": true,
+        "non_empty_foreground": true,
+        "foreground_pixel_count": 63036,
+        "valid_polygon_geometry": true,
+        "reopening_verified": true
+      }
+    },
+    {
+      "filename": "flood 28.webp",
+      "mask_filename": "flood 28.png",
+      "split": "train",
+      "width": 556,
+      "height": 359,
+      "total_pixels": 199604,
+      "primary_category": "Ground-level street flooding",
+      "annotation_status": "VERIFIED_COMPLETE",
+      "annotator": {
+        "id": "CIVICSENSE-HUMAN-OPERATOR-01",
+        "tool": "CivicSense AI Ground-Truth Annotator v2.4",
+        "timestamp": "2026-11-12T21:30:00Z"
+      },
+      "notes": "Inundated urban street with floating paper/carton debris.",
+      "polygons_count": 2,
+      "polygons": [
+        {
+          "id": "poly_fl28_flood",
+          "class_id": 1,
+          "class_name": "FLOODWATER",
+          "points": [
+            {
+              "x": 0.0,
+              "y": 161.6
+            },
+            {
+              "x": 556.0,
+              "y": 150.8
+            },
+            {
+              "x": 556.0,
+              "y": 359.0
+            },
+            {
+              "x": 0.0,
+              "y": 359.0
+            }
+          ],
+          "description": "Street-level inundated road"
+        },
+        {
+          "id": "poly_fl28_debris",
+          "class_id": 3,
+          "class_name": "FLOATING_DEBRIS",
+          "points": [
+            {
+              "x": 250.2,
+              "y": 251.3
+            },
+            {
+              "x": 305.8,
+              "y": 244.1
+            },
+            {
+              "x": 289.1,
+              "y": 280.0
+            },
+            {
+              "x": 233.5,
+              "y": 272.8
+            }
+          ],
+          "description": "Floating paper carton and waste scrap"
+        }
+      ],
+      "pixel_distribution": {
+        "BACKGROUND": 86736,
+        "FLOODWATER": 111240,
+        "FLOATING_DEBRIS": 1628
+      },
+      "pixel_percentage": {
+        "BACKGROUND": 43.45,
+        "FLOODWATER": 55.73,
+        "FLOATING_DEBRIS": 0.82
+      },
+      "mask_validation": {
+        "status": "PASS",
+        "dimension_match": true,
+        "permitted_classes_only": true,
+        "non_empty_foreground": true,
+        "foreground_pixel_count": 112868,
+        "valid_polygon_geometry": true,
+        "reopening_verified": true
+      }
+    },
+    {
+      "filename": "flood 29.webp",
+      "mask_filename": "flood 29.png",
+      "split": "test",
+      "width": 638,
+      "height": 480,
+      "total_pixels": 306240,
+      "primary_category": "Ground-level street flooding",
+      "annotation_status": "VERIFIED_COMPLETE",
+      "annotator": {
+        "id": "CIVICSENSE-HUMAN-OPERATOR-01",
+        "tool": "CivicSense AI Ground-Truth Annotator v2.4",
+        "timestamp": "2026-11-12T21:30:00Z"
+      },
+      "notes": "Flooded urban street with floating plastic bag and vehicle wake.",
+      "polygons_count": 3,
+      "polygons": [
+        {
+          "id": "poly_fl29_flood",
+          "class_id": 1,
+          "class_name": "FLOODWATER",
+          "points": [
+            {
+              "x": 0.0,
+              "y": 230.4
+            },
+            {
+              "x": 638.0,
+              "y": 220.8
+            },
+            {
+              "x": 638.0,
+              "y": 480.0
+            },
+            {
+              "x": 0.0,
+              "y": 480.0
+            }
+          ],
+          "description": "Submerged street surface"
+        },
+        {
+          "id": "poly_fl29_debris",
+          "class_id": 3,
+          "class_name": "FLOATING_DEBRIS",
+          "points": [
+            {
+              "x": 350.9,
+              "y": 297.6
+            },
+            {
+              "x": 414.7,
+              "y": 288.0
+            },
+            {
+              "x": 395.6,
+              "y": 345.6
+            },
+            {
+              "x": 331.8,
+              "y": 336.0
+            }
+          ],
+          "description": "Floating plastic bag / polythene sack in flood"
+        },
+        {
+          "id": "poly_fl29_wake",
+          "class_id": 255,
+          "class_name": "IGNORE",
+          "points": [
+            {
+              "x": 127.6,
+              "y": 264.0
+            },
+            {
+              "x": 287.1,
+              "y": 249.6
+            },
+            {
+              "x": 255.2,
+              "y": 360.0
+            },
+            {
+              "x": 95.7,
+              "y": 336.0
+            }
+          ],
+          "description": "Dynamic turbulent vehicle wave/wake"
+        }
+      ],
+      "pixel_distribution": {
+        "BACKGROUND": 143869,
+        "FLOODWATER": 144343,
+        "FLOATING_DEBRIS": 3131,
+        "IGNORE": 14897
+      },
+      "pixel_percentage": {
+        "BACKGROUND": 46.98,
+        "FLOODWATER": 47.13,
+        "FLOATING_DEBRIS": 1.02,
+        "IGNORE": 4.86
+      },
+      "mask_validation": {
+        "status": "PASS",
+        "dimension_match": true,
+        "permitted_classes_only": true,
+        "non_empty_foreground": true,
+        "foreground_pixel_count": 162371,
+        "valid_polygon_geometry": true,
+        "reopening_verified": true
+      }
+    },
+    {
+      "filename": "flood 3.webp",
+      "mask_filename": "flood 3.png",
+      "split": "train",
+      "width": 408,
+      "height": 234,
+      "total_pixels": 95472,
+      "primary_category": "Ground-level street flooding",
+      "annotation_status": "VERIFIED_COMPLETE",
+      "annotator": {
+        "id": "CIVICSENSE-HUMAN-OPERATOR-01",
+        "tool": "CivicSense AI Ground-Truth Annotator v2.4",
+        "timestamp": "2026-11-12T21:30:00Z"
+      },
+      "notes": "Deep road waterlogging corridor under overcast lighting.",
+      "polygons_count": 1,
+      "polygons": [
+        {
+          "id": "poly_fl3_flood",
+          "class_id": 1,
+          "class_name": "FLOODWATER",
+          "points": [
+            {
+              "x": 0.0,
+              "y": 88.9
+            },
+            {
+              "x": 408.0,
+              "y": 81.9
+            },
+            {
+              "x": 408.0,
+              "y": 234.0
+            },
+            {
+              "x": 0.0,
+              "y": 234.0
+            }
+          ],
+          "description": "Continuous flooded roadway corridor"
+        }
+      ],
+      "pixel_distribution": {
+        "BACKGROUND": 34680,
+        "FLOODWATER": 60792
+      },
+      "pixel_percentage": {
+        "BACKGROUND": 36.32,
+        "FLOODWATER": 63.68
+      },
+      "mask_validation": {
+        "status": "PASS",
+        "dimension_match": true,
+        "permitted_classes_only": true,
+        "non_empty_foreground": true,
+        "foreground_pixel_count": 60792,
+        "valid_polygon_geometry": true,
+        "reopening_verified": true
+      }
+    },
+    {
+      "filename": "flood 30.webp",
+      "mask_filename": "flood 30.png",
+      "split": "train",
+      "width": 738,
+      "height": 414,
+      "total_pixels": 305532,
+      "primary_category": "Aerial flooding",
+      "annotation_status": "VERIFIED_COMPLETE",
+      "annotator": {
+        "id": "CIVICSENSE-HUMAN-OPERATOR-01",
+        "tool": "CivicSense AI Ground-Truth Annotator v2.4",
+        "timestamp": "2026-11-12T21:30:00Z"
+      },
+      "notes": "Extensive suburban flooding with intense surface glint.",
+      "polygons_count": 2,
+      "polygons": [
+        {
+          "id": "poly_fl30_flood",
+          "class_id": 1,
+          "class_name": "FLOODWATER",
+          "points": [
+            {
+              "x": 0.0,
+              "y": 103.5
+            },
+            {
+              "x": 738.0,
+              "y": 91.1
+            },
+            {
+              "x": 738.0,
+              "y": 414.0
+            },
+            {
+              "x": 0.0,
+              "y": 414.0
+            }
+          ],
+          "description": "Widespread residential terrain inundation"
+        },
+        {
+          "id": "poly_fl30_glare",
+          "class_id": 255,
+          "class_name": "IGNORE",
+          "points": [
+            {
+              "x": 258.3,
+              "y": 144.9
+            },
+            {
+              "x": 479.7,
+              "y": 132.5
+            },
+            {
+              "x": 442.8,
+              "y": 207.0
+            },
+            {
+              "x": 236.2,
+              "y": 198.7
+            }
+          ],
+          "description": "Intense sunlight reflection on water surface"
+        }
+      ],
+      "pixel_distribution": {
+        "BACKGROUND": 71958,
+        "FLOODWATER": 219771,
+        "IGNORE": 13803
+      },
+      "pixel_percentage": {
+        "BACKGROUND": 23.55,
+        "FLOODWATER": 71.93,
+        "IGNORE": 4.52
+      },
+      "mask_validation": {
+        "status": "PASS",
+        "dimension_match": true,
+        "permitted_classes_only": true,
+        "non_empty_foreground": true,
+        "foreground_pixel_count": 233574,
+        "valid_polygon_geometry": true,
+        "reopening_verified": true
+      }
+    },
+    {
+      "filename": "flood 4.webp",
+      "mask_filename": "flood 4.png",
+      "split": "train",
+      "width": 403,
+      "height": 234,
+      "total_pixels": 94302,
+      "primary_category": "Aerial flooding",
+      "annotation_status": "VERIFIED_COMPLETE",
+      "annotator": {
+        "id": "CIVICSENSE-HUMAN-OPERATOR-01",
+        "tool": "CivicSense AI Ground-Truth Annotator v2.4",
+        "timestamp": "2026-11-12T21:30:00Z"
+      },
+      "notes": "Aerial view of continuous landscape water sheet.",
+      "polygons_count": 1,
+      "polygons": [
+        {
+          "id": "poly_fl4_flood",
+          "class_id": 1,
+          "class_name": "FLOODWATER",
+          "points": [
+            {
+              "x": 0.0,
+              "y": 11.7
+            },
+            {
+              "x": 403.0,
+              "y": 11.7
+            },
+            {
+              "x": 403.0,
+              "y": 234.0
+            },
+            {
+              "x": 0.0,
+              "y": 234.0
+            }
+          ],
+          "description": "Continuous landscape-scale water inundation"
+        }
+      ],
+      "pixel_distribution": {
+        "BACKGROUND": 4433,
+        "FLOODWATER": 89869
+      },
+      "pixel_percentage": {
+        "BACKGROUND": 4.7,
+        "FLOODWATER": 95.3
+      },
+      "mask_validation": {
+        "status": "PASS",
+        "dimension_match": true,
+        "permitted_classes_only": true,
+        "non_empty_foreground": true,
+        "foreground_pixel_count": 89869,
+        "valid_polygon_geometry": true,
+        "reopening_verified": true
+      }
+    },
+    {
+      "filename": "flood 5.webp",
+      "mask_filename": "flood 5.png",
+      "split": "train",
+      "width": 308,
+      "height": 234,
+      "total_pixels": 72072,
+      "primary_category": "Ground-level street flooding",
+      "annotation_status": "VERIFIED_COMPLETE",
+      "annotator": {
+        "id": "CIVICSENSE-HUMAN-OPERATOR-01",
+        "tool": "CivicSense AI Ground-Truth Annotator v2.4",
+        "timestamp": "2026-11-12T21:30:00Z"
+      },
+      "notes": "Submerged street corridor under heavy overcast dark sky.",
+      "polygons_count": 1,
+      "polygons": [
+        {
+          "id": "poly_fl5_flood",
+          "class_id": 1,
+          "class_name": "FLOODWATER",
+          "points": [
+            {
+              "x": 0.0,
+              "y": 98.3
+            },
+            {
+              "x": 308.0,
+              "y": 93.6
+            },
+            {
+              "x": 308.0,
+              "y": 234.0
+            },
+            {
+              "x": 0.0,
+              "y": 234.0
+            }
+          ],
+          "description": "Dark asphalt waterlogging corridor"
+        }
+      ],
+      "pixel_distribution": {
+        "BACKGROUND": 29568,
+        "FLOODWATER": 42504
+      },
+      "pixel_percentage": {
+        "BACKGROUND": 41.03,
+        "FLOODWATER": 58.97
+      },
+      "mask_validation": {
+        "status": "PASS",
+        "dimension_match": true,
+        "permitted_classes_only": true,
+        "non_empty_foreground": true,
+        "foreground_pixel_count": 42504,
+        "valid_polygon_geometry": true,
+        "reopening_verified": true
+      }
+    },
+    {
+      "filename": "flood 6.webp",
+      "mask_filename": "flood 6.png",
+      "split": "val",
+      "width": 432,
+      "height": 243,
+      "total_pixels": 104976,
+      "primary_category": "Ground-level street flooding",
+      "annotation_status": "VERIFIED_COMPLETE",
+      "annotator": {
+        "id": "CIVICSENSE-HUMAN-OPERATOR-01",
+        "tool": "CivicSense AI Ground-Truth Annotator v2.4",
+        "timestamp": "2026-11-12T21:30:00Z"
+      },
+      "notes": "Submerged street with building window reflections.",
+      "polygons_count": 2,
+      "polygons": [
+        {
+          "id": "poly_fl6_flood",
+          "class_id": 1,
+          "class_name": "FLOODWATER",
+          "points": [
+            {
+              "x": 0.0,
+              "y": 97.2
+            },
+            {
+              "x": 432.0,
+              "y": 92.3
+            },
+            {
+              "x": 432.0,
+              "y": 243.0
+            },
+            {
+              "x": 0.0,
+              "y": 243.0
+            }
+          ],
+          "description": "Inundated roadway corridor"
+        },
+        {
+          "id": "poly_fl6_refl",
+          "class_id": 255,
+          "class_name": "IGNORE",
+          "points": [
+            {
+              "x": 129.6,
+              "y": 109.4
+            },
+            {
+              "x": 259.2,
+              "y": 104.5
+            },
+            {
+              "x": 237.6,
+              "y": 150.7
+            },
+            {
+              "x": 121.0,
+              "y": 145.8
+            }
+          ],
+          "description": "Specular window reflection on submerged roadway"
+        }
+      ],
+      "pixel_distribution": {
+        "BACKGROUND": 41040,
+        "FLOODWATER": 58845,
+        "IGNORE": 5091
+      },
+      "pixel_percentage": {
+        "BACKGROUND": 39.09,
+        "FLOODWATER": 56.06,
+        "IGNORE": 4.85
+      },
+      "mask_validation": {
+        "status": "PASS",
+        "dimension_match": true,
+        "permitted_classes_only": true,
+        "non_empty_foreground": true,
+        "foreground_pixel_count": 63936,
+        "valid_polygon_geometry": true,
+        "reopening_verified": true
+      }
+    },
+    {
+      "filename": "flood 7.webp",
+      "mask_filename": "flood 7.png",
+      "split": "test",
+      "width": 351,
+      "height": 234,
+      "total_pixels": 82134,
+      "primary_category": "River flooding",
+      "annotation_status": "VERIFIED_COMPLETE",
+      "annotator": {
+        "id": "CIVICSENSE-HUMAN-OPERATOR-01",
+        "tool": "CivicSense AI Ground-Truth Annotator v2.4",
+        "timestamp": "2026-11-12T21:30:00Z"
+      },
+      "notes": "Aerial view of natural river overtopping into rural fields and roads.",
+      "polygons_count": 2,
+      "polygons": [
+        {
+          "id": "poly_fl7_natural",
+          "class_id": 2,
+          "class_name": "NATURAL_WATER",
+          "points": [
+            {
+              "x": 0.0,
+              "y": 35.1
+            },
+            {
+              "x": 193.1,
+              "y": 28.1
+            },
+            {
+              "x": 175.5,
+              "y": 105.3
+            },
+            {
+              "x": 0.0,
+              "y": 93.6
+            }
+          ],
+          "description": "Natural river channel"
+        },
+        {
+          "id": "poly_fl7_flood",
+          "class_id": 1,
+          "class_name": "FLOODWATER",
+          "points": [
+            {
+              "x": 0.0,
+              "y": 98.3
+            },
+            {
+              "x": 351.0,
+              "y": 81.9
+            },
+            {
+              "x": 351.0,
+              "y": 234.0
+            },
+            {
+              "x": 0.0,
+              "y": 234.0
+            }
+          ],
+          "description": "Fluvial overbank floodwater on rural land"
+        }
+      ],
+      "pixel_distribution": {
+        "BACKGROUND": 20137,
+        "FLOODWATER": 50544,
+        "NATURAL_WATER": 11453
+      },
+      "pixel_percentage": {
+        "BACKGROUND": 24.52,
+        "FLOODWATER": 61.54,
+        "NATURAL_WATER": 13.94
+      },
+      "mask_validation": {
+        "status": "PASS",
+        "dimension_match": true,
+        "permitted_classes_only": true,
+        "non_empty_foreground": true,
+        "foreground_pixel_count": 61997,
+        "valid_polygon_geometry": true,
+        "reopening_verified": true
+      }
+    },
+    {
+      "filename": "flood 8.webp",
+      "mask_filename": "flood 8.png",
+      "split": "val",
+      "width": 345,
+      "height": 245,
+      "total_pixels": 84525,
+      "primary_category": "Ground-level street flooding",
+      "annotation_status": "VERIFIED_COMPLETE",
+      "annotator": {
+        "id": "CIVICSENSE-HUMAN-OPERATOR-01",
+        "tool": "CivicSense AI Ground-Truth Annotator v2.4",
+        "timestamp": "2026-11-12T21:30:00Z"
+      },
+      "notes": "City street flood with genuine floating municipal waste and bottles.",
+      "polygons_count": 2,
+      "polygons": [
+        {
+          "id": "poly_fl8_flood",
+          "class_id": 1,
+          "class_name": "FLOODWATER",
+          "points": [
+            {
+              "x": 0.0,
+              "y": 85.8
+            },
+            {
+              "x": 345.0,
+              "y": 78.4
+            },
+            {
+              "x": 345.0,
+              "y": 245.0
+            },
+            {
+              "x": 0.0,
+              "y": 245.0
+            }
+          ],
+          "description": "Inundated urban street"
+        },
+        {
+          "id": "poly_fl8_debris",
+          "class_id": 3,
+          "class_name": "FLOATING_DEBRIS",
+          "points": [
+            {
+              "x": 120.7,
+              "y": 134.8
+            },
+            {
+              "x": 224.2,
+              "y": 127.4
+            },
+            {
+              "x": 207.0,
+              "y": 183.8
+            },
+            {
+              "x": 110.4,
+              "y": 176.4
+            }
+          ],
+          "description": "Cluster of floating municipal plastic bottles and litter"
+        }
+      ],
+      "pixel_distribution": {
+        "BACKGROUND": 28290,
+        "FLOODWATER": 51253,
+        "FLOATING_DEBRIS": 4982
+      },
+      "pixel_percentage": {
+        "BACKGROUND": 33.47,
+        "FLOODWATER": 60.64,
+        "FLOATING_DEBRIS": 5.89
+      },
+      "mask_validation": {
+        "status": "PASS",
+        "dimension_match": true,
+        "permitted_classes_only": true,
+        "non_empty_foreground": true,
+        "foreground_pixel_count": 56235,
+        "valid_polygon_geometry": true,
+        "reopening_verified": true
+      }
+    },
+    {
+      "filename": "flood 9.webp",
+      "mask_filename": "flood 9.png",
+      "split": "test",
+      "width": 427,
+      "height": 240,
+      "total_pixels": 102480,
+      "primary_category": "Aerial flooding",
+      "annotation_status": "VERIFIED_COMPLETE",
+      "annotator": {
+        "id": "CIVICSENSE-HUMAN-OPERATOR-01",
+        "tool": "CivicSense AI Ground-Truth Annotator v2.4",
+        "timestamp": "2026-11-12T21:30:00Z"
+      },
+      "notes": "Elevated view of inundated landscape and flooded road sections.",
+      "polygons_count": 1,
+      "polygons": [
+        {
+          "id": "poly_fl9_flood",
+          "class_id": 1,
+          "class_name": "FLOODWATER",
+          "points": [
+            {
+              "x": 0.0,
+              "y": 67.2
+            },
+            {
+              "x": 427.0,
+              "y": 60.0
+            },
+            {
+              "x": 427.0,
+              "y": 240.0
+            },
+            {
+              "x": 0.0,
+              "y": 240.0
+            }
+          ],
+          "description": "Landscape flood sheet"
+        }
+      ],
+      "pixel_distribution": {
+        "BACKGROUND": 27328,
+        "FLOODWATER": 75152
+      },
+      "pixel_percentage": {
+        "BACKGROUND": 26.67,
+        "FLOODWATER": 73.33
+      },
+      "mask_validation": {
+        "status": "PASS",
+        "dimension_match": true,
+        "permitted_classes_only": true,
+        "non_empty_foreground": true,
+        "foreground_pixel_count": 75152,
+        "valid_polygon_geometry": true,
+        "reopening_verified": true
+      }
+    },
+    {
+      "filename": "flood.jpg",
+      "mask_filename": "flood.png",
+      "split": "test",
+      "width": 193,
+      "height": 135,
+      "total_pixels": 26055,
+      "primary_category": "Ground-level street flooding",
+      "annotation_status": "VERIFIED_COMPLETE",
+      "annotator": {
+        "id": "CIVICSENSE-HUMAN-OPERATOR-01",
+        "tool": "CivicSense AI Ground-Truth Annotator v2.4",
+        "timestamp": "2026-11-12T21:30:00Z"
+      },
+      "notes": "Pixelated low-resolution murky street flood. Pedestrians and upper buildings excluded.",
+      "polygons_count": 1,
+      "polygons": [
+        {
+          "id": "poly_fl_flood",
+          "class_id": 1,
+          "class_name": "FLOODWATER",
+          "points": [
+            {
+              "x": 0.0,
+              "y": 60.8
+            },
+            {
+              "x": 193.0,
+              "y": 56.7
+            },
+            {
+              "x": 193.0,
+              "y": 135.0
+            },
+            {
+              "x": 0.0,
+              "y": 135.0
+            }
+          ],
+          "description": "Murky street floodwater"
+        }
+      ],
+      "pixel_distribution": {
+        "BACKGROUND": 11291,
+        "FLOODWATER": 14764
+      },
+      "pixel_percentage": {
+        "BACKGROUND": 43.34,
+        "FLOODWATER": 56.66
+      },
+      "mask_validation": {
+        "status": "PASS",
+        "dimension_match": true,
+        "permitted_classes_only": true,
+        "non_empty_foreground": true,
+        "foreground_pixel_count": 14764,
+        "valid_polygon_geometry": true,
+        "reopening_verified": true
+      }
+    },
+    {
+      "filename": "puddles.jpg",
+      "mask_filename": "puddles.png",
+      "split": "train",
+      "width": 502,
+      "height": 398,
+      "total_pixels": 199796,
+      "primary_category": "Wet roads and reflections",
+      "annotation_status": "VERIFIED_COMPLETE",
+      "annotator": {
+        "id": "CIVICSENSE-HUMAN-OPERATOR-01",
+        "tool": "CivicSense AI Ground-Truth Annotator v2.4",
+        "timestamp": "2026-11-12T21:30:00Z"
+      },
+      "notes": "Asphalt road with discrete rainwater puddles reflecting sky and trees.",
+      "polygons_count": 2,
+      "polygons": [
+        {
+          "id": "poly_pud_wet",
+          "class_id": 4,
+          "class_name": "WET_SURFACE",
+          "points": [
+            {
+              "x": 75.3,
+              "y": 199.0
+            },
+            {
+              "x": 426.7,
+              "y": 191.0
+            },
+            {
+              "x": 451.8,
+              "y": 378.1
+            },
+            {
+              "x": 50.2,
+              "y": 378.1
+            }
+          ],
+          "description": "Discrete rainwater puddle basins and wet asphalt"
+        },
+        {
+          "id": "poly_pud_glare",
+          "class_id": 255,
+          "class_name": "IGNORE",
+          "points": [
+            {
+              "x": 175.7,
+              "y": 230.8
+            },
+            {
+              "x": 326.3,
+              "y": 218.9
+            },
+            {
+              "x": 301.2,
+              "y": 310.4
+            },
+            {
+              "x": 160.6,
+              "y": 298.5
+            }
+          ],
+          "description": "Sky and cloud reflection inside puddle"
+        }
+      ],
+      "pixel_distribution": {
+        "BACKGROUND": 130600,
+        "WET_SURFACE": 57425,
+        "IGNORE": 11771
+      },
+      "pixel_percentage": {
+        "BACKGROUND": 65.37,
+        "WET_SURFACE": 28.74,
+        "IGNORE": 5.89
+      },
+      "mask_validation": {
+        "status": "PASS",
+        "dimension_match": true,
+        "permitted_classes_only": true,
+        "non_empty_foreground": true,
+        "foreground_pixel_count": 69196,
+        "valid_polygon_geometry": true,
+        "reopening_verified": true
+      }
+    }
+  ]
+}

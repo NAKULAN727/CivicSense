@@ -1,0 +1,102 @@
+[
+  {
+    "idx": 0,
+    "path": "Real Test Datas/Flood\\flood 1.jpg",
+    "raw_file": "scratch/test_batch_0.raw",
+    "orig_w": 250,
+    "orig_h": 175,
+    "pt_flood_px": 22377,
+    "total_px": 43750,
+    "pt_pct": 51.1474
+  },
+  {
+    "idx": 1,
+    "path": "Real Test Datas/Flood\\flood 10.webp",
+    "raw_file": "scratch/test_batch_1.raw",
+    "orig_w": 192,
+    "orig_h": 234,
+    "pt_flood_px": 30285,
+    "total_px": 44928,
+    "pt_pct": 67.4079
+  },
+  {
+    "idx": 2,
+    "path": "Real Test Datas/Flood\\flood 11.webp",
+    "raw_file": "scratch/test_batch_2.raw",
+    "orig_w": 392,
+    "orig_h": 261,
+    "pt_flood_px": 41460,
+    "total_px": 102312,
+    "pt_pct": 40.5231
+  },
+  {
+    "idx": 3,
+    "path": "Real Test Datas/Flood\\flood 12.webp",
+    "raw_file": "scratch/test_batch_3.raw",
+    "orig_w": 417,
+    "orig_h": 234,
+    "pt_flood_px": 52796,
+    "total_px": 97578,
+    "pt_pct": 54.1065
+  },
+  {
+    "idx": 4,
+    "path": "Real Test Datas/Flood\\flood 13.webp",
+    "raw_file": "scratch/test_batch_4.raw",
+    "orig_w": 344,
+    "orig_h": 234,
+    "pt_flood_px": 5888,
+    "total_px": 80496,
+    "pt_pct": 7.3146
+  },
+  {
+    "idx": 5,
+    "path": "Real Test Datas/Flood\\flood 14.webp",
+    "raw_file": "scratch/test_batch_5.raw",
+    "orig_w": 347,
+    "orig_h": 280,
+    "pt_flood_px": 27560,
+    "total_px": 97160,
+    "pt_pct": 28.3656
+  },
+  {
+    "idx": 6,
+    "path": "Real Test Datas/Flood\\flood 15.jpg",
+    "raw_file": "scratch/test_batch_6.raw",
+    "orig_w": 289,
+    "orig_h": 174,
+    "pt_flood_px": 18850,
+    "total_px": 50286,
+    "pt_pct": 37.4856
+  },
+  {
+    "idx": 7,
+    "path": "Real Test Datas/Flood\\flood 16.jpg",
+    "raw_file": "scratch/test_batch_7.raw",
+    "orig_w": 415,
+    "orig_h": 737,
+    "pt_flood_px": 88974,
+    "total_px": 305855,
+    "pt_pct": 29.0903
+  },
+  {
+    "idx": 8,
+    "path": "Real Test Datas/Flood\\flood 17.jpg",
+    "raw_file": "scratch/test_batch_8.raw",
+    "orig_w": 618,
+    "orig_h": 495,
+    "pt_flood_px": 127993,
+    "total_px": 305910,
+    "pt_pct": 41.8401
+  },
+  {
+    "idx": 9,
+    "path": "Real Test Datas/Flood\\flood 18.jpg",
+    "raw_file": "scratch/test_batch_9.raw",
+    "orig_w": 387,
+    "orig_h": 516,
+    "pt_flood_px": 54030,
+    "total_px": 199692,
+    "pt_pct": 27.0567
+  }
+]

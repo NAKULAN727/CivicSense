@@ -1,0 +1,30 @@
+{
+  "total_94_benchmark_images": 94,
+  "road": {
+    "pothole_records_count": 32,
+    "road_d40_conf050_images": 12,
+    "road_d40_total_detections": 25,
+    "road_d00_total_detections": 0,
+    "road_d10_total_detections": 1,
+    "road_d20_total_detections": 6,
+    "any_road_defect_images": 17
+  },
+  "waste": {
+    "garbage_records_count": 30,
+    "raw_waste_images": 24,
+    "accepted_waste_images": 22,
+    "waste_class_counts": {
+      "W00": 3,
+      "W10": 0,
+      "W20": 12,
+      "W30": 0,
+      "W40": 0,
+      "W50": 14,
+      "W60": 1,
+      "W70": 45
+    }
+  },
+  "fusion": {
+    "water_filled_pothole_count": 9
+  }
+}

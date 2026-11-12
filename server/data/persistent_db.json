@@ -142,73 +142,60 @@
   ],
   "incidents": [
     {
-      "incident_id": "civic-mwdeb0vq-a2258323",
+      "incident_id": "INC-TEST-RESTART-001",
       "tenant_id": "TENANT-DEMO-A",
-      "title": "Pothole on Main St",
-      "incident_type": "ROAD_DAMAGE",
+      "title": "Persistent Waterlogging Test",
+      "incident_type": "FLOOD",
       "severity": "HIGH",
-      "priority": "IMMEDIATE",
-      "recommended_department": "Highways / Roads & Pavement Maintenance",
-      "recommended_action": "",
-      "source_evidence": "",
-      "confidence": null,
-      "operator_status": "CONFIRMED",
-      "location_status": "VERIFIED",
-      "latitude": 12.9716,
-      "longitude": 80.2184,
-      "location_formatted": "12.9716° N, 80.2184° E",
-      "status": "DISPATCHED",
-      "created_by": "OP-DEMO-A-01",
-      "reviewed_by": "OP-DEMO-A-01",
-      "notes": "",
-      "created_at": "2026-11-12T10:18:54.134Z",
-      "updated_at": "2026-11-12T10:18:54.309Z"
+      "priority": "HIGH",
+      "status": "REPORTED",
+      "reported_by": "OP-DEMO-A-01",
+      "created_at": "2026-11-12T17:10:12.381Z"
     },
     {
-      "incident_id": "civic-mwdeb0ws-c7b64bc2",
-      "tenant_id": "TENANT-DEMO-B",
-      "title": "Waste Accumulation in Market",
-      "incident_type": "WASTE_ACCUMULATION",
-      "severity": "MEDIUM",
-      "priority": "MEDIUM",
-      "recommended_department": "Solid Waste Management",
-      "recommended_action": "",
-      "source_evidence": "",
-      "confidence": null,
-      "operator_status": "CONFIRMED",
-      "location_status": "VERIFIED",
-      "latitude": 13.0827,
-      "longitude": 80.2707,
-      "location_formatted": "13.0827° N, 80.2707° E",
-      "status": "OPEN",
-      "created_by": "OP-DEMO-B-01",
-      "reviewed_by": "OP-DEMO-B-01",
-      "notes": "",
-      "created_at": "2026-11-12T10:18:54.172Z",
-      "updated_at": "2026-11-12T10:18:54.172Z"
-    },
-    {
-      "incident_id": "civic-mwdeb11q-7b4ae995",
+      "incident_id": "INC-CRUD-PARAM-001",
       "tenant_id": "TENANT-DEMO-A",
-      "title": "Severe Roadway Flood",
-      "incident_type": "SIGNIFICANT_WATERLOGGING",
+      "title": "Main Arterial Road Pothole",
+      "incident_type": "ROAD_DAMAGE",
       "severity": "CRITICAL",
-      "priority": "IMMEDIATE",
-      "recommended_department": "Stormwater / Drainage Department",
-      "recommended_action": "",
-      "source_evidence": "",
-      "confidence": null,
+      "priority": "CRITICAL",
+      "status": "ACKNOWLEDGED",
+      "reported_by": "OP-DEMO-A-01",
+      "attributes": {
+        "surfaceDefect": "D40",
+        "depthCm": 14.5
+      },
+      "updated_at": "2026-11-12T17:10:12.393Z"
+    },
+    {
+      "incident_id": "INC-TENANT-B-CONFIDENTIAL-001",
+      "tenant_id": "TENANT-DEMO-B",
+      "title": "Tenant B Municipal Infrastructure Report",
+      "incident_type": "WASTE",
+      "severity": "MEDIUM",
+      "status": "REPORTED",
+      "reported_by": "OP-DEMO-B-01"
+    },
+    {
+      "incident_id": "INC-SQL-INJ-001",
+      "tenant_id": "TENANT-DEMO-A",
+      "title": "Pothole'; DROP TABLE incidents; SELECT * FROM users WHERE '1'='1",
+      "incident_type": "ROAD_DAMAGE'; --",
+      "status": "REPORTED",
+      "reported_by": "OP-DEMO-A-01"
+    },
+    {
+      "incident_id": "INC-IDEMP-001",
+      "tenant_id": "TENANT-DEMO-A",
+      "title": "Idempotency Test Incident",
+      "incident_type": "ROAD_DAMAGE",
+      "recommended_department": "Highways / Roads & Pavement Maintenance",
+      "severity": "HIGH",
+      "priority": "P1",
+      "status": "DISPATCHED",
       "operator_status": "CONFIRMED",
-      "location_status": "VERIFIED",
-      "latitude": 12.965,
-      "longitude": 80.23,
-      "location_formatted": "12.9650° N, 80.2300° E",
-      "status": "OPEN",
-      "created_by": "OP-DEMO-A-01",
-      "reviewed_by": "OP-DEMO-A-01",
-      "notes": "",
-      "created_at": "2026-11-12T10:18:54.350Z",
-      "updated_at": "2026-11-12T10:18:54.350Z"
+      "reported_by": "OP-DEMO-A-01",
+      "updated_at": "2026-11-12T17:10:12.442Z"
     }
   ],
   "work_orders": [
@@ -220,7 +207,7 @@
       "status": "ACKNOWLEDGED",
       "assigned_crew": "Crew-Zone1-Alpha",
       "approved_by": "SUP-DEMO-A-01",
-      "created_at": "2026-11-12T10:18:46.200Z"
+      "created_at": "2026-11-12T17:10:12.396Z"
     },
     {
       "work_order_id": "SANDBOX-WO-INCIDEMP001",
@@ -241,52 +228,13 @@
       "history": [
         {
           "status": "DISPATCHED",
-          "timestamp": "2026-11-12T10:18:46.280Z",
+          "timestamp": "2026-11-12T17:10:12.442Z",
           "actor": "SUP-DEMO-A-01",
           "note": "Initial dispatch to municipal adapter"
         }
       ],
-      "dispatched_at": "2026-11-12T10:18:46.280Z",
-      "updated_at": "2026-11-12T10:18:46.280Z"
-    },
-    {
-      "work_order_id": "SANDBOX-WO-icmwdeb0vqa2258323",
-      "tenant_id": "TENANT-DEMO-A",
-      "incident_id": "civic-mwdeb0vq-a2258323",
-      "idempotency_key": "IDEMP-TENANT-DEMO-A-civicmwdeb0vqa2258323",
-      "title": "Pothole on Main St",
-      "department": "Highways / Roads & Pavement Maintenance",
-      "secondary_department": null,
-      "severity": "HIGH",
-      "priority": "IMMEDIATE",
-      "status": "CONFLICT_REQUIRES_REVIEW",
-      "dispatched_by": "SUP-DEMO-A-01",
-      "approved_by": "SUP-DEMO-A-01",
-      "external_reference_id": null,
-      "is_idempotent_duplicate": false,
-      "notes": "",
-      "history": [
-        {
-          "status": "DISPATCHED",
-          "timestamp": "2026-11-12T10:18:54.309Z",
-          "actor": "SUP-DEMO-A-01",
-          "note": "Initial dispatch to municipal adapter"
-        },
-        {
-          "status": "COMPLETED",
-          "timestamp": "2026-11-12T10:18:54.332Z",
-          "actor": "SUP-DEMO-A-01",
-          "note": "Status updated to COMPLETED"
-        },
-        {
-          "status": "CONFLICT_REQUIRES_REVIEW",
-          "timestamp": "2026-11-12T10:18:54.341Z",
-          "actor": "SUP-DEMO-A-01",
-          "note": "Conflict detected: Attempted regression from COMPLETED to IN_PROGRESS."
-        }
-      ],
-      "dispatched_at": "2026-11-12T10:18:54.309Z",
-      "updated_at": "2026-11-12T10:18:54.342Z"
+      "dispatched_at": "2026-11-12T17:10:12.442Z",
+      "updated_at": "2026-11-12T17:10:12.442Z"
     }
   ],
   "ward_datasets": [
@@ -303,8 +251,8 @@
           {
             "type": "Feature",
             "properties": {
-              "ward_id": "WARD-A-101",
-              "ward_name": "Alpha North"
+              "ward_id": "W-CLOSED-101",
+              "ward_name": "Ward 101 - Adyar West"
             },
             "geometry": {
               "type": "Polygon",
@@ -312,23 +260,23 @@
                 [
                   [
                     80.2,
-                    12.95
-                  ],
-                  [
-                    80.25,
-                    12.95
+                    13
                   ],
                   [
                     80.25,
                     13
                   ],
                   [
-                    80.2,
-                    13
+                    80.25,
+                    13.05
                   ],
                   [
                     80.2,
-                    12.95
+                    13.05
+                  ],
+                  [
+                    80.2,
+                    13
                   ]
                 ]
               ]
@@ -336,732 +284,176 @@
           }
         ]
       },
-      "dataset_hash": "842711dcb7a7eb8f4bcb4eefaa5141790207c91d09a247314c6c1d42e374c2d1",
-      "uploaded_at": "2026-11-12T10:18:54.164Z"
+      "dataset_hash": "54ead73e1136baaa5c0cd5097e0f8e9e3f9a7cf938fea440bfc68c2dced4dfd5",
+      "uploaded_at": "2026-11-12T17:10:12.462Z"
     }
   ],
   "ward_features": [
     {
-      "feature_id": "FEAT-BND-TENANT-DEMO-A-v1-WARD-A-101",
+      "feature_id": "FEAT-BND-TENANT-DEMO-A-v1-W-CLOSED-101",
       "dataset_id": "BND-TENANT-DEMO-A-v1",
       "tenant_id": "TENANT-DEMO-A",
-      "ward_id": "WARD-A-101",
-      "ward_name": "Alpha North",
+      "ward_id": "W-CLOSED-101",
+      "ward_name": "Ward 101 - Adyar West",
       "geometry": {
         "type": "Polygon",
         "coordinates": [
           [
             [
               80.2,
-              12.95
-            ],
-            [
-              80.25,
-              12.95
+              13
             ],
             [
               80.25,
               13
             ],
             [
-              80.2,
-              13
+              80.25,
+              13.05
             ],
             [
               80.2,
-              12.95
+              13.05
+            ],
+            [
+              80.2,
+              13
             ]
           ]
         ]
       },
       "properties": {
-        "ward_id": "WARD-A-101",
-        "ward_name": "Alpha North"
+        "ward_id": "W-CLOSED-101",
+        "ward_name": "Ward 101 - Adyar West"
       },
-      "created_at": "2026-11-12T10:18:54.164Z"
+      "created_at": "2026-11-12T17:10:12.462Z"
     }
   ],
   "audit_logs": [
     {
-      "event_id": "AUD-170644ab-95e1-4db1-b71d-4aaeb74be508",
-      "tenant_id": "UNRESOLVED",
-      "event_type": "AUTHENTICATION_FAILURE",
-      "actor_id": "ANONYMOUS",
-      "resource": "/api/incidents",
-      "result": "FAILURE",
-      "request_id": "8ea93464-b8f6-4477-984d-fb9e43a47b2b",
-      "timestamp": "2026-11-12T10:18:54.112Z",
-      "details": {
-        "reason": "Missing or malformed Authorization header"
-      },
-      "previous_hash": "GENESIS_HASH_CHAIN_ROOT_0000000000000000000000000000000000000000",
-      "current_hash": "2089853695b53fcae83c60b1191c759815308c96f2f4ac3c3f4b116d42a76162",
-      "hmac_signature": "c690f8d6d4b50d581f5b40d750b07f93f1d195718e5ef86c0102e97c2fe1f0f7"
-    },
-    {
-      "event_id": "AUD-0ee71657-91bc-431f-829e-b47222a96348",
-      "tenant_id": "UNRESOLVED",
-      "event_type": "AUTHENTICATION_FAILURE",
-      "actor_id": "INVALID_TOKEN",
-      "resource": "/api/incidents",
-      "result": "FAILURE",
-      "request_id": "9047d7e4-5045-4dea-a8ba-02be82850f82",
-      "timestamp": "2026-11-12T10:18:54.116Z",
-      "details": {
-        "reason": "Malformed token structure"
-      },
-      "previous_hash": "2089853695b53fcae83c60b1191c759815308c96f2f4ac3c3f4b116d42a76162",
-      "current_hash": "94a8186bccc960ba07892c244edcb5bfd1e988b688e7380ddfab6bc55d5f0a2d",
-      "hmac_signature": "1ede2beedbe465b8aa7753a472660370c281ca0720ee2682d534847a54ef0aa2"
-    },
-    {
-      "event_id": "AUD-09622bda-3fc4-48df-94a3-e6db562c5c2d",
+      "event_id": "EVT-CHAIN-001",
       "tenant_id": "TENANT-DEMO-A",
-      "event_type": "INCIDENT_CREATED",
+      "timestamp": "2026-10-07T10:00:00.000Z",
       "actor_id": "OP-DEMO-A-01",
-      "resource": "/api/incidents/civic-mwdeb0vq-a2258323",
-      "result": "SUCCESS",
-      "request_id": "09dc48b4-72ce-452f-b02a-c5bf64d9ba9f",
-      "timestamp": "2026-11-12T10:18:54.138Z",
+      "event_type": "INCIDENT_CREATED",
       "details": {
-        "incidentId": "civic-mwdeb0vq-a2258323",
-        "incidentType": "ROAD_DAMAGE",
-        "severity": "HIGH",
-        "priority": "HIGH"
+        "incidentId": "INC-CRUD-PARAM-001"
       },
       "previous_hash": "GENESIS_HASH_CHAIN_ROOT_0000000000000000000000000000000000000000",
-      "current_hash": "b055b99013b4aa864b18418fb7bf1915738e266418ba76188e0ac7ee4a4eb5cd",
-      "hmac_signature": "1b738049d1fdf9add5ec84f2a1a4eb9e7bb6a39ac6e7d39c3b0e3aa38d7c4752"
+      "current_hash": "adcd9ceb37b91eca4f2b1cec519650211ef3465505959047777569d378121a5f",
+      "hmac_signature": "915e8264760b33d197b79a8c3c83d3fd0a89e5fbce58ad1852fc4e8fe2170fc0"
     },
     {
-      "event_id": "AUD-af953f7f-0491-4be2-8ba1-20bb41dce7df",
+      "event_id": "EVT-CHAIN-002",
+      "tenant_id": "TENANT-DEMO-A",
+      "timestamp": "2026-10-07T10:05:00.000Z",
+      "actor_id": "SUP-DEMO-A-01",
+      "event_type": "WORK_ORDER_DISPATCHED",
+      "details": {
+        "workOrderId": "WO-PHASE12-TEST-001"
+      },
+      "previous_hash": "adcd9ceb37b91eca4f2b1cec519650211ef3465505959047777569d378121a5f",
+      "current_hash": "490658466e7cf72b80739cfdf34a975655793864e8dd717eb1dbd99150fcfa59",
+      "hmac_signature": "2dfde2605191e2cab90d5a3f698a9b4d7cc0e1d554b47de0ae75492f595f90f2"
+    },
+    {
+      "event_id": "AUD-b2065d52-f0bf-4559-97db-252b3288906f",
       "tenant_id": "TENANT-DEMO-A",
       "event_type": "TENANT_ACCESS_DENIED",
       "actor_id": "OP-DEMO-A-01",
-      "resource": "/api/wards/import",
-      "result": "FORBIDDEN",
-      "request_id": "0187b305-92e6-4e76-b6b7-75da8c372939",
-      "timestamp": "2026-11-12T10:18:54.145Z",
+      "resource": "/api/incidents/INC-TENANT-B-CONFIDENTIAL-001",
+      "result": "DENIED",
+      "request_id": "9e8d1e59-538c-4f14-a997-90bcaa0ff56b",
+      "timestamp": "2026-11-12T17:10:12.413Z",
       "details": {
-        "userRole": "OPERATOR",
-        "requiredPermissions": "boundary:import"
+        "attemptedIncidentId": "INC-TENANT-B-CONFIDENTIAL-001",
+        "userTenant": "TENANT-DEMO-A"
       },
-      "previous_hash": "b055b99013b4aa864b18418fb7bf1915738e266418ba76188e0ac7ee4a4eb5cd",
-      "current_hash": "02c0eeb49051e0bf378caf50377afe30bf721bef82c2bc09a280b67b9af2791b",
-      "hmac_signature": "092543a31498f160cf12d5be4f57339709c372e26ba11790a8af9b51ec181508"
+      "previous_hash": "490658466e7cf72b80739cfdf34a975655793864e8dd717eb1dbd99150fcfa59",
+      "current_hash": "16bfedc5f552848c8ed14f862eb82b89ca7174100a33a87db2625e20b54bf1b7",
+      "hmac_signature": "e6fd28b5e871f39c995fa78d040f4538634bf506263af7e1fe0961639c0ae0a5"
     },
     {
-      "event_id": "AUD-f03b0c06-4f4f-410a-bab8-727511e9be86",
+      "event_id": "AUD-18cf27d3-6477-4647-b08f-eba5e77e2cac",
       "tenant_id": "TENANT-DEMO-A",
       "event_type": "INCIDENT_VIEWED",
       "actor_id": "SUP-DEMO-A-01",
-      "resource": "/api/incidents/civic-mwdeb0vq-a2258323",
+      "resource": "/api/incidents/INC-IDEMP-001",
       "result": "SUCCESS",
-      "request_id": "3a1d3cf1-92cb-456d-a07e-e2af43213b9d",
-      "timestamp": "2026-11-12T10:18:54.152Z",
+      "request_id": "8d47a0ea-8921-47f5-815d-0848941365c6",
+      "timestamp": "2026-11-12T17:10:12.435Z",
       "details": {
-        "incidentId": "civic-mwdeb0vq-a2258323"
+        "incidentId": "INC-IDEMP-001"
       },
-      "previous_hash": "02c0eeb49051e0bf378caf50377afe30bf721bef82c2bc09a280b67b9af2791b",
-      "current_hash": "7dc7ca97b99a8ba3bccf7711c4adc690d172302f83e31b9372ef98bd8ad71c4c",
-      "hmac_signature": "729c6a807c606c78c31fb83ae7308bec9aeb19626bf593e0a686ba468d6480e2"
+      "previous_hash": "16bfedc5f552848c8ed14f862eb82b89ca7174100a33a87db2625e20b54bf1b7",
+      "current_hash": "6062a9d9516ccbd920d1f069d1357da5bad4593c9a9eae7ca63afa4281bdde8f",
+      "hmac_signature": "6bfbd0fcb17b0cd127b93822ba6e6ebe16ad0691cf7dc2fc3113d2050c96aaac"
     },
     {
-      "event_id": "AUD-e662ae08-034e-4348-baab-54a15659ac80",
+      "event_id": "AUD-1e666253-01cb-470f-8d59-048dbff700de",
       "tenant_id": "TENANT-DEMO-A",
-      "event_type": "INCIDENT_UPDATED",
+      "event_type": "WORK_ORDER_CREATED",
       "actor_id": "SUP-DEMO-A-01",
-      "resource": "/api/incidents/civic-mwdeb0vq-a2258323",
+      "resource": "/api/work-orders/SANDBOX-WO-INCIDEMP001",
       "result": "SUCCESS",
-      "request_id": "3a1d3cf1-92cb-456d-a07e-e2af43213b9d",
-      "timestamp": "2026-11-12T10:18:54.157Z",
+      "request_id": "8d47a0ea-8921-47f5-815d-0848941365c6",
+      "timestamp": "2026-11-12T17:10:12.445Z",
       "details": {
-        "updates": {
-          "0": "priority"
-        }
+        "workOrderId": "SANDBOX-WO-INCIDEMP001",
+        "incidentId": "INC-IDEMP-001",
+        "department": "Highways / Roads & Pavement Maintenance"
       },
-      "previous_hash": "7dc7ca97b99a8ba3bccf7711c4adc690d172302f83e31b9372ef98bd8ad71c4c",
-      "current_hash": "c557ae7f539c42b0eca17ce6e7c2188bfe106eb720489a8d7e51c02abe876ad0",
-      "hmac_signature": "967c364ff6c2c1293a5116b92c4768e3896bff6ccf62c5568c330708097de15e"
+      "previous_hash": "6062a9d9516ccbd920d1f069d1357da5bad4593c9a9eae7ca63afa4281bdde8f",
+      "current_hash": "c66d361d2d08d310ed6cb0cdd3736ed74a3eb05679ec023b501eb193ac3b8c9b",
+      "hmac_signature": "9e4efb52305ea465713a088b41bd4729770df4c6f3839d77db625b2f498fb944"
     },
     {
-      "event_id": "AUD-c775b137-e002-4699-a836-941d270c3020",
+      "event_id": "AUD-319f1833-1802-41a4-ad47-1eb53d2264c7",
       "tenant_id": "TENANT-DEMO-A",
-      "event_type": "TENANT_ACCESS_DENIED",
+      "event_type": "INCIDENT_VIEWED",
       "actor_id": "SUP-DEMO-A-01",
-      "resource": "/api/wards/import",
-      "result": "FORBIDDEN",
-      "request_id": "50886387-634d-4036-9f12-55edbfda65b9",
-      "timestamp": "2026-11-12T10:18:54.160Z",
+      "resource": "/api/incidents/INC-IDEMP-001",
+      "result": "SUCCESS",
+      "request_id": "2957778a-e51c-4462-af2e-865307829ddd",
+      "timestamp": "2026-11-12T17:10:12.455Z",
       "details": {
-        "userRole": "SUPERVISOR",
-        "requiredPermissions": "boundary:import"
+        "incidentId": "INC-IDEMP-001"
       },
-      "previous_hash": "c557ae7f539c42b0eca17ce6e7c2188bfe106eb720489a8d7e51c02abe876ad0",
-      "current_hash": "d121f74632c7c107c9f609404d3df593efe7cd8a8a0af1a349901cc587037d23",
-      "hmac_signature": "f637c0f93aa97b4762ea4f8f9a2205c6ea0471663b9ddc22e75478abe09a235a"
+      "previous_hash": "c66d361d2d08d310ed6cb0cdd3736ed74a3eb05679ec023b501eb193ac3b8c9b",
+      "current_hash": "557f8488800f7dc7a2d3b1148928fa1758d19ff30a448566fcf8b677ab2df6c5",
+      "hmac_signature": "2a0f402e2e2ceae406cb18a67496c963c90a05ef25abf68f96c4898cad75698e"
     },
     {
-      "event_id": "AUD-1628f600-cb9c-4cab-9d41-66dede4fa6c4",
+      "event_id": "AUD-217251c0-898e-4199-9c47-59158cd98f7c",
       "tenant_id": "TENANT-DEMO-A",
       "event_type": "BOUNDARY_UPDATED",
       "actor_id": "ADM-DEMO-A-01",
       "resource": "/api/wards/datasets/BND-TENANT-DEMO-A-v1",
       "result": "SUCCESS",
-      "request_id": "1caad3d7-8d71-4176-8c72-592fe8946816",
-      "timestamp": "2026-11-12T10:18:54.165Z",
+      "request_id": "REQ-CLOSED-TEST",
+      "timestamp": "2026-11-12T17:10:12.462Z",
       "details": {
         "datasetId": "BND-TENANT-DEMO-A-v1",
         "version": "v1.0",
         "featureCount": 1,
-        "hash": "842711dcb7a7eb8f4bcb4eefaa5141790207c91d09a247314c6c1d42e374c2d1"
+        "hash": "54ead73e1136baaa5c0cd5097e0f8e9e3f9a7cf938fea440bfc68c2dced4dfd5"
       },
-      "previous_hash": "d121f74632c7c107c9f609404d3df593efe7cd8a8a0af1a349901cc587037d23",
-      "current_hash": "6755d066db40d26a1c39339e1c232a28d7fd2b121385fd42de146753777c58a8",
-      "hmac_signature": "900f27816de86ccbbde2d52f44fb9a454bac487f585446b739408f0643cdaa01"
-    },
-    {
-      "event_id": "AUD-64bbf737-833e-49fb-abe4-5347de95e98c",
-      "tenant_id": "TENANT-DEMO-B",
-      "event_type": "INCIDENT_CREATED",
-      "actor_id": "OP-DEMO-B-01",
-      "resource": "/api/incidents/civic-mwdeb0ws-c7b64bc2",
-      "result": "SUCCESS",
-      "request_id": "4fa771dc-f175-4c4c-964b-fe3356254f63",
-      "timestamp": "2026-11-12T10:18:54.175Z",
-      "details": {
-        "incidentId": "civic-mwdeb0ws-c7b64bc2",
-        "incidentType": "WASTE_ACCUMULATION",
-        "severity": "MEDIUM",
-        "priority": "MEDIUM"
-      },
-      "previous_hash": "GENESIS_HASH_CHAIN_ROOT_0000000000000000000000000000000000000000",
-      "current_hash": "7774490ba7e99a16c41e466e4c3cdee83e3a594132c420bce4c5641cb9d3fc6a",
-      "hmac_signature": "ceabfb1e74ccd62c541fcc587da23cabfb64ab56ce05a6a6659c7fa0e633d4af"
-    },
-    {
-      "event_id": "AUD-d9639ffc-58ad-4a31-ac06-ecae8000ec66",
-      "tenant_id": "TENANT-DEMO-A",
-      "event_type": "TENANT_ACCESS_DENIED",
-      "actor_id": "OP-DEMO-A-01",
-      "resource": "/api/incidents/civic-mwdeb0ws-c7b64bc2",
-      "result": "DENIED",
-      "request_id": "f1ee66de-3d79-4854-96da-a58f76d13aa3",
-      "timestamp": "2026-11-12T10:18:54.187Z",
-      "details": {
-        "attemptedIncidentId": "civic-mwdeb0ws-c7b64bc2",
-        "userTenant": "TENANT-DEMO-A"
-      },
-      "previous_hash": "6755d066db40d26a1c39339e1c232a28d7fd2b121385fd42de146753777c58a8",
-      "current_hash": "aad3bbef5e8982193069244033bb51a74618f025b626ae5c7ed97123658cc776",
-      "hmac_signature": "0ef40c5c812b111ba1b7d461af10910eb3ce127cbc24e5774fa99b21ae337776"
-    },
-    {
-      "event_id": "AUD-66de8d3d-9a40-49b1-9c2d-0560c4b5d347",
-      "tenant_id": "TENANT-DEMO-A",
-      "event_type": "AUTHENTICATION_SUCCESS",
-      "actor_id": "OP-DEMO-A-01",
-      "resource": "/api/auth/login",
-      "result": "SUCCESS",
-      "request_id": "30799e35-e7f8-4ce4-add8-7b4cbd92ea04",
-      "timestamp": "2026-11-12T10:18:54.219Z",
-      "details": {
-        "role": "OPERATOR",
-        "tenantId": "TENANT-DEMO-A"
-      },
-      "previous_hash": "aad3bbef5e8982193069244033bb51a74618f025b626ae5c7ed97123658cc776",
-      "current_hash": "9d759c83ad6803ccd3e38a32cad40e46b4101ecb402d0bc137db6725af7a4e3c",
-      "hmac_signature": "4829eda1a347c3939b0d798a609bd20b1b28f170bdc318cd4c6b2b1468ed5113"
-    },
-    {
-      "event_id": "AUD-1b4527ed-df43-42e0-bc48-3f11970e316f",
-      "tenant_id": "TENANT-DEMO-A",
-      "event_type": "AUTHENTICATION_SUCCESS",
-      "actor_id": "OP-DEMO-A-01",
-      "resource": "/api/auth/login",
-      "result": "SUCCESS",
-      "request_id": "0997934e-1753-464b-82d7-872973e02f37",
-      "timestamp": "2026-11-12T10:18:54.223Z",
-      "details": {
-        "role": "OPERATOR",
-        "tenantId": "TENANT-DEMO-A"
-      },
-      "previous_hash": "9d759c83ad6803ccd3e38a32cad40e46b4101ecb402d0bc137db6725af7a4e3c",
-      "current_hash": "199465c2ec915c40403eb40615b73753bab66b53db127bf50c3ac72de045c0cb",
-      "hmac_signature": "4c4e4f818231ced12c88813a43c3205232c506862c705d233e71d12a6173f67a"
-    },
-    {
-      "event_id": "AUD-8b2efb41-e05f-49b2-978e-6fd2f3265eb0",
-      "tenant_id": "TENANT-DEMO-A",
-      "event_type": "AUTHENTICATION_SUCCESS",
-      "actor_id": "OP-DEMO-A-01",
-      "resource": "/api/auth/login",
-      "result": "SUCCESS",
-      "request_id": "8e35d565-cff5-4dd1-97b9-6830289bc144",
-      "timestamp": "2026-11-12T10:18:54.227Z",
-      "details": {
-        "role": "OPERATOR",
-        "tenantId": "TENANT-DEMO-A"
-      },
-      "previous_hash": "199465c2ec915c40403eb40615b73753bab66b53db127bf50c3ac72de045c0cb",
-      "current_hash": "6e24ba844db95c0ac1d63ac7d72cf739f03472aa138ba8b402636c09236c7462",
-      "hmac_signature": "73ab92aaa7426166aa78cba3eac9c9189e9cafde9643932203352aa1edbf7cd6"
-    },
-    {
-      "event_id": "AUD-669aa93c-b589-46b7-a927-c11d285eec48",
-      "tenant_id": "TENANT-DEMO-A",
-      "event_type": "AUTHENTICATION_SUCCESS",
-      "actor_id": "OP-DEMO-A-01",
-      "resource": "/api/auth/login",
-      "result": "SUCCESS",
-      "request_id": "6ed5a61a-4a99-4614-9f55-d91db992ecf3",
-      "timestamp": "2026-11-12T10:18:54.230Z",
-      "details": {
-        "role": "OPERATOR",
-        "tenantId": "TENANT-DEMO-A"
-      },
-      "previous_hash": "6e24ba844db95c0ac1d63ac7d72cf739f03472aa138ba8b402636c09236c7462",
-      "current_hash": "5dfae5220e57cd2b8902fbf03d48e8587f97335adaa6a833191e3e42b37b313f",
-      "hmac_signature": "88b9123e4a94a964cbd633a2e61921df0689a23108dec8e48e92f966fb20ef27"
-    },
-    {
-      "event_id": "AUD-5f40ee20-42e7-4bb7-a4b9-237259fd67e9",
-      "tenant_id": "TENANT-DEMO-A",
-      "event_type": "AUTHENTICATION_SUCCESS",
-      "actor_id": "OP-DEMO-A-01",
-      "resource": "/api/auth/login",
-      "result": "SUCCESS",
-      "request_id": "d232bdcd-bbe1-41ea-b03b-f21dac074b9e",
-      "timestamp": "2026-11-12T10:18:54.234Z",
-      "details": {
-        "role": "OPERATOR",
-        "tenantId": "TENANT-DEMO-A"
-      },
-      "previous_hash": "5dfae5220e57cd2b8902fbf03d48e8587f97335adaa6a833191e3e42b37b313f",
-      "current_hash": "1033c2af7a585704b6c2fbe36d03e7ccf67fa57eba676278bfa0b654b7042cf5",
-      "hmac_signature": "b5433d96134bdac59ccacc8c4baabe265127d164971eab59f1a4b5e2a396e368"
-    },
-    {
-      "event_id": "AUD-81272b67-48aa-419c-b23f-31e4ac44161d",
-      "tenant_id": "TENANT-DEMO-A",
-      "event_type": "AUTHENTICATION_SUCCESS",
-      "actor_id": "OP-DEMO-A-01",
-      "resource": "/api/auth/login",
-      "result": "SUCCESS",
-      "request_id": "54020128-c1ba-4e20-a5b4-380c1adb6ed0",
-      "timestamp": "2026-11-12T10:18:54.237Z",
-      "details": {
-        "role": "OPERATOR",
-        "tenantId": "TENANT-DEMO-A"
-      },
-      "previous_hash": "1033c2af7a585704b6c2fbe36d03e7ccf67fa57eba676278bfa0b654b7042cf5",
-      "current_hash": "ac4a66170c3903a638c2b535444eb51aaad20f32fe3949e2606690ab6e057211",
-      "hmac_signature": "cb9a669804e984667965d8fef096d2a2dbddace582446a97d736f9054912fba2"
-    },
-    {
-      "event_id": "AUD-57b04066-8c49-40cf-970b-164af0c496ef",
-      "tenant_id": "TENANT-DEMO-A",
-      "event_type": "AUTHENTICATION_SUCCESS",
-      "actor_id": "OP-DEMO-A-01",
-      "resource": "/api/auth/login",
-      "result": "SUCCESS",
-      "request_id": "fce22339-4d7a-409a-a54a-1bc08bbd129c",
-      "timestamp": "2026-11-12T10:18:54.240Z",
-      "details": {
-        "role": "OPERATOR",
-        "tenantId": "TENANT-DEMO-A"
-      },
-      "previous_hash": "ac4a66170c3903a638c2b535444eb51aaad20f32fe3949e2606690ab6e057211",
-      "current_hash": "f15c94c5dca22b647c2bdbae613f3e2382bccf21fc15f981aa885a7231be4257",
-      "hmac_signature": "c3ab91b6228f07090acd8973ffd63dc04c2886034601202dcf69179411004cea"
-    },
-    {
-      "event_id": "AUD-a6036689-9f03-4921-b0e8-c594c9123583",
-      "tenant_id": "TENANT-DEMO-A",
-      "event_type": "AUTHENTICATION_SUCCESS",
-      "actor_id": "OP-DEMO-A-01",
-      "resource": "/api/auth/login",
-      "result": "SUCCESS",
-      "request_id": "fd8141ca-b684-44d5-8862-ba03e462e8ea",
-      "timestamp": "2026-11-12T10:18:54.245Z",
-      "details": {
-        "role": "OPERATOR",
-        "tenantId": "TENANT-DEMO-A"
-      },
-      "previous_hash": "f15c94c5dca22b647c2bdbae613f3e2382bccf21fc15f981aa885a7231be4257",
-      "current_hash": "a819ff941da16cef78afae7430bbb4b681acf0ba34d1a2786c060df18e3627df",
-      "hmac_signature": "37af5625c515252463f93fea4073c795300f4b3b46a19280ccb99cf440991a87"
-    },
-    {
-      "event_id": "AUD-abf1afd3-9305-4abb-ae82-fa857e7d7bec",
-      "tenant_id": "TENANT-DEMO-A",
-      "event_type": "AUTHENTICATION_SUCCESS",
-      "actor_id": "OP-DEMO-A-01",
-      "resource": "/api/auth/login",
-      "result": "SUCCESS",
-      "request_id": "87e0f43b-b226-4d5e-90eb-b676cde23e87",
-      "timestamp": "2026-11-12T10:18:54.248Z",
-      "details": {
-        "role": "OPERATOR",
-        "tenantId": "TENANT-DEMO-A"
-      },
-      "previous_hash": "a819ff941da16cef78afae7430bbb4b681acf0ba34d1a2786c060df18e3627df",
-      "current_hash": "ff5155f965d02d0ee9c9a632679bc4edc7f7cca6227ae50c1a8a795f66c29b74",
-      "hmac_signature": "5e4be942b7f0b8de5e1f4d799f33051c78ce345a569ff3b8a62ce0b77aac4543"
-    },
-    {
-      "event_id": "AUD-d5596a5b-bf49-4748-8923-98a233e20fdd",
-      "tenant_id": "TENANT-DEMO-A",
-      "event_type": "AUTHENTICATION_SUCCESS",
-      "actor_id": "OP-DEMO-A-01",
-      "resource": "/api/auth/login",
-      "result": "SUCCESS",
-      "request_id": "2d135bd3-4cdd-4a46-b673-e03ada0ec82c",
-      "timestamp": "2026-11-12T10:18:54.251Z",
-      "details": {
-        "role": "OPERATOR",
-        "tenantId": "TENANT-DEMO-A"
-      },
-      "previous_hash": "ff5155f965d02d0ee9c9a632679bc4edc7f7cca6227ae50c1a8a795f66c29b74",
-      "current_hash": "35b386c17a741d7be0b65578d0c6c5bbed05156c6d5f3a68056d70476b659e46",
-      "hmac_signature": "67429ecfbabd7e271482b96596d89ebb2d1a9292f947cd3af1548465b8643a89"
-    },
-    {
-      "event_id": "AUD-346a80e4-4e95-415c-8084-15de429645cc",
-      "tenant_id": "TENANT-DEMO-A",
-      "event_type": "AUTHENTICATION_SUCCESS",
-      "actor_id": "OP-DEMO-A-01",
-      "resource": "/api/auth/login",
-      "result": "SUCCESS",
-      "request_id": "52748f39-abf7-4e58-bf81-2295dfddc19b",
-      "timestamp": "2026-11-12T10:18:54.256Z",
-      "details": {
-        "role": "OPERATOR",
-        "tenantId": "TENANT-DEMO-A"
-      },
-      "previous_hash": "35b386c17a741d7be0b65578d0c6c5bbed05156c6d5f3a68056d70476b659e46",
-      "current_hash": "1e69913f69658f1a9d3d29d2ea156859dd3c8a1345640b0afff0c39a0cf45354",
-      "hmac_signature": "b1e96abd59afbfe8111078c841a68c683ec001c552092f071d76ba32612fd3eb"
-    },
-    {
-      "event_id": "AUD-bc5c69e6-c4ac-48af-825e-198bb58a0860",
-      "tenant_id": "TENANT-DEMO-A",
-      "event_type": "AUTHENTICATION_SUCCESS",
-      "actor_id": "OP-DEMO-A-01",
-      "resource": "/api/auth/login",
-      "result": "SUCCESS",
-      "request_id": "7ff311bc-ef11-48c1-976e-7191d89ff33c",
-      "timestamp": "2026-11-12T10:18:54.262Z",
-      "details": {
-        "role": "OPERATOR",
-        "tenantId": "TENANT-DEMO-A"
-      },
-      "previous_hash": "1e69913f69658f1a9d3d29d2ea156859dd3c8a1345640b0afff0c39a0cf45354",
-      "current_hash": "a9cc5ce6b6e4e22ca94b54f097412bb290490b65f4fc3c3ca538114f31609b16",
-      "hmac_signature": "e4cc942c819691d713e25d0351f7c80b3a90618a8f82e140d811beb0a13cc24d"
-    },
-    {
-      "event_id": "AUD-6491eee8-fe0a-44e0-ac80-5c4fd28351b3",
-      "tenant_id": "TENANT-DEMO-A",
-      "event_type": "AUTHENTICATION_SUCCESS",
-      "actor_id": "OP-DEMO-A-01",
-      "resource": "/api/auth/login",
-      "result": "SUCCESS",
-      "request_id": "f57bbc97-43c1-4e89-a8c0-417c4a72ab41",
-      "timestamp": "2026-11-12T10:18:54.265Z",
-      "details": {
-        "role": "OPERATOR",
-        "tenantId": "TENANT-DEMO-A"
-      },
-      "previous_hash": "a9cc5ce6b6e4e22ca94b54f097412bb290490b65f4fc3c3ca538114f31609b16",
-      "current_hash": "d29846db367cd39e6aa5347709b818e21298e01a0408ac5880952ab9990ec8d3",
-      "hmac_signature": "f35261c8154e1c7ae8c14ddc68a5ab33828e92cf7f7d1db4e85dc3adceda6950"
-    },
-    {
-      "event_id": "AUD-a4188c09-169c-490a-bc5e-6486b516b6ac",
-      "tenant_id": "TENANT-DEMO-A",
-      "event_type": "AUTHENTICATION_SUCCESS",
-      "actor_id": "OP-DEMO-A-01",
-      "resource": "/api/auth/login",
-      "result": "SUCCESS",
-      "request_id": "97c1c531-b51a-4c85-8092-30c203a833db",
-      "timestamp": "2026-11-12T10:18:54.269Z",
-      "details": {
-        "role": "OPERATOR",
-        "tenantId": "TENANT-DEMO-A"
-      },
-      "previous_hash": "d29846db367cd39e6aa5347709b818e21298e01a0408ac5880952ab9990ec8d3",
-      "current_hash": "5518c274af72e784a78d9f8fb8f5f46c571253f4d76546c22ed6dd0473eb8833",
-      "hmac_signature": "aa48f2ca049d27ce32e57f628006dc9180c7f803148f84505c455cf30d5b8a0d"
-    },
-    {
-      "event_id": "AUD-9e24889b-317c-4a49-b075-03256d351e38",
-      "tenant_id": "TENANT-DEMO-A",
-      "event_type": "AUTHENTICATION_SUCCESS",
-      "actor_id": "OP-DEMO-A-01",
-      "resource": "/api/auth/login",
-      "result": "SUCCESS",
-      "request_id": "467f31af-b8ac-4383-81b3-25ce6970cc10",
-      "timestamp": "2026-11-12T10:18:54.275Z",
-      "details": {
-        "role": "OPERATOR",
-        "tenantId": "TENANT-DEMO-A"
-      },
-      "previous_hash": "5518c274af72e784a78d9f8fb8f5f46c571253f4d76546c22ed6dd0473eb8833",
-      "current_hash": "394d5cd1d4318565e9ad3d563fd2e0abd7863145ca37b8e604d717703f6e0a74",
-      "hmac_signature": "146afae02ce7490591646353d3cc6813511d03f981c6cf1f99cf1a302efbf845"
-    },
-    {
-      "event_id": "AUD-a3a60f57-3cd5-4161-af7f-57bea01482d2",
-      "tenant_id": "TENANT-DEMO-A",
-      "event_type": "AUTHENTICATION_SUCCESS",
-      "actor_id": "OP-DEMO-A-01",
-      "resource": "/api/auth/login",
-      "result": "SUCCESS",
-      "request_id": "116f02ac-378a-4695-944f-b70c882552ae",
-      "timestamp": "2026-11-12T10:18:54.278Z",
-      "details": {
-        "role": "OPERATOR",
-        "tenantId": "TENANT-DEMO-A"
-      },
-      "previous_hash": "394d5cd1d4318565e9ad3d563fd2e0abd7863145ca37b8e604d717703f6e0a74",
-      "current_hash": "f19f31569eae492a56d3020a6e6d8f701ea811a1ac4b67cf99f639e32dce39f3",
-      "hmac_signature": "b5eca75d8f40a40d3554c7f538c62b64f90a62214bf63e278a2b98da968ba2cf"
-    },
-    {
-      "event_id": "AUD-139f0c4c-6dbe-496c-a56f-efe8e99fb8f2",
-      "tenant_id": "TENANT-DEMO-A",
-      "event_type": "AUTHENTICATION_SUCCESS",
-      "actor_id": "OP-DEMO-A-01",
-      "resource": "/api/auth/login",
-      "result": "SUCCESS",
-      "request_id": "09202bbe-2c22-49ff-aef4-4afba01bddfe",
-      "timestamp": "2026-11-12T10:18:54.281Z",
-      "details": {
-        "role": "OPERATOR",
-        "tenantId": "TENANT-DEMO-A"
-      },
-      "previous_hash": "f19f31569eae492a56d3020a6e6d8f701ea811a1ac4b67cf99f639e32dce39f3",
-      "current_hash": "65528754b40ead7403ee6799b6d223a9ff0d99a6b6c4362837ae7c194d122c09",
-      "hmac_signature": "2a190f56b92f0d103fc461c6d15f01741ad609fd82d0e09699e70b75f2652ff9"
-    },
-    {
-      "event_id": "AUD-56672e19-1802-4058-bb41-dd1bd28a215c",
-      "tenant_id": "TENANT-DEMO-A",
-      "event_type": "AUTHENTICATION_SUCCESS",
-      "actor_id": "OP-DEMO-A-01",
-      "resource": "/api/auth/login",
-      "result": "SUCCESS",
-      "request_id": "566c0740-50ae-4f0c-a786-6e76fe2adddd",
-      "timestamp": "2026-11-12T10:18:54.285Z",
-      "details": {
-        "role": "OPERATOR",
-        "tenantId": "TENANT-DEMO-A"
-      },
-      "previous_hash": "65528754b40ead7403ee6799b6d223a9ff0d99a6b6c4362837ae7c194d122c09",
-      "current_hash": "c0109da6c10063713936296db1227865e8ee2258de2e3a04e2209a8b1148811e",
-      "hmac_signature": "2fe8738bb4a710ce9bf1f23637e359f714dd01cc4e7994e72a6181afd9b69aa6"
-    },
-    {
-      "event_id": "AUD-1e08007f-faaf-4108-b99f-0e1e0b8229a5",
-      "tenant_id": "TENANT-DEMO-A",
-      "event_type": "AUTHENTICATION_SUCCESS",
-      "actor_id": "OP-DEMO-A-01",
-      "resource": "/api/auth/login",
-      "result": "SUCCESS",
-      "request_id": "576f6078-24b7-4079-93c4-eab15cf490aa",
-      "timestamp": "2026-11-12T10:18:54.289Z",
-      "details": {
-        "role": "OPERATOR",
-        "tenantId": "TENANT-DEMO-A"
-      },
-      "previous_hash": "c0109da6c10063713936296db1227865e8ee2258de2e3a04e2209a8b1148811e",
-      "current_hash": "291301eadacac809fa8fc899b4416295f3eb314adfb1a51ce1c7e24d3c51bad7",
-      "hmac_signature": "f50d537f87b308ee774a02876625e53a948ee2772cf59c630426c49ab8b2d84b"
-    },
-    {
-      "event_id": "AUD-c037523a-1eae-4a62-941b-d3ee7fbec706",
-      "tenant_id": "TENANT-DEMO-A",
-      "event_type": "AUTHENTICATION_SUCCESS",
-      "actor_id": "OP-DEMO-A-01",
-      "resource": "/api/auth/login",
-      "result": "SUCCESS",
-      "request_id": "4bf490c5-7f67-4a80-b35e-f14f6e6f1e9b",
-      "timestamp": "2026-11-12T10:18:54.293Z",
-      "details": {
-        "role": "OPERATOR",
-        "tenantId": "TENANT-DEMO-A"
-      },
-      "previous_hash": "291301eadacac809fa8fc899b4416295f3eb314adfb1a51ce1c7e24d3c51bad7",
-      "current_hash": "fe396dcf6c479b142eb4fe0e40aefbff9f732cfcc69f5982ad9db16c43f13e6c",
-      "hmac_signature": "cd805305a3413b3b04f281a696e50273a264bd87081a2fc483e4772a4424c25c"
-    },
-    {
-      "event_id": "AUD-019d0485-4d65-4398-a98b-12502368b841",
-      "tenant_id": "TENANT-DEMO-A",
-      "event_type": "INCIDENT_VIEWED",
-      "actor_id": "SUP-DEMO-A-01",
-      "resource": "/api/incidents/civic-mwdeb0vq-a2258323",
-      "result": "SUCCESS",
-      "request_id": "ab33ce8d-f06b-4a45-a514-c34a42b5e2e2",
-      "timestamp": "2026-11-12T10:18:54.303Z",
-      "details": {
-        "incidentId": "civic-mwdeb0vq-a2258323"
-      },
-      "previous_hash": "fe396dcf6c479b142eb4fe0e40aefbff9f732cfcc69f5982ad9db16c43f13e6c",
-      "current_hash": "ee4a7c30ec3fb342ee1817fba5b8e98b3a1cf2cfacd19e1cd12fe76ebc99a68c",
-      "hmac_signature": "dfc4d4b44dd7b25a5b9a55eb50f8c6b84c8b2fa5d9daaea8426290fa0a74d479"
-    },
-    {
-      "event_id": "AUD-e06e5696-2505-41bc-8e83-a4bc1ac08023",
-      "tenant_id": "TENANT-DEMO-A",
-      "event_type": "WORK_ORDER_CREATED",
-      "actor_id": "SUP-DEMO-A-01",
-      "resource": "/api/work-orders/SANDBOX-WO-icmwdeb0vqa2258323",
-      "result": "SUCCESS",
-      "request_id": "ab33ce8d-f06b-4a45-a514-c34a42b5e2e2",
-      "timestamp": "2026-11-12T10:18:54.312Z",
-      "details": {
-        "workOrderId": "SANDBOX-WO-icmwdeb0vqa2258323",
-        "incidentId": "civic-mwdeb0vq-a2258323",
-        "department": "Highways / Roads & Pavement Maintenance"
-      },
-      "previous_hash": "ee4a7c30ec3fb342ee1817fba5b8e98b3a1cf2cfacd19e1cd12fe76ebc99a68c",
-      "current_hash": "6678e19bf31bfd9fa693d6a771034081652f3dac5e15eae758cb9a62efb1ade5",
-      "hmac_signature": "089553088b65eaac657b6370b7c87f158d96f8fe678b5065b940bf3ee2ca6d04"
-    },
-    {
-      "event_id": "AUD-97005d05-ce89-4ef5-aa1e-56808bd23125",
-      "tenant_id": "TENANT-DEMO-A",
-      "event_type": "INCIDENT_VIEWED",
-      "actor_id": "SUP-DEMO-A-01",
-      "resource": "/api/incidents/civic-mwdeb0vq-a2258323",
-      "result": "SUCCESS",
-      "request_id": "cfb2efc3-ff70-4cd7-a6b6-908f5e12adcc",
-      "timestamp": "2026-11-12T10:18:54.322Z",
-      "details": {
-        "incidentId": "civic-mwdeb0vq-a2258323"
-      },
-      "previous_hash": "6678e19bf31bfd9fa693d6a771034081652f3dac5e15eae758cb9a62efb1ade5",
-      "current_hash": "33a375cabb9fe890baab04d2154724575b6b324ff2a57c58035007fd36a57c49",
-      "hmac_signature": "dc3e75cf16cfd05eaad21c291e35675ea02a2ac405beab4379d6b76dde27e5a2"
-    },
-    {
-      "event_id": "AUD-89d524bf-d6fe-407d-a52d-cfd9f4b9da9a",
-      "tenant_id": "TENANT-DEMO-A",
-      "event_type": "WORK_ORDER_STATUS_CHANGED",
-      "actor_id": "SUP-DEMO-A-01",
-      "resource": "/api/work-orders/SANDBOX-WO-icmwdeb0vqa2258323",
-      "result": "SUCCESS",
-      "request_id": "e6a9654a-3950-4a51-bd4c-ef00de4bb9ff",
-      "timestamp": "2026-11-12T10:18:54.335Z",
-      "details": {
-        "newStatus": "COMPLETED"
-      },
-      "previous_hash": "33a375cabb9fe890baab04d2154724575b6b324ff2a57c58035007fd36a57c49",
-      "current_hash": "93575d5da23bb91a847f4d40238f45002685f1ab2c08e893a7e81e148200e463",
-      "hmac_signature": "4904c3ca7512a74270a5ef90502e1e39f5ad17844b7e14ac0d861d9d56e8dbbc"
-    },
-    {
-      "event_id": "AUD-005428c6-38da-4ed6-b382-db1d342f9f11",
-      "tenant_id": "TENANT-DEMO-A",
-      "event_type": "WORK_ORDER_STATUS_CHANGED",
-      "actor_id": "SUP-DEMO-A-01",
-      "resource": "/api/work-orders/SANDBOX-WO-icmwdeb0vqa2258323",
-      "result": "CONFLICT",
-      "request_id": "0696d993-45e7-48ac-ad04-c0645aff5e3c",
-      "timestamp": "2026-11-12T10:18:54.344Z",
-      "details": {
-        "attemptedStatus": "IN_PROGRESS",
-        "resultingStatus": "CONFLICT_REQUIRES_REVIEW"
-      },
-      "previous_hash": "93575d5da23bb91a847f4d40238f45002685f1ab2c08e893a7e81e148200e463",
-      "current_hash": "c5b284e3c2c63c8da48d43d31bba916e91da1dda971e3ba7cefa74f2a7cdc477",
-      "hmac_signature": "29b98a85b62470cfb0634b4884ef133f3d5b80bf2ec935d1c15bbe8681a728ff"
-    },
-    {
-      "event_id": "AUD-55444b6e-1a2f-4730-8ea2-4a2b14197f1a",
-      "tenant_id": "TENANT-DEMO-A",
-      "event_type": "INCIDENT_CREATED",
-      "actor_id": "OP-DEMO-A-01",
-      "resource": "/api/incidents/civic-mwdeb11q-7b4ae995",
-      "result": "SUCCESS",
-      "request_id": "af05ab5d-e48a-4009-8704-0299728fd941",
-      "timestamp": "2026-11-12T10:18:54.354Z",
-      "details": {
-        "incidentId": "civic-mwdeb11q-7b4ae995",
-        "incidentType": "SIGNIFICANT_WATERLOGGING",
-        "severity": "CRITICAL",
-        "priority": "IMMEDIATE"
-      },
-      "previous_hash": "c5b284e3c2c63c8da48d43d31bba916e91da1dda971e3ba7cefa74f2a7cdc477",
-      "current_hash": "a5feeb8aa1ed90f7d7aa5a9b040eed85da2ee2f03aab1858a57b8af7ed78d092",
-      "hmac_signature": "4d110494871f8c5fcbc0149ae18818e49eaea9394cb338fc8d544718db24508b"
-    },
-    {
-      "event_id": "AUD-2ebf84fc-1887-4926-9537-4ee8de919496",
-      "tenant_id": "TENANT-DEMO-A",
-      "event_type": "INCIDENT_VIEWED",
-      "actor_id": "OP-DEMO-A-01",
-      "resource": "/api/incidents/civic-mwdeb11q-7b4ae995",
-      "result": "SUCCESS",
-      "request_id": "3543d0e3-d68a-40e7-a414-8faecc52b8be",
-      "timestamp": "2026-11-12T10:18:54.364Z",
-      "details": {
-        "incidentId": "civic-mwdeb11q-7b4ae995"
-      },
-      "previous_hash": "a5feeb8aa1ed90f7d7aa5a9b040eed85da2ee2f03aab1858a57b8af7ed78d092",
-      "current_hash": "50ee8c41e012f0465aef9ab917d88b978c53a712dc376bf7a406c728f7ec358c",
-      "hmac_signature": "21abbe0b19ff5bbe327c9df90fcefd39ffe396db3d4084d4b3bf60a2d892f583"
+      "previous_hash": "557f8488800f7dc7a2d3b1148928fa1758d19ff30a448566fcf8b677ab2df6c5",
+      "current_hash": "ce0ba3f46d1a1622c4c5967e8f9cf88c51e30d35b19fc8d57d47abed51f8cb4f",
+      "hmac_signature": "d5a1a9e9aa94fc77cafd5ad722f262e6b275ff0113864f26ef0950fb42858aa3"
     }
   ],
   "telemetry_records": [
     {
-      "telemetry_id": "TEL-4916b7ed-d092-4de1-8f04-f36a97ee6717",
-      "tenant_id": "TENANT-DEMO-A",
-      "event_type": "INCIDENT_CREATED",
-      "duration_ms": 5,
-      "status": "SUCCESS",
-      "metadata": {
-        "incidentId": "civic-mwdeb0vq-a2258323",
-        "severity": "HIGH"
-      },
-      "timestamp": "2026-11-12T10:18:54.139Z"
-    },
-    {
-      "telemetry_id": "TEL-24a4e519-b90f-495f-a8ac-79144ff15689",
-      "tenant_id": "TENANT-DEMO-B",
-      "event_type": "INCIDENT_CREATED",
-      "duration_ms": 3,
-      "status": "SUCCESS",
-      "metadata": {
-        "incidentId": "civic-mwdeb0ws-c7b64bc2",
-        "severity": "MEDIUM"
-      },
-      "timestamp": "2026-11-12T10:18:54.175Z"
-    },
-    {
-      "telemetry_id": "TEL-6e00ed7a-c4e2-4552-9d6f-46001fe36904",
+      "telemetry_id": "TEL-992d652a-e83d-412d-8d2a-720676225710",
       "tenant_id": "TENANT-DEMO-A",
       "event_type": "WORK_ORDER_DISPATCH",
-      "duration_ms": 16,
+      "duration_ms": 13,
       "status": "SUCCESS",
       "metadata": {
-        "workOrderId": "SANDBOX-WO-icmwdeb0vqa2258323"
+        "workOrderId": "SANDBOX-WO-INCIDEMP001"
       },
-      "timestamp": "2026-11-12T10:18:54.313Z"
-    },
-    {
-      "telemetry_id": "TEL-69ca7014-51a6-4c5c-abea-cf597adbdada",
-      "tenant_id": "TENANT-DEMO-A",
-      "event_type": "INCIDENT_CREATED",
-      "duration_ms": 5,
-      "status": "SUCCESS",
-      "metadata": {
-        "incidentId": "civic-mwdeb11q-7b4ae995",
-        "severity": "CRITICAL"
-      },
-      "timestamp": "2026-11-12T10:18:54.355Z"
+      "timestamp": "2026-11-12T17:10:12.445Z"
     }
   ],
   "integration_settings": []

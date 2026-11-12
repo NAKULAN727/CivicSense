@@ -1,0 +1,60 @@
+{
+  "filename": "flood 2",
+  "mask_filename": "flood 2.png",
+  "split": "train",
+  "width": 365,
+  "height": 237,
+  "total_pixels": 86505,
+  "primary_category": "Ground-level street flooding",
+  "annotation_status": "VERIFIED_COMPLETE",
+  "annotator": {
+    "id": "CIVICSENSE-HUMAN-OPERATOR-01",
+    "tool": "CivicSense AI Ground-Truth Annotator v2.4",
+    "timestamp": "2026-11-12T21:30:00Z"
+  },
+  "notes": "Submerged roadway corridor with turbid standing water. Missing file extension (WEBP bitstream).",
+  "polygons_count": 1,
+  "polygons": [
+    {
+      "id": "poly_fl2_flood",
+      "class_id": 1,
+      "class_name": "FLOODWATER",
+      "points": [
+        {
+          "x": 0.0,
+          "y": 99.5
+        },
+        {
+          "x": 365.0,
+          "y": 94.8
+        },
+        {
+          "x": 365.0,
+          "y": 237.0
+        },
+        {
+          "x": 0.0,
+          "y": 237.0
+        }
+      ],
+      "description": "Deep road waterlogging"
+    }
+  ],
+  "pixel_distribution": {
+    "BACKGROUND": 35405,
+    "FLOODWATER": 51100
+  },
+  "pixel_percentage": {
+    "BACKGROUND": 40.93,
+    "FLOODWATER": 59.07
+  },
+  "mask_validation": {
+    "status": "PASS",
+    "dimension_match": true,
+    "permitted_classes_only": true,
+    "non_empty_foreground": true,
+    "foreground_pixel_count": 51100,
+    "valid_polygon_geometry": true,
+    "reopening_verified": true
+  }
+}

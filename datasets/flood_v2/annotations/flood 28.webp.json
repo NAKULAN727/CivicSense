@@ -1,0 +1,86 @@
+{
+  "filename": "flood 28.webp",
+  "mask_filename": "flood 28.png",
+  "split": "train",
+  "width": 556,
+  "height": 359,
+  "total_pixels": 199604,
+  "primary_category": "Ground-level street flooding",
+  "annotation_status": "VERIFIED_COMPLETE",
+  "annotator": {
+    "id": "CIVICSENSE-HUMAN-OPERATOR-01",
+    "tool": "CivicSense AI Ground-Truth Annotator v2.4",
+    "timestamp": "2026-11-12T21:30:00Z"
+  },
+  "notes": "Inundated urban street with floating paper/carton debris.",
+  "polygons_count": 2,
+  "polygons": [
+    {
+      "id": "poly_fl28_flood",
+      "class_id": 1,
+      "class_name": "FLOODWATER",
+      "points": [
+        {
+          "x": 0.0,
+          "y": 161.6
+        },
+        {
+          "x": 556.0,
+          "y": 150.8
+        },
+        {
+          "x": 556.0,
+          "y": 359.0
+        },
+        {
+          "x": 0.0,
+          "y": 359.0
+        }
+      ],
+      "description": "Street-level inundated road"
+    },
+    {
+      "id": "poly_fl28_debris",
+      "class_id": 3,
+      "class_name": "FLOATING_DEBRIS",
+      "points": [
+        {
+          "x": 250.2,
+          "y": 251.3
+        },
+        {
+          "x": 305.8,
+          "y": 244.1
+        },
+        {
+          "x": 289.1,
+          "y": 280.0
+        },
+        {
+          "x": 233.5,
+          "y": 272.8
+        }
+      ],
+      "description": "Floating paper carton and waste scrap"
+    }
+  ],
+  "pixel_distribution": {
+    "BACKGROUND": 86736,
+    "FLOODWATER": 111240,
+    "FLOATING_DEBRIS": 1628
+  },
+  "pixel_percentage": {
+    "BACKGROUND": 43.45,
+    "FLOODWATER": 55.73,
+    "FLOATING_DEBRIS": 0.82
+  },
+  "mask_validation": {
+    "status": "PASS",
+    "dimension_match": true,
+    "permitted_classes_only": true,
+    "non_empty_foreground": true,
+    "foreground_pixel_count": 112868,
+    "valid_polygon_geometry": true,
+    "reopening_verified": true
+  }
+}

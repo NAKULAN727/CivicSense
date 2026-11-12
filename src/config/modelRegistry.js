@@ -88,10 +88,38 @@ export const MODEL_REGISTRY = {
   },
 
   flood: {
-    activeModelId: 'SEGFORMER_FLOODNET_B0',
-    name: 'SegFormer B0 Flood Water Segmentation',
-    fileUrl: '/models/flood-water-segmentation.onnx?v=phase8c6d',
-    status: 'ACTIVE_PRODUCTION (UNTOUCHED)'
+    activeModelId: 'SEGFORMER_B0_BINARY',
+    name: 'SegFormer B0 Flood Water Segmentation (Trained Binary)',
+    version: 'v2.0-binary',
+    architecture: 'SegFormer B0 (MiT-B0, 3.7M params)',
+    format: 'ONNX (opset 17)',
+    fileUrl: '/models/flood_segmentation.onnx',
+    fileSizeBytes: 15010389,
+    fileSizeMB: 14.32,
+    inputName: 'pixel_values',
+    inputShape: [1, 3, 512, 512],
+    outputName: 'logits',
+    outputShape: [1, 2, 128, 128],
+    classes: {
+      0: 'BACKGROUND',
+      1: 'FLOODWATER'
+    },
+    primaryFloodClassCode: 'FLOODWATER',
+    status: 'ACTIVE_PRODUCTION',
+    activationDate: '2026-11-13 (Phase 16 SegFormer B0 Supervised Binary Training)',
+    rollbackModel: {
+      id: 'SEGFORMER_FLOODNET_B0',
+      name: 'SegFormer B0 FloodNet Water Segmentation (Legacy 10-Class)',
+      fileUrl: '/models/flood-water-segmentation.onnx',
+      fileSizeBytes: 69679880,
+      fileSizeMB: 66.45,
+      classes: {
+        0: 'background', 1: 'building flooded', 2: 'building non-flooded',
+        3: 'road flooded', 4: 'road non-flooded', 5: 'water',
+        6: 'tree', 7: 'vehicle', 8: 'pool', 9: 'grass'
+      },
+      status: 'ARCHIVED_BACKUP'
+    }
   }
 };
 
@@ -101,5 +129,12 @@ export const MODEL_REGISTRY = {
 export function getActiveRoadModelConfig() {
   const reg = MODEL_REGISTRY.potholeRoad;
   return reg.models[reg.activeModelId];
+}
+
+/**
+ * Returns the active production flood water segmentation model configuration.
+ */
+export function getActiveFloodModelConfig() {
+  return MODEL_REGISTRY.flood;
 }
 

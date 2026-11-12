@@ -1,0 +1,60 @@
+{
+  "filename": "flood 15.jpg",
+  "mask_filename": "flood 15.png",
+  "split": "train",
+  "width": 289,
+  "height": 174,
+  "total_pixels": 50286,
+  "primary_category": "Ground-level street flooding",
+  "annotation_status": "VERIFIED_COMPLETE",
+  "annotator": {
+    "id": "CIVICSENSE-HUMAN-OPERATOR-01",
+    "tool": "CivicSense AI Ground-Truth Annotator v2.4",
+    "timestamp": "2026-11-12T21:30:00Z"
+  },
+  "notes": "Low-resolution turbulent muddy water swirls across street. Buildings and distant trees excluded.",
+  "polygons_count": 1,
+  "polygons": [
+    {
+      "id": "poly_fl15_flood",
+      "class_id": 1,
+      "class_name": "FLOODWATER",
+      "points": [
+        {
+          "x": 0.0,
+          "y": 83.5
+        },
+        {
+          "x": 289.0,
+          "y": 78.3
+        },
+        {
+          "x": 289.0,
+          "y": 174.0
+        },
+        {
+          "x": 0.0,
+          "y": 174.0
+        }
+      ],
+      "description": "Turbid floodwater sheet across road"
+    }
+  ],
+  "pixel_distribution": {
+    "BACKGROUND": 23409,
+    "FLOODWATER": 26877
+  },
+  "pixel_percentage": {
+    "BACKGROUND": 46.55,
+    "FLOODWATER": 53.45
+  },
+  "mask_validation": {
+    "status": "PASS",
+    "dimension_match": true,
+    "permitted_classes_only": true,
+    "non_empty_foreground": true,
+    "foreground_pixel_count": 26877,
+    "valid_polygon_geometry": true,
+    "reopening_verified": true
+  }
+}

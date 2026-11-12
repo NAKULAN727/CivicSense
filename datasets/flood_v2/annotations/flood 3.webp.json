@@ -1,0 +1,60 @@
+{
+  "filename": "flood 3.webp",
+  "mask_filename": "flood 3.png",
+  "split": "train",
+  "width": 408,
+  "height": 234,
+  "total_pixels": 95472,
+  "primary_category": "Ground-level street flooding",
+  "annotation_status": "VERIFIED_COMPLETE",
+  "annotator": {
+    "id": "CIVICSENSE-HUMAN-OPERATOR-01",
+    "tool": "CivicSense AI Ground-Truth Annotator v2.4",
+    "timestamp": "2026-11-12T21:30:00Z"
+  },
+  "notes": "Deep road waterlogging corridor under overcast lighting.",
+  "polygons_count": 1,
+  "polygons": [
+    {
+      "id": "poly_fl3_flood",
+      "class_id": 1,
+      "class_name": "FLOODWATER",
+      "points": [
+        {
+          "x": 0.0,
+          "y": 88.9
+        },
+        {
+          "x": 408.0,
+          "y": 81.9
+        },
+        {
+          "x": 408.0,
+          "y": 234.0
+        },
+        {
+          "x": 0.0,
+          "y": 234.0
+        }
+      ],
+      "description": "Continuous flooded roadway corridor"
+    }
+  ],
+  "pixel_distribution": {
+    "BACKGROUND": 34680,
+    "FLOODWATER": 60792
+  },
+  "pixel_percentage": {
+    "BACKGROUND": 36.32,
+    "FLOODWATER": 63.68
+  },
+  "mask_validation": {
+    "status": "PASS",
+    "dimension_match": true,
+    "permitted_classes_only": true,
+    "non_empty_foreground": true,
+    "foreground_pixel_count": 60792,
+    "valid_polygon_geometry": true,
+    "reopening_verified": true
+  }
+}

@@ -1,0 +1,86 @@
+{
+  "filename": "flood 7.webp",
+  "mask_filename": "flood 7.png",
+  "split": "test",
+  "width": 351,
+  "height": 234,
+  "total_pixels": 82134,
+  "primary_category": "River flooding",
+  "annotation_status": "VERIFIED_COMPLETE",
+  "annotator": {
+    "id": "CIVICSENSE-HUMAN-OPERATOR-01",
+    "tool": "CivicSense AI Ground-Truth Annotator v2.4",
+    "timestamp": "2026-11-12T21:30:00Z"
+  },
+  "notes": "Aerial view of natural river overtopping into rural fields and roads.",
+  "polygons_count": 2,
+  "polygons": [
+    {
+      "id": "poly_fl7_natural",
+      "class_id": 2,
+      "class_name": "NATURAL_WATER",
+      "points": [
+        {
+          "x": 0.0,
+          "y": 35.1
+        },
+        {
+          "x": 193.1,
+          "y": 28.1
+        },
+        {
+          "x": 175.5,
+          "y": 105.3
+        },
+        {
+          "x": 0.0,
+          "y": 93.6
+        }
+      ],
+      "description": "Natural river channel"
+    },
+    {
+      "id": "poly_fl7_flood",
+      "class_id": 1,
+      "class_name": "FLOODWATER",
+      "points": [
+        {
+          "x": 0.0,
+          "y": 98.3
+        },
+        {
+          "x": 351.0,
+          "y": 81.9
+        },
+        {
+          "x": 351.0,
+          "y": 234.0
+        },
+        {
+          "x": 0.0,
+          "y": 234.0
+        }
+      ],
+      "description": "Fluvial overbank floodwater on rural land"
+    }
+  ],
+  "pixel_distribution": {
+    "BACKGROUND": 20137,
+    "FLOODWATER": 50544,
+    "NATURAL_WATER": 11453
+  },
+  "pixel_percentage": {
+    "BACKGROUND": 24.52,
+    "FLOODWATER": 61.54,
+    "NATURAL_WATER": 13.94
+  },
+  "mask_validation": {
+    "status": "PASS",
+    "dimension_match": true,
+    "permitted_classes_only": true,
+    "non_empty_foreground": true,
+    "foreground_pixel_count": 61997,
+    "valid_polygon_geometry": true,
+    "reopening_verified": true
+  }
+}

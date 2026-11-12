@@ -1,0 +1,86 @@
+{
+  "filename": "flood 30.webp",
+  "mask_filename": "flood 30.png",
+  "split": "train",
+  "width": 738,
+  "height": 414,
+  "total_pixels": 305532,
+  "primary_category": "Aerial flooding",
+  "annotation_status": "VERIFIED_COMPLETE",
+  "annotator": {
+    "id": "CIVICSENSE-HUMAN-OPERATOR-01",
+    "tool": "CivicSense AI Ground-Truth Annotator v2.4",
+    "timestamp": "2026-11-12T21:30:00Z"
+  },
+  "notes": "Extensive suburban flooding with intense surface glint.",
+  "polygons_count": 2,
+  "polygons": [
+    {
+      "id": "poly_fl30_flood",
+      "class_id": 1,
+      "class_name": "FLOODWATER",
+      "points": [
+        {
+          "x": 0.0,
+          "y": 103.5
+        },
+        {
+          "x": 738.0,
+          "y": 91.1
+        },
+        {
+          "x": 738.0,
+          "y": 414.0
+        },
+        {
+          "x": 0.0,
+          "y": 414.0
+        }
+      ],
+      "description": "Widespread residential terrain inundation"
+    },
+    {
+      "id": "poly_fl30_glare",
+      "class_id": 255,
+      "class_name": "IGNORE",
+      "points": [
+        {
+          "x": 258.3,
+          "y": 144.9
+        },
+        {
+          "x": 479.7,
+          "y": 132.5
+        },
+        {
+          "x": 442.8,
+          "y": 207.0
+        },
+        {
+          "x": 236.2,
+          "y": 198.7
+        }
+      ],
+      "description": "Intense sunlight reflection on water surface"
+    }
+  ],
+  "pixel_distribution": {
+    "BACKGROUND": 71958,
+    "FLOODWATER": 219771,
+    "IGNORE": 13803
+  },
+  "pixel_percentage": {
+    "BACKGROUND": 23.55,
+    "FLOODWATER": 71.93,
+    "IGNORE": 4.52
+  },
+  "mask_validation": {
+    "status": "PASS",
+    "dimension_match": true,
+    "permitted_classes_only": true,
+    "non_empty_foreground": true,
+    "foreground_pixel_count": 233574,
+    "valid_polygon_geometry": true,
+    "reopening_verified": true
+  }
+}

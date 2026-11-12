@@ -110,7 +110,9 @@ export async function createWorkOrder(incident, options = {}) {
   // High-Risk Incident Guard (Section 15)
   const isHighRisk = incident.severity === 'HIGH' || incident.severity === 'CRITICAL' ||
     incident.priority === 'IMMEDIATE' || incident.incidentType === 'WATER_FILLED_POTHOLE' ||
-    incident.incidentType === 'SIGNIFICANT_WATERLOGGING';
+    incident.incidentType === 'SIGNIFICANT_WATERLOGGING' ||
+    incident.incidentType === 'GENERAL_SIGNIFICANT_FLOODING' ||
+    incident.incidentType === 'ROAD_WATERLOGGING';
 
   if (isHighRisk && operatorDecision !== 'CONFIRMED' && !options.approvedBySupervisor) {
     const err = new Error(`DISPATCH_REQUIRES_SUPERVISOR_APPROVAL: High-hazard incident (${incident.incidentType}, ${incident.severity}) requires explicit confirmation prior to municipal dispatch.`);

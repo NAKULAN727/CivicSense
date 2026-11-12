@@ -79,6 +79,8 @@ export async function createWorkOrder(tenantId, incident, options = {}) {
   const isHighRisk = incident.severity === 'CRITICAL' || 
                      incident.priority === 'IMMEDIATE' || 
                      incident.incidentType === 'SIGNIFICANT_WATERLOGGING' || 
+                     incident.incidentType === 'GENERAL_SIGNIFICANT_FLOODING' || 
+                     incident.incidentType === 'ROAD_WATERLOGGING' || 
                      incident.incidentType === 'WATER_FILLED_POTHOLE';
 
   if (isHighRisk && !options.approvedBySupervisor) {

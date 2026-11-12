@@ -1,0 +1,60 @@
+{
+  "filename": "flood 22.webp",
+  "mask_filename": "flood 22.png",
+  "split": "train",
+  "width": 554,
+  "height": 554,
+  "total_pixels": 306916,
+  "primary_category": "Residential-area flooding",
+  "annotation_status": "VERIFIED_COMPLETE",
+  "annotator": {
+    "id": "CIVICSENSE-HUMAN-OPERATOR-01",
+    "tool": "CivicSense AI Ground-Truth Annotator v2.4",
+    "timestamp": "2026-11-12T21:30:00Z"
+  },
+  "notes": "Submerged residential properties, gardens, and access roads.",
+  "polygons_count": 1,
+  "polygons": [
+    {
+      "id": "poly_fl22_flood",
+      "class_id": 1,
+      "class_name": "FLOODWATER",
+      "points": [
+        {
+          "x": 0.0,
+          "y": 166.2
+        },
+        {
+          "x": 554.0,
+          "y": 155.1
+        },
+        {
+          "x": 554.0,
+          "y": 554.0
+        },
+        {
+          "x": 0.0,
+          "y": 554.0
+        }
+      ],
+      "description": "Residential settlement flood sheet"
+    }
+  ],
+  "pixel_distribution": {
+    "BACKGROUND": 89194,
+    "FLOODWATER": 217722
+  },
+  "pixel_percentage": {
+    "BACKGROUND": 29.06,
+    "FLOODWATER": 70.94
+  },
+  "mask_validation": {
+    "status": "PASS",
+    "dimension_match": true,
+    "permitted_classes_only": true,
+    "non_empty_foreground": true,
+    "foreground_pixel_count": 217722,
+    "valid_polygon_geometry": true,
+    "reopening_verified": true
+  }
+}

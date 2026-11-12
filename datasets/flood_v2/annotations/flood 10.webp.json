@@ -1,0 +1,86 @@
+{
+  "filename": "flood 10.webp",
+  "mask_filename": "flood 10.png",
+  "split": "train",
+  "width": 192,
+  "height": 234,
+  "total_pixels": 44928,
+  "primary_category": "Ground-level street flooding",
+  "annotation_status": "VERIFIED_COMPLETE",
+  "annotator": {
+    "id": "CIVICSENSE-HUMAN-OPERATOR-01",
+    "tool": "CivicSense AI Ground-Truth Annotator v2.4",
+    "timestamp": "2026-11-12T21:30:00Z"
+  },
+  "notes": "Deep standing street floodwater reflecting overcast sky and trees. Upper trees/buildings excluded as background.",
+  "polygons_count": 2,
+  "polygons": [
+    {
+      "id": "poly_fl10_flood",
+      "class_id": 1,
+      "class_name": "FLOODWATER",
+      "points": [
+        {
+          "x": 0.0,
+          "y": 81.9
+        },
+        {
+          "x": 192.0,
+          "y": 74.9
+        },
+        {
+          "x": 192.0,
+          "y": 234.0
+        },
+        {
+          "x": 0.0,
+          "y": 234.0
+        }
+      ],
+      "description": "Continuous road floodwater pool"
+    },
+    {
+      "id": "poly_fl10_reflection",
+      "class_id": 255,
+      "class_name": "IGNORE",
+      "points": [
+        {
+          "x": 28.8,
+          "y": 84.2
+        },
+        {
+          "x": 86.4,
+          "y": 84.2
+        },
+        {
+          "x": 76.8,
+          "y": 121.7
+        },
+        {
+          "x": 34.6,
+          "y": 117.0
+        }
+      ],
+      "description": "High-contrast dark tree canopy reflection on water surface"
+    }
+  ],
+  "pixel_distribution": {
+    "BACKGROUND": 14976,
+    "FLOODWATER": 28132,
+    "IGNORE": 1820
+  },
+  "pixel_percentage": {
+    "BACKGROUND": 33.33,
+    "FLOODWATER": 62.62,
+    "IGNORE": 4.05
+  },
+  "mask_validation": {
+    "status": "PASS",
+    "dimension_match": true,
+    "permitted_classes_only": true,
+    "non_empty_foreground": true,
+    "foreground_pixel_count": 29952,
+    "valid_polygon_geometry": true,
+    "reopening_verified": true
+  }
+}

@@ -1,0 +1,95 @@
+filename,folder,resolution,true_category,predicted_category,category_confidence,predicted_type,type_confidence,water_coverage_pct,match_status,warnings
+flood 1.jpg,Flood,250x175,FLOOD,FLOOD,0.7,F01 Roadway Waterlogging,0.7,7.6,MATCH,LOW IMAGE RESOLUTION - needs review
+flood 10.webp,Flood,192x234,FLOOD,FLOOD,0.7,F06 General Significant Flooding,0.7,45.2,MATCH,LOW IMAGE RESOLUTION - needs review
+flood 11.webp,Flood,392x261,FLOOD,FLOOD,0.997,F01 Roadway Waterlogging,0.82,31.4,MATCH,
+flood 12.webp,Flood,417x234,FLOOD,FLOOD,0.997,F00 No Significant Water,0.621,2.8,MATCH,
+flood 13.webp,Flood,344x234,FLOOD,FLOOD,0.908,F06 General Significant Flooding,0.85,49.8,MATCH,
+flood 14.webp,Flood,347x280,FLOOD,FLOOD,0.988,F05 Large-Area Inundation,0.864,65.5,MATCH,F02 Residential / F04 River Overflow distinctions require GIS cadastre/fluvial data - needs operator verification
+flood 15.jpg,Flood,289x174,FLOOD,FLOOD,0.7,F01 Roadway Waterlogging,0.7,29.3,MATCH,LOW IMAGE RESOLUTION - needs review
+flood 16.jpg,Flood,415x737,FLOOD,FLOOD,1.0,F06 General Significant Flooding,0.85,51.7,MATCH,F02 Residential / F04 River Overflow distinctions require GIS cadastre/fluvial data - needs operator verification
+flood 17.jpg,Flood,618x495,FLOOD,FLOOD,0.748,F06 General Significant Flooding,0.85,59.5,MATCH,F02 Residential / F04 River Overflow distinctions require GIS cadastre/fluvial data - needs operator verification
+flood 18.jpg,Flood,387x516,FLOOD,FLOOD,0.999,F06 General Significant Flooding,0.85,59.9,MATCH,F02 Residential / F04 River Overflow distinctions require GIS cadastre/fluvial data - needs operator verification
+flood 19.jpg,Flood,554x554,FLOOD,FLOOD,1.0,F01 Roadway Waterlogging,0.82,12.6,MATCH,
+flood 2,Flood,365x237,FLOOD,FLOOD,0.998,F01 Roadway Waterlogging,0.82,10.4,MATCH,
+flood 20.webp,Flood,638x480,FLOOD,FLOOD,0.999,F06 General Significant Flooding,0.85,58.7,MATCH,F02 Residential / F04 River Overflow distinctions require GIS cadastre/fluvial data - needs operator verification
+flood 21.webp,Flood,515x388,FLOOD,FLOOD,0.975,F06 General Significant Flooding,0.85,50.5,MATCH,F02 Residential / F04 River Overflow distinctions require GIS cadastre/fluvial data - needs operator verification
+flood 22.webp,Flood,554x554,FLOOD,FLOOD,0.999,F06 General Significant Flooding,0.85,53.8,MATCH,F02 Residential / F04 River Overflow distinctions require GIS cadastre/fluvial data - needs operator verification
+flood 23.webp,Flood,528x378,FLOOD,FLOOD,0.999,F05 Large-Area Inundation,0.886,74.4,MATCH,F02 Residential / F04 River Overflow distinctions require GIS cadastre/fluvial data - needs operator verification
+flood 24.webp,Flood,638x480,FLOOD,FLOOD,1.0,F05 Large-Area Inundation,0.9,80.1,MATCH,F02 Residential / F04 River Overflow distinctions require GIS cadastre/fluvial data - needs operator verification
+flood 25.webp,Flood,738x414,FLOOD,FLOOD,0.983,F05 Large-Area Inundation,0.901,80.3,MATCH,F02 Residential / F04 River Overflow distinctions require GIS cadastre/fluvial data - needs operator verification
+flood 26.webp,Flood,738x414,FLOOD,FLOOD,1.0,F01 Roadway Waterlogging,0.82,18.7,MATCH,
+flood 27.webp,Flood,738x414,FLOOD,FLOOD,0.999,F06 General Significant Flooding,0.85,36.0,MATCH,
+flood 28.webp,Flood,556x359,FLOOD,FLOOD,0.997,F06 General Significant Flooding,0.85,42.5,MATCH,
+flood 29.webp,Flood,638x480,FLOOD,FLOOD,1.0,F01 Roadway Waterlogging,0.82,26.6,MATCH,
+flood 3.webp,Flood,408x234,FLOOD,FLOOD,0.996,F05 Large-Area Inundation,0.874,69.5,MATCH,F02 Residential / F04 River Overflow distinctions require GIS cadastre/fluvial data - needs operator verification
+flood 30.webp,Flood,738x414,FLOOD,FLOOD,0.999,F05 Large-Area Inundation,0.858,63.4,MATCH,F02 Residential / F04 River Overflow distinctions require GIS cadastre/fluvial data - needs operator verification
+flood 4.webp,Flood,403x234,FLOOD,FLOOD,0.997,F05 Large-Area Inundation,0.89,75.8,MATCH,F02 Residential / F04 River Overflow distinctions require GIS cadastre/fluvial data - needs operator verification
+flood 5.webp,Flood,308x234,FLOOD,FLOOD,0.998,F06 General Significant Flooding,0.85,40.8,MATCH,
+flood 6.webp,Flood,432x243,FLOOD,FLOOD,0.999,F05 Large-Area Inundation,0.869,67.7,MATCH,F02 Residential / F04 River Overflow distinctions require GIS cadastre/fluvial data - needs operator verification
+flood 7.webp,Flood,351x234,FLOOD,FLOOD,0.999,F06 General Significant Flooding,0.85,46.0,MATCH,
+flood 8.webp,Flood,345x245,FLOOD,FLOOD,0.997,F00 No Significant Water,0.843,1.2,MATCH,
+flood 9.webp,Flood,427x240,FLOOD,FLOOD,0.999,F06 General Significant Flooding,0.85,54.4,MATCH,F02 Residential / F04 River Overflow distinctions require GIS cadastre/fluvial data - needs operator verification
+flood.jpg,Flood,193x135,FLOOD,FLOOD,0.7,F06 General Significant Flooding,0.7,46.5,MATCH,LOW IMAGE RESOLUTION - needs review
+puddles.jpg,Flood,502x398,FLOOD,POTHOLE,0.9,WATER_FILLED_POTHOLE (Submerged Defect),0.72,34.6,MISMATCH,Road crater obscured by standing muddy water; surface reflection low
+garbage 1.webp,Garbage,321x236,GARBAGE,GARBAGE,0.994,DUMP_PILE (W50 Plastic/Organic),0.871,21.0,MATCH,
+garbage 10.jpg,Garbage,678x452,GARBAGE,GARBAGE,0.998,DUMP_PILE (W20 Glass),0.437,50.0,MATCH,
+garbage 11.jpg,Garbage,738x414,GARBAGE,GARBAGE,0.999,DUMP_PILE (W20 Glass),0.538,14.7,MATCH,
+garbage 12.jpg,Garbage,480x638,GARBAGE,GARBAGE,0.999,DUMP_PILE (W70 Textile/Other),0.669,39.4,MATCH,
+garbage 13.jpg,Garbage,638x480,GARBAGE,GARBAGE,0.999,DUMP_PILE (W20 Glass),0.661,21.2,MATCH,
+garbage 14.jpg,Garbage,480x638,GARBAGE,GARBAGE,0.993,DUMP_PILE (W20 Glass),0.693,37.0,MATCH,
+garbage 15.jpg,Garbage,515x388,GARBAGE,GARBAGE,0.997,DUMP_PILE (W70 Textile/Other),0.554,39.0,MATCH,
+garbage 16.jpg,Garbage,678x452,GARBAGE,GARBAGE,0.998,DUMP_PILE (W70 Textile/Other),0.606,24.7,MATCH,
+garbage 17.jpg,Garbage,678x452,GARBAGE,GARBAGE,0.998,DUMP_PILE (W70 Textile/Other),0.715,1.1,MATCH,
+garbage 18.jpg,Garbage,678x452,GARBAGE,GARBAGE,0.999,DUMP_PILE (W70 Textile/Other),0.95,27.8,MATCH,
+garbage 19.jpg,Garbage,527x379,GARBAGE,GARBAGE,0.999,DUMP_PILE (W70 Textile/Other),0.918,31.7,MATCH,
+garbage 2.webp,Garbage,393x234,GARBAGE,GARBAGE,0.998,DUMP_PILE (W70 Textile/Other),0.692,64.8,MATCH,
+garbage 20.jpg,Garbage,738x360,GARBAGE,GARBAGE,0.998,DUMP_PILE (W70 Textile/Other),0.563,35.7,MATCH,
+garbage 21.jpg,Garbage,680x451,GARBAGE,GARBAGE,0.997,DUMP_PILE (W70 Textile/Other),0.86,58.3,MATCH,
+garbage 22.jpg,Garbage,398x225,GARBAGE,GARBAGE,0.999,DUMP_PILE (W70 Textile/Other),0.661,28.5,MATCH,
+garbage 23.jpg,Garbage,678x452,GARBAGE,GARBAGE,0.999,DUMP_PILE (W20 Glass),0.431,54.5,MATCH,
+garbage 24.jpg,Garbage,447x447,GARBAGE,GARBAGE,0.999,DUMP_PILE (W70 Textile/Other),0.813,44.8,MATCH,
+garbage 25.jpg,Garbage,678x452,GARBAGE,GARBAGE,1.0,DUMP_PILE (W70 Textile/Other),0.8,18.6,MATCH,
+garbage 26.jpg,Garbage,515x388,GARBAGE,GARBAGE,0.999,DUMP_PILE (W70 Textile/Other),0.585,42.2,MATCH,
+garbage 27.jpg,Garbage,678x452,GARBAGE,GARBAGE,0.994,DUMP_PILE (W70 Textile/Other),0.509,48.9,MATCH,
+garbage 28.jpg,Garbage,678x452,GARBAGE,GARBAGE,0.998,DUMP_PILE (W20 Glass),0.435,12.8,MATCH,
+garbage 29.jpg,Garbage,638x480,GARBAGE,GARBAGE,0.998,DUMP_PILE (W20 Glass),0.566,22.6,MATCH,
+garbage 3.webp,Garbage,431x234,GARBAGE,GARBAGE,0.995,DUMP_PILE (W20 Glass),0.422,50.9,MATCH,
+garbage 30.jpg,Garbage,515x388,GARBAGE,GARBAGE,0.999,DUMP_PILE (W70 Textile/Other),0.95,23.6,MATCH,
+garbage 4.webp,Garbage,357x257,GARBAGE,GARBAGE,0.992,DUMP_PILE (W40 Paper),0.462,29.8,MATCH,
+garbage 5.webp,Garbage,344x234,GARBAGE,GARBAGE,0.999,DUMP_PILE (W70 Textile/Other),0.875,11.0,MATCH,
+garbage 6.webp,Garbage,354x236,GARBAGE,GARBAGE,0.996,DUMP_PILE (W20 Glass),0.842,53.3,MATCH,
+garbage 7.webp,Garbage,391x260,GARBAGE,GARBAGE,0.998,DUMP_PILE (W70 Textile/Other),0.819,38.8,MATCH,
+garbage 8.webp,Garbage,358x234,GARBAGE,GARBAGE,0.999,DUMP_PILE (W70 Textile/Other),0.495,33.6,MATCH,
+garbage 9.webp,Garbage,332x244,GARBAGE,GARBAGE,0.997,DUMP_PILE (W70 Textile/Other),0.904,48.2,MATCH,
+pathole 1.webp,Pathole,340x256,POTHOLE,POTHOLE,0.999,DRY_POTHOLE (D40),0.817,0.0,MATCH,
+pathole 10.webp,Pathole,371x234,POTHOLE,POTHOLE,0.999,WATER_FILLED_POTHOLE,0.543,15.9,MATCH,
+pathole 11.webp,Pathole,391x234,POTHOLE,POTHOLE,0.99,ALLIGATOR_CRACKING (D20),0.642,79.7,MATCH,
+pathole 12.webp,Pathole,387x516,POTHOLE,POTHOLE,0.998,WATER_FILLED_POTHOLE,0.779,21.1,MATCH,
+pathole 13.webp,Pathole,437x702,POTHOLE,POTHOLE,0.996,DRY_POTHOLE (D40),0.519,1.2,MATCH,
+pathole 14.webp,Pathole,151x200,POTHOLE,POTHOLE,0.7,WATER_FILLED_POTHOLE,0.301,10.2,MATCH,LOW IMAGE RESOLUTION - needs review
+pathole 15.webp,Pathole,738x414,POTHOLE,POTHOLE,0.999,ALLIGATOR_CRACKING (D20),0.504,47.1,MATCH,
+pathole 16.webp,Pathole,452x678,POTHOLE,POTHOLE,0.999,ALLIGATOR_CRACKING (D20),0.65,51.2,MATCH,
+pathole 17.webp,Pathole,200x200,POTHOLE,OTHER,0.95,CLEAN_ROAD (No Damage),0.7,53.2,MISMATCH,LOW IMAGE RESOLUTION - needs review
+pathole 18.webp,Pathole,400x533,POTHOLE,POTHOLE,0.988,WATER_FILLED_POTHOLE,0.77,43.5,MATCH,
+pathole 19.webp,Pathole,389x280,POTHOLE,POTHOLE,1.0,WATER_FILLED_POTHOLE (Submerged Defect),0.72,9.8,MATCH,Road crater obscured by standing muddy water; surface reflection low
+pathole 2.webp,Pathole,297x234,POTHOLE,POTHOLE,0.7,DRY_POTHOLE (D40),0.45,0.0,MATCH,LOW IMAGE RESOLUTION - needs review
+pathole 20.webp,Pathole,320x173,POTHOLE,POTHOLE,0.7,WATER_FILLED_POTHOLE (Submerged Defect),0.7,79.1,MATCH,LOW IMAGE RESOLUTION - needs review; Road crater obscured by standing muddy water; surface reflection low
+pathole 21.webp,Pathole,540x360,POTHOLE,POTHOLE,0.999,WATER_FILLED_POTHOLE,0.593,33.4,MATCH,
+pathole 22.webp,Pathole,525x350,POTHOLE,POTHOLE,1.0,WATER_FILLED_POTHOLE,0.279,40.4,MATCH,
+pathole 23.webp,Pathole,678x452,POTHOLE,POTHOLE,0.999,WATER_FILLED_POTHOLE (Submerged Defect),0.72,73.3,MATCH,Road crater obscured by standing muddy water; surface reflection low
+pathole 24.webp,Pathole,736x416,POTHOLE,POTHOLE,0.994,WATER_FILLED_POTHOLE,0.327,12.6,MATCH,
+pathole 25.webp,Pathole,543x360,POTHOLE,POTHOLE,1.0,WATER_FILLED_POTHOLE,0.546,21.2,MATCH,
+pathole 26.webp,Pathole,480x359,POTHOLE,POTHOLE,1.0,DRY_POTHOLE (D40),0.753,1.4,MATCH,
+pathole 27.webp,Pathole,389x280,POTHOLE,POTHOLE,0.999,WATER_FILLED_POTHOLE (Submerged Defect),0.72,22.5,MATCH,Road crater obscured by standing muddy water; surface reflection low
+pathole 28.webp,Pathole,479x360,POTHOLE,POTHOLE,0.993,WATER_FILLED_POTHOLE (Submerged Defect),0.72,37.5,MATCH,Road crater obscured by standing muddy water; surface reflection low
+pathole 29.webp,Pathole,540x360,POTHOLE,POTHOLE,0.999,DRY_POTHOLE (D40),0.847,3.4,MATCH,
+pathole 3.webp,Pathole,370x247,POTHOLE,POTHOLE,0.993,ALLIGATOR_CRACKING (D20),0.331,56.1,MATCH,
+pathole 30.webp,Pathole,678x452,POTHOLE,POTHOLE,0.999,WATER_FILLED_POTHOLE,0.425,32.5,MATCH,
+pathole 4.webp,Pathole,361x262,POTHOLE,POTHOLE,0.998,WATER_FILLED_POTHOLE,0.745,10.1,MATCH,
+pathole 5.webp,Pathole,419x235,POTHOLE,POTHOLE,0.997,ALLIGATOR_CRACKING (D20),0.587,17.2,MATCH,
+pathole 6.webp,Pathole,334x250,POTHOLE,POTHOLE,0.998,WATER_FILLED_POTHOLE,0.383,39.0,MATCH,
+pathole 7.webp,Pathole,232x234,POTHOLE,POTHOLE,0.7,WATER_FILLED_POTHOLE,0.527,13.8,MATCH,LOW IMAGE RESOLUTION - needs review
+pathole 8.webp,Pathole,396x234,POTHOLE,POTHOLE,0.999,WATER_FILLED_POTHOLE,0.607,15.7,MATCH,
+pathole 9.webp,Pathole,319x234,POTHOLE,OTHER,0.95,CLEAN_ROAD (No Damage),0.95,49.5,MISMATCH,
+road without pothole.webp,Pathole,353x226,OTHER,OTHER,0.95,CLEAN_ROAD (No Damage),0.95,42.1,MATCH,
+water filled patholes.jpg,Pathole,346x280,POTHOLE,POTHOLE,0.997,WATER_FILLED_POTHOLE (Submerged Defect),0.72,55.4,MATCH,Road crater obscured by standing muddy water; surface reflection low

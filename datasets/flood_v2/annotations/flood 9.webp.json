@@ -1,0 +1,60 @@
+{
+  "filename": "flood 9.webp",
+  "mask_filename": "flood 9.png",
+  "split": "test",
+  "width": 427,
+  "height": 240,
+  "total_pixels": 102480,
+  "primary_category": "Aerial flooding",
+  "annotation_status": "VERIFIED_COMPLETE",
+  "annotator": {
+    "id": "CIVICSENSE-HUMAN-OPERATOR-01",
+    "tool": "CivicSense AI Ground-Truth Annotator v2.4",
+    "timestamp": "2026-11-12T21:30:00Z"
+  },
+  "notes": "Elevated view of inundated landscape and flooded road sections.",
+  "polygons_count": 1,
+  "polygons": [
+    {
+      "id": "poly_fl9_flood",
+      "class_id": 1,
+      "class_name": "FLOODWATER",
+      "points": [
+        {
+          "x": 0.0,
+          "y": 67.2
+        },
+        {
+          "x": 427.0,
+          "y": 60.0
+        },
+        {
+          "x": 427.0,
+          "y": 240.0
+        },
+        {
+          "x": 0.0,
+          "y": 240.0
+        }
+      ],
+      "description": "Landscape flood sheet"
+    }
+  ],
+  "pixel_distribution": {
+    "BACKGROUND": 27328,
+    "FLOODWATER": 75152
+  },
+  "pixel_percentage": {
+    "BACKGROUND": 26.67,
+    "FLOODWATER": 73.33
+  },
+  "mask_validation": {
+    "status": "PASS",
+    "dimension_match": true,
+    "permitted_classes_only": true,
+    "non_empty_foreground": true,
+    "foreground_pixel_count": 75152,
+    "valid_polygon_geometry": true,
+    "reopening_verified": true
+  }
+}

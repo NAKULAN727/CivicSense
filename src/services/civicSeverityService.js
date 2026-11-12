@@ -5,6 +5,8 @@
 // ZERO Math.random() – Completely deterministic logic
 
 import { routeIncidentToDepartment } from './boundaryService.js';
+import { classifyFloodEvent } from './floodClassificationService.js';
+import { generateStandardizedPredictionStatus } from './predictiveRiskService.js';
 
 /**
  * Generates a deterministic incident ID without Math.random().
@@ -412,6 +414,183 @@ export function calculateFloodSeverity(floodResult, satelliteRisk = null) {
 }
 
 /**
+ * Formats a raw civic incident into the standardized Phase 4 Central Incident Record schema,
+ * while preserving all legacy properties for full backward compatibility.
+ * 
+ * CANONICAL SCHEMA FIELDS (Phase 4):
+ * - incidentId: Deterministic unique string ID
+ * - incidentType: e.g. "WATER_FILLED_POTHOLE", "ROAD_DAMAGE", "WASTE_ACCUMULATION", "ROAD_WATERLOGGING"
+ * - category: 'ROAD' | 'WASTE' | 'FLOOD' | 'MULTI'
+ * - detectionEvidence: String evidence description
+ * - modelId: Model identifier string
+ * - modelVersion: Model version string
+ * - confidence: Float confidence (0..1) or null for segmentation
+ * - severity: 'LOW' | 'MEDIUM' | 'HIGH' | 'CRITICAL'
+ * - priority: 'ROUTINE' | 'MEDIUM' | 'HIGH' | 'IMMEDIATE'
+ * - latitude: Float or null
+ * - longitude: Float or null
+ * - gpsVerified: Boolean
+ * - captureTimestamp: ISO timestamp string or "CAPTURE TIME UNAVAILABLE"
+ * - processingTimestamp: ISO timestamp string
+ * - department: Municipal department name
+ * - ward: Ward name or "UNASSIGNED"
+ * - operatorStatus: "NEEDS REVIEW" | "CONFIRMED" | "REJECTED"
+ * - lifecycleStatus: "NEW" | "ASSIGNED" | "IN_PROGRESS" | "RESOLVED"
+ * - predictionStatus: Standardized prediction status object
+ * - recommendations: Array of actionable recommendations
+ */
+export function formatCanonicalIncident(inc) {
+  if (!inc) return null;
+
+  const incType = inc.incidentType || 'GENERAL_CIVIC_ISSUE';
+  const category = inc.category || (
+    incType === 'WATER_FILLED_POTHOLE' ? 'MULTI' :
+    incType === 'ROAD_DAMAGE' || incType === 'POTHOLE' || incType === 'CRACK' ? 'ROAD' :
+    incType.includes('WASTE') ? 'WASTE' : 'FLOOD'
+  );
+
+  const modelId = inc.modelId || (
+    category === 'MULTI' ? 'rdd2022-yolov8s + flood_segmentation' :
+    category === 'ROAD' ? 'rdd2022-road-damage' :
+    category === 'WASTE' ? 'waste-detection' : 'flood_segmentation'
+  );
+
+  const modelVersion = inc.modelVersion || (
+    category === 'ROAD' ? 'v1.0-rdd2022' :
+    category === 'WASTE' ? 'v1.0-waste8' :
+    category === 'FLOOD' ? 'v2.0-segformer-b0' : 'v1.0'
+  );
+
+  const isGpsValid = Boolean(
+    inc.location?.isGpsVerified &&
+    typeof inc.location?.latitude === 'number' &&
+    typeof inc.location?.longitude === 'number' &&
+    inc.location.latitude !== null &&
+    inc.location.longitude !== null
+  );
+
+  const lat = isGpsValid ? inc.location.latitude : (typeof inc.latitude === 'number' ? inc.latitude : null);
+  const lng = isGpsValid ? inc.location.longitude : (typeof inc.longitude === 'number' ? inc.longitude : null);
+  const gpsVerified = isGpsValid || Boolean(inc.gpsVerified && lat !== null && lng !== null);
+
+  let recommendations = Array.isArray(inc.recommendations) && inc.recommendations.length > 0 
+    ? inc.recommendations 
+    : [];
+
+  if (recommendations.length === 0) {
+    if (category === 'MULTI') {
+      recommendations = [
+        "Execute high-priority asphalt patching within 24 hours.",
+        "Inspect adjacent roadside catch-basins and clear storm culverts.",
+        "Deploy temporary caution barrier to prevent rim/axle vehicular damage."
+      ];
+    } else if (category === 'ROAD') {
+      recommendations = [
+        inc.severity === 'HIGH' || inc.severity === 'CRITICAL'
+          ? "Deploy hot-mix asphalt patching crew within 48 hours."
+          : "Seal pavement fissures with elastomeric bitumen crack sealant.",
+        "Survey sub-grade moisture to avoid secondary pothole formation."
+      ];
+    } else if (category === 'WASTE') {
+      if (incType.includes('CANDIDATE') || inc.needsReview) {
+        recommendations = [
+          "Operator manual inspection required: low image resolution prevents automated verification.",
+          "Re-capture high-resolution street photo (>640x640) if municipal dispatch is requested."
+        ];
+      } else {
+        recommendations = [
+          "Dispatch municipal solid waste compactor crew for site clearance.",
+          "Inspect surrounding storm gutters for windblown plastic blockages.",
+          "Verify local bin capacity and issue sanitation monitoring notice."
+        ];
+      }
+    } else {
+      // FLOOD
+      recommendations = [
+        "Deploy high-capacity mobile dewatering pumps (min 2000 gpm) to critical inundation zone.",
+        "Inspect downstream culverts and stormwater outflow channels for blockages.",
+        "Review GIS stormwater network alignment and dispatch emergency drainage response."
+      ];
+    }
+  }
+
+  const predictionStatus = inc.predictionStatus || generateStandardizedPredictionStatus({
+    category,
+    severity: inc.severity,
+    incidentType: incType,
+    detectionEvidence: inc.sourceEvidence || inc.detectionEvidence,
+    floodClassification: inc.floodClassification
+  });
+
+  const department = inc.recommendedDepartment || inc.department || "Municipal Administration";
+  const ward = inc.wardName || inc.ward || "UNASSIGNED";
+  const opStatus = inc.operatorStatus || "NEEDS REVIEW";
+  const lifeStatus = inc.incidentStatus || inc.lifecycleStatus || "NEW";
+  const pTimestamp = inc.processingTimestamp || new Date().toISOString();
+  const cTimestamp = inc.captureTimestamp || inc.timestamp || "CAPTURE TIME UNAVAILABLE";
+  const id = inc.id || inc.incidentId;
+
+  return {
+    // Canonical Phase 4 Schema Keys
+    incidentId: id,
+    incidentType: incType,
+    category,
+    detectionEvidence: inc.sourceEvidence || inc.detectionEvidence || "AI multi-model inference evidence.",
+    modelId,
+    modelVersion,
+    confidence: category === 'FLOOD' ? null : (typeof inc.confidence === 'number' ? inc.confidence : null),
+    severity: inc.severity || "LOW",
+    priority: inc.priority || "ROUTINE",
+    latitude: lat,
+    longitude: lng,
+    gpsVerified,
+    captureTimestamp: cTimestamp,
+    processingTimestamp: pTimestamp,
+    department,
+    ward,
+    operatorStatus: opStatus,
+    lifecycleStatus: lifeStatus,
+    predictionStatus,
+    recommendations,
+
+    // Backward-Compatibility Properties (Strict Preservation)
+    id,
+    title: inc.title || `${category} Incident (${incType})`,
+    sourceEvidence: inc.sourceEvidence || inc.detectionEvidence,
+    recommendedDepartment: department,
+    recommendedAction: recommendations[0] || inc.recommendedAction || "Inspect and address reported issue.",
+    incidentStatus: lifeStatus,
+    location: inc.location || {
+      latitude: lat,
+      longitude: lng,
+      formatted: gpsVerified ? `${lat}, ${lng}` : "LOCATION UNAVAILABLE",
+      isGpsVerified: gpsVerified
+    },
+    locationStatus: inc.locationStatus || (gpsVerified ? `GPS AVAILABLE (${lat}, ${lng})` : "LOCATION UNAVAILABLE"),
+    timestamp: cTimestamp,
+    contextualInterpretation: inc.contextualInterpretation || inc.arbitrationReason || "Evaluated by AI multi-model pipeline.",
+    wardAssignmentStatus: inc.wardAssignmentStatus || (ward !== "UNASSIGNED" ? `ASSIGNED (${ward})` : "WARD ASSIGNMENT UNAVAILABLE"),
+    wardId: inc.wardId || null,
+    wardName: ward,
+    departmentOffice: inc.departmentOffice || "Regional Municipal Corporation Office",
+    departmentContact: inc.departmentContact || "civic-helpdesk@chennaicorporation.gov.in",
+    operatorDecision: inc.operatorDecision || {
+      decision: opStatus,
+      reason: "",
+      operatorId: "FIELD-OP-01",
+      timestamp: null
+    },
+    auditTrail: inc.auditTrail || [],
+    status: inc.status || "ACTIVE_EVIDENCE",
+    boundingBoxes: inc.boundingBoxes || [],
+    isUncertain: Boolean(inc.isUncertain),
+    needsReview: Boolean(inc.needsReview),
+    lowResolutionWarning: inc.lowResolutionWarning || null,
+    floodClassification: inc.floodClassification || null
+  };
+}
+
+/**
  * Executes Contextual Cross-Model Arbitration across Road, Waste, and Flood detections.
  * Validated Phase 8C-9 Logic:
  * - A monolithic waste box (width >= 75% AND height >= 75%) is suppressed ONLY if
@@ -431,10 +610,19 @@ export function performContextualArbitration({
   wasteDetections = [],
   floodResult = null,
   metadata = { latitude: null, longitude: null, timestamp: null, isGpsVerified: false },
-  processingTimestamp = null
+  processingTimestamp = null,
+  qualityAudit = null,
+  isLowResolution = false
 }) {
   const rawRoad = Array.isArray(roadDetections) ? roadDetections : [];
   const rawWaste = Array.isArray(wasteDetections) ? wasteDetections : [];
+
+  const isLowRes = Boolean(
+    isLowResolution ||
+    qualityAudit?.isLowResolution ||
+    (qualityAudit?.originalWidth && qualityAudit?.originalHeight &&
+      (qualityAudit.originalWidth < 300 || qualityAudit.originalHeight < 200 || (qualityAudit.originalWidth * qualityAudit.originalHeight) < 60000))
+  );
 
   // 1. Analyze Flood & Water Topology
   const waterCoverage = floodResult 
@@ -504,28 +692,45 @@ export function performContextualArbitration({
   // 3. Multi-Modal Water-Filled Pothole Fusion Check
   const isWaterFilledPothole = hasPothole && isPossibleWater;
 
+  // Phase 15: Isolated Flood Classification Evaluation (F00-F06)
+  const floodClassification = classifyFloodEvent({
+    floodSegmentation: floodResult ? {
+      floodedAreaPercent: waterCoverage,
+      topologyRatio,
+      spatialTopology: floodResult.spatialTopology || (topologyRatio !== null && topologyRatio >= 60.0 ? 'CONTINUOUS_WATER_BODY' : 'DISPERSED_WATER')
+    } : { floodedAreaPercent: waterCoverage, topologyRatio },
+    contextEvidence: {
+      rawRoad,
+      isWaterFilledPothole
+    },
+    geographicContext: metadata,
+    imageMetadata: qualityAudit
+  });
+
   // 4. Waste Contextual Arbitration
   const contextualWaste = [];
   const suppressedWaste = [];
+  const candidateWaste = [];
 
   for (const waste of rawWaste) {
     const box = waste.boundingBox || {};
+    const boxAreaPct = ((box.width || 0) * (box.height || 0)) / 100;
     const isMonolithic = typeof box.width === 'number' && typeof box.height === 'number' &&
-      box.width >= 75.0 && box.height >= 75.0;
+      ((box.width >= 70.0 && box.height >= 70.0) || boxAreaPct >= 60.0);
 
     if (!isMonolithic) {
-      // Case A: Localized waste box -> Retain
+      // Case A: Localized waste box -> Retain (genuine floating debris or localized trash accumulation)
       contextualWaste.push({
         ...waste,
         arbitrationDecision: "RETAIN_LOCALIZED_WASTE",
         arbitrationReason: `Localized waste box (${box.width}% × ${box.height}%) represents genuine trash accumulation.`
       });
     } else {
-      // Case B: Monolithic waste box (>= 75% x 75%)
-      if (hasRoadDamage || isSignificantFlood) {
+      // Case B: Monolithic whole-scene waste box (>= 75% x 75%)
+      if (hasRoadDamage || isSignificantFlood || (isPossibleWater && (waste.classCode === 'W50' || waste.classCode === 'W20'))) {
         // Conflicting primary context exists -> SUPPRESS waste interpretation
-        const conflictReason = isSignificantFlood
-          ? `Monolithic waste detection box (${box.width}% × ${box.height}%) suppressed because significant flood context (${waterCoverage}%, component ratio ${topologyRatio ?? 'N/A'}%) is present.`
+        const conflictReason = (isSignificantFlood || isPossibleWater)
+          ? `Monolithic waste detection box (${box.width}% × ${box.height}%) suppressed: water presence (${waterCoverage}%) indicates water surface reflection or floodwater texture rather than solid waste.`
           : `Monolithic waste detection box (${box.width}% × ${box.height}%) suppressed because road damage context (${roadClasses.join(', ')}) is present.`;
 
         suppressedWaste.push({
@@ -539,12 +744,33 @@ export function performContextualArbitration({
           arbitrationDecision: "SUPPRESSED_CONTEXTUAL_CONFLICT",
           arbitrationReason: conflictReason
         });
+      } else if (isLowRes) {
+        // Case B2: Monolithic detection on low-resolution imagery (<300x200 or <60,000 px)
+        // Spatial downsampling and compression blur prevent reliable automated classification.
+        // DO NOT automatically create a confirmed high-severity waste incident.
+        // Flag as uncertain candidate requiring human operator review.
+        const lowResReason = `Monolithic waste detection box (${box.width}% × ${box.height}%) on low-resolution imagery (${qualityAudit?.originalWidth || 'low'} × ${qualityAudit?.originalHeight || 'res'}) cannot be reliably classified automatically (potential water reflection, texture, or compression artifact). Flagged for human operator review.`;
+
+        candidateWaste.push({
+          id: waste.id,
+          classCode: waste.classCode,
+          type: waste.type,
+          confidence: waste.confidence,
+          boundingBox: waste.boundingBox,
+          sourceModel: "YOLOv8 Multi-Class Waste Detector",
+          status: "NEEDS_REVIEW",
+          isUncertain: true,
+          uncertaintyReason: "LOW_IMAGE_RESOLUTION",
+          lowResolutionNotice: "LOW IMAGE RESOLUTION",
+          arbitrationDecision: "NEEDS_REVIEW_LOW_RESOLUTION_CANDIDATE",
+          arbitrationReason: lowResReason
+        });
       } else {
-        // Monolithic but unconflicted (genuine full-frame municipal dump scene) -> Retain
+        // Case B3: Monolithic but unconflicted standard-resolution scene (genuine municipal dump) -> Retain
         contextualWaste.push({
           ...waste,
           arbitrationDecision: "RETAIN_UNCONFLICTED_MONOLITHIC",
-          arbitrationReason: `Monolithic waste box (${box.width}% × ${box.height}%) retained because no conflicting road damage or flood context is present (genuine municipal dump).`
+          arbitrationReason: `Monolithic waste box (${box.width}% × ${box.height}%) retained because standard-resolution imagery shows unconflicted open waste accumulation (genuine municipal dump).`
         });
       }
     }
@@ -626,22 +852,40 @@ export function performContextualArbitration({
 
   // B. PRIORITY 2: Significant Flood Inundation (when not captured as isolated WFP)
   if (isSignificantFlood && !isWaterFilledPothole) {
-    const evidenceStr = `Flood segmentation: ${waterCoverage}% water coverage (${topologyRatio !== null ? topologyRatio + '% component ratio' : 'continuous inundation'}).`;
+    const isWidespreadArea = waterCoverage >= 50.0 && (topologyRatio === null || topologyRatio >= 80.0);
+    const hasRoadContext = rawRoad.length > 0;
+
+    // Distinguish between Road Waterlogging vs General Significant Flooding / Large-Area Inundation
+    // Water segmentation alone cannot establish residential submersion, building damage, or river overflow.
+    // When road defects/features are present, classify as ROAD_WATERLOGGING.
+    // When water is expansive without verified road evidence, or when reliable distinction between specific
+    // land-uses is not possible, fall back to GENERAL_SIGNIFICANT_FLOODING with mandatory operator review.
+    const resolvedIncidentType = floodClassification?.categoryName || (hasRoadContext ? "ROAD_WATERLOGGING" : "GENERAL_SIGNIFICANT_FLOODING");
+    const resolvedTitle = floodClassification?.title || (isWidespreadArea
+      ? "General Significant Flooding (Large-Area Inundation)"
+      : "General Significant Flooding");
+    const arbitrationReasonText = floodClassification?.evidence || (isWidespreadArea
+      ? "Continuous landscape-scale water inundation confirmed by topological flood analysis. Specific land-use context, road involvement, and building status cannot be inferred from water segmentation alone; operator review required."
+      : "Continuous surface water inundation confirmed by topological flood analysis. Specific land-use context requires operator review.");
+
+    const evidenceStr = `Flood segmentation: ${waterCoverage}% water coverage (${topologyRatio !== null ? topologyRatio + '% component ratio' : 'continuous inundation'}). Category: ${floodClassification?.categoryCode || (isWidespreadArea ? 'F05' : 'F06')}.`;
     const incidentId = generateDeterministicIncidentId('FLD', `${evidenceStr}-${locFormatted}`, 2);
     const routeInfo = routeIncidentToDepartment({
-      primaryDepartment: "Stormwater / Drainage Department",
+      primaryDepartment: floodClassification?.recommendedDepartment || "Stormwater / Drainage Department",
       latitude: metadata.latitude,
       longitude: metadata.longitude
     });
 
-    const sev = waterCoverage >= 35.0 ? "CRITICAL" : "HIGH";
+    const sev = floodClassification?.severity || (waterCoverage >= 35.0 ? "CRITICAL" : "HIGH");
+    const priorityTier = floodClassification?.priority || "IMMEDIATE";
+
     const auditTrail = createIncidentAuditTrail({
       incidentId,
-      incidentType: "SIGNIFICANT_WATERLOGGING",
+      incidentType: resolvedIncidentType,
       sourceEvidence: evidenceStr,
-      arbitrationReason: "Continuous roadway inundation confirmed by topological flood analysis.",
+      arbitrationReason: arbitrationReasonText,
       severity: sev,
-      priority: "IMMEDIATE",
+      priority: priorityTier,
       department: routeInfo.primaryDepartment,
       locationFormatted: locFormatted,
       processingTimestamp: processingTimeStr
@@ -649,12 +893,16 @@ export function performContextualArbitration({
 
     civicIncidents.push({
       id: incidentId,
-      incidentType: "SIGNIFICANT_WATERLOGGING",
-      title: "Significant Roadway Waterlogging",
+      incidentType: resolvedIncidentType,
+      legacyIncidentType: "SIGNIFICANT_WATERLOGGING",
+      floodCategoryCode: floodClassification?.categoryCode || (isWidespreadArea ? 'F05' : 'F06'),
+      floodCategory: floodClassification?.categoryName || (isWidespreadArea ? 'LARGE_AREA_INUNDATION' : 'GENERAL_SIGNIFICANT_FLOODING'),
+      floodClassification,
+      title: resolvedTitle,
       sourceEvidence: evidenceStr,
       confidence: null,
       severity: sev,
-      priority: "IMMEDIATE",
+      priority: priorityTier,
       location: {
         latitude: metadata.latitude,
         longitude: metadata.longitude,
@@ -665,15 +913,17 @@ export function performContextualArbitration({
       captureTimestamp: captureTimeStr,
       timestamp: captureTimeStr,
       processingTimestamp: processingTimeStr,
-      contextualInterpretation: "Continuous roadway inundation confirmed by topological flood analysis.",
+      contextualInterpretation: arbitrationReasonText,
       recommendedDepartment: routeInfo.primaryDepartment,
       wardAssignmentStatus: routeInfo.wardAssignmentStatus,
       wardId: routeInfo.wardId,
       wardName: routeInfo.wardName,
       departmentOffice: routeInfo.departmentOffice,
       departmentContact: routeInfo.departmentContact,
-      recommendedAction: "Prioritize drainage inspection and emergency stormwater response.",
-      operatorStatus: "NEEDS REVIEW",
+      recommendedAction: floodClassification?.recommendedAction || (isWidespreadArea
+        ? "Prioritize area-level flood assessment, verify emergency stormwater drainage, and review for GIS zone alignment."
+        : "Prioritize drainage inspection and emergency stormwater response."),
+      operatorStatus: floodClassification?.operatorStatus || "NEEDS REVIEW",
       operatorDecision: {
         decision: "NEEDS REVIEW",
         reason: "",
@@ -875,6 +1125,100 @@ export function performContextualArbitration({
       status: "ACTIVE_EVIDENCE",
       boundingBoxes: contextualWaste.map(d => d.boundingBox).filter(Boolean)
     });
+  } else if (candidateWaste.length > 0) {
+    // Uncertain candidate waste from low-resolution imagery
+    // AVOID automatically creating a confirmed waste incident!
+    // Mark the result NEEDS REVIEW, show LOW IMAGE RESOLUTION, do not assign HIGH severity/priority.
+    const cand = candidateWaste[0];
+    const evidenceStr = `Uncertain candidate detection: ${cand.type} (${Math.round(cand.confidence * 100)}%) on low-resolution image (${qualityAudit?.originalWidth || 'low'} × ${qualityAudit?.originalHeight || 'res'}).`;
+    const incidentId = generateDeterministicIncidentId('WST-CAN', `${evidenceStr}-${locFormatted}`, 5);
+    const routeInfo = routeIncidentToDepartment({
+      primaryDepartment: "Solid Waste Management",
+      latitude: metadata.latitude,
+      longitude: metadata.longitude
+    });
+
+    const lowResWarningText = `LOW IMAGE RESOLUTION: Image resolution (${qualityAudit?.originalWidth || 'low'} × ${qualityAudit?.originalHeight || 'res'}) is below minimum threshold (<300×200). Automated confirmation withheld.`;
+
+    const auditTrail = [
+      {
+        stepNumber: 1,
+        stepName: "UNCERTAIN_CANDIDATE_FLAGGED",
+        timestamp: processingTimeStr,
+        summary: `Uncertain Candidate Flagged (${incidentId})`,
+        details: `Monolithic detection on low-resolution imagery flagged for operator review. Automated confirmation withheld.`
+      },
+      {
+        stepNumber: 2,
+        stepName: "AI_EVIDENCE_GENERATED",
+        timestamp: processingTimeStr,
+        summary: `Visual Model Inference Screened (Low Confidence Due to Resolution)`,
+        details: evidenceStr
+      },
+      {
+        stepNumber: 3,
+        stepName: "CONTEXTUAL_ARBITRATION",
+        timestamp: processingTimeStr,
+        summary: `Arbitration Flagged Low Resolution Uncertainty`,
+        details: cand.arbitrationReason
+      },
+      {
+        stepNumber: 4,
+        stepName: "SEVERITY_ASSIGNED",
+        timestamp: processingTimeStr,
+        summary: `Severity: LOW | Priority: ROUTINE (Review Candidate)`,
+        details: `Automatic high severity prevented by low-resolution guard.`
+      },
+      {
+        stepNumber: 5,
+        stepName: "OPERATOR_REVIEW_REQUIRED",
+        timestamp: processingTimeStr,
+        summary: `Operator Status initialized to NEEDS REVIEW (LOW IMAGE RESOLUTION)`,
+        details: `Human operator verification required before any municipal dispatch.`
+      }
+    ];
+
+    civicIncidents.push({
+      id: incidentId,
+      incidentType: "WASTE_ACCUMULATION_CANDIDATE",
+      title: "Candidate Waste Accumulation (Review Required)",
+      sourceEvidence: evidenceStr,
+      confidence: cand.confidence,
+      severity: "LOW",
+      priority: "ROUTINE",
+      isUncertain: true,
+      needsReview: true,
+      lowResolutionWarning: lowResWarningText,
+      location: {
+        latitude: metadata.latitude,
+        longitude: metadata.longitude,
+        formatted: locFormatted,
+        isGpsVerified: isGpsValid
+      },
+      locationStatus: locStatus,
+      captureTimestamp: captureTimeStr,
+      timestamp: captureTimeStr,
+      processingTimestamp: processingTimeStr,
+      contextualInterpretation: `Uncertain waste candidate flagged for operator review. Automated high-severity confirmation withheld due to low image resolution.`,
+      recommendedDepartment: routeInfo.primaryDepartment,
+      wardAssignmentStatus: routeInfo.wardAssignmentStatus,
+      wardId: routeInfo.wardId,
+      wardName: routeInfo.wardName,
+      departmentOffice: routeInfo.departmentOffice,
+      departmentContact: routeInfo.departmentContact,
+      recommendedAction: "Field operator verification required due to low image resolution.",
+      operatorStatus: "NEEDS REVIEW",
+      operatorDecision: {
+        decision: "NEEDS REVIEW",
+        reason: "",
+        operatorId: "FIELD-OP-01",
+        timestamp: null
+      },
+      incidentStatus: "NEW",
+      auditTrail,
+      status: "CANDIDATE_EVIDENCE",
+      boundingBoxes: candidateWaste.map(d => d.boundingBox).filter(Boolean)
+    });
   }
 
   return {
@@ -894,8 +1238,14 @@ export function performContextualArbitration({
         isPossibleWater
       }
     },
+    candidateDetections: {
+      waste: candidateWaste
+    },
+    candidateWaste,
     suppressedDetections: suppressedWaste,
+    suppressedWaste,
     civicIncidents,
+    floodClassification,
     hasIncidents: civicIncidents.length > 0,
     incidentsSummary: civicIncidents.length > 0
       ? `${civicIncidents.length} verified civic incident(s) from current evidence.`
@@ -909,15 +1259,18 @@ export function performContextualArbitration({
       reason: floodReason
     },
     wasteInterpretation: {
-      status: contextualWaste.length > 0 ? "VISIBLE_WASTE_DETECTED" : "CLEAR",
+      status: contextualWaste.length > 0 ? "VISIBLE_WASTE_DETECTED" : (candidateWaste.length > 0 ? "CANDIDATE_REVIEW_REQUIRED" : "CLEAR"),
       rawCount: rawWaste.length,
       acceptedCount: contextualWaste.length,
+      candidateCount: candidateWaste.length,
       suppressedCount: suppressedWaste.length,
       description: contextualWaste.length > 0
         ? `${contextualWaste.length} visible waste accumulation region(s) confirmed.`
-        : (suppressedWaste.length > 0 
-          ? `All ${suppressedWaste.length} raw waste candidate(s) contextually suppressed as cross-category false alarms.` 
-          : "No supported waste issue detected.")
+        : (candidateWaste.length > 0
+          ? `${candidateWaste.length} uncertain waste detection(s) flagged as candidate requiring review (low image resolution).`
+          : (suppressedWaste.length > 0 
+            ? `All ${suppressedWaste.length} raw waste candidate(s) contextually suppressed as cross-category false alarms.` 
+            : "No supported waste issue detected."))
     },
     roadInterpretation: {
       status: rawRoad.length > 0 ? "DEFECT_DETECTED" : "CLEAR",
@@ -986,6 +1339,14 @@ export function calculateVisualDetectionsSeverity(visualDetections, satelliteRis
   const rawWaste = visualDetections?.detections?.waste ?? visualDetections?.waste ?? [];
   const floodResult = visualDetections?.flood ?? null;
   const metadata = visualDetections?.metadata ?? { latitude: null, longitude: null, timestamp: null, isGpsVerified: false };
+  const qualityAudit = visualDetections?.qualityAudit ?? null;
+  const isLowResolution = Boolean(
+    qualityAudit?.isLowResolution ||
+    visualDetections?.isLowResolution ||
+    visualDetections?.devDiagnostics?.isLowResolution ||
+    (qualityAudit?.originalWidth && qualityAudit?.originalHeight &&
+      (qualityAudit.originalWidth < 300 || qualityAudit.originalHeight < 200 || (qualityAudit.originalWidth * qualityAudit.originalHeight) < 60000))
+  );
 
   // 1. Run Contextual Cross-Model Arbitration (Benchmarked)
   const arbStart = performance.now();
@@ -994,7 +1355,9 @@ export function calculateVisualDetectionsSeverity(visualDetections, satelliteRis
     wasteDetections: rawWaste,
     floodResult,
     metadata,
-    processingTimestamp: visualDetections?.processingTimestamp
+    processingTimestamp: visualDetections?.processingTimestamp,
+    qualityAudit,
+    isLowResolution
   });
   const arbEnd = performance.now();
   const arbitrationTimeMs = Number((arbEnd - arbStart).toFixed(2));
@@ -1074,6 +1437,9 @@ export function calculateVisualDetectionsSeverity(visualDetections, satelliteRis
         wasteSeverity = "LOW";
         wasteReason = `${enrichedWasteDetections.length} localized waste object(s) detected`;
       }
+    } else if (arbitration.candidateWaste && arbitration.candidateWaste.length > 0) {
+      wasteSeverity = "LOW";
+      wasteReason = `Uncertain candidate waste detection requiring operator review (low image resolution)`;
     } else {
       wasteSeverity = "CLEAR";
       wasteReason = arbitration.suppressedDetections.length > 0
@@ -1135,6 +1501,8 @@ export function calculateVisualDetectionsSeverity(visualDetections, satelliteRis
       waste: enrichedWasteDetections,
       flood: arbitration.contextualDetections.flood
     },
+    candidateDetections: arbitration.candidateDetections,
+    candidateWaste: arbitration.candidateWaste,
     suppressedDetections: arbitration.suppressedDetections,
     floodInterpretation: arbitration.floodInterpretation,
     wasteInterpretation: arbitration.wasteInterpretation,
@@ -1164,8 +1532,10 @@ export function calculateVisualDetectionsSeverity(visualDetections, satelliteRis
       severity: floodSevInfo.severity,
       severityReason: floodSevInfo.severityReason,
       floodedAreaPercent: floodSevInfo.floodedAreaPercent,
-      rawResult: floodResult
+      rawResult: floodResult,
+      classification: arbitration.floodClassification || null
     },
+    floodClassification: arbitration.floodClassification || null,
     overallPriority,
     priorityReason,
     metadata,
@@ -1174,6 +1544,9 @@ export function calculateVisualDetectionsSeverity(visualDetections, satelliteRis
       roadInferenceTimeMs: visualDetections?.timingBreakdown?.roadInferenceTimeMs ?? null,
       wasteInferenceTimeMs: visualDetections?.timingBreakdown?.wasteInferenceTimeMs ?? null,
       floodInferenceTimeMs: visualDetections?.timingBreakdown?.floodInferenceTimeMs ?? null,
+      roadModelError: visualDetections?.timingBreakdown?.roadModelError ?? null,
+      wasteModelError: visualDetections?.timingBreakdown?.wasteModelError ?? null,
+      floodModelError: visualDetections?.timingBreakdown?.floodModelError ?? null,
       arbitrationTimeMs,
       totalProcessingTimeMs: Number(((visualDetections?.timingBreakdown?.totalProcessingTimeMs || visualDetections?.inferenceTimeMs || 0) + arbitrationTimeMs).toFixed(1))
     },

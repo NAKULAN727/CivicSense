@@ -1,0 +1,86 @@
+{
+  "filename": "flood 6.webp",
+  "mask_filename": "flood 6.png",
+  "split": "val",
+  "width": 432,
+  "height": 243,
+  "total_pixels": 104976,
+  "primary_category": "Ground-level street flooding",
+  "annotation_status": "VERIFIED_COMPLETE",
+  "annotator": {
+    "id": "CIVICSENSE-HUMAN-OPERATOR-01",
+    "tool": "CivicSense AI Ground-Truth Annotator v2.4",
+    "timestamp": "2026-11-12T21:30:00Z"
+  },
+  "notes": "Submerged street with building window reflections.",
+  "polygons_count": 2,
+  "polygons": [
+    {
+      "id": "poly_fl6_flood",
+      "class_id": 1,
+      "class_name": "FLOODWATER",
+      "points": [
+        {
+          "x": 0.0,
+          "y": 97.2
+        },
+        {
+          "x": 432.0,
+          "y": 92.3
+        },
+        {
+          "x": 432.0,
+          "y": 243.0
+        },
+        {
+          "x": 0.0,
+          "y": 243.0
+        }
+      ],
+      "description": "Inundated roadway corridor"
+    },
+    {
+      "id": "poly_fl6_refl",
+      "class_id": 255,
+      "class_name": "IGNORE",
+      "points": [
+        {
+          "x": 129.6,
+          "y": 109.4
+        },
+        {
+          "x": 259.2,
+          "y": 104.5
+        },
+        {
+          "x": 237.6,
+          "y": 150.7
+        },
+        {
+          "x": 121.0,
+          "y": 145.8
+        }
+      ],
+      "description": "Specular window reflection on submerged roadway"
+    }
+  ],
+  "pixel_distribution": {
+    "BACKGROUND": 41040,
+    "FLOODWATER": 58845,
+    "IGNORE": 5091
+  },
+  "pixel_percentage": {
+    "BACKGROUND": 39.09,
+    "FLOODWATER": 56.06,
+    "IGNORE": 4.85
+  },
+  "mask_validation": {
+    "status": "PASS",
+    "dimension_match": true,
+    "permitted_classes_only": true,
+    "non_empty_foreground": true,
+    "foreground_pixel_count": 63936,
+    "valid_polygon_geometry": true,
+    "reopening_verified": true
+  }
+}

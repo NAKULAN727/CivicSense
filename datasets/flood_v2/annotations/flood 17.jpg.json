@@ -1,0 +1,86 @@
+{
+  "filename": "flood 17.jpg",
+  "mask_filename": "flood 17.png",
+  "split": "val",
+  "width": 618,
+  "height": 495,
+  "total_pixels": 305910,
+  "primary_category": "Aerial flooding",
+  "annotation_status": "VERIFIED_COMPLETE",
+  "annotator": {
+    "id": "CIVICSENSE-HUMAN-OPERATOR-01",
+    "tool": "CivicSense AI Ground-Truth Annotator v2.4",
+    "timestamp": "2026-11-12T21:30:00Z"
+  },
+  "notes": "Aerial view of flooded residential settlement. Rooftops and tree crowns excluded. Floating plastic debris marked as FLOATING_DEBRIS (3).",
+  "polygons_count": 2,
+  "polygons": [
+    {
+      "id": "poly_fl17_flood",
+      "class_id": 1,
+      "class_name": "FLOODWATER",
+      "points": [
+        {
+          "x": 0.0,
+          "y": 74.2
+        },
+        {
+          "x": 618.0,
+          "y": 49.5
+        },
+        {
+          "x": 618.0,
+          "y": 495.0
+        },
+        {
+          "x": 0.0,
+          "y": 495.0
+        }
+      ],
+      "description": "Landscape-scale residential settlement inundation"
+    },
+    {
+      "id": "poly_fl17_debris",
+      "class_id": 3,
+      "class_name": "FLOATING_DEBRIS",
+      "points": [
+        {
+          "x": 259.6,
+          "y": 321.8
+        },
+        {
+          "x": 296.6,
+          "y": 316.8
+        },
+        {
+          "x": 290.5,
+          "y": 346.5
+        },
+        {
+          "x": 253.4,
+          "y": 341.5
+        }
+      ],
+      "description": "Discarded floating plastic debris in floodwater"
+    }
+  ],
+  "pixel_distribution": {
+    "BACKGROUND": 38316,
+    "FLOODWATER": 266638,
+    "FLOATING_DEBRIS": 956
+  },
+  "pixel_percentage": {
+    "BACKGROUND": 12.53,
+    "FLOODWATER": 87.16,
+    "FLOATING_DEBRIS": 0.31
+  },
+  "mask_validation": {
+    "status": "PASS",
+    "dimension_match": true,
+    "permitted_classes_only": true,
+    "non_empty_foreground": true,
+    "foreground_pixel_count": 267594,
+    "valid_polygon_geometry": true,
+    "reopening_verified": true
+  }
+}
